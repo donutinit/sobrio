@@ -101,9 +101,23 @@ function openSwitcher(tab) {
     openPopup();
     return;
   }
-  chrome.scripting
-    .executeScript({ target: { tabId: tab.id }, files: ['settings.js', 'match.js', 'switcher-css.js', 'switcher.js'] })
-    .catch(openPopup);
+  injectSwitcher(tab.id).catch(openPopup);
+}
+
+// mode: an engine id to open the switcher on, for search shortcuts.
+async function injectSwitcher(tabId, mode) {
+  const target = { tabId };
+  if (mode) {
+    await chrome.scripting.executeScript({
+      target,
+      func: (m) => {
+        globalThis.sobrio = globalThis.sobrio || {};
+        globalThis.sobrio.pendingMode = m;
+      },
+      args: [mode],
+    });
+  }
+  await chrome.scripting.executeScript({ target, files: ['settings.js', 'match.js', 'switcher-css.js', 'switcher.js'] });
 }
 
 function openPopup() {

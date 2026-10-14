@@ -3,8 +3,8 @@
 // node --test gets the same functions through module.exports.
 (() => {
   const ENGINES = [
-    { id: 'duckduckgo', name: 'DuckDuckGo', url: 'https://duckduckgo.com/?q=%s' },
     { id: 'google', name: 'Google', url: 'https://www.google.com/search?q=%s' },
+    { id: 'duckduckgo', name: 'DuckDuckGo', url: 'https://duckduckgo.com/?q=%s' },
     { id: 'youtube', name: 'YouTube', url: 'https://www.youtube.com/results?search_query=%s' },
     { id: 'wikipedia', name: 'Wikipedia', url: 'https://es.wikipedia.org/w/index.php?search=%s' },
     { id: 'github', name: 'GitHub', url: 'https://github.com/search?q=%s' },
@@ -49,11 +49,16 @@
 
   // Best subsequence match of one folded word in one folded field: every place the first
   // letter appears is tried as a start, so "api" finds "API" and not the "a" of "Payments".
-  function matchWord(field, word) {
+  // precision: 'loose' takes any subsequence; 'normal' (default) only one that spans at most
+  // 2 × length + 2 characters; 'strict' only the word as written.
+  function matchWord(field, word, precision = 'normal') {
     let best = null;
     for (let start = field.indexOf(word[0]); start !== -1; start = field.indexOf(word[0], start + 1)) {
+      if (precision === 'strict' && !field.startsWith(word, start)) continue;
       const m = matchFrom(field, word, start);
       if (!m) break; // a later start cannot fit what this one could not
+      const span = m.positions[m.positions.length - 1] - m.positions[0] + 1;
+      if (precision === 'normal' && span > word.length * 2 + 2) continue;
       if (!best || m.score > best.score) best = m;
     }
     return best;
@@ -77,13 +82,13 @@
     return { score, positions };
   }
 
-  function scoreBookmark(fields, words) {
+  function scoreBookmark(fields, words, precision) {
     let total = 0;
     const hits = { title: [], folder: [], url: [] };
     for (const word of words) {
       let best = null;
       for (const name of ['title', 'folder', 'url']) {
-        const m = matchWord(fields[name], word);
+        const m = matchWord(fields[name], word, precision);
         if (m && (!best || m.score * WEIGHTS[name] > best.score)) {
           best = { name, score: m.score * WEIGHTS[name], positions: m.positions };
         }
@@ -109,7 +114,7 @@
     return fields;
   }
 
-  function searchBookmarks(list, query, limit = MAX_RESULTS) {
+  function searchBookmarks(list, query, limit = MAX_RESULTS, precision = 'normal') {
     const words = fold(query).split(/\s+/).filter(Boolean);
     if (!words.length) {
       return list
@@ -119,20 +124,30 @@
     }
     const results = [];
     for (const bookmark of list) {
-      const scored = scoreBookmark(foldedFields(bookmark), words);
+      const scored = scoreBookmark(foldedFields(bookmark), words, precision);
       if (scored) results.push({ bookmark, ...scored });
     }
     return results.sort((a, b) => b.score - a.score || newestFirst(a, b)).slice(0, limit);
   }
 
-  const engineById = (id) => ENGINES.find((engine) => engine.id === id);
+  // The built-in engines that are on, then the person's own (settings.switcher.customEngines).
+  function allEngines(switcher) {
+    return [...ENGINES.filter((engine) => switcher.engines?.[engine.id]), ...(switcher.customEngines ?? [])];
+  }
 
-  // What Tab cycles through: 'bookmarks' and the ids of the engines that are on, in the
-  // fixed order. Never empty: with everything off, bookmarks stay.
+  // Any engine by id, on or off, built-in or custom.
+  function engineById(id, switcher = {}) {
+    return [...ENGINES, ...(switcher.customEngines ?? [])].find((engine) => engine.id === id);
+  }
+
+  // What Tab cycles through: 'bookmarks', then the default engine, then the other engines that
+  // are on. Never empty: with everything off, bookmarks stay.
   function modes(switcher) {
+    const engines = allEngines(switcher).map((engine) => engine.id);
+    const first = engines.includes(switcher.defaultEngine) ? switcher.defaultEngine : engines[0];
     const list = [
       ...(switcher.bookmarks ? ['bookmarks'] : []),
-      ...ENGINES.filter((engine) => switcher.engines?.[engine.id]).map((engine) => engine.id),
+      ...(first ? [first, ...engines.filter((id) => id !== first)] : []),
     ];
     return list.length ? list : ['bookmarks'];
   }
@@ -153,7 +168,7 @@
     return { mode: engine, manual: false };
   }
 
-  const COMMANDS = new Map([['td', 'dark'], ['ta', 'css'], ['ajustes', 'settings'], ['settings', 'settings'], ['options', 'settings']]);
+  const COMMANDS = new Map([['td', 'dark'], ['ta', 'css'], ['settings', 'settings'], ['options', 'settings']]);
 
   function parseCommand(query) {
     return COMMANDS.get(query.trim().toLowerCase()) ?? null;
@@ -170,6 +185,7 @@
   const api = {
     ENGINES,
     engineById,
+    allEngines,
     modes,
     flattenBookmarks,
     searchBookmarks,

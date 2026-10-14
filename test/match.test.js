@@ -8,6 +8,7 @@ const {
   nextMode,
   autoMode,
   engineById,
+  allEngines,
   parseCommand,
   commandsAllowed,
   searchUrl,
@@ -167,19 +168,21 @@ test('flatten builds folder path without browser roots', () => {
 });
 
 test('engines in the spec order, with ids', () => {
-  assert.deepEqual(ENGINES.map((e) => e.name), ['DuckDuckGo', 'Google', 'YouTube', 'Wikipedia', 'GitHub']);
-  assert.deepEqual(ENGINES.map((e) => e.id), ['duckduckgo', 'google', 'youtube', 'wikipedia', 'github']);
+  assert.deepEqual(ENGINES.map((e) => e.name), ['Google', 'DuckDuckGo', 'YouTube', 'Wikipedia', 'GitHub']);
+  assert.deepEqual(ENGINES.map((e) => e.id), ['google', 'duckduckgo', 'youtube', 'wikipedia', 'github']);
   assert.equal(engineById('youtube').name, 'YouTube');
   assert.equal(engineById('bookmarks'), undefined);
 });
 
-const ALL = { bookmarks: true, engines: { duckduckgo: true, google: true, youtube: true, wikipedia: true, github: true } };
-const ALL_MODES = ['bookmarks', 'duckduckgo', 'google', 'youtube', 'wikipedia', 'github'];
+const ALL = { bookmarks: true, engines: { google: true, duckduckgo: true, youtube: true, wikipedia: true, github: true } };
+const ALL_MODES = ['bookmarks', 'google', 'duckduckgo', 'youtube', 'wikipedia', 'github'];
 
 test('modes: bookmarks then the engines that are on, in order', () => {
   assert.deepEqual(modes(ALL), ALL_MODES);
   assert.deepEqual(modes({ bookmarks: false, engines: { ...ALL.engines, google: false } }),
     ['duckduckgo', 'youtube', 'wikipedia', 'github']);
+  assert.deepEqual(modes({ ...ALL, defaultEngine: 'youtube' }),
+    ['bookmarks', 'youtube', 'google', 'duckduckgo', 'wikipedia', 'github']);
 });
 
 test('modes: everything off still leaves bookmarks', () => {
@@ -189,18 +192,18 @@ test('modes: everything off still leaves bookmarks', () => {
 test('nextMode cycles both ways over the modes that are on', () => {
   assert.equal(nextMode(ALL_MODES, 'github', 1), 'bookmarks');
   assert.equal(nextMode(ALL_MODES, 'bookmarks', -1), 'github');
-  assert.equal(nextMode(ALL_MODES, 'bookmarks', 1), 'duckduckgo');
+  assert.equal(nextMode(ALL_MODES, 'bookmarks', 1), 'google');
   assert.equal(nextMode(['bookmarks', 'youtube'], 'youtube', 1), 'bookmarks');
   assert.equal(nextMode(['bookmarks', 'youtube'], 'google', 1), 'bookmarks');
 });
 
 test('autoMode jumps to the first engine that is on when nothing matches', () => {
-  assert.deepEqual(autoMode({ mode: 'bookmarks', manual: false }, 'zzz', false, ALL_MODES, true), { mode: 'duckduckgo', manual: false });
+  assert.deepEqual(autoMode({ mode: 'bookmarks', manual: false }, 'zzz', false, ALL_MODES, true), { mode: 'google', manual: false });
   assert.deepEqual(autoMode({ mode: 'bookmarks', manual: false }, 'zzz', false, ['bookmarks', 'youtube'], true), { mode: 'youtube', manual: false });
 });
 
 test('autoMode returns to bookmarks when matches come back', () => {
-  assert.deepEqual(autoMode({ mode: 'duckduckgo', manual: false }, 'ru', true, ALL_MODES, true), { mode: 'bookmarks', manual: false });
+  assert.deepEqual(autoMode({ mode: 'google', manual: false }, 'ru', true, ALL_MODES, true), { mode: 'bookmarks', manual: false });
 });
 
 test('autoMode keeps manual mode', () => {
@@ -208,7 +211,7 @@ test('autoMode keeps manual mode', () => {
 });
 
 test('autoMode blank query stays in bookmarks', () => {
-  assert.deepEqual(autoMode({ mode: 'duckduckgo', manual: false }, '  ', false, ALL_MODES, true), { mode: 'bookmarks', manual: false });
+  assert.deepEqual(autoMode({ mode: 'google', manual: false }, '  ', false, ALL_MODES, true), { mode: 'bookmarks', manual: false });
 });
 
 test('autoMode with autoSearch off never jumps', () => {
@@ -228,12 +231,12 @@ test('autoMode with only bookmarks has nowhere to jump', () => {
 test('parseCommand exact only', () => {
   assert.equal(parseCommand(' TD '), 'dark');
   assert.equal(parseCommand('ta'), 'css');
-  assert.equal(parseCommand('Ajustes'), 'settings');
-  assert.equal(parseCommand('settings'), 'settings');
+  assert.equal(parseCommand('Settings'), 'settings');
+  assert.equal(parseCommand('ajustes'), null);
   assert.equal(parseCommand(' options '), 'settings');
   assert.equal(parseCommand('tda'), null);
   assert.equal(parseCommand('t d'), null);
-  assert.equal(parseCommand('ajuste'), null);
+  assert.equal(parseCommand('setting'), null);
   assert.equal(parseCommand('constructor'), null);
   assert.equal(parseCommand('toString'), null);
   assert.equal(parseCommand(''), null);
@@ -245,6 +248,45 @@ test('commandsAllowed needs a hostname', () => {
 });
 
 test('searchUrl encodes', () => {
-  assert.equal(searchUrl(ENGINES[1], 'a&b #c ñ'), 'https://www.google.com/search?q=a%26b%20%23c%20%C3%B1');
-  assert.equal(searchUrl(ENGINES[0], '  rust  '), 'https://duckduckgo.com/?q=rust');
+  assert.equal(searchUrl(engineById('google'), 'a&b #c ñ'), 'https://www.google.com/search?q=a%26b%20%23c%20%C3%B1');
+  assert.equal(searchUrl(engineById('duckduckgo'), '  rust  '), 'https://duckduckgo.com/?q=rust');
+});
+
+const SEARX = { id: 'custom-a1', name: 'SearXNG', url: 'https://search.example.com/search?q=%s' };
+
+test('custom engines come after the built-in ones, and can be the default', () => {
+  const switcher = { ...ALL, customEngines: [SEARX] };
+  assert.deepEqual(allEngines(switcher).map((e) => e.id), ['google', 'duckduckgo', 'youtube', 'wikipedia', 'github', 'custom-a1']);
+  assert.deepEqual(modes({ ...switcher, defaultEngine: 'custom-a1' }).slice(0, 3), ['bookmarks', 'custom-a1', 'google']);
+  assert.equal(engineById('custom-a1', switcher).name, 'SearXNG');
+  assert.equal(searchUrl(engineById('custom-a1', switcher), 'rust book'), 'https://search.example.com/search?q=rust%20book');
+});
+
+test('a default engine that is off does not lead the cycle', () => {
+  assert.deepEqual(modes({ ...ALL, engines: { ...ALL.engines, youtube: false }, defaultEngine: 'youtube' }),
+    ['bookmarks', 'google', 'duckduckgo', 'wikipedia', 'github']);
+});
+
+const LONG = bm('clasesentrenamientoguillecolladonatacionsabados', 'https://example.com/clases');
+
+test('normal precision: letters strewn across a long word do not match', () => {
+  assert.deepEqual(searchBookmarks([LONG], 'satanas', 50, 'normal'), []);
+  assert.equal(searchBookmarks([LONG], 'satanas', 50, 'loose').length, 1);
+});
+
+test('normal precision still forgives a few skipped letters', () => {
+  assert.equal(searchBookmarks([bm('Rust Book: Ownership', 'https://a.dev/')], 'rbo', 50, 'normal').length, 1);
+  assert.equal(searchBookmarks([bm('GitHub', 'https://a.dev/')], 'gthb', 50, 'normal').length, 1);
+});
+
+test('normal is the default precision', () => {
+  assert.deepEqual(searchBookmarks([LONG], 'satanas'), []);
+});
+
+test('strict precision: each word must appear as it is written', () => {
+  const book = bm('Rust Book: Ownership', 'https://a.dev/');
+  assert.equal(searchBookmarks([book], 'own rust', 50, 'strict').length, 1);
+  assert.equal(searchBookmarks([book], 'rbo', 50, 'strict').length, 0);
+  assert.deepEqual(searchBookmarks([book], 'book', 50, 'strict')[0].hits.title, [5, 6, 7, 8]);
+  assert.equal(searchBookmarks([bm('Canción Única', 'https://a.dev/')], 'cancion', 50, 'strict').length, 1);
 });

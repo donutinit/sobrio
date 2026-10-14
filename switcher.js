@@ -55,7 +55,8 @@
   }
 
   // layout: 'overlay' (on a page), 'popup' (the toolbar popup) or 'inline' (the new tab).
-  function mountSwitcher(root, { layout, hostname, close }) {
+  // startMode: start on that engine (a shortcut asked for it) instead of bookmarks.
+  function mountSwitcher(root, { layout, hostname, close, startMode }) {
     const popup = layout === 'popup';
     const input = el('input', 'input');
     input.spellcheck = false;
@@ -79,7 +80,7 @@
     // a quick "gh" + Enter means the bookmark, not a web search.
     let loaded = false;
     let pendingEnter = null;
-    let state = { mode: 'bookmarks', manual: false };
+    let state = startMode ? { mode: startMode, manual: true } : { mode: 'bookmarks', manual: false };
     let rows = [];
     let selected = 0;
 
@@ -127,7 +128,7 @@
 
     function commandRow(kind) {
       if (kind === 'settings') {
-        return { title: t('openSettings'), sub: t('settingsCommand'), run: () => send({ sobrio: 'settings' }) };
+        return { title: t('openSettings'), sub: 'settings', run: () => send({ sobrio: 'settings' }) };
       }
       const sub = kind === 'dark' ? 'td' : 'ta';
       if (kind === 'dark' && !settings.dark.enabled) {
@@ -161,7 +162,10 @@
     function update() {
       const query = input.value;
       const modes = match.modes(settings.switcher);
-      const results = settings.switcher.bookmarks ? match.searchBookmarks(bookmarks, query) : [];
+      if (state.manual && !modes.includes(state.mode)) state = { mode: modes[0], manual: false };
+      const results = settings.switcher.bookmarks
+        ? match.searchBookmarks(bookmarks, query, undefined, settings.switcher.precision)
+        : [];
       const parsed = match.parseCommand(query);
       const command = parsed && commandAllowed(parsed) ? parsed : null;
       state = match.autoMode(state, query, !loaded || results.length > 0 || command !== null, modes, settings.switcher.autoSearch);
@@ -170,14 +174,14 @@
         if (command) rows.push(commandRow(command));
         rows.push(...results.map(bookmarkRow));
       } else if (query.trim()) {
-        rows.push(engineRow(match.engineById(state.mode), query));
+        rows.push(engineRow(match.engineById(state.mode, settings.switcher), query));
       }
       selected = 0;
       render();
     }
 
     function render() {
-      const engine = match.engineById(state.mode);
+      const engine = match.engineById(state.mode, settings.switcher);
       mode.textContent = engine ? engine.name : '★';
       input.placeholder = engine ? t('placeholderEngine', engine.name) : t('placeholderBookmarks');
       hints.hidden = !settings.switcher.hints;
@@ -240,6 +244,8 @@
   }
 
   function toggleSwitcher() {
+    const mode = sobrio.pendingMode; // set by the background just before, for a search shortcut
+    sobrio.pendingMode = null;
     if (sobrio.switcher) {
       sobrio.switcher.close();
       return;
@@ -266,7 +272,7 @@
     };
     document.documentElement.append(host);
     SHIELDED_EVENTS.forEach((type) => addEventListener(type, shield, true));
-    const { onKey, onInput } = mountSwitcher(shadow, { layout: 'overlay', hostname: location.hostname, close });
+    const { onKey, onInput } = mountSwitcher(shadow, { layout: 'overlay', hostname: location.hostname, close, startMode: mode });
     sobrio.switcher = { close };
   }
 
