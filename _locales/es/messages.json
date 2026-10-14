@@ -1,0 +1,5 @@
+{
+  "name": { "message": "sobrio" },
+  "description": { "message": "Una extensión con opinión sobre cómo debe verse la web y cómo debe sentirse un navegador." },
+  "commandOpen": { "message": "Abrir el switcher" }
+}

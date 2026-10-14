@@ -1,0 +1,5 @@
+{
+  "name": { "message": "sobrio" },
+  "description": { "message": "An opinionated extension on how the web should look and how a browser should feel." },
+  "commandOpen": { "message": "Open the switcher" }
+}
