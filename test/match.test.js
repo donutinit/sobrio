@@ -4,8 +4,10 @@ const {
   ENGINES,
   flattenBookmarks,
   searchBookmarks,
+  modes,
   nextMode,
   autoMode,
+  engineById,
   parseCommand,
   commandsAllowed,
   searchUrl,
@@ -164,38 +166,76 @@ test('flatten builds folder path without browser roots', () => {
   ]);
 });
 
-test('engines in the spec order', () => {
+test('engines in the spec order, with ids', () => {
   assert.deepEqual(ENGINES.map((e) => e.name), ['DuckDuckGo', 'Google', 'YouTube', 'Wikipedia', 'GitHub']);
+  assert.deepEqual(ENGINES.map((e) => e.id), ['duckduckgo', 'google', 'youtube', 'wikipedia', 'github']);
+  assert.equal(engineById('youtube').name, 'YouTube');
+  assert.equal(engineById('bookmarks'), undefined);
 });
 
-test('nextMode cycles both ways', () => {
-  assert.equal(nextMode(5, 1), 0);
-  assert.equal(nextMode(0, -1), 5);
-  assert.equal(nextMode(0, 1), 1);
-  assert.equal(nextMode(3, -1), 2);
+const ALL = { bookmarks: true, engines: { duckduckgo: true, google: true, youtube: true, wikipedia: true, github: true } };
+const ALL_MODES = ['bookmarks', 'duckduckgo', 'google', 'youtube', 'wikipedia', 'github'];
+
+test('modes: bookmarks then the engines that are on, in order', () => {
+  assert.deepEqual(modes(ALL), ALL_MODES);
+  assert.deepEqual(modes({ bookmarks: false, engines: { ...ALL.engines, google: false } }),
+    ['duckduckgo', 'youtube', 'wikipedia', 'github']);
 });
 
-test('autoMode jumps to first engine when nothing matches', () => {
-  assert.deepEqual(autoMode({ mode: 0, manual: false }, 'zzz', false), { mode: 1, manual: false });
+test('modes: everything off still leaves bookmarks', () => {
+  assert.deepEqual(modes({ bookmarks: false, engines: {} }), ['bookmarks']);
+});
+
+test('nextMode cycles both ways over the modes that are on', () => {
+  assert.equal(nextMode(ALL_MODES, 'github', 1), 'bookmarks');
+  assert.equal(nextMode(ALL_MODES, 'bookmarks', -1), 'github');
+  assert.equal(nextMode(ALL_MODES, 'bookmarks', 1), 'duckduckgo');
+  assert.equal(nextMode(['bookmarks', 'youtube'], 'youtube', 1), 'bookmarks');
+  assert.equal(nextMode(['bookmarks', 'youtube'], 'google', 1), 'bookmarks');
+});
+
+test('autoMode jumps to the first engine that is on when nothing matches', () => {
+  assert.deepEqual(autoMode({ mode: 'bookmarks', manual: false }, 'zzz', false, ALL_MODES, true), { mode: 'duckduckgo', manual: false });
+  assert.deepEqual(autoMode({ mode: 'bookmarks', manual: false }, 'zzz', false, ['bookmarks', 'youtube'], true), { mode: 'youtube', manual: false });
 });
 
 test('autoMode returns to bookmarks when matches come back', () => {
-  assert.deepEqual(autoMode({ mode: 1, manual: false }, 'ru', true), { mode: 0, manual: false });
+  assert.deepEqual(autoMode({ mode: 'duckduckgo', manual: false }, 'ru', true, ALL_MODES, true), { mode: 'bookmarks', manual: false });
 });
 
 test('autoMode keeps manual mode', () => {
-  assert.deepEqual(autoMode({ mode: 3, manual: true }, 'zzz', true), { mode: 3, manual: true });
+  assert.deepEqual(autoMode({ mode: 'youtube', manual: true }, 'zzz', true, ALL_MODES, true), { mode: 'youtube', manual: true });
 });
 
 test('autoMode blank query stays in bookmarks', () => {
-  assert.deepEqual(autoMode({ mode: 1, manual: false }, '  ', false), { mode: 0, manual: false });
+  assert.deepEqual(autoMode({ mode: 'duckduckgo', manual: false }, '  ', false, ALL_MODES, true), { mode: 'bookmarks', manual: false });
+});
+
+test('autoMode with autoSearch off never jumps', () => {
+  assert.deepEqual(autoMode({ mode: 'bookmarks', manual: false }, 'zzz', false, ALL_MODES, false), { mode: 'bookmarks', manual: false });
+});
+
+test('autoMode without bookmarks starts on the first engine', () => {
+  const engines = ['google', 'github'];
+  assert.deepEqual(autoMode({ mode: 'bookmarks', manual: false }, '', false, engines, true), { mode: 'google', manual: false });
+  assert.deepEqual(autoMode({ mode: 'bookmarks', manual: false }, 'x', false, engines, false), { mode: 'google', manual: false });
+});
+
+test('autoMode with only bookmarks has nowhere to jump', () => {
+  assert.deepEqual(autoMode({ mode: 'bookmarks', manual: false }, 'zzz', false, ['bookmarks'], true), { mode: 'bookmarks', manual: false });
 });
 
 test('parseCommand exact only', () => {
   assert.equal(parseCommand(' TD '), 'dark');
   assert.equal(parseCommand('ta'), 'css');
+  assert.equal(parseCommand('Ajustes'), 'settings');
+  assert.equal(parseCommand('settings'), 'settings');
+  assert.equal(parseCommand(' options '), 'settings');
   assert.equal(parseCommand('tda'), null);
   assert.equal(parseCommand('t d'), null);
+  assert.equal(parseCommand('ajuste'), null);
+  assert.equal(parseCommand('constructor'), null);
+  assert.equal(parseCommand('toString'), null);
   assert.equal(parseCommand(''), null);
 });
 

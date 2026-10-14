@@ -143,6 +143,7 @@ def main():
     ap.add_argument('--switcher', action='store_true', help='print the switcher state (closed shadow root)')
     ap.add_argument('--busy-worker', type=int, help='block the service worker this many ms before --then-ext-eval')
     ap.add_argument('--settle', type=float, default=0, help='seconds to wait after --keys before --eval')
+    ap.add_argument('--targets', action='store_true', help='print the urls of the open pages at the end')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--dark', action='store_true', help='emulate prefers-color-scheme: dark')
@@ -209,6 +210,8 @@ def main():
                 png = cdp.call('Page.captureScreenshot', {'format': 'png'}, session)['data']
                 with open(os.path.join(args.shots, f'chromium-{i}.png'), 'wb') as f:
                     f.write(base64.b64decode(png))
+        if args.targets:
+            print(json.dumps({'pages': [t['url'] for t in cdp.call('Target.getTargets')['targetInfos'] if t['type'] == 'page']}))
         if args.console:
             for event in cdp.events:
                 params = event.get('params', {})

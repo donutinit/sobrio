@@ -1,20 +1,88 @@
 {
-  "name": { "message": "sobrio" },
-  "description": { "message": "Una extensión con opinión sobre cómo debe verse la web y cómo debe sentirse un navegador." },
-  "commandOpen": { "message": "Abrir el switcher" },
-  "placeholderBookmarks": { "message": "Buscar bookmarks" },
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Una extensión con opinión sobre cómo debe verse la web y cómo debe sentirse un navegador."
+  },
+  "commandOpen": {
+    "message": "Abrir el switcher"
+  },
+  "placeholderBookmarks": {
+    "message": "Buscar bookmarks"
+  },
   "placeholderEngine": {
     "message": "Buscar en $ENGINE$",
-    "placeholders": { "engine": { "content": "$1" } }
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
   },
   "searchOn": {
     "message": "Buscar \"$QUERY$\" en $ENGINE$",
-    "placeholders": { "query": { "content": "$1" }, "engine": { "content": "$2" } }
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
   },
-  "noBookmarks": { "message": "Sin bookmarks" },
-  "darkOff": { "message": "Apagar modo oscuro en $HOST$", "placeholders": { "host": { "content": "$1" } } },
-  "darkOn": { "message": "Prender modo oscuro en $HOST$", "placeholders": { "host": { "content": "$1" } } },
-  "cssOff": { "message": "Apagar CSS en $HOST$", "placeholders": { "host": { "content": "$1" } } },
-  "cssOn": { "message": "Prender CSS en $HOST$", "placeholders": { "host": { "content": "$1" } } },
-  "hints": { "message": "↑↓ mover · ↵ abrir · ctrl ↵ pestaña nueva · tab motores · esc cerrar" }
+  "noBookmarks": {
+    "message": "Sin bookmarks"
+  },
+  "darkOff": {
+    "message": "Apagar modo oscuro en $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Prender modo oscuro en $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Apagar CSS en $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Prender CSS en $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ mover · ↵ abrir · ctrl ↵ pestaña nueva · tab motores · esc cerrar"
+  },
+  "openSettings": {
+    "message": "Abrir ajustes"
+  },
+  "settingsCommand": {
+    "message": "ajustes"
+  },
+  "darkOnEverywhere": {
+    "message": "Prender modo oscuro en todos lados"
+  },
+  "removesPatterns": {
+    "message": "(quita $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  }
 }

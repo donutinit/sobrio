@@ -7,6 +7,7 @@ const handlers = {
   fetch: (message) => fetchForDarkReader(message.url),
   bookmarks: () => getBookmarks(),
   open: (message, sender) => openUrl(message.url, message.newTab, sender.tab),
+  settings: () => chrome.runtime.openOptionsPage().then(() => true),
 };
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -87,7 +88,7 @@ function openSwitcher(tab) {
     return;
   }
   chrome.scripting
-    .executeScript({ target: { tabId: tab.id }, files: ['match.js', 'switcher-css.js', 'switcher.js'] })
+    .executeScript({ target: { tabId: tab.id }, files: ['settings.js', 'match.js', 'switcher-css.js', 'switcher.js'] })
     .catch(openPopup);
 }
 

@@ -3,11 +3,11 @@
 // node --test gets the same functions through module.exports.
 (() => {
   const ENGINES = [
-    { name: 'DuckDuckGo', url: 'https://duckduckgo.com/?q=%s' },
-    { name: 'Google', url: 'https://www.google.com/search?q=%s' },
-    { name: 'YouTube', url: 'https://www.youtube.com/results?search_query=%s' },
-    { name: 'Wikipedia', url: 'https://es.wikipedia.org/w/index.php?search=%s' },
-    { name: 'GitHub', url: 'https://github.com/search?q=%s' },
+    { id: 'duckduckgo', name: 'DuckDuckGo', url: 'https://duckduckgo.com/?q=%s' },
+    { id: 'google', name: 'Google', url: 'https://www.google.com/search?q=%s' },
+    { id: 'youtube', name: 'YouTube', url: 'https://www.youtube.com/results?search_query=%s' },
+    { id: 'wikipedia', name: 'Wikipedia', url: 'https://es.wikipedia.org/w/index.php?search=%s' },
+    { id: 'github', name: 'GitHub', url: 'https://github.com/search?q=%s' },
   ];
   const MAX_RESULTS = 50;
   const RECENT = 20;
@@ -125,23 +125,38 @@
     return results.sort((a, b) => b.score - a.score || newestFirst(a, b)).slice(0, limit);
   }
 
-  // mode 0 is bookmarks, mode i >= 1 is ENGINES[i - 1].
-  function nextMode(mode, dir) {
-    const count = ENGINES.length + 1;
-    return (mode + dir + count) % count;
+  const engineById = (id) => ENGINES.find((engine) => engine.id === id);
+
+  // What Tab cycles through: 'bookmarks' and the ids of the engines that are on, in the
+  // fixed order. Never empty: with everything off, bookmarks stay.
+  function modes(switcher) {
+    const list = [
+      ...(switcher.bookmarks ? ['bookmarks'] : []),
+      ...ENGINES.filter((engine) => switcher.engines?.[engine.id]).map((engine) => engine.id),
+    ];
+    return list.length ? list : ['bookmarks'];
   }
 
-  function autoMode(state, query, hasResults) {
-    if (state.manual) return state;
-    if (!query.trim() || hasResults) return { mode: 0, manual: false };
-    return { mode: 1, manual: false };
+  function nextMode(list, mode, dir) {
+    const i = list.indexOf(mode);
+    if (i === -1) return list[0];
+    return list[(i + dir + list.length) % list.length];
   }
+
+  // Without bookmarks the switcher lives on the first engine; with them it jumps there only
+  // when autoSearch is on, the query is not blank and nothing matches.
+  function autoMode(state, query, hasResults, list, autoSearch) {
+    if (state.manual) return state;
+    if (!list.includes('bookmarks')) return { mode: list[0], manual: false };
+    const engine = list.find((mode) => mode !== 'bookmarks');
+    if (!autoSearch || !engine || !query.trim() || hasResults) return { mode: 'bookmarks', manual: false };
+    return { mode: engine, manual: false };
+  }
+
+  const COMMANDS = new Map([['td', 'dark'], ['ta', 'css'], ['ajustes', 'settings'], ['settings', 'settings'], ['options', 'settings']]);
 
   function parseCommand(query) {
-    const q = query.trim().toLowerCase();
-    if (q === 'td') return 'dark';
-    if (q === 'ta') return 'css';
-    return null;
+    return COMMANDS.get(query.trim().toLowerCase()) ?? null;
   }
 
   function commandsAllowed(hostname) {
@@ -154,6 +169,8 @@
 
   const api = {
     ENGINES,
+    engineById,
+    modes,
     flattenBookmarks,
     searchBookmarks,
     nextMode,

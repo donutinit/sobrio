@@ -37,28 +37,49 @@
     return fragment;
   }
 
-  function mountSwitcher(root, { popup, hostname, close }) {
+  // The theme hook's colors and font, as the custom properties switcher-css.js reads.
+  function themeVariables(theme) {
+    if (!theme) return {};
+    const vars = {
+      '--s-bg': theme.background,
+      '--s-border': theme.border,
+      '--s-row': theme.selection,
+      '--s-bar': theme.accent,
+      '--s-hit': theme.accent,
+      '--s-input': theme.text,
+      '--s-title': theme.textMuted,
+      '--s-sub': theme.textMuted && `color-mix(in srgb, ${theme.textMuted} 65%, ${theme.background ?? '#000'})`,
+      '--s-font': theme.font && `${theme.font}, system-ui, sans-serif`,
+    };
+    return Object.fromEntries(Object.entries(vars).filter(([, value]) => value));
+  }
+
+  // layout: 'overlay' (on a page), 'popup' (the toolbar popup) or 'inline' (the new tab).
+  function mountSwitcher(root, { layout, hostname, close }) {
+    const popup = layout === 'popup';
     const input = el('input', 'input');
     input.spellcheck = false;
     input.autocomplete = 'off';
     const mode = el('span', 'mode');
     const list = el('ul', 'list');
-    const box = el('div', 'box', el('div', 'bar', mode, input), list, el('div', 'hints', t('hints')));
-    const frame = el('div', popup ? 'popup' : 'backdrop', box);
+    const hints = el('div', 'hints', t('hints'));
+    const box = el('div', 'box', el('div', 'bar', mode, input), list, hints);
+    const frame = el('div', layout === 'overlay' ? 'backdrop' : layout, box);
     root.append(el('style', null, sobrio.SWITCHER_CSS), frame);
-    if (!popup) frame.addEventListener('mousedown', (e) => e.target === frame && close());
+    if (layout === 'overlay') frame.addEventListener('mousedown', (e) => e.target === frame && close());
     // Clicks inside keep the focus in the input: the keyboard shield only covers events that
     // come from the switcher, and Esc and typing must keep working.
     box.addEventListener('mousedown', (e) => e.target !== input && e.preventDefault());
 
-    const commandsOn = !popup && Boolean(sobrio.settings) && match.commandsAllowed(hostname);
+    const { mergeSettings, siteState, matchingPatterns } = sobrio.settings;
+    let settings = mergeSettings(undefined);
+    let stored = {};
     let bookmarks = [];
     // Until the list arrives nothing jumps to an engine, and an early Enter waits for it:
     // a quick "gh" + Enter means the bookmark, not a web search.
     let loaded = false;
     let pendingEnter = null;
-    let site = { dark: true, css: true };
-    let state = { mode: 0, manual: false };
+    let state = { mode: 'bookmarks', manual: false };
     let rows = [];
     let selected = 0;
 
@@ -70,14 +91,17 @@
         update();
         if (pendingEnter) activate(selected, pendingEnter.newTab);
       });
-    if (commandsOn) {
-      chrome.storage.local.get(['darkOff', 'cssOff']).then((stored) => {
-        site = sobrio.settings.siteState(stored, hostname);
-        update();
-      });
-    }
+    chrome.storage.local.get(['settings', 'theme', 'darkOff', 'cssOff']).then((answer) => {
+      stored = answer;
+      settings = mergeSettings(answer.settings);
+      for (const [name, value] of Object.entries(themeVariables(answer.theme))) frame.style.setProperty(name, value);
+      if (popup && answer.theme?.background) document.documentElement.style.background = answer.theme.background;
+      update();
+    });
 
     const open = (url, newTab) => send({ sobrio: 'open', url, newTab });
+    const commandAllowed = (kind) =>
+      settings.switcher.commands && (kind === 'settings' || (!popup && match.commandsAllowed(hostname)));
 
     function bookmarkRow({ bookmark, hits }) {
       const sub = document.createDocumentFragment();
@@ -99,39 +123,61 @@
     }
 
     function commandRow(kind) {
-      const on = kind === 'dark' ? site.dark : site.css;
-      const key = kind === 'dark' ? (on ? 'darkOff' : 'darkOn') : on ? 'cssOff' : 'cssOn';
-      return { title: t(key, hostname), sub: kind === 'dark' ? 'td' : 'ta', run: () => toggle(kind) };
+      if (kind === 'settings') {
+        return { title: t('openSettings'), sub: t('settingsCommand'), run: () => send({ sobrio: 'settings' }) };
+      }
+      const sub = kind === 'dark' ? 'td' : 'ta';
+      if (kind === 'dark' && !settings.dark.enabled) {
+        return { title: t('darkOnEverywhere'), sub, run: () => toggle(kind) };
+      }
+      const key = kind === 'dark' ? 'darkOff' : 'cssOff';
+      const on = siteState(stored, hostname)[kind];
+      const wildcards = matchingPatterns(stored[key], hostname).filter((p) => p.startsWith('*.'));
+      const name = kind === 'dark' ? (on ? 'darkOff' : 'darkOn') : on ? 'cssOff' : 'cssOn';
+      const title = t(name, hostname) + (!on && wildcards.length ? ` ${t('removesPatterns', wildcards.join(', '))}` : '');
+      return { title, sub, run: () => toggle(kind) };
     }
 
+    // Off adds this exact host; on removes every pattern that covers it, wildcards included.
     async function toggle(kind) {
+      if (kind === 'dark' && !settings.dark.enabled) {
+        const { settings: raw } = await chrome.storage.local.get('settings');
+        const next = raw && typeof raw === 'object' ? raw : {};
+        next.dark = { ...(next.dark && typeof next.dark === 'object' ? next.dark : {}), enabled: true };
+        await chrome.storage.local.set({ settings: next });
+        return;
+      }
       const key = kind === 'dark' ? 'darkOff' : 'cssOff';
-      const hosts = new Set((await chrome.storage.local.get(key))[key] ?? []);
-      if (hosts.has(hostname)) hosts.delete(hostname);
-      else hosts.add(hostname);
-      await chrome.storage.local.set({ [key]: [...hosts] });
+      const current = (await chrome.storage.local.get(key))[key];
+      const patterns = Array.isArray(current) ? current : [];
+      const covering = matchingPatterns(patterns, hostname);
+      const next = covering.length ? patterns.filter((p) => !covering.includes(p)) : [...patterns, hostname];
+      await chrome.storage.local.set({ [key]: next });
     }
 
     function update() {
       const query = input.value;
-      const results = match.searchBookmarks(bookmarks, query);
-      const command = commandsOn ? match.parseCommand(query) : null;
-      state = match.autoMode(state, query, !loaded || results.length > 0 || command !== null);
+      const modes = match.modes(settings.switcher);
+      const results = settings.switcher.bookmarks ? match.searchBookmarks(bookmarks, query) : [];
+      const parsed = match.parseCommand(query);
+      const command = parsed && commandAllowed(parsed) ? parsed : null;
+      state = match.autoMode(state, query, !loaded || results.length > 0 || command !== null, modes, settings.switcher.autoSearch);
       rows = [];
-      if (state.mode === 0) {
+      if (state.mode === 'bookmarks') {
         if (command) rows.push(commandRow(command));
         rows.push(...results.map(bookmarkRow));
       } else if (query.trim()) {
-        rows.push(engineRow(match.ENGINES[state.mode - 1], query));
+        rows.push(engineRow(match.engineById(state.mode), query));
       }
       selected = 0;
       render();
     }
 
     function render() {
-      const engine = match.ENGINES[state.mode - 1];
+      const engine = match.engineById(state.mode);
       mode.textContent = engine ? engine.name : '★';
       input.placeholder = engine ? t('placeholderEngine', engine.name) : t('placeholderBookmarks');
+      hints.hidden = !settings.switcher.hints;
       list.replaceChildren(
         ...rows.map((row, i) => {
           const item = el('li', 'row', el('div', 'title', row.title), el('div', 'sub', row.sub));
@@ -151,7 +197,7 @@
     }
 
     async function activate(i, newTab) {
-      if (!loaded && state.mode === 0) {
+      if (!loaded && state.mode === 'bookmarks') {
         pendingEnter = { newTab };
         return;
       }
@@ -168,7 +214,7 @@
       if (key === 'ArrowDown' || (ctrl && key === 'j')) select(Math.min(selected + 1, rows.length - 1));
       else if (key === 'ArrowUp' || (ctrl && key === 'k')) select(Math.max(selected - 1, 0));
       else if (key === 'Tab') {
-        state = { mode: match.nextMode(state.mode, e.shiftKey ? -1 : 1), manual: true };
+        state = { mode: match.nextMode(match.modes(settings.switcher), state.mode, e.shiftKey ? -1 : 1), manual: true };
         update();
       } else if (key === 'Enter') activate(selected, ctrl);
       else if (key === 'Escape') close();
@@ -209,7 +255,7 @@
     };
     document.documentElement.append(host);
     SHIELDED_EVENTS.forEach((type) => addEventListener(type, shield, true));
-    const { onKey, onInput } = mountSwitcher(shadow, { popup: false, hostname: location.hostname, close });
+    const { onKey, onInput } = mountSwitcher(shadow, { layout: 'overlay', hostname: location.hostname, close });
     sobrio.switcher = { close };
   }
 

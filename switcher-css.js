@@ -1,6 +1,19 @@
 // The switcher's own look. It lives in a closed shadow root, so pages never reach it.
 globalThis.sobrio = globalThis.sobrio || {};
 sobrio.SWITCHER_CSS = String.raw`
+.backdrop,
+.popup,
+.inline {
+  --s-bg: #000;
+  --s-border: #333;
+  --s-row: #1a1a1a;
+  --s-bar: #fff;
+  --s-input: #fff;
+  --s-title: #888;
+  --s-hit: #fff;
+  --s-sub: #555;
+  --s-font: system-ui, sans-serif;
+}
 .backdrop {
   position: fixed;
   inset: 0;
@@ -16,10 +29,10 @@ sobrio.SWITCHER_CSS = String.raw`
   flex-direction: column;
   width: min(640px, calc(100vw - 32px));
   max-height: 70vh;
-  background: #000;
-  border: 1px solid #333;
-  color: #888;
-  font: 15px/1.4 system-ui, sans-serif;
+  background: var(--s-bg);
+  border: 1px solid var(--s-border);
+  color: var(--s-title);
+  font: 15px/1.4 var(--s-font);
   text-align: left;
 }
 .bar {
@@ -27,11 +40,11 @@ sobrio.SWITCHER_CSS = String.raw`
   align-items: center;
   gap: 12px;
   padding: 12px 14px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--s-border);
 }
 .mode {
   flex: none;
-  color: #888;
+  color: var(--s-title);
   font-size: 13px;
 }
 .input {
@@ -41,13 +54,13 @@ sobrio.SWITCHER_CSS = String.raw`
   border: 0;
   outline: 0;
   background: transparent;
-  color: #fff;
-  caret-color: #fff;
+  color: var(--s-input);
+  caret-color: var(--s-input);
   font: inherit;
   font-size: 17px;
 }
 .input::placeholder {
-  color: #555;
+  color: var(--s-sub);
 }
 .list {
   margin: 0;
@@ -61,8 +74,8 @@ sobrio.SWITCHER_CSS = String.raw`
   cursor: pointer;
 }
 .row.selected {
-  border-left-color: #fff;
-  background: #1a1a1a;
+  border-left-color: var(--s-bar);
+  background: var(--s-row);
 }
 .title,
 .sub {
@@ -72,21 +85,21 @@ sobrio.SWITCHER_CSS = String.raw`
 }
 .sub {
   margin-top: 2px;
-  color: #555;
+  color: var(--s-sub);
   font-size: 12px;
 }
 b {
-  color: #fff;
+  color: var(--s-hit);
   font-weight: 700;
 }
 .empty {
   padding: 10px 14px;
-  color: #555;
+  color: var(--s-sub);
 }
 .hints {
   padding: 8px 14px;
-  border-top: 1px solid #333;
-  color: #555;
+  border-top: 1px solid var(--s-border);
+  color: var(--s-sub);
   font-size: 12px;
 }
 .popup .box {

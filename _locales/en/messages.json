@@ -1,20 +1,88 @@
 {
-  "name": { "message": "sobrio" },
-  "description": { "message": "An opinionated extension on how the web should look and how a browser should feel." },
-  "commandOpen": { "message": "Open the switcher" },
-  "placeholderBookmarks": { "message": "Search bookmarks" },
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "An opinionated extension on how the web should look and how a browser should feel."
+  },
+  "commandOpen": {
+    "message": "Open the switcher"
+  },
+  "placeholderBookmarks": {
+    "message": "Search bookmarks"
+  },
   "placeholderEngine": {
     "message": "Search on $ENGINE$",
-    "placeholders": { "engine": { "content": "$1" } }
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
   },
   "searchOn": {
     "message": "Search \"$QUERY$\" on $ENGINE$",
-    "placeholders": { "query": { "content": "$1" }, "engine": { "content": "$2" } }
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
   },
-  "noBookmarks": { "message": "No bookmarks" },
-  "darkOff": { "message": "Turn off dark mode on $HOST$", "placeholders": { "host": { "content": "$1" } } },
-  "darkOn": { "message": "Turn on dark mode on $HOST$", "placeholders": { "host": { "content": "$1" } } },
-  "cssOff": { "message": "Turn off custom CSS on $HOST$", "placeholders": { "host": { "content": "$1" } } },
-  "cssOn": { "message": "Turn on custom CSS on $HOST$", "placeholders": { "host": { "content": "$1" } } },
-  "hints": { "message": "↑↓ move · ↵ open · ctrl ↵ new tab · tab engines · esc close" }
+  "noBookmarks": {
+    "message": "No bookmarks"
+  },
+  "darkOff": {
+    "message": "Turn off dark mode on $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Turn on dark mode on $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Turn off custom CSS on $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Turn on custom CSS on $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ move · ↵ open · ctrl ↵ new tab · tab engines · esc close"
+  },
+  "openSettings": {
+    "message": "Open settings"
+  },
+  "settingsCommand": {
+    "message": "settings"
+  },
+  "darkOnEverywhere": {
+    "message": "Turn on dark mode everywhere"
+  },
+  "removesPatterns": {
+    "message": "(removes $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  }
 }
