@@ -12,14 +12,14 @@
   },
   "background": {
     "service_worker": "background.js",
-    "scripts": ["background.js"]
+    "scripts": ["guard.js", "background.js"]
   },
   "permissions": ["bookmarks", "storage", "scripting"],
   "host_permissions": ["<all_urls>"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["boot.js", "custom-css.js", "darkreader.js", "page.js"],
+      "js": ["boot.js", "custom-css.js", "darkreader.js", "detector.js", "page.js"],
       "run_at": "document_start",
       "all_frames": true,
       "match_about_blank": true

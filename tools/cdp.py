@@ -80,6 +80,7 @@ def main():
     ap.add_argument('urls', nargs='*')
     ap.add_argument('--eval', default='return null')
     ap.add_argument('--ext-eval')
+    ap.add_argument('--then-ext-eval', help='after each page: run this in an extension tab, then --eval again')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--dark', action='store_true', help='emulate prefers-color-scheme: dark')
@@ -113,6 +114,16 @@ def main():
             cdp.call('Page.navigate', {'url': url}, session)
             time.sleep(args.wait)
             print(json.dumps({'url': url, 'eval': cdp.evaluate(args.eval, session)}))
+            if args.then_ext_eval:
+                other = cdp.call('Target.createTarget',
+                                 {'url': f'chrome-extension://{ext_id}/popup.html'})['targetId']
+                other_session = cdp.call('Target.attachToTarget',
+                                         {'targetId': other, 'flatten': True})['sessionId']
+                time.sleep(1)
+                print(json.dumps({'then_ext_eval': cdp.evaluate(args.then_ext_eval, other_session)}))
+                cdp.call('Target.closeTarget', {'targetId': other})
+                time.sleep(1.5)
+                print(json.dumps({'url': url, 'after': cdp.evaluate(args.eval, session)}))
             if args.shots:
                 png = cdp.call('Page.captureScreenshot', {'format': 'png'}, session)['data']
                 with open(os.path.join(args.shots, f'chromium-{i}.png'), 'wb') as f:

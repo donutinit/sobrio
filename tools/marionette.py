@@ -82,6 +82,7 @@ def main():
     ap.add_argument('urls', nargs='*')
     ap.add_argument('--eval', default='return null')
     ap.add_argument('--ext-eval')
+    ap.add_argument('--then-ext-eval', help='after each page: run this in an extension tab, then --eval again')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--pref', action='append', default=[], help='name=json value')
@@ -127,6 +128,18 @@ def main():
             time.sleep(args.wait)
             result = m.call('WebDriver:ExecuteScript', {'script': wrap(args.eval), 'args': []})
             print(json.dumps({'url': url, 'eval': result}))
+            if args.then_ext_eval:
+                page = m.call('WebDriver:GetWindowHandle')
+                tab = m.call('WebDriver:NewWindow', {'type': 'tab'})['handle']
+                m.call('WebDriver:SwitchToWindow', {'handle': tab})
+                m.call('WebDriver:Navigate', {'url': f'moz-extension://{host}/popup.html'})
+                print(json.dumps({'then_ext_eval': m.call('WebDriver:ExecuteScript',
+                                                          {'script': wrap(args.then_ext_eval), 'args': []})}))
+                m.call('WebDriver:CloseWindow')
+                m.call('WebDriver:SwitchToWindow', {'handle': page})
+                time.sleep(1.5)
+                after = m.call('WebDriver:ExecuteScript', {'script': wrap(args.eval), 'args': []})
+                print(json.dumps({'url': url, 'after': after}))
             if args.shots:
                 png = base64.b64decode(m.call('WebDriver:TakeScreenshot', {'full': False}))
                 with open(os.path.join(args.shots, f'firefox-{i}.png'), 'wb') as f:
