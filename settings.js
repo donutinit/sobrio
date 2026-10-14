@@ -175,9 +175,28 @@
     return Math.min(4, Math.max(0.25, Math.round((value + dir * step) * 100) / 100));
   }
 
+  const LOAD_WINDOW = 1500; // ms after a new source in which a reset to 1 is the site's doing
+
+  // Who changed a media element's speed: sobrio itself ('ours'), the site putting it back to 1
+  // for a new source ('reset', so sobrio applies its speed again), or the person through the
+  // site's own controls, or the site restoring a speed it saved ('page', left alone).
+  function classifyRateChange({ rate, ours, sinceLoad }) {
+    const near = (a, b) => Math.abs(a - b) < 0.001;
+    if (ours !== undefined && near(rate, ours)) return 'ours';
+    if (sinceLoad < LOAD_WINDOW && near(rate, 1)) return 'reset';
+    return 'page';
+  }
+
+  // ] faster (1), [ slower (-1), \ back to 1 (0); null for anything else. AltGr counts as
+  // no modifier (Spanish layouts need it for [ and ]); Windows reports it as Ctrl+Alt.
+  function speedKey({ key, ctrlKey, metaKey, altKey, altGraph }) {
+    if (metaKey || (!altGraph && (ctrlKey || altKey))) return null;
+    return { ']': 1, '[': -1, '\\': 0 }[key] ?? null;
+  }
+
   const api = {
     DEFAULTS, mergeSettings, hostMatches, normalizePattern, matchingPatterns, siteState,
-    parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed,
+    parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
   };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.settings = api;

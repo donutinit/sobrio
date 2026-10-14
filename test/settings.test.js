@@ -11,6 +11,8 @@ const {
   darkTheme,
   desiredSpeed,
   stepSpeed,
+  classifyRateChange,
+  speedKey,
 } = require('../settings.js');
 
 test('nothing stored gives the defaults, as a copy', () => {
@@ -177,4 +179,39 @@ test('stepSpeed adds steps, rounds and stays within 0.25 and 4', () => {
 test('newtab locales: invalid entries drop out one by one', () => {
   assert.deepEqual(mergeSettings({ newtab: { locales: ['es-MX', 'not a locale!!', 3, '', 'EN-us'] } }).newtab.locales, ['es-MX', 'en-US']);
   assert.deepEqual(DEFAULTS.newtab.locales, []);
+});
+
+test('classifyRateChange: our own write', () => {
+  assert.equal(classifyRateChange({ rate: 1.5, ours: 1.5, sinceLoad: Infinity }), 'ours');
+});
+
+test('classifyRateChange: back to 1 right after a new source is the site resetting', () => {
+  assert.equal(classifyRateChange({ rate: 1, ours: 1.5, sinceLoad: 200 }), 'reset');
+});
+
+test('classifyRateChange: a site restoring its own speed after a new source is the page', () => {
+  assert.equal(classifyRateChange({ rate: 1.5, ours: 1, sinceLoad: 200 }), 'page');
+});
+
+test('classifyRateChange: a change later on is the person using the site', () => {
+  assert.equal(classifyRateChange({ rate: 1, ours: 1.5, sinceLoad: 5000 }), 'page');
+  assert.equal(classifyRateChange({ rate: 2, ours: undefined, sinceLoad: Infinity }), 'page');
+});
+
+const key = (k, mods = {}) => ({ key: k, ctrlKey: false, metaKey: false, altKey: false, altGraph: false, ...mods });
+
+test('speedKey: ] [ and backslash', () => {
+  assert.equal(speedKey(key(']')), 1);
+  assert.equal(speedKey(key('[')), -1);
+  assert.equal(speedKey(key('\\')), 0);
+  assert.equal(speedKey(key('a')), null);
+});
+
+test('speedKey: modifiers are not shortcuts, AltGr is (Spanish layouts)', () => {
+  assert.equal(speedKey(key(']', { ctrlKey: true })), null);
+  assert.equal(speedKey(key(']', { metaKey: true })), null);
+  assert.equal(speedKey(key(']', { altKey: true })), null);
+  assert.equal(speedKey(key(']', { altGraph: true })), 1);
+  // Windows reports AltGr as Ctrl+Alt.
+  assert.equal(speedKey(key(']', { ctrlKey: true, altKey: true, altGraph: true })), 1);
 });

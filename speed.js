@@ -1,10 +1,9 @@
 // Media speed, the essentials of Global Speed: every <video> and <audio> plays at the global
 // speed or at its site's rule, and ] faster, [ slower, \ back to 1 change it.
 (() => {
-  const { mergeSettings, desiredSpeed, stepSpeed, hostMatches } = sobrio.settings;
+  const { mergeSettings, desiredSpeed, stepSpeed, hostMatches, classifyRateChange, speedKey } = sobrio.settings;
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions);
   const host = location.hostname;
-  const LOAD_WINDOW = 1500; // ms after a new source in which a rate change is the site resetting
   let speed = mergeSettings(undefined).speed;
   let target = 1; // what sobrio wants here
   let pageOwn = null; // a speed the page chose itself (its own menu): left alone until navigation
@@ -12,19 +11,22 @@
   const loads = new WeakMap(); // media → when it last started loading a source
 
   const close = (a, b) => Math.abs(a - b) < 0.001;
+  const allMedia = () => document.querySelectorAll('video, audio');
 
-  function apply(media) {
-    if (!speed.enabled) return;
-    const want = pageOwn ?? target;
-    // defaultPlaybackRate too: a new source resets playbackRate to it.
-    media.defaultPlaybackRate = want;
-    if (!close(media.playbackRate, want)) {
-      ours.set(media, want);
-      media.playbackRate = want;
-    }
+  // Both rates: a new source resets playbackRate to defaultPlaybackRate. Either write fires a
+  // ratechange, so ours is set before writing.
+  function write(media, rate) {
+    if (close(media.playbackRate, rate) && close(media.defaultPlaybackRate, rate)) return;
+    ours.set(media, rate);
+    media.defaultPlaybackRate = rate;
+    media.playbackRate = rate;
   }
 
-  const applyAll = () => document.querySelectorAll('video, audio').forEach(apply);
+  function apply(media) {
+    if (speed.enabled) write(media, pageOwn ?? target);
+  }
+
+  const applyAll = () => allMedia().forEach(apply);
 
   // Media events do not bubble, but capture on document still sees them.
   const isMedia = (node) => node instanceof HTMLMediaElement;
@@ -38,22 +40,30 @@
   document.addEventListener('ratechange', (e) => {
     const media = e.target;
     if (!isMedia(media) || !speed.enabled) return;
-    if (ours.has(media) && close(media.playbackRate, ours.get(media))) return;
-    if (performance.now() - (loads.get(media) ?? -Infinity) < LOAD_WINDOW) {
-      apply(media); // the site resetting the rate for a new video
-      return;
+    const kind = classifyRateChange({
+      rate: media.playbackRate,
+      ours: ours.get(media),
+      sinceLoad: performance.now() - (loads.get(media) ?? -Infinity),
+    });
+    if (kind === 'reset') apply(media);
+    if (kind === 'page') {
+      ours.delete(media);
+      pageOwn = media.playbackRate;
     }
-    pageOwn = media.playbackRate; // the person chose it in the site's own controls
   }, true);
 
   const isEditable = (node) => node?.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(node?.tagName ?? '');
+  // Media that can actually play: a silent notification <audio> must not take [ and ] from
+  // the page (Gmail uses them).
+  const hasLiveMedia = () => [...allMedia()].some((media) => media.currentSrc && media.readyState > 0);
 
   addEventListener('keydown', (e) => {
-    if (!speed.enabled || !speed.shortcuts || sobrio.switcher) return;
-    if (e.ctrlKey || e.metaKey || (e.altKey && !e.getModifierState('AltGraph'))) return;
-    const dir = { ']': 1, '[': -1, '\\': 0 }[e.key];
-    if (dir === undefined || isEditable(e.composedPath()[0])) return;
-    if (!document.querySelector('video, audio')) return;
+    // isTrusted: a page could otherwise press ] for the person and save the global speed.
+    if (!e.isTrusted || !speed.enabled || !speed.shortcuts || sobrio.switcher) return;
+    const dir = speedKey({
+      key: e.key, ctrlKey: e.ctrlKey, metaKey: e.metaKey, altKey: e.altKey, altGraph: e.getModifierState('AltGraph'),
+    });
+    if (dir === null || isEditable(e.composedPath()[0]) || !hasLiveMedia()) return;
     e.preventDefault();
     e.stopImmediatePropagation();
     const next = dir === 0 ? 1 : stepSpeed(pageOwn ?? target, speed.step, dir);
@@ -69,11 +79,16 @@
     toast(next, ruled);
   }, true);
 
-  async function saveGlobal(value) {
-    const { settings: raw } = await chrome.storage.local.get('settings');
-    const next = raw && typeof raw === 'object' ? raw : {};
-    next.speed = { ...(next.speed && typeof next.speed === 'object' ? next.speed : {}), speed: value };
-    await chrome.storage.local.set({ settings: next });
+  // Holding ] repeats the key: save once it settles, so every tab is not woken on each repeat.
+  let saveTimer;
+  function saveGlobal(value) {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(async () => {
+      const { settings: raw } = await chrome.storage.local.get('settings');
+      const next = raw && typeof raw === 'object' ? raw : {};
+      next.speed = { ...(next.speed && typeof next.speed === 'object' ? next.speed : {}), speed: value };
+      await chrome.storage.local.set({ settings: next });
+    }, 300);
   }
 
   let toastHost = null;
@@ -104,8 +119,13 @@
   }
 
   function update(stored) {
+    const wasOn = speed.enabled;
     speed = mergeSettings(stored?.settings).speed;
     target = desiredSpeed(speed, host);
+    if (wasOn && !speed.enabled && pageOwn === null) {
+      // Turned off: what sobrio sped up goes back to normal; a speed the page chose stays.
+      allMedia().forEach((media) => ours.has(media) && write(media, 1));
+    }
     applyAll();
   }
 
