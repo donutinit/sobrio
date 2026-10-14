@@ -22,8 +22,8 @@
 
   function setVars(vars) {
     for (const [name, value] of Object.entries(vars)) {
-      if (value) main.style.setProperty(name, value);
-      else main.style.removeProperty(name);
+      if (value) document.documentElement.style.setProperty(name, value);
+      else document.documentElement.style.removeProperty(name);
     }
   }
 
@@ -41,7 +41,6 @@
       '--custom-date-font': newtab.customDateFont,
       '--custom-time-weight': String(newtab.customTimeWeight),
     });
-    document.body.style.background = theme?.background ?? '';
     greetingNode.hidden = !newtab.greeting;
     dateNode.hidden = !newtab.date || newtab.layout === 'hora';
     timeNode.hidden = !newtab.time || newtab.layout === 'analogico';
