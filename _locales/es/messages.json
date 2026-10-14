@@ -84,5 +84,122 @@
         "content": "$1"
       }
     }
+  },
+  "settingsTitle": {
+    "message": "Ajustes"
+  },
+  "sectionStyle": {
+    "message": "Estilo"
+  },
+  "styleCorners": {
+    "message": "Sin esquinas redondeadas"
+  },
+  "styleShadows": {
+    "message": "Sin sombras"
+  },
+  "styleBlur": {
+    "message": "Sin blur"
+  },
+  "styleAnimations": {
+    "message": "Sin animaciones ni transiciones"
+  },
+  "styleYoutube": {
+    "message": "Excepto en el reproductor de YouTube"
+  },
+  "styleSmoothScroll": {
+    "message": "Sin scroll suave"
+  },
+  "styleThinScrollbars": {
+    "message": "Scrollbars delgadas"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Fondos que no se quedan fijos"
+  },
+  "fromTheme": {
+    "message": "del tema (userContent.css)"
+  },
+  "sectionDark": {
+    "message": "Modo oscuro"
+  },
+  "darkEnabled": {
+    "message": "Oscurecer los sitios"
+  },
+  "darkDetect": {
+    "message": "Respetar los sitios que ya son oscuros"
+  },
+  "darkBrightness": {
+    "message": "Brillo"
+  },
+  "darkContrast": {
+    "message": "Contraste"
+  },
+  "darkSepia": {
+    "message": "Sepia"
+  },
+  "darkGrayscale": {
+    "message": "Escala de grises"
+  },
+  "darkBackground": {
+    "message": "Fondo"
+  },
+  "darkText": {
+    "message": "Texto"
+  },
+  "darkSelection": {
+    "message": "Selección"
+  },
+  "auto": {
+    "message": "Auto"
+  },
+  "sectionExceptions": {
+    "message": "Excepciones"
+  },
+  "exceptionsHelp": {
+    "message": "example.com es solo ese sitio; *.example.com también cubre sus subdominios."
+  },
+  "exceptionsCss": {
+    "message": "Sin el CSS"
+  },
+  "exceptionsDark": {
+    "message": "Sin modo oscuro"
+  },
+  "patternPlaceholder": {
+    "message": "example.com o *.example.com"
+  },
+  "add": {
+    "message": "Agregar"
+  },
+  "remove": {
+    "message": "Quitar"
+  },
+  "invalidPattern": {
+    "message": "Eso no es un sitio"
+  },
+  "emptyList": {
+    "message": "Ninguno"
+  },
+  "sectionSwitcher": {
+    "message": "Switcher"
+  },
+  "switcherBookmarks": {
+    "message": "Bookmarks"
+  },
+  "switcherEngine": {
+    "message": "Motor"
+  },
+  "switcherAutoSearch": {
+    "message": "Buscar en la web si ningún bookmark coincide"
+  },
+  "switcherCommands": {
+    "message": "Comandos: td, ta y ajustes"
+  },
+  "switcherHints": {
+    "message": "Línea de atajos"
+  },
+  "lastPiece": {
+    "message": "Deja bookmarks o al menos un motor"
+  },
+  "optionsFooter": {
+    "message": "Los cambios se guardan solos y se aplican al momento en las pestañas abiertas. El atajo se cambia en about:addons o en chrome://extensions/shortcuts."
   }
 }

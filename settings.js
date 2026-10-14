@@ -143,6 +143,15 @@
     return Object.keys(theme).length ? theme : null;
   }
 
+  // Saves what the hook gives (null when userContent.css has none), only when it changed:
+  // every page re-applies on a storage change, and Firefox restarts the background often.
+  async function storeThemeHook(get) {
+    const theme = parseThemeHook(get);
+    const { theme: saved } = await chrome.storage.local.get('theme');
+    if (JSON.stringify(saved ?? null) !== JSON.stringify(theme)) await chrome.storage.local.set({ theme });
+    return theme;
+  }
+
   function darkTheme(dark, theme) {
     return {
       mode: 1,
@@ -166,7 +175,7 @@
 
   const api = {
     DEFAULTS, mergeSettings, hostMatches, normalizePattern, matchingPatterns, siteState,
-    parseThemeHook, darkTheme, desiredSpeed, stepSpeed,
+    parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed,
   };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.settings = api;

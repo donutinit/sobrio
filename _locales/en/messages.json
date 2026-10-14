@@ -84,5 +84,122 @@
         "content": "$1"
       }
     }
+  },
+  "settingsTitle": {
+    "message": "Settings"
+  },
+  "sectionStyle": {
+    "message": "Style"
+  },
+  "styleCorners": {
+    "message": "No rounded corners"
+  },
+  "styleShadows": {
+    "message": "No shadows"
+  },
+  "styleBlur": {
+    "message": "No blur"
+  },
+  "styleAnimations": {
+    "message": "No animations or transitions"
+  },
+  "styleYoutube": {
+    "message": "Except in YouTube's player"
+  },
+  "styleSmoothScroll": {
+    "message": "No smooth scrolling"
+  },
+  "styleThinScrollbars": {
+    "message": "Thin scrollbars"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Backgrounds scroll with the page"
+  },
+  "fromTheme": {
+    "message": "from the theme (userContent.css)"
+  },
+  "sectionDark": {
+    "message": "Dark mode"
+  },
+  "darkEnabled": {
+    "message": "Turn sites dark"
+  },
+  "darkDetect": {
+    "message": "Leave sites that are already dark"
+  },
+  "darkBrightness": {
+    "message": "Brightness"
+  },
+  "darkContrast": {
+    "message": "Contrast"
+  },
+  "darkSepia": {
+    "message": "Sepia"
+  },
+  "darkGrayscale": {
+    "message": "Grayscale"
+  },
+  "darkBackground": {
+    "message": "Background"
+  },
+  "darkText": {
+    "message": "Text"
+  },
+  "darkSelection": {
+    "message": "Selection"
+  },
+  "auto": {
+    "message": "Auto"
+  },
+  "sectionExceptions": {
+    "message": "Exceptions"
+  },
+  "exceptionsHelp": {
+    "message": "example.com is that site only; *.example.com also covers its subdomains."
+  },
+  "exceptionsCss": {
+    "message": "Without the stylesheet"
+  },
+  "exceptionsDark": {
+    "message": "Without dark mode"
+  },
+  "patternPlaceholder": {
+    "message": "example.com or *.example.com"
+  },
+  "add": {
+    "message": "Add"
+  },
+  "remove": {
+    "message": "Remove"
+  },
+  "invalidPattern": {
+    "message": "That is not a site"
+  },
+  "emptyList": {
+    "message": "None"
+  },
+  "sectionSwitcher": {
+    "message": "Switcher"
+  },
+  "switcherBookmarks": {
+    "message": "Bookmarks"
+  },
+  "switcherEngine": {
+    "message": "Engine"
+  },
+  "switcherAutoSearch": {
+    "message": "Search the web when no bookmark matches"
+  },
+  "switcherCommands": {
+    "message": "Commands: td, ta and ajustes"
+  },
+  "switcherHints": {
+    "message": "Shortcut line"
+  },
+  "lastPiece": {
+    "message": "Keep bookmarks or at least one engine"
+  },
+  "optionsFooter": {
+    "message": "Changes save themselves and apply to open tabs right away. The shortcut is changed in about:addons or chrome://extensions/shortcuts."
   }
 }

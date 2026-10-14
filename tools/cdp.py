@@ -144,6 +144,7 @@ def main():
     ap.add_argument('--busy-worker', type=int, help='block the service worker this many ms before --then-ext-eval')
     ap.add_argument('--settle', type=float, default=0, help='seconds to wait after --keys before --eval')
     ap.add_argument('--targets', action='store_true', help='print the urls of the open pages at the end')
+    ap.add_argument('--full', action='store_true', help='screenshots of the whole page, not just the window')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--dark', action='store_true', help='emulate prefers-color-scheme: dark')
@@ -174,6 +175,8 @@ def main():
         if args.shots:
             os.makedirs(args.shots, exist_ok=True)
         for i, url in enumerate(args.urls):
+            if url.startswith('ext:'):  # a page of the extension, e.g. ext:options.html
+                url = f'chrome-extension://{ext_id}/{url[4:]}'
             cdp.call('Page.navigate', {'url': url}, session)
             time.sleep(args.wait)
             print(json.dumps({'url': url, 'eval': cdp.evaluate(args.eval, session)}))
@@ -207,7 +210,8 @@ def main():
                     with open(os.path.join(args.shots, f'chromium-{i}-after.png'), 'wb') as f:
                         f.write(base64.b64decode(png))
             if args.shots:
-                png = cdp.call('Page.captureScreenshot', {'format': 'png'}, session)['data']
+                png = cdp.call('Page.captureScreenshot', {'format': 'png', 'captureBeyondViewport': args.full},
+                               session)['data']
                 with open(os.path.join(args.shots, f'chromium-{i}.png'), 'wb') as f:
                     f.write(base64.b64decode(png))
         if args.targets:

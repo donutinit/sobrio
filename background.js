@@ -1,7 +1,14 @@
 // Firefox loads the helpers through background.scripts; Chrome's service worker imports them.
-if (typeof importScripts === 'function') importScripts('guard.js', 'match.js');
+if (typeof importScripts === 'function') importScripts('guard.js', 'match.js', 'settings.js');
 
 const { guard, match } = sobrio;
+
+// The userContent.css theme hook. Firefox runs this in a background page, where
+// userContent.css reaches; Chrome's service worker has no document and no userContent.css.
+if (typeof document !== 'undefined') {
+  const style = getComputedStyle(document.documentElement);
+  sobrio.settings.storeThemeHook((name) => style.getPropertyValue(name));
+}
 
 const handlers = {
   fetch: (message) => fetchForDarkReader(message.url),

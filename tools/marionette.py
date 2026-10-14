@@ -100,6 +100,7 @@ def main():
     ap.add_argument('--ext-eval')
     ap.add_argument('--then-ext-eval', help='after each page: run this in an extension tab, then --eval again')
     ap.add_argument('--keys', help="after --then-ext-eval, press these: 'rust,Ctrl+j,Tab,Enter'")
+    ap.add_argument('--user-content', help='a userContent.css for the temporary profile')
     ap.add_argument('--late-install', action='store_true',
                     help='load the first url before installing, like a tab already open at install time')
     ap.add_argument('--shots')
@@ -117,6 +118,10 @@ def main():
         'xpinstall.signatures.required': False,
         'datareporting.policy.dataSubmissionEnabled': False,
     }
+    if args.user_content:
+        os.makedirs(os.path.join(profile, 'chrome'))
+        shutil.copy(args.user_content, os.path.join(profile, 'chrome', 'userContent.css'))
+        prefs['toolkit.legacyUserProfileCustomizations.stylesheets'] = True
     for pref in args.pref:
         name, _, value = pref.partition('=')
         prefs[name] = json.loads(value)
@@ -146,6 +151,8 @@ def main():
         if args.shots:
             os.makedirs(args.shots, exist_ok=True)
         for i, url in enumerate(args.urls):
+            if url.startswith('ext:'):  # a page of the extension, e.g. ext:options.html
+                url = f'moz-extension://{host}/{url[4:]}'
             if not (args.late_install and i == 0 and not args.ext_eval):
                 m.call('WebDriver:Navigate', {'url': url})
             time.sleep(args.wait)
