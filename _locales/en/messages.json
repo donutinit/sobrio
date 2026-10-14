@@ -71,9 +71,6 @@
   "openSettings": {
     "message": "Open settings"
   },
-  "settingsCommand": {
-    "message": "settings"
-  },
   "darkOnEverywhere": {
     "message": "Turn on dark mode everywhere"
   },
@@ -87,9 +84,6 @@
   },
   "settingsTitle": {
     "message": "Settings"
-  },
-  "sectionStyle": {
-    "message": "Style"
   },
   "styleCorners": {
     "message": "No rounded corners"
@@ -117,9 +111,6 @@
   },
   "fromTheme": {
     "message": "from the theme (userContent.css)"
-  },
-  "sectionDark": {
-    "message": "Dark mode"
   },
   "darkEnabled": {
     "message": "Turn sites dark"
@@ -151,9 +142,6 @@
   "auto": {
     "message": "Auto"
   },
-  "sectionExceptions": {
-    "message": "Exceptions"
-  },
   "exceptionsHelp": {
     "message": "example.com is that site only; *.example.com also covers its subdomains."
   },
@@ -178,9 +166,6 @@
   "emptyList": {
     "message": "None"
   },
-  "sectionSwitcher": {
-    "message": "Switcher"
-  },
   "switcherBookmarks": {
     "message": "Bookmarks"
   },
@@ -191,7 +176,7 @@
     "message": "Search the web when no bookmark matches"
   },
   "switcherCommands": {
-    "message": "Commands: td, ta and ajustes"
+    "message": "Commands: td, ta and settings"
   },
   "switcherHints": {
     "message": "Shortcut line"
@@ -203,9 +188,6 @@
     "message": "Changes save themselves and apply to open tabs right away. The shortcut is changed in about:addons or chrome://extensions/shortcuts."
   },
   "newTab": {
-    "message": "New tab"
-  },
-  "sectionNewtab": {
     "message": "New tab"
   },
   "newtabStyle": {
@@ -255,9 +237,6 @@
   },
   "localesEmpty": {
     "message": "The browser's language"
-  },
-  "sectionSpeed": {
-    "message": "Speed"
   },
   "speedEnabled": {
     "message": "Control the speed of video and audio"
@@ -312,5 +291,215 @@
   },
   "greetingEvening": {
     "message": "Good evening"
+  },
+  "tab_style": {
+    "message": "Style"
+  },
+  "tab_dark": {
+    "message": "Dark mode"
+  },
+  "tab_exceptions": {
+    "message": "Exceptions"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "tab_newtab": {
+    "message": "New tab"
+  },
+  "tab_media": {
+    "message": "Media"
+  },
+  "tab_stats": {
+    "message": "Stats"
+  },
+  "styleHideScrollbars": {
+    "message": "Hide scrollbars"
+  },
+  "styleUnderlineLinks": {
+    "message": "Underline links"
+  },
+  "styleSelectableText": {
+    "message": "Let any text be selected"
+  },
+  "styleNoUppercase": {
+    "message": "No forced CAPITALS"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Images and video in grayscale"
+  },
+  "styleFocusRing": {
+    "message": "A visible ring on the focused element"
+  },
+  "styleCustom": {
+    "message": "Your CSS"
+  },
+  "styleCustomHelp": {
+    "message": "Added after everything above, on every site where the CSS is on. ta turns it off with the rest. Use !important to win over the site."
+  },
+  "switcherPrecision": {
+    "message": "Search precision"
+  },
+  "precision_strict": {
+    "message": "Strict: each word as typed"
+  },
+  "precision_normal": {
+    "message": "Normal"
+  },
+  "precision_loose": {
+    "message": "Loose: letters in order, anywhere"
+  },
+  "switcherMemory": {
+    "message": "Remember what I open and rank it higher"
+  },
+  "switcherDefaultEngine": {
+    "message": "Default engine"
+  },
+  "customEngines": {
+    "message": "Your engines"
+  },
+  "customEnginesHelp": {
+    "message": "%s in the address is replaced by what you type."
+  },
+  "engineName": {
+    "message": "Name"
+  },
+  "invalidEngine": {
+    "message": "A name and an http(s) address with %s"
+  },
+  "shortcutsHelp": {
+    "message": "Press the keys on the button, pick what they do and add them. They need Ctrl, Alt or Meta, or a function key. Alt with a letter can collide with the browser (Alt+D goes to the address bar): Ctrl+Shift or Alt+Shift are safer."
+  },
+  "shortcutRecord": {
+    "message": "Record keys"
+  },
+  "shortcutPress": {
+    "message": "Press the keys…"
+  },
+  "invalidShortcut": {
+    "message": "Record a combination with Ctrl, Alt or Meta, or a function key"
+  },
+  "duplicateShortcut": {
+    "message": "Those keys already do something"
+  },
+  "invalidShortcutParam": {
+    "message": "That action needs a valid value"
+  },
+  "action_switcher": {
+    "message": "Open the switcher"
+  },
+  "action_search": {
+    "message": "Search in"
+  },
+  "action_searchSelection": {
+    "message": "Search the selection in"
+  },
+  "action_toggleDark": {
+    "message": "Dark mode on this site"
+  },
+  "action_toggleCss": {
+    "message": "CSS on this site"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Dark mode everywhere"
+  },
+  "action_openUrl": {
+    "message": "Open an address"
+  },
+  "action_openUrlNewTab": {
+    "message": "Open an address in a new tab"
+  },
+  "action_speed": {
+    "message": "Media speed"
+  },
+  "action_copyCleanUrl": {
+    "message": "Copy the link without tracking"
+  },
+  "action_settings": {
+    "message": "Open the settings"
+  },
+  "statsHelp": {
+    "message": "Each bookmark opened from the switcher. The weight grows with the opens and fades with time; it is what lifts a page in the search."
+  },
+  "statsPage": {
+    "message": "Page"
+  },
+  "statsOpens": {
+    "message": "Opens"
+  },
+  "statsWeight": {
+    "message": "Weight"
+  },
+  "statsLast": {
+    "message": "Last"
+  },
+  "statsReset": {
+    "message": "Reset"
+  },
+  "statsResetAll": {
+    "message": "Reset all"
+  },
+  "statsResetConfirm": {
+    "message": "Click again to reset"
+  },
+  "statsEmpty": {
+    "message": "Nothing yet"
+  },
+  "newtabLayout": {
+    "message": "Layout"
+  },
+  "layout_clasico": {
+    "message": "Classic"
+  },
+  "layout_hora": {
+    "message": "Just the time"
+  },
+  "layout_linea": {
+    "message": "One line"
+  },
+  "layout_apilado": {
+    "message": "Stacked"
+  },
+  "layout_esquina": {
+    "message": "Corner"
+  },
+  "layout_analogico": {
+    "message": "Analog"
+  },
+  "newtabStyle_custom": {
+    "message": "My fonts"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Font of the time"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Weight of the time"
+  },
+  "newtabCustomDateFont": {
+    "message": "Font of the date"
+  },
+  "fontPlaceholder": {
+    "message": "A font installed here"
+  },
+  "newtabGreeting": {
+    "message": "Greeting"
+  },
+  "newtabName": {
+    "message": "Your name"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Optional"
+  },
+  "newtabFocusPage": {
+    "message": "Take the focus from the address bar"
+  },
+  "newtabFocusPageHint": {
+    "message": "The tab loads itself again, so the address bar shows its address instead of staying empty."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Pause video and audio that play on their own"
   }
 }

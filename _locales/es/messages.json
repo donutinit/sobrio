@@ -71,9 +71,6 @@
   "openSettings": {
     "message": "Abrir ajustes"
   },
-  "settingsCommand": {
-    "message": "ajustes"
-  },
   "darkOnEverywhere": {
     "message": "Prender modo oscuro en todos lados"
   },
@@ -87,9 +84,6 @@
   },
   "settingsTitle": {
     "message": "Ajustes"
-  },
-  "sectionStyle": {
-    "message": "Estilo"
   },
   "styleCorners": {
     "message": "Sin esquinas redondeadas"
@@ -117,9 +111,6 @@
   },
   "fromTheme": {
     "message": "del tema (userContent.css)"
-  },
-  "sectionDark": {
-    "message": "Modo oscuro"
   },
   "darkEnabled": {
     "message": "Oscurecer los sitios"
@@ -151,9 +142,6 @@
   "auto": {
     "message": "Auto"
   },
-  "sectionExceptions": {
-    "message": "Excepciones"
-  },
   "exceptionsHelp": {
     "message": "example.com es solo ese sitio; *.example.com también cubre sus subdominios."
   },
@@ -178,9 +166,6 @@
   "emptyList": {
     "message": "Ninguno"
   },
-  "sectionSwitcher": {
-    "message": "Switcher"
-  },
   "switcherBookmarks": {
     "message": "Bookmarks"
   },
@@ -191,7 +176,7 @@
     "message": "Buscar en la web si ningún bookmark coincide"
   },
   "switcherCommands": {
-    "message": "Comandos: td, ta y ajustes"
+    "message": "Comandos: td, ta y settings"
   },
   "switcherHints": {
     "message": "Línea de atajos"
@@ -203,9 +188,6 @@
     "message": "Los cambios se guardan solos y se aplican al momento en las pestañas abiertas. El atajo se cambia en about:addons o en chrome://extensions/shortcuts."
   },
   "newTab": {
-    "message": "Nueva pestaña"
-  },
-  "sectionNewtab": {
     "message": "Nueva pestaña"
   },
   "newtabStyle": {
@@ -255,9 +237,6 @@
   },
   "localesEmpty": {
     "message": "El idioma del navegador"
-  },
-  "sectionSpeed": {
-    "message": "Velocidad"
   },
   "speedEnabled": {
     "message": "Controlar la velocidad de video y audio"
@@ -312,5 +291,215 @@
   },
   "greetingEvening": {
     "message": "Buenas noches"
+  },
+  "tab_style": {
+    "message": "Estilo"
+  },
+  "tab_dark": {
+    "message": "Modo oscuro"
+  },
+  "tab_exceptions": {
+    "message": "Excepciones"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Atajos"
+  },
+  "tab_newtab": {
+    "message": "Nueva pestaña"
+  },
+  "tab_media": {
+    "message": "Medios"
+  },
+  "tab_stats": {
+    "message": "Estadísticas"
+  },
+  "styleHideScrollbars": {
+    "message": "Esconder las barras de desplazamiento"
+  },
+  "styleUnderlineLinks": {
+    "message": "Subrayar los enlaces"
+  },
+  "styleSelectableText": {
+    "message": "Dejar seleccionar cualquier texto"
+  },
+  "styleNoUppercase": {
+    "message": "Sin MAYÚSCULAS forzadas"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Imágenes y video en escala de grises"
+  },
+  "styleFocusRing": {
+    "message": "Un contorno visible en el elemento con foco"
+  },
+  "styleCustom": {
+    "message": "Tu CSS"
+  },
+  "styleCustomHelp": {
+    "message": "Va después de todo lo de arriba, en cada sitio donde el CSS está prendido. ta lo apaga junto con lo demás. Usa !important para ganarle al sitio."
+  },
+  "switcherPrecision": {
+    "message": "Precisión de la búsqueda"
+  },
+  "precision_strict": {
+    "message": "Estricta: cada palabra tal cual"
+  },
+  "precision_normal": {
+    "message": "Normal"
+  },
+  "precision_loose": {
+    "message": "Flexible: letras en orden, donde sea"
+  },
+  "switcherMemory": {
+    "message": "Recordar lo que abro y subirlo en la búsqueda"
+  },
+  "switcherDefaultEngine": {
+    "message": "Motor por defecto"
+  },
+  "customEngines": {
+    "message": "Tus motores"
+  },
+  "customEnginesHelp": {
+    "message": "%s en la dirección se cambia por lo que escribes."
+  },
+  "engineName": {
+    "message": "Nombre"
+  },
+  "invalidEngine": {
+    "message": "Un nombre y una dirección http(s) con %s"
+  },
+  "shortcutsHelp": {
+    "message": "Pulsa las teclas sobre el botón, elige qué hacen y agrégalas. Llevan Ctrl, Alt o Meta, o una tecla de función. Alt con una letra puede chocar con el navegador (Alt+D va a la barra de direcciones): Ctrl+Shift o Alt+Shift son más seguros."
+  },
+  "shortcutRecord": {
+    "message": "Grabar teclas"
+  },
+  "shortcutPress": {
+    "message": "Pulsa las teclas…"
+  },
+  "invalidShortcut": {
+    "message": "Graba una combinación con Ctrl, Alt o Meta, o una tecla de función"
+  },
+  "duplicateShortcut": {
+    "message": "Esas teclas ya hacen algo"
+  },
+  "invalidShortcutParam": {
+    "message": "Esa acción necesita un valor válido"
+  },
+  "action_switcher": {
+    "message": "Abrir el switcher"
+  },
+  "action_search": {
+    "message": "Buscar en"
+  },
+  "action_searchSelection": {
+    "message": "Buscar la selección en"
+  },
+  "action_toggleDark": {
+    "message": "Modo oscuro en este sitio"
+  },
+  "action_toggleCss": {
+    "message": "CSS en este sitio"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Modo oscuro en todos lados"
+  },
+  "action_openUrl": {
+    "message": "Abrir una dirección"
+  },
+  "action_openUrlNewTab": {
+    "message": "Abrir una dirección en pestaña nueva"
+  },
+  "action_speed": {
+    "message": "Velocidad de medios"
+  },
+  "action_copyCleanUrl": {
+    "message": "Copiar el enlace sin rastreo"
+  },
+  "action_settings": {
+    "message": "Abrir los ajustes"
+  },
+  "statsHelp": {
+    "message": "Cada bookmark abierto desde el switcher. El peso crece con las veces y baja con el tiempo; es lo que sube una página en la búsqueda."
+  },
+  "statsPage": {
+    "message": "Página"
+  },
+  "statsOpens": {
+    "message": "Veces"
+  },
+  "statsWeight": {
+    "message": "Peso"
+  },
+  "statsLast": {
+    "message": "Última"
+  },
+  "statsReset": {
+    "message": "Reiniciar"
+  },
+  "statsResetAll": {
+    "message": "Reiniciar todo"
+  },
+  "statsResetConfirm": {
+    "message": "Clic otra vez para reiniciar"
+  },
+  "statsEmpty": {
+    "message": "Nada todavía"
+  },
+  "newtabLayout": {
+    "message": "Diseño"
+  },
+  "layout_clasico": {
+    "message": "Clásico"
+  },
+  "layout_hora": {
+    "message": "Solo la hora"
+  },
+  "layout_linea": {
+    "message": "En una línea"
+  },
+  "layout_apilado": {
+    "message": "Apilado"
+  },
+  "layout_esquina": {
+    "message": "Esquina"
+  },
+  "layout_analogico": {
+    "message": "Analógico"
+  },
+  "newtabStyle_custom": {
+    "message": "Mis fuentes"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Fuente de la hora"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Peso de la hora"
+  },
+  "newtabCustomDateFont": {
+    "message": "Fuente de la fecha"
+  },
+  "fontPlaceholder": {
+    "message": "Una fuente instalada aquí"
+  },
+  "newtabGreeting": {
+    "message": "Saludo"
+  },
+  "newtabName": {
+    "message": "Tu nombre"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Opcional"
+  },
+  "newtabFocusPage": {
+    "message": "Quitarle el foco a la barra de direcciones"
+  },
+  "newtabFocusPageHint": {
+    "message": "La pestaña se carga otra vez, así que la barra de direcciones muestra su dirección en vez de quedar vacía."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Pausar video y audio que suenan solos"
   }
 }

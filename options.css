@@ -22,9 +22,13 @@ body {
 }
 
 main {
-  max-width: 640px;
+  max-width: 880px;
   margin: 0 auto;
   padding: 72px 16px 96px;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 header {
@@ -58,8 +62,60 @@ h1 {
   margin: 0 0 56px;
 }
 
-section {
-  margin-bottom: 48px;
+/* Tabs: a column beside the panels; above them, wrapping, on narrow screens. */
+.layout {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 48px;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  position: sticky;
+  top: 24px;
+}
+
+.tab {
+  height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-left: 1px solid var(--line);
+  color: var(--muted);
+  text-align: left;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab[aria-selected='true'] {
+  border-left-color: var(--accent);
+  color: var(--text);
+}
+
+@media (max-width: 760px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .tabs {
+    position: static;
+    flex-flow: row wrap;
+    gap: 0 4px;
+  }
+
+  .tab {
+    padding: 0 8px;
+    border-left: 0;
+    border-bottom: 1px solid transparent;
+  }
+
+  .tab[aria-selected='true'] {
+    border-bottom-color: var(--accent);
+  }
 }
 
 h2 {
@@ -91,6 +147,17 @@ h2 {
 .row label {
   flex: 1;
   cursor: pointer;
+}
+
+.row .hint {
+  display: block;
+  margin: 2px 0 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.row .control .text {
+  width: 220px;
 }
 
 .row .note {
@@ -263,6 +330,113 @@ button:hover {
 .adder {
   display: flex;
   gap: 8px;
+}
+
+.adder.wrap {
+  flex-wrap: wrap;
+}
+
+.recorder {
+  min-width: 150px;
+  font-family: ui-monospace, monospace;
+}
+
+.recorder.recording {
+  border-color: var(--accent);
+}
+
+kbd {
+  margin-right: 8px;
+  padding: 1px 6px;
+  border: 1px solid var(--line-strong);
+  font: inherit;
+}
+
+.snippet {
+  display: block;
+  width: 100%;
+  min-height: 220px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  font: 13px/1.5 ui-monospace, monospace;
+  resize: vertical;
+  tab-size: 2;
+}
+
+.snippet:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Stats: the page on the left, three numeric columns, then the reset button. */
+.stats-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stats-head > span:first-child {
+  flex: 1;
+}
+
+.stats-head .spacer,
+.stats li button {
+  flex: none;
+  width: 32px;
+}
+
+.stats-foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.numbers {
+  display: grid;
+  grid-template-columns: 6ch 6ch 8ch;
+  gap: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.stats li {
+  gap: 12px;
+  font-family: inherit;
+}
+
+.stats .page {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding: 6px 0;
+}
+
+.stats .page span,
+.stats .page small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stats .page small {
+  color: var(--muted);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+.stats .numbers {
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .number {
