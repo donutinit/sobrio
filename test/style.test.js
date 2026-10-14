@@ -94,3 +94,11 @@ test('the custom snippet goes last, as written', () => {
   assert.ok(buildCss({ ...ALL_ON, custom: snippet }, null).endsWith(`\n\n${snippet}`));
   assert.equal(buildCss({ ...ALL_OFF, custom: '   ' }, null), '');
 });
+
+test('a broken snippet comes after every rule of sobrio, which are all closed', () => {
+  const clean = buildCss(ALL_ON, null);
+  for (const garbage of ['} * { color: red', 'p { color: red', '/* never closed', '@media (', '</style><script>']) {
+    assert.ok(buildCss({ ...ALL_ON, custom: garbage }, null).startsWith(`${clean}\n\n`), garbage);
+  }
+  assert.equal(clean.split('{').length, clean.split('}').length);
+});

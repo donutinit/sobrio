@@ -259,6 +259,16 @@ test('custom engines: http(s) with %s, a name, at most 10, ids kept', () => {
   assert.equal(mergeSettings({ switcher: { customEngines: many } }).switcher.customEngines.length, 10);
 });
 
+test('custom engines: an empty or missing address is dropped', () => {
+  const settings = mergeSettings({ switcher: { defaultEngine: 'custom-a1', customEngines: [
+    { id: 'custom-a1', name: 'Empty', url: '' },
+    { id: 'custom-b2', name: 'None' },
+    { id: 'custom-c3', name: 'Spaces', url: '   ' },
+  ] } });
+  assert.deepEqual(settings.switcher.customEngines, []);
+  assert.equal(settings.switcher.defaultEngine, 'google');
+});
+
 test('defaultEngine: a built-in or an existing custom engine, else Google', () => {
   const custom = [{ id: 'custom-a1', name: 'SearXNG', url: 'https://s.example.com/?q=%s' }];
   assert.equal(mergeSettings({ switcher: { defaultEngine: 'duckduckgo' } }).switcher.defaultEngine, 'duckduckgo');

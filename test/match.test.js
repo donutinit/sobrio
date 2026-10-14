@@ -291,6 +291,12 @@ test('strict precision: each word must appear as it is written', () => {
   assert.equal(searchBookmarks([bm('Canción Única', 'https://a.dev/')], 'cancion', 50, 'strict').length, 1);
 });
 
+test('strict precision: a word split between title and folder does not match', () => {
+  const book = bm('Rust Book', 'https://doc.rust-lang.org/', 'docs');
+  assert.equal(searchBookmarks([book], 'bookdocs', 50, 'strict').length, 0);
+  assert.equal(searchBookmarks([book], 'book docs', 50, 'strict').length, 1);
+});
+
 test('memory: a page opened often rises among similar matches', () => {
   const often = bm('Rust Book', 'https://often.dev/', '', 1);
   const rare = bm('Rust Blog', 'https://rare.dev/', '', 2);
