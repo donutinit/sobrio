@@ -25,15 +25,17 @@
 
   // page: {root: {bg, color, scheme, filter}, body: {bg} | null, samples: {bg, color}[]},
   // every color a computed CSS string.
-  function isDarkFromSamples(page) {
+  // sentinel: Dark Reader's background as sobrio configures it. Seeing it means Dark Reader's
+  // sheets were still applied while sampling, so it gives no verdict.
+  function isDarkFromSamples(page, sentinel = '#000000') {
     const { root, body, samples } = page;
+    const own = parseColor(`rgb(${[1, 3, 5].map((i) => parseInt(sentinel.slice(i, i + 2), 16)).join(', ')})`);
     if (root.filter.includes('invert(1)') || root.scheme === 'dark') return true;
 
     for (const sample of samples) {
       const bg = parseColor(sample.bg);
       if (!bg) return false;
-      // sobrio's dark background: Dark Reader's sheets were still applied, so no verdict.
-      if (bg.r === 0 && bg.g === 0 && bg.b === 0 && bg.a === 1) return false;
+      if (bg.a === 1 && bg.r === own.r && bg.g === own.g && bg.b === own.b) return false;
       if (bg.a === 1) {
         if (lightnessOf(bg) > 0.6) return false;
       } else {
@@ -96,7 +98,7 @@
     ];
   }
 
-  function detectDark(doc) {
+  function detectDark(doc, sentinel) {
     const meta = schemeFromMeta(doc.querySelector('meta[name="color-scheme"]')?.content);
     if (meta) return meta === 'dark';
     if (
@@ -115,7 +117,7 @@
     const sheets = darkReaderSheets(doc);
     sheets.forEach((s) => (s.disabled = true));
     try {
-      return isDarkFromSamples(samplePage(doc));
+      return isDarkFromSamples(samplePage(doc), sentinel);
     } finally {
       sheets.forEach((s) => (s.disabled = false));
       // Settle styles before transitions come back, or every element animates back to dark.

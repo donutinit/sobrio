@@ -96,3 +96,10 @@ test('darkReaderSheets finds its style elements and its adopted overrides', () =
 test('darkReaderSheets copes without adoptedStyleSheets', () => {
   assert.deepEqual(darkReaderSheets({ styleSheets: [] }), []);
 });
+
+test('the configured dark background is no verdict, like pure black is by default', () => {
+  const themed = page({ rootBg: DARK, samples: [{ bg: 'rgb(7, 9, 15)', color: LIGHT_TEXT }] });
+  assert.equal(isDarkFromSamples(themed, '#07090f'), false);
+  assert.equal(isDarkFromSamples(themed), true);
+  assert.equal(isDarkFromSamples(page({ rootBg: DARK, samples: [{ bg: 'rgb(0, 0, 0)', color: LIGHT_TEXT }] }), '#07090f'), true);
+});

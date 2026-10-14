@@ -13,6 +13,7 @@
   let current = null; // the Dark Reader theme in use, as JSON; null while it is off
   let nativeDark = false; // the detector found the page's own dark theme
   let checking = false;
+  let background = '#000000'; // Dark Reader's background now: the detector's no-verdict color
 
   DarkReader.setFetchMethod(fetchThroughBackground);
   chrome.storage.local.get(KEYS).then(apply, () => apply(undefined));
@@ -51,6 +52,7 @@
       current = null;
       return;
     }
+    background = theme.darkSchemeBackgroundColor;
     const key = JSON.stringify(theme);
     if (key !== current) {
       try {
@@ -75,7 +77,7 @@
   }
 
   function check() {
-    if (current && DarkReader.isEnabled() && detector.detectDark(document)) {
+    if (current && DarkReader.isEnabled() && detector.detectDark(document, background)) {
       nativeDark = true;
       DarkReader.disable();
       current = null;
