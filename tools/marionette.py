@@ -100,6 +100,8 @@ def main():
     ap.add_argument('--ext-eval')
     ap.add_argument('--then-ext-eval', help='after each page: run this in an extension tab, then --eval again')
     ap.add_argument('--keys', help="after --then-ext-eval, press these: 'rust,Ctrl+j,Tab,Enter'")
+    ap.add_argument('--late-install', action='store_true',
+                    help='load the first url before installing, like a tab already open at install time')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--pref', action='append', default=[], help='name=json value')
@@ -130,6 +132,9 @@ def main():
         m = Marionette(port)
         m.call('WebDriver:NewSession', {'capabilities': {}})
         m.call('WebDriver:SetWindowRect', {'width': 1280, 'height': 800})
+        if args.late_install and args.urls:
+            m.call('WebDriver:Navigate', {'url': args.urls[0]})
+            time.sleep(args.wait)
         m.call('Addon:Install', {'path': os.path.abspath(args.ext_dir), 'temporary': True})
         host = m.run(
             f'return WebExtensionPolicy.getByID({json.dumps(ADDON_ID)}).mozExtensionHostname',
@@ -141,7 +146,8 @@ def main():
         if args.shots:
             os.makedirs(args.shots, exist_ok=True)
         for i, url in enumerate(args.urls):
-            m.call('WebDriver:Navigate', {'url': url})
+            if not (args.late_install and i == 0 and not args.ext_eval):
+                m.call('WebDriver:Navigate', {'url': url})
             time.sleep(args.wait)
             result = m.call('WebDriver:ExecuteScript', {'script': wrap(args.eval), 'args': []})
             print(json.dumps({'url': url, 'eval': result}))
