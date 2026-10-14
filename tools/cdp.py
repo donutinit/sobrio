@@ -145,6 +145,7 @@ def main():
     ap.add_argument('--settle', type=float, default=0, help='seconds to wait after --keys before --eval')
     ap.add_argument('--targets', action='store_true', help='print the urls of the open pages at the end')
     ap.add_argument('--full', action='store_true', help='screenshots of the whole page, not just the window')
+    ap.add_argument('--after-ext-eval', help='after --keys and --eval: run this in an extension tab')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--dark', action='store_true', help='emulate prefers-color-scheme: dark')
@@ -205,6 +206,12 @@ def main():
                 print(json.dumps({'url': url, 'after': cdp.evaluate(args.eval, session)}))
                 if args.switcher:
                     print(json.dumps({'switcher': cdp.switcher_state(session)}))
+                if args.after_ext_eval:
+                    last = cdp.call('Target.createTarget', {'url': f'chrome-extension://{ext_id}/popup.html'})['targetId']
+                    last_session = cdp.call('Target.attachToTarget', {'targetId': last, 'flatten': True})['sessionId']
+                    time.sleep(1)
+                    print(json.dumps({'after_ext_eval': cdp.evaluate(args.after_ext_eval, last_session)}))
+                    cdp.call('Target.closeTarget', {'targetId': last})
                 if args.shots:
                     png = cdp.call('Page.captureScreenshot', {'format': 'png'}, session)['data']
                     with open(os.path.join(args.shots, f'chromium-{i}-after.png'), 'wb') as f:

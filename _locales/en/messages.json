@@ -255,5 +255,29 @@
   },
   "localesEmpty": {
     "message": "The browser's language"
+  },
+  "sectionSpeed": {
+    "message": "Speed"
+  },
+  "speedEnabled": {
+    "message": "Control the speed of video and audio"
+  },
+  "speedGlobal": {
+    "message": "Speed"
+  },
+  "speedStep": {
+    "message": "Step for ] and ["
+  },
+  "speedShortcuts": {
+    "message": "Shortcuts: ] faster, [ slower, \\ back to 1×"
+  },
+  "speedRules": {
+    "message": "Speed per site"
+  },
+  "invalidSpeed": {
+    "message": "Between 0.25 and 4"
+  },
+  "speedPageOnly": {
+    "message": "this page only"
   }
 }

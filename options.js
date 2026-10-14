@@ -71,19 +71,19 @@
     return node;
   }
 
-  function rangeRow(path, label, min, max, { dependsOn } = {}) {
+  function rangeRow(path, label, min, max, { dependsOn, step = 1, format = String, extra = [] } = {}) {
     const id = `field-${path}`;
-    const input = el('input', { type: 'range', className: 'range', id, min, max, step: 1 });
+    const input = el('input', { type: 'range', className: 'range', id, min, max, step });
     const value = el('span', { className: 'value' });
-    const node = row(id, label, [input, value]);
+    const node = row(id, label, [...extra, input, value]);
     const save = debounced((number) => set(path, number));
     input.addEventListener('input', () => {
-      value.textContent = input.value;
+      value.textContent = format(Number(input.value));
       save(Number(input.value));
     });
     syncs.push(() => {
       if (document.activeElement !== input) input.value = get(path);
-      value.textContent = String(get(path));
+      value.textContent = format(get(path));
       node.classList.toggle('off', Boolean(dependsOn) && !get(dependsOn));
     });
     return node;
@@ -129,7 +129,7 @@
     const id = `field-${path}`;
     const select = el('select', { id });
     const node = row(id, label, [select]);
-    select.addEventListener('change', () => set(path, select.value));
+    select.addEventListener('change', () => set(path, typeof get(path) === 'number' ? Number(select.value) : select.value));
     syncs.push(() => {
       const list = choices();
       const current = get(path);
@@ -137,7 +137,7 @@
         select.replaceChildren(...list.map(({ value, label: text }) => el('option', { value, textContent: text })));
         select.dataset.choices = JSON.stringify(list);
       }
-      select.value = list.some((choice) => choice.value === current) ? current : list[0].value;
+      select.value = list.some((choice) => choice.value === String(current)) ? String(current) : list[0].value;
     });
     return node;
   }
@@ -172,6 +172,36 @@
       el('h3', { textContent: t('newtabLocales') }),
       el('p', { className: 'help', textContent: t('newtabLocalesHelp') }),
       el('div', { className: 'adder' }, select, add), items);
+  }
+
+  const times = (value) => `${Number(value.toFixed(2))}×`;
+
+  function speedRules() {
+    const pattern = el('input', { className: 'text', placeholder: t('patternPlaceholder'), spellcheck: false });
+    const value = el('input', { className: 'text number', type: 'number', min: 0.25, max: 4, step: 0.05, value: 1.5 });
+    const add = el('button', { type: 'button', textContent: t('add') });
+    const status = el('p', { className: 'status' });
+    status.setAttribute('role', 'status');
+    const items = el('ul', { className: 'patterns' });
+    const submit = () => {
+      const normalized = normalizePattern(pattern.value);
+      const number = Number(value.value);
+      if (!normalized) return flash(status, t('invalidPattern'));
+      if (!(number >= 0.25 && number <= 4)) return flash(status, t('invalidSpeed'));
+      pattern.value = '';
+      set('speed.rules', [...settings.speed.rules.filter((r) => r.pattern !== normalized), { pattern: normalized, speed: number }]);
+    };
+    add.addEventListener('click', submit);
+    pattern.addEventListener('keydown', (e) => e.key === 'Enter' && submit());
+    syncs.push(() => {
+      const rows = settings.speed.rules.map((rule) => el('li', {},
+        el('span', { textContent: `${rule.pattern} · ${times(rule.speed)}` }),
+        el('button', { type: 'button', textContent: '×', title: t('remove'),
+          onclick: () => set('speed.rules', settings.speed.rules.filter((r) => r !== rule)) })));
+      items.replaceChildren(...(rows.length ? rows : [el('li', { className: 'empty', textContent: t('emptyList') })]));
+    });
+    return el('div', { className: 'list' }, el('h3', { textContent: t('speedRules') }),
+      el('div', { className: 'adder' }, pattern, value, add), status, items);
   }
 
   function exceptionList(key, title) {
@@ -278,6 +308,16 @@
         switchRow('newtab.time', 'newtabTime'),
         switchRow('newtab.switcher', 'newtabSwitcher'),
         localesList()),
+      section('sectionSpeed',
+        switchRow('speed.enabled', 'speedEnabled'),
+        rangeRow('speed.speed', 'speedGlobal', 0.25, 4, {
+          step: 0.05, format: times, dependsOn: 'speed.enabled',
+          extra: [el('span', { className: 'presets' }, ...[1, 1.25, 1.5, 1.75, 2].map((preset) =>
+            el('button', { type: 'button', className: 'preset', textContent: times(preset), onclick: () => set('speed.speed', preset) })))],
+        }),
+        selectRow('speed.step', 'speedStep', () => [0.05, 0.1, 0.25].map((step) => ({ value: String(step), label: times(step) }))),
+        switchRow('speed.shortcuts', 'speedShortcuts', { dependsOn: 'speed.enabled' }),
+        speedRules()),
       el('p', { className: 'footer', textContent: t('optionsFooter') }),
     );
   }

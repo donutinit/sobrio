@@ -265,6 +265,25 @@ button:hover {
   gap: 8px;
 }
 
+.number {
+  width: 80px;
+  flex: none !important;
+}
+
+.presets {
+  display: flex;
+  gap: 4px;
+}
+
+.preset {
+  height: 24px;
+  padding: 0 6px;
+  border-color: var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
 .adder select {
   flex: 1;
 }
