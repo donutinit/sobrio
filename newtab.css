@@ -1,5 +1,6 @@
-/* The new tab: the date over the time, then the switcher. Each style is one decision of
-   family, weight, size and tracking; hierarchy comes from scale and color, not boxes. */
+/* The new tab. A style (data-style) is one decision of family, weight, size and tracking for
+   the time and the date, as variables; a layout (data-layout) arranges the same pieces. The
+   hierarchy comes from scale and color, not boxes. */
 :root {
   --bg: #000;
   --text: #e8e6e3;
@@ -27,19 +28,42 @@ main {
   text-align: center;
 }
 
+.clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.greeting,
 .date,
 .time {
   margin: 0;
 }
 
-.date {
-  color: var(--muted);
+.greeting {
+  order: 1;
+  margin-bottom: 10px;
+  color: var(--text);
+  font: var(--date-weight) 22px/1.3 var(--date-font);
 }
 
-/* Each style's font shorthand resets font-variant-numeric, so each one sets tabular figures
-   again: the clock must not change width from minute to minute. */
+.date {
+  order: 2;
+  color: var(--muted);
+  font: var(--date-weight) var(--date-size)/1.4 var(--date-font);
+  font-variant: var(--date-variant);
+  letter-spacing: var(--date-tracking);
+  text-transform: var(--date-transform);
+}
+
+/* The font shorthand resets font-variant-numeric, so it comes after: tabular figures keep the
+   clock from changing width each minute. */
 .time {
-  line-height: 1;
+  order: 3;
+  margin-top: var(--time-gap);
+  font: var(--time-weight) calc(var(--time-size) * var(--time-scale, 1)) / 1 var(--time-font);
+  font-variant-numeric: var(--time-numeric);
+  letter-spacing: var(--time-tracking);
 }
 
 .period {
@@ -47,6 +71,33 @@ main {
   color: var(--muted);
   font-size: 0.26em;
   letter-spacing: 0.04em;
+}
+
+.analog {
+  order: 3;
+  width: 180px;
+  height: 180px;
+  margin-top: 22px;
+  fill: none;
+  stroke: var(--text);
+}
+
+.analog .face {
+  stroke: var(--muted);
+  stroke-width: 1;
+}
+
+.analog .hour {
+  stroke-width: 3;
+}
+
+.analog .minute {
+  stroke-width: 1.5;
+}
+
+.analog .pin {
+  fill: var(--text);
+  stroke: none;
 }
 
 .switcher {
@@ -58,66 +109,158 @@ main {
   display: none !important;
 }
 
-/* Editorial: a display serif against a quiet sans, like a magazine masthead. */
-[data-style='editorial'] .date {
-  font: 400 15px/1.4 'Inter Variable', system-ui, sans-serif;
-  letter-spacing: 0.01em;
+/* Styles */
+
+main[data-style='editorial'] {
+  --time-font: 'Instrument Serif', Georgia, serif;
+  --time-weight: 400;
+  --time-tracking: -0.02em;
+  --time-gap: 6px;
+  --time-numeric: tabular-nums;
+  --date-font: 'Inter Variable', system-ui, sans-serif;
+  --date-weight: 400;
+  --date-size: 15px;
+  --date-tracking: 0.01em;
+  --date-transform: none;
+  --date-variant: normal;
 }
 
-[data-style='editorial'] .time {
-  margin-top: 6px;
-  font: 400 var(--time-size)/1 'Instrument Serif', Georgia, serif;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
+main[data-style='suizo'] {
+  --time-font: 'Inter Variable', system-ui, sans-serif;
+  --time-weight: 200;
+  --time-tracking: -0.05em;
+  --time-gap: 14px;
+  --time-numeric: tabular-nums;
+  --date-font: 'Inter Variable', system-ui, sans-serif;
+  --date-weight: 500;
+  --date-size: 12px;
+  --date-tracking: 0.14em;
+  --date-transform: uppercase;
+  --date-variant: normal;
 }
 
-/* Suizo: one family; the hierarchy is weight and scale. */
-[data-style='suizo'] .date {
-  font: 500 12px/1.4 'Inter Variable', system-ui, sans-serif;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+main[data-style='maquina'] {
+  --time-font: 'IBM Plex Mono', ui-monospace, monospace;
+  --time-weight: 300;
+  --time-scale: 0.8;
+  --time-tracking: -0.04em;
+  --time-gap: 12px;
+  --time-numeric: tabular-nums;
+  --date-font: 'IBM Plex Mono', ui-monospace, monospace;
+  --date-weight: 400;
+  --date-size: 13px;
+  --date-tracking: 0;
+  --date-transform: none;
+  --date-variant: normal;
 }
 
-[data-style='suizo'] .time {
-  margin-top: 14px;
-  font: 200 var(--time-size)/1 'Inter Variable', system-ui, sans-serif;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.05em;
-}
-
-/* Máquina: the terminal's monospace. */
-[data-style='maquina'] .date {
-  font: 400 13px/1.4 'IBM Plex Mono', ui-monospace, monospace;
-}
-
-[data-style='maquina'] .time {
-  margin-top: 12px;
-  font: 300 calc(var(--time-size) * 0.8)/1 'IBM Plex Mono', ui-monospace, monospace;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.04em;
-}
-
-/* Libro: a classic book face, small caps and old-style figures. */
-[data-style='libro'] .date {
-  font: 400 19px/1.4 'EB Garamond Variable', Garamond, serif;
-  font-variant: small-caps;
-  letter-spacing: 0.04em;
-}
-
-[data-style='libro'] .time {
-  margin-top: 4px;
-  font: 400 var(--time-size)/1 'EB Garamond Variable', Garamond, serif;
-  font-variant-numeric: oldstyle-nums tabular-nums;
+main[data-style='libro'] {
+  --time-font: 'EB Garamond Variable', Garamond, serif;
+  --time-weight: 400;
+  --time-tracking: 0;
+  --time-gap: 4px;
+  --time-numeric: oldstyle-nums tabular-nums;
+  --date-font: 'EB Garamond Variable', Garamond, serif;
+  --date-weight: 400;
+  --date-size: 19px;
+  --date-tracking: 0.04em;
+  --date-transform: none;
+  --date-variant: small-caps;
 }
 
 /* Tema: the font from userContent.css (--sobrio-font), installed on this machine. */
-[data-style='tema'] .date {
-  font: 400 15px/1.4 var(--theme-font);
+main[data-style='tema'] {
+  --time-font: var(--theme-font);
+  --time-weight: 300;
+  --time-tracking: -0.03em;
+  --time-gap: 8px;
+  --time-numeric: tabular-nums;
+  --date-font: var(--theme-font);
+  --date-weight: 400;
+  --date-size: 15px;
+  --date-tracking: 0.01em;
+  --date-transform: none;
+  --date-variant: normal;
 }
 
-[data-style='tema'] .time {
-  margin-top: 8px;
-  font: 300 var(--time-size)/1 var(--theme-font);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.03em;
+/* Custom: fonts named in the settings (--custom-* set by newtab.js). */
+main[data-style='custom'] {
+  --time-font: var(--custom-time-font, system-ui), system-ui, sans-serif;
+  --time-weight: var(--custom-time-weight, 300);
+  --time-tracking: -0.02em;
+  --time-gap: 8px;
+  --time-numeric: tabular-nums;
+  --date-font: var(--custom-date-font, system-ui), system-ui, sans-serif;
+  --date-weight: 400;
+  --date-size: 15px;
+  --date-tracking: 0.01em;
+  --date-transform: none;
+  --date-variant: normal;
+}
+
+/* Layouts */
+
+main[data-layout='hora'] {
+  --time-size: clamp(120px, 22vw, 280px);
+}
+
+main[data-layout='linea'] .clock {
+  flex-flow: row wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0 20px;
+}
+
+main[data-layout='linea'] .greeting {
+  flex-basis: 100%;
+}
+
+main[data-layout='linea'] {
+  --time-size: 48px;
+  --time-gap: 0;
+}
+
+main[data-layout='apilado'] {
+  padding-top: 12vh;
+  --time-size: clamp(72px, 12vw, 150px);
+}
+
+main[data-layout='apilado'] .time {
+  line-height: 0.84;
+}
+
+main[data-layout='apilado'] .time span {
+  display: block;
+}
+
+main[data-layout='apilado'] .time .period {
+  margin: 0.4em 0 0;
+}
+
+main[data-layout='apilado'] .date {
+  order: 4;
+  margin-top: 22px;
+}
+
+main[data-layout='esquina'] {
+  padding-top: 38vh;
+  --time-size: 44px;
+  --time-gap: 2px;
+}
+
+main[data-layout='esquina'] .clock {
+  position: fixed;
+  bottom: 28px;
+  left: 32px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+main[data-layout='esquina'] .greeting {
+  font-size: 16px;
+}
+
+main[data-layout='analogico'] .date {
+  order: 4;
+  margin-top: 22px;
 }

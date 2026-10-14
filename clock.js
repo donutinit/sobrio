@@ -28,7 +28,20 @@
     };
   }
 
-  const api = { pickLocale, formatDate, formatTime, timeParts };
+  // The greeting's message key: morning from 5, afternoon from 12, evening from 19.
+  function greetingKey(hour) {
+    if (hour >= 5 && hour < 12) return 'greetingMorning';
+    if (hour >= 12 && hour < 19) return 'greetingAfternoon';
+    return 'greetingEvening';
+  }
+
+  // The analog clock's hands, in degrees clockwise from twelve.
+  function handAngles(date) {
+    const minutes = date.getMinutes();
+    return { hour: (date.getHours() % 12) * 30 + minutes * 0.5, minute: minutes * 6 };
+  }
+
+  const api = { pickLocale, formatDate, formatTime, timeParts, greetingKey, handAngles };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.clock = api;
   if (typeof module === 'object') module.exports = api;

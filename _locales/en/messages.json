@@ -303,5 +303,14 @@
   },
   "toastCopyFailed": {
     "message": "Could not copy"
+  },
+  "greetingMorning": {
+    "message": "Good morning"
+  },
+  "greetingAfternoon": {
+    "message": "Good afternoon"
+  },
+  "greetingEvening": {
+    "message": "Good evening"
   }
 }

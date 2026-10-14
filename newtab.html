@@ -8,9 +8,18 @@
     <link rel="stylesheet" href="newtab.css">
   </head>
   <body>
-    <main data-style="editorial">
-      <p class="date"></p>
-      <p class="time"></p>
+    <main data-style="editorial" data-layout="clasico">
+      <div class="clock">
+        <p class="greeting" hidden></p>
+        <p class="date"></p>
+        <p class="time"></p>
+        <svg class="analog" viewBox="0 0 200 200" hidden aria-hidden="true">
+          <circle class="face" cx="100" cy="100" r="96"></circle>
+          <line class="hour" x1="100" y1="100" x2="100" y2="54"></line>
+          <line class="minute" x1="100" y1="100" x2="100" y2="22"></line>
+          <circle class="pin" cx="100" cy="100" r="3"></circle>
+        </svg>
+      </div>
       <div class="switcher"></div>
     </main>
     <script src="settings.js"></script>
