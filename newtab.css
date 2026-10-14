@@ -36,8 +36,9 @@ main {
   color: var(--muted);
 }
 
+/* Each style's font shorthand resets font-variant-numeric, so each one sets tabular figures
+   again: the clock must not change width from minute to minute. */
 .time {
-  font-variant-numeric: tabular-nums;
   line-height: 1;
 }
 
@@ -66,6 +67,7 @@ main {
 [data-style='editorial'] .time {
   margin-top: 6px;
   font: 400 var(--time-size)/1 'Instrument Serif', Georgia, serif;
+  font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
 
@@ -79,6 +81,7 @@ main {
 [data-style='suizo'] .time {
   margin-top: 14px;
   font: 200 var(--time-size)/1 'Inter Variable', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
   letter-spacing: -0.05em;
 }
 
@@ -90,6 +93,7 @@ main {
 [data-style='maquina'] .time {
   margin-top: 12px;
   font: 300 calc(var(--time-size) * 0.8)/1 'IBM Plex Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
   letter-spacing: -0.04em;
 }
 
@@ -114,5 +118,6 @@ main {
 [data-style='tema'] .time {
   margin-top: 8px;
   font: 300 var(--time-size)/1 var(--theme-font);
+  font-variant-numeric: tabular-nums;
   letter-spacing: -0.03em;
 }

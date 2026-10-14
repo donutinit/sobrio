@@ -60,6 +60,9 @@
     paint();
   }
 
+  // Timers sleep in background tabs and while the computer sleeps: redraw on coming back.
+  document.addEventListener('visibilitychange', () => document.visibilityState === 'visible' && tick());
+
   // Browsers keep the focus in the address bar on a new tab. A click anywhere, a typed
   // character, or Ctrl+Space (through the background) brings it to the switcher.
   document.addEventListener('mousedown', (e) => {
