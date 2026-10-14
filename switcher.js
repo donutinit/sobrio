@@ -1,7 +1,9 @@
 // The switcher: an overlay on the page (injected on Ctrl+Space) or the toolbar popup.
 (() => {
   const { match } = sobrio;
-  const KEY_EVENTS = ['keydown', 'keypress', 'keyup'];
+  // Everything typing fires and pages could listen to: keys, and the text itself.
+  const SHIELDED_EVENTS = ['keydown', 'keypress', 'keyup', 'beforeinput', 'input', 'textInput',
+    'compositionstart', 'compositionupdate', 'compositionend'];
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions);
   // boot.js keeps the native sendMessage before darkreader.js patches it. Popups and tabs
   // opened before sobrio was installed have no boot.js, and nothing patched either.
@@ -165,7 +167,7 @@
     input.addEventListener('input', update);
     update();
     input.focus();
-    return { onKey };
+    return { onKey, onInput: update };
   }
 
   function toggleSwitcher() {
@@ -179,21 +181,23 @@
       'all: initial !important; position: fixed !important; inset: 0 !important; z-index: 2147483647 !important;';
     const shadow = host.attachShadow({ mode: 'closed' });
     // Window capture runs before the page's own document and element listeners, so typing
-    // here never reaches site shortcuts (YouTube's k, GitHub's s).
+    // here never reaches site shortcuts (YouTube's k, GitHub's s) nor page scripts reading the
+    // text. Stopped there, input never reaches the input's own listener: the shield calls it.
     const shield = (e) => {
       if (!e.composedPath().includes(host)) return;
       if (e.type === 'keydown') onKey(e);
+      if (e.type === 'input') onInput();
       e.stopImmediatePropagation();
     };
     const close = () => {
-      KEY_EVENTS.forEach((type) => removeEventListener(type, shield, true));
+      SHIELDED_EVENTS.forEach((type) => removeEventListener(type, shield, true));
       host.remove();
       sobrio.switcher = null;
       previous?.focus?.({ preventScroll: true });
     };
     document.documentElement.append(host);
-    KEY_EVENTS.forEach((type) => addEventListener(type, shield, true));
-    const { onKey } = mountSwitcher(shadow, { popup: false, hostname: location.hostname, close });
+    SHIELDED_EVENTS.forEach((type) => addEventListener(type, shield, true));
+    const { onKey, onInput } = mountSwitcher(shadow, { popup: false, hostname: location.hostname, close });
     sobrio.switcher = { close };
   }
 
