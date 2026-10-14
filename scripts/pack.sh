@@ -10,6 +10,6 @@ rm -f "$out"
 zip -q -r "$out" LICENSE THIRD_PARTY_NOTICES.md manifest.json _locales icons/icon-*.png popup.html \
   boot.js settings.js style.js darkreader.js detector.js page.js speed.js \
   background.js guard.js match.js switcher-css.js switcher.js popup.js options.html options.css options.js \
-  newtab.html newtab.css newtab.js clock.js fonts.css fonts
+  newtab.html newtab.css newtab.js clock.js fonts.css fonts stats.js
 cp "$out" "dist/sobrio-$version.xpi"
 echo "$out dist/sobrio-$version.xpi"

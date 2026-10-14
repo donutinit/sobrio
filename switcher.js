@@ -75,6 +75,7 @@
     const { mergeSettings, siteState, matchingPatterns } = sobrio.settings;
     let settings = mergeSettings(undefined);
     let stored = {};
+    let stats = {}; // the switcher's memory: storage.local.stats
     let bookmarks = [];
     // Until the list arrives nothing jumps to an engine, and an early Enter waits for it:
     // a quick "gh" + Enter means the bookmark, not a web search.
@@ -92,15 +93,17 @@
         update();
         if (pendingEnter) activate(selected, pendingEnter.newTab);
       });
-    chrome.storage.local.get(['settings', 'theme', 'darkOff', 'cssOff']).then((answer) => {
+    chrome.storage.local.get(['settings', 'theme', 'darkOff', 'cssOff', 'stats']).then((answer) => {
       stored = answer;
+      stats = answer.stats && typeof answer.stats === 'object' ? answer.stats : {};
       settings = mergeSettings(answer.settings);
       for (const [name, value] of Object.entries(themeVariables(answer.theme))) frame.style.setProperty(name, value);
       if (popup && answer.theme?.background) document.documentElement.style.background = answer.theme.background;
       update();
     });
 
-    const open = (url, newTab) => send({ sobrio: 'open', url, newTab });
+    // record: the title to remember the page under (bookmarks only; searches are not counted).
+    const open = (url, newTab, record) => send({ sobrio: 'open', url, newTab, record });
     // td and ta act through page.js, which only runs where boot.js did (sobrio.send): not in
     // the popup, nor in tabs that were open before sobrio was installed or updated.
     const commandAllowed = (kind) =>
@@ -114,7 +117,7 @@
       return {
         title: highlight(match.displayTitle(bookmark), bookmark.title ? hits.title : []),
         sub,
-        run: (newTab) => open(bookmark.url, newTab),
+        run: (newTab) => open(bookmark.url, newTab, match.displayTitle(bookmark)),
       };
     }
 
@@ -163,8 +166,10 @@
       const query = input.value;
       const modes = match.modes(settings.switcher);
       if (state.manual && !modes.includes(state.mode)) state = { mode: modes[0], manual: false };
+      const now = Date.now();
+      const boost = settings.switcher.memory ? (b) => sobrio.stats.boostOf(stats[b.url], now) : undefined;
       const results = settings.switcher.bookmarks
-        ? match.searchBookmarks(bookmarks, query, undefined, settings.switcher.precision)
+        ? match.searchBookmarks(bookmarks, query, undefined, settings.switcher.precision, boost)
         : [];
       const parsed = match.parseCommand(query);
       const command = parsed && commandAllowed(parsed) ? parsed : null;
@@ -194,7 +199,7 @@
         ...rows.map((row, i) => {
           const item = el('li', 'row', el('div', 'title', row.title), el('div', 'sub', row.sub));
           item.addEventListener('mousemove', () => select(i));
-          item.addEventListener('click', (e) => activate(i, e.ctrlKey || e.metaKey));
+          item.addEventListener('click', (e) => activate(i, e.ctrlKey || e.metaKey || e.altKey));
           return item;
         }),
       );
@@ -228,7 +233,7 @@
       else if (key === 'Tab') {
         state = { mode: match.nextMode(match.modes(settings.switcher), state.mode, e.shiftKey ? -1 : 1), manual: true };
         update();
-      } else if (key === 'Enter') activate(selected, ctrl);
+      } else if (key === 'Enter') activate(selected, ctrl || e.altKey); // Ctrl, Alt or Meta: a new tab
       else if (key === 'Escape' && layout === 'inline') {
         input.value = '';
         update();

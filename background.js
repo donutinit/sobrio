@@ -1,5 +1,5 @@
 // Firefox loads the helpers through background.scripts; Chrome's service worker imports them.
-if (typeof importScripts === 'function') importScripts('guard.js', 'match.js', 'settings.js');
+if (typeof importScripts === 'function') importScripts('guard.js', 'match.js', 'settings.js', 'stats.js');
 
 const { guard, match } = sobrio;
 
@@ -13,7 +13,11 @@ if (typeof document !== 'undefined') {
 const handlers = {
   fetch: (message) => fetchForDarkReader(message.url),
   bookmarks: () => getBookmarks(),
-  open: (message, sender) => openUrl(message.url, message.newTab, sender.tab),
+  open: async (message, sender) => {
+    await openUrl(message.url, message.newTab, sender.tab);
+    if (typeof message.record === 'string') await remember(message.url, message.record);
+    return true;
+  },
   settings: () => chrome.runtime.openOptionsPage().then(() => true),
 };
 
@@ -72,6 +76,14 @@ for (const event of ['onCreated', 'onRemoved', 'onChanged', 'onMoved']) {
   });
 }
 
+// The switcher's memory: count the bookmark just opened, if memory is on.
+async function remember(url, title) {
+  const { settings, stats } = await chrome.storage.local.get(['settings', 'stats']);
+  if (!sobrio.settings.mergeSettings(settings).switcher.memory) return;
+  const next = sobrio.stats.recordOpen(stats && typeof stats === 'object' ? stats : {}, url, title);
+  await chrome.storage.local.set({ stats: sobrio.stats.pruneStats(next) });
+}
+
 // From a page the tab is the sender's; from the popup it is the active one.
 async function openUrl(url, newTab, tab) {
   tab ??= (await chrome.tabs.query({ active: true, lastFocusedWindow: true }))[0];
@@ -117,7 +129,7 @@ async function injectSwitcher(tabId, mode) {
       args: [mode],
     });
   }
-  await chrome.scripting.executeScript({ target, files: ['settings.js', 'match.js', 'switcher-css.js', 'switcher.js'] });
+  await chrome.scripting.executeScript({ target, files: ['settings.js', 'stats.js', 'match.js', 'switcher-css.js', 'switcher.js'] });
 }
 
 function openPopup() {

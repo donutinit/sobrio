@@ -16,7 +16,7 @@
     switcher: {
       bookmarks: true, autoSearch: true, commands: true, hints: true,
       engines: { google: true, duckduckgo: true, youtube: true, wikipedia: true, github: true },
-      precision: 'normal', defaultEngine: 'google', customEngines: [],
+      precision: 'normal', defaultEngine: 'google', customEngines: [], memory: true,
     },
     newtab: {
       style: 'editorial', locales: [], clock: 'auto', date: true, time: true, switcher: true,
@@ -64,6 +64,7 @@
       precision: oneOf('strict', 'normal', 'loose'),
       defaultEngine: (v) => typeof v === 'string',
       customEngines: Array.isArray,
+      memory: bool,
     },
     newtab: {
       style: oneOf('editorial', 'suizo', 'maquina', 'libro', 'tema', 'custom'), locales: Array.isArray,

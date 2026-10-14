@@ -114,18 +114,19 @@
     return fields;
   }
 
-  function searchBookmarks(list, query, limit = MAX_RESULTS, precision = 'normal') {
+  // boost(bookmark): extra score from the switcher's memory (stats.js); 0 without it.
+  function searchBookmarks(list, query, limit = MAX_RESULTS, precision = 'normal', boost = () => 0) {
     const words = fold(query).split(/\s+/).filter(Boolean);
     if (!words.length) {
       return list
-        .map((bookmark) => ({ bookmark, score: 0, hits: { title: [], folder: [], url: [] } }))
-        .sort(newestFirst)
+        .map((bookmark) => ({ bookmark, score: boost(bookmark), hits: { title: [], folder: [], url: [] } }))
+        .sort((a, b) => b.score - a.score || newestFirst(a, b))
         .slice(0, RECENT);
     }
     const results = [];
     for (const bookmark of list) {
       const scored = scoreBookmark(foldedFields(bookmark), words, precision);
-      if (scored) results.push({ bookmark, ...scored });
+      if (scored) results.push({ bookmark, ...scored, score: scored.score + boost(bookmark) });
     }
     return results.sort((a, b) => b.score - a.score || newestFirst(a, b)).slice(0, limit);
   }

@@ -290,3 +290,24 @@ test('strict precision: each word must appear as it is written', () => {
   assert.deepEqual(searchBookmarks([book], 'book', 50, 'strict')[0].hits.title, [5, 6, 7, 8]);
   assert.equal(searchBookmarks([bm('Canción Única', 'https://a.dev/')], 'cancion', 50, 'strict').length, 1);
 });
+
+test('memory: a page opened often rises among similar matches', () => {
+  const often = bm('Rust Book', 'https://often.dev/', '', 1);
+  const rare = bm('Rust Blog', 'https://rare.dev/', '', 2);
+  const boost = (b) => (b === often ? 16 : 0);
+  assert.equal(searchBookmarks([often, rare], 'rust', 50, 'normal')[0].bookmark, rare);
+  assert.equal(searchBookmarks([often, rare], 'rust', 50, 'normal', boost)[0].bookmark, often);
+});
+
+test('memory never lifts a url-only match over a title match', () => {
+  const titled = bm('Rust', 'https://a.dev/', '', 1);
+  const urlOnly = bm('Other', 'https://x.dev/rust', '', 2);
+  const boost = (b) => (b === urlOnly ? 40 : 0);
+  assert.equal(searchBookmarks([titled, urlOnly], 'rust', 50, 'normal', boost)[0].bookmark, titled);
+});
+
+test('memory: with an empty query the most used come first', () => {
+  const list = many(5);
+  const boost = (b) => (b === list[1] ? 10 : 0);
+  assert.equal(searchBookmarks(list, '', 50, 'normal', boost)[0].bookmark, list[1]);
+});

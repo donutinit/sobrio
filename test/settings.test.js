@@ -331,3 +331,9 @@ test('cleanUrl drops tracking parameters only', () => {
   assert.equal(cleanUrl('https://a.com/?utm_campaign=x'), 'https://a.com/');
   assert.equal(cleanUrl('not a url'), 'not a url');
 });
+
+test('memory is on by default and must be a boolean', () => {
+  assert.equal(DEFAULTS.switcher.memory, true);
+  assert.equal(mergeSettings({ switcher: { memory: false } }).switcher.memory, false);
+  assert.equal(mergeSettings({ switcher: { memory: 'yes' } }).switcher.memory, true);
+});
