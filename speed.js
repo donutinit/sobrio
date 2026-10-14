@@ -78,10 +78,15 @@
     if (dir === null || isEditable(e.composedPath()[0]) || !hasLiveMedia()) return;
     e.preventDefault();
     e.stopImmediatePropagation();
-    const next = dir === 0 ? 1 : stepSpeed(pageOwn ?? target, speed.step, dir);
+    setSpeed(dir === 0 ? 1 : stepSpeed(pageOwn ?? target, speed.step, dir));
+  }, true);
+
+  // A speed from the keys or from a shortcut. It replaces one the page chose itself; on a site
+  // with a rule it is for this page only, elsewhere it is the new global speed.
+  function setSpeed(next) {
     const ruled = speed.rules.some((rule) => hostMatches(rule.pattern, host));
     if (ruled) {
-      pageOwn = next; // a site with a rule: only this page
+      pageOwn = next;
     } else {
       pageOwn = null;
       target = next;
@@ -89,7 +94,14 @@
     }
     applyAll();
     toast(next, ruled);
-  }, true);
+  }
+
+  // For shortcuts.js. False while media speed is turned off in the settings.
+  sobrio.setSpeed = (value) => {
+    if (!speed.enabled) return false;
+    setSpeed(value);
+    return true;
+  };
 
   // Holding ] repeats the key: save once it settles, so every tab is not woken on each repeat.
   let saveTimer;

@@ -19,7 +19,9 @@ const handlers = {
     return true;
   },
   settings: () => chrome.runtime.openOptionsPage().then(() => true),
-  shortcut: (message, sender) => runShortcut(message, sender.tab),
+  // sender.url is the page that asked: sobrio's new tab even where Chrome calls the tab
+  // chrome://newtab/.
+  shortcut: (message, sender) => runShortcut(message, sender.tab, sender.url),
 };
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -78,14 +80,14 @@ for (const event of ['onCreated', 'onRemoved', 'onChanged', 'onMoved']) {
 }
 
 // The shortcut actions a page cannot run itself (shortcuts.js runs the rest).
-async function runShortcut({ action, param, text }, tab) {
+async function runShortcut({ action, param, text }, tab, from) {
   const { settings } = await chrome.storage.local.get('settings');
   const { switcher } = sobrio.settings.mergeSettings(settings);
-  if (action === 'switcher') return showSwitcher(tab);
-  if (action === 'search') return showSwitcher(tab, param);
+  if (action === 'switcher') return showSwitcher(tab, undefined, from);
+  if (action === 'search') return showSwitcher(tab, param, from);
   if (action === 'searchSelection') {
     const engine = match.engineById(param, switcher);
-    if (!text || !engine) return showSwitcher(tab, param);
+    if (!text || !engine) return showSwitcher(tab, param, from);
     return openUrl(match.searchUrl(engine, text), true, tab);
   }
   if (action === 'openUrl' || action === 'openUrlNewTab') return openUrl(param, action === 'openUrlNewTab', tab);
@@ -94,9 +96,9 @@ async function runShortcut({ action, param, text }, tab) {
 }
 
 // On sobrio's own new tab the switcher is already there: focus it. Elsewhere, inject it.
-async function showSwitcher(tab, mode) {
-  if (guard.isOwnNewtab(tab?.url, NEWTAB)) {
-    await chrome.runtime.sendMessage({ sobrio: 'focus-switcher', tabId: tab.id }).catch(() => {});
+async function showSwitcher(tab, mode, from = tab?.url) {
+  if (guard.isOwnNewtab(from, NEWTAB)) {
+    await chrome.runtime.sendMessage({ sobrio: 'focus-switcher', tabId: tab.id, mode }).catch(() => {});
     return true;
   }
   await injectSwitcher(tab.id, mode);

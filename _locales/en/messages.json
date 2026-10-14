@@ -501,5 +501,8 @@
   },
   "mediaPauseAutoplay": {
     "message": "Pause video and audio that play on their own"
+  },
+  "toastSpeedOff": {
+    "message": "Media speed is off in the settings"
   }
 }

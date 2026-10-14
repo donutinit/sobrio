@@ -20,12 +20,23 @@
 
   const get = (path) => path.split('.').reduce((object, key) => object[key], settings);
 
+  // One control that cannot paint must not leave the rest of the page stale.
+  function repaint() {
+    for (const sync of syncs) {
+      try {
+        sync();
+      } catch (error) {
+        console.error('sobrio: a setting could not be shown', error);
+      }
+    }
+  }
+
   function set(path, value) {
     const keys = path.split('.');
     const last = keys.pop();
     keys.reduce((object, key) => object[key], settings)[last] = value;
     chrome.storage.local.set({ settings });
-    syncs.forEach((sync) => sync());
+    repaint();
   }
 
   function debounced(fn, ms = 200) {
@@ -145,7 +156,7 @@
         select.replaceChildren(...list.map(({ value, label: text }) => el('option', { value, textContent: text })));
         select.dataset.choices = JSON.stringify(list);
       }
-      select.value = list.some((choice) => choice.value === String(current)) ? String(current) : list[0].value;
+      select.value = list.some((choice) => choice.value === String(current)) ? String(current) : list[0]?.value ?? '';
     });
     return node;
   }
@@ -317,6 +328,11 @@
     const items = el('ul', { className: 'patterns' });
     let keys = null;
     let recording = false;
+    const stopRecording = () => {
+      recording = false;
+      recorder.textContent = keys ?? t('shortcutRecord');
+      recorder.classList.remove('recording');
+    };
     const showParam = () => {
       const kind = ACTIONS[action.value];
       engine.hidden = kind !== 'engine';
@@ -329,22 +345,20 @@
       recorder.textContent = t('shortcutPress');
       recorder.classList.add('recording');
     });
+    // Leaving the button stops listening: the next key typed elsewhere is not a shortcut.
+    recorder.addEventListener('blur', () => recording && stopRecording());
     addEventListener('keydown', (e) => {
       if (!recording) return;
       e.preventDefault();
       e.stopPropagation();
       if (e.key === 'Escape' && !e.ctrlKey && !e.altKey && !e.metaKey) {
-        recording = false;
-        recorder.textContent = keys ?? t('shortcutRecord');
-        recorder.classList.remove('recording');
+        stopRecording();
         return;
       }
       const combo = normalizeKeys(e);
       if (!combo) return; // a modifier alone: keep waiting for the key
-      recording = false;
-      recorder.classList.remove('recording');
       keys = combo;
-      recorder.textContent = combo;
+      stopRecording();
     }, true);
     add.addEventListener('click', () => {
       if (!isValidShortcutKeys(keys)) return flash(status, t('invalidShortcut'));
@@ -537,7 +551,8 @@
         switchRow('switcher.memory', 'switcherMemory'),
         switchRow('switcher.bookmarks', 'switcherBookmarks', { allow: keepOnePiece(switcherStatus, 'switcher.bookmarks') }),
         selectRow('switcher.defaultEngine', 'switcherDefaultEngine', () =>
-          allEngines(settings.switcher).map((engine) => ({ value: engine.id, label: engine.name }))),
+          allEngines(settings.switcher).map((engine) => ({ value: engine.id, label: engine.name })),
+        { showIf: () => allEngines(settings.switcher).length > 0 }),
         ...ENGINES.map((engine) => {
           const node = switchRow(`switcher.engines.${engine.id}`, 'switcherEngine', {
             indent: true, allow: keepOnePiece(switcherStatus, `switcher.engines.${engine.id}`),
@@ -617,7 +632,7 @@
     lists = { cssOff: array(stored.cssOff), darkOff: array(stored.darkOff) };
     stats = stored.stats && typeof stored.stats === 'object' ? stored.stats : {};
     paintTheme();
-    syncs.forEach((sync) => sync());
+    repaint();
   }
 
   document.title = `sobrio · ${t('settingsTitle')}`;

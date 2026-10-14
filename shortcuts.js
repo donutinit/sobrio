@@ -28,12 +28,20 @@
     if (!keys.includes('+') && isEditable(e.composedPath()[0])) return;
     e.preventDefault();
     e.stopImmediatePropagation();
+    // A held key repeats: the shortcut runs once per press (one tab, one toggle).
+    if (e.repeat) return;
     run(shortcut).catch((error) => console.warn('sobrio: shortcut failed', error));
   }, true);
 
   async function rawSettings() {
     const { settings: raw } = await chrome.storage.local.get('settings');
     return raw && typeof raw === 'object' ? raw : {};
+  }
+
+  async function setDarkEverywhere(enabled) {
+    const raw = await rawSettings();
+    raw.dark = { ...(raw.dark && typeof raw.dark === 'object' ? raw.dark : {}), enabled };
+    await chrome.storage.local.set({ settings: raw });
   }
 
   async function toggleSite(kind) {
@@ -59,17 +67,23 @@
 
   async function run({ action, param }) {
     const toast = sobrio.toast ?? (() => {});
-    if (action === 'toggleDark' && onPage) {
+    if (action === 'toggleDark' && onPage && !settings.dark.enabled) {
+      // Like td: with dark mode off everywhere, it turns it back on.
+      await setDarkEverywhere(true);
+      toast(t('toastDarkEverywhereOn'));
+    } else if (action === 'toggleDark' && onPage) {
       toast(t((await toggleSite('dark')) ? 'toastDarkOn' : 'toastDarkOff'), location.hostname);
     } else if (action === 'toggleCss' && onPage) {
       toast(t((await toggleSite('css')) ? 'toastCssOn' : 'toastCssOff'), location.hostname);
     } else if (action === 'toggleDarkEverywhere') {
-      const raw = await rawSettings();
       const enabled = !settings.dark.enabled;
-      raw.dark = { ...(raw.dark && typeof raw.dark === 'object' ? raw.dark : {}), enabled };
-      await chrome.storage.local.set({ settings: raw });
+      await setDarkEverywhere(enabled);
       toast(t(enabled ? 'toastDarkEverywhereOn' : 'toastDarkEverywhereOff'));
+    } else if (action === 'speed' && sobrio.setSpeed) {
+      // speed.js applies it as ] and [ do; off in the settings, it says so.
+      if (!sobrio.setSpeed(param)) toast(t('toastSpeedOff'));
     } else if (action === 'speed') {
+      // The new tab has no media and no speed.js: only the global speed changes.
       const raw = await rawSettings();
       raw.speed = { ...(raw.speed && typeof raw.speed === 'object' ? raw.speed : {}), speed: param };
       await chrome.storage.local.set({ settings: raw });

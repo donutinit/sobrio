@@ -242,7 +242,16 @@
     input.addEventListener('input', update);
     update();
     input.focus();
-    return { onKey, onInput: update, focus: () => input.focus() };
+    // focus(mode): a search shortcut on the new tab starts on its engine.
+    function focus(mode) {
+      if (mode && match.modes(settings.switcher).includes(mode)) {
+        state = { mode, manual: true };
+        update();
+      }
+      input.focus();
+    }
+
+    return { onKey, onInput: update, focus };
   }
 
   function toggleSwitcher() {
@@ -260,10 +269,12 @@
     // Window capture runs before the page's own document and element listeners, so typing
     // here never reaches site shortcuts (YouTube's k, GitHub's s) nor page scripts reading the
     // text. Stopped there, input never reaches the input's own listener: the shield calls it.
+    // Only the person's own events act: the host is in the page's DOM, and a page could
+    // otherwise dispatch an Enter at it and open a bookmark.
     const shield = (e) => {
       if (!e.composedPath().includes(host)) return;
-      if (e.type === 'keydown') onKey(e);
-      if (e.type === 'input') onInput();
+      if (e.isTrusted && e.type === 'keydown') onKey(e);
+      if (e.isTrusted && e.type === 'input') onInput();
       e.stopImmediatePropagation();
     };
     const close = () => {

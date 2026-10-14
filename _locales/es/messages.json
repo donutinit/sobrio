@@ -501,5 +501,8 @@
   },
   "mediaPauseAutoplay": {
     "message": "Pausar video y audio que suenan solos"
+  },
+  "toastSpeedOff": {
+    "message": "La velocidad de medios está apagada en los ajustes"
   }
 }

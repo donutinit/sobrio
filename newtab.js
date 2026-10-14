@@ -116,7 +116,7 @@
   });
   chrome.tabs.getCurrent().then((tab) => {
     chrome.runtime.onMessage.addListener((message) => {
-      if (message?.sobrio === 'focus-switcher' && message.tabId === tab?.id) switcher?.focus();
+      if (message?.sobrio === 'focus-switcher' && message.tabId === tab?.id) switcher?.focus(message.mode);
     });
   });
 
