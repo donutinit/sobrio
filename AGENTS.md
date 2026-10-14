@@ -1,12 +1,12 @@
 # sobrio
 
 Extensión MV3 para Firefox, LibreWolf y Chrome: el CSS de Diego en todos los sitios (por
-interruptores), modo oscuro con el motor de Dark Reader, un switcher tipo Obsidian para bookmarks
-y motores de búsqueda, una página de ajustes, una nueva pestaña propia y control de velocidad de
-medios. Repo público (`donutinit/sobrio`). Uso en `README.md`; diseño en
-`docs/superpowers/specs/2026-10-14-sobrio-design.md` (v0.1) y
-`docs/superpowers/specs/2026-10-14-sobrio-v0.2-design.md` (v0.2). `CLAUDE.md` es un hard link de
-este archivo.
+interruptores, más un snippet propio), modo oscuro con el motor de Dark Reader, un switcher tipo
+Obsidian para bookmarks y motores de búsqueda (con memoria de lo que se abre), atajos de teclado
+propios, una página de ajustes en pestañas, una nueva pestaña propia y control de medios
+(velocidad y pausa del autoplay). Repo público (`donutinit/sobrio`). Uso en `README.md`; diseño
+en `docs/superpowers/specs/`: `2026-10-14-sobrio-design.md` (v0.1), `-v0.2-design.md` y
+`-v0.3-design.md`. `CLAUDE.md` es un hard link de este archivo.
 
 ## Comandos
 
@@ -22,21 +22,30 @@ scripts/pack.sh                                     # dist/sobrio-<versión>.zip
 Las dos herramientas cargan la extensión en un perfil temporal. Una URL `ext:options.html` abre
 una página de la extensión. Aceptan `--ext-eval` (antes, dentro de una página de la extensión),
 `--then-ext-eval` y `--keys` (después de cargar: cambiar `storage`, inyectar el switcher, teclas
-reales), `--shots DIR` y `--console TEXTO`. `cdp.py` también tiene `--dark`, `--switcher` (lee el
-shadow root cerrado), `--busy-worker MS`, `--settle S`, `--targets`, `--full`, `--after-ext-eval`
-y `click@x:y` en `--keys`. `marionette.py` tiene `--user-content FILE` (un `userContent.css` para
-el perfil) y `--late-install` (la pestaña ya abierta al instalar).
+reales), `--shots DIR` y `--console TEXTO`. `--keys` solo corre con `--then-ext-eval` (basta
+`"return 1"`) y su resultado sale como `"after"`, no `"eval"`. `cdp.py` también tiene `--dark`,
+`--autoplay` (medios con sonido sin gesto), `--switcher` (lee el shadow root cerrado),
+`--busy-worker MS`, `--settle S`, `--targets`, `--full`, `--after-ext-eval`, `--sw-eval`,
+`--late-load`, `--clipboard` y `click@x:y` en `--keys`. `marionette.py` tiene `--user-content
+FILE` (un `userContent.css` para el perfil), `--late-install` (la pestaña ya abierta al instalar)
+y `--pref nombre=json` (por ejemplo `media.autoplay.default=0`). Las páginas de prueba se sirven
+con `python3 -I -m http.server` desde una carpeta fuera del repo.
 
 ## Reglas
 
 - Sin build, sin `package.json` y sin dependencias de npm. JS plano: content scripts y páginas no
   usan `import`.
-- La lógica pura vive en `settings.js` (modelo, patrones, gancho de tema, velocidad), `style.js`
-  (el CSS por interruptores), `match.js` (switcher), `clock.js` (fecha y hora), `guard.js`
-  (descargas e inyección) y la parte pura de `detector.js`. No tocan `chrome.*` al cargar, para
+- La lógica pura vive en `settings.js` (modelo, patrones, gancho de tema, velocidad, atajos,
+  `cleanUrl`), `style.js` (el CSS por interruptores), `match.js` (switcher y motores), `stats.js`
+  (peso de lo abierto), `clock.js` (fecha, hora, saludo y agujas), `guard.js` (descargas e
+  inyección) y la parte pura de `detector.js`. No tocan `chrome.*` al cargar, para
   que `node --test` los pruebe. Exportan en `globalThis.sobrio` y en `module.exports`.
 - `settings` en `storage.local` se lee siempre con `mergeSettings`: cada campo inválido cae a su
-  default. Los defaults reproducen v0.1.
+  default. Los defaults reproducen v0.1, salvo lo que Diego pidió como nuevo default en v0.3
+  (precisión `normal`, Google primero, comandos en inglés). `stats` vive aparte en
+  `storage.local` (`{[url]: {count, last, title}}`, máximo 2,000).
+- Atajos, velocidad, aviso y pausa del autoplay solo actúan con eventos `isTrusted`: una página
+  no debe poder disparar acciones de la extensión.
 - `darkreader.js`, `fonts/` y `fonts.css` no se editan: se regeneran con `tools/vendor-*.py`, que
   verifican el sha512 del registro. Al actualizar Dark Reader, repetir las pruebas de navegador
   de "Cosas que ya mordieron".
@@ -51,8 +60,8 @@ el perfil) y `--late-install` (la pestaña ya abierta al instalar).
 - Firefox solo deja abrir el popup de forma síncrona dentro del handler del atajo. Por eso
   `guard.canInject` decide antes de intentar inyectar.
 - El switcher vive en un shadow root cerrado. Lo que necesita entra por `files` de
-  `executeScript` (`settings.js`, `match.js`, `switcher-css.js`, `switcher.js`); su CSS es un
-  string. Sus colores son variables `--s-*`.
+  `executeScript` (`settings.js`, `stats.js`, `match.js`, `switcher-css.js`, `switcher.js`); su
+  CSS es un string. Sus colores son variables `--s-*`.
 - El gancho de tema son variables `--sobrio-*` en `userContent.css` dentro de
   `@-moz-document url-prefix("moz-extension://")`. Solo el background de Firefox (y la página de
   ajustes) las lee; `storeThemeHook` escribe `theme` solo si cambió. En dot, la plantilla
@@ -80,10 +89,18 @@ el perfil) y `--late-install` (la pestaña ya abierta al instalar).
   respeta). `emptied` llega antes que el `ratechange` de un `load()`; `loadstart`, después.
 - El switcher frena en `window` (captura) teclas, `beforeinput`, `input` y composición, para que
   la página no lea lo que se escribe; por eso el escudo llama a `update` él mismo.
+- Chrome no conoce `loadReplace` de `tabs.update`: lanza un `TypeError` en el momento de la
+  llamada (no rechaza la promesa), así que va en `try/catch` y se repite sin él.
+- Un `<svg>` no tiene la propiedad `hidden` de HTML: se oculta con `toggleAttribute('hidden')`.
+- El foco de la nueva pestaña (`focusPage`) no se puede probar en headless ni en Xvfb: nadie
+  recibe el foco. Solo a mano.
+- Alt+letra choca con atajos del navegador (Alt+D va a la barra de direcciones) y Marionette no
+  aplica Alt en Firefox: en pruebas, Ctrl+Shift.
 - Pruebas de navegador que conviene repetir: Wikipedia queda negra; GitHub con `--dark` usa su
   tema propio y sin él queda negro; `td`/`ta` y los ajustes cambian en vivo; el switcher en
-  GitHub no deja pasar la `s` al sitio; la nueva pestaña con cada estilo; velocidad con un
-  `<audio>` local.
+  GitHub no deja pasar la `s` al sitio; la nueva pestaña con cada estilo y diseño; velocidad con
+  un `<audio>` local; el autoplay con una página con `<audio autoplay>` y `--autoplay`; grabar un
+  atajo en los ajustes con teclas reales; el flash con una página de CSS blanco.
 
 ## Commits
 
