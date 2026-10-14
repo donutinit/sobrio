@@ -47,13 +47,25 @@
     return out;
   }
 
-  // Greedy subsequence match of one folded word in one folded field.
+  // Best subsequence match of one folded word in one folded field: every place the first
+  // letter appears is tried as a start, so "api" finds "API" and not the "a" of "Payments".
   function matchWord(field, word) {
+    let best = null;
+    for (let start = field.indexOf(word[0]); start !== -1; start = field.indexOf(word[0], start + 1)) {
+      const m = matchFrom(field, word, start);
+      if (!m) break; // a later start cannot fit what this one could not
+      if (!best || m.score > best.score) best = m;
+    }
+    return best;
+  }
+
+  // Greedy from start: each next letter takes its first occurrence.
+  function matchFrom(field, word, start) {
     let score = 0;
     let prev = -1;
     const positions = [];
     for (const c of word) {
-      const i = field.indexOf(c, prev + 1);
+      const i = prev === -1 ? start : field.indexOf(c, prev + 1);
       if (i === -1) return null;
       score += 1;
       if (prev >= 0 && i === prev + 1) score += 5;

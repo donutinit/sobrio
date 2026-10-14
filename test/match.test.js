@@ -53,6 +53,15 @@ test('folder beats url', () => {
   assert.deepEqual(r[0].hits.folder, [0, 1, 2, 3]);
 });
 
+test('a word inside the title beats letters scattered from the left', () => {
+  const r = searchBookmarks(
+    [bm('Rapid prototyping notes', 'https://a.dev/', '', 1), bm('Stripe Payments: API reference', 'https://b.dev/', '', 0)],
+    'api',
+  );
+  assert.equal(r[0].bookmark.title, 'Stripe Payments: API reference');
+  assert.deepEqual(r[0].hits.title, [17, 18, 19]);
+});
+
 test('consecutive beats scattered', () => {
   const r = searchBookmarks([bm('oxwxnx', 'https://a.dev/'), bm('Ownership', 'https://b.dev/')], 'own');
   assert.equal(r[0].bookmark.title, 'Ownership');
