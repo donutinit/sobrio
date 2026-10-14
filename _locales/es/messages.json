@@ -497,7 +497,7 @@
     "message": "Quitarle el foco a la barra de direcciones"
   },
   "newtabFocusPageHint": {
-    "message": "La pestaña se carga otra vez, así que la barra de direcciones muestra su dirección en vez de quedar vacía."
+    "message": "La pestaña se cambia por una nueva en el mismo lugar, así que la barra de direcciones muestra su dirección en vez de quedar vacía."
   },
   "mediaPauseAutoplay": {
     "message": "Pausar video y audio que suenan solos"

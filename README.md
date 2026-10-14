@@ -30,7 +30,7 @@ Three commands, typed in the switcher:
 
 **A new tab.** The date and the time, set with care, and the switcher under them. Six layouts: classic, just the time, one line, stacked (hours over minutes), corner and a minimal analog clock. Four typographic styles: Editorial (Instrument Serif and Inter), Swiss (Inter), Machine (IBM Plex Mono) and Book (EB Garamond), or fonts of your own installed on the machine. An optional greeting with your name. Give it a list of languages and every new tab says the date in one of them, at random.
 
-Browsers keep the focus in the address bar on a new tab, and no extension can take it from there. If you would rather type into the switcher right away, turn on *Take the focus from the address bar*: the tab loads itself once more, which gives the page the focus, and the address bar then shows the page's address instead of staying empty.
+Browsers keep the focus in the address bar on a new tab, and no extension can take it from there. If you would rather type into the switcher right away, turn on *Take the focus from the address bar*: the tab is replaced by a new one in the same place, which starts with the page focused, and the address bar then shows the page's address instead of staying empty. In a Firefox container tab it stays as it is.
 
 **Media speed.** Every video and audio plays at the speed you set, or at a site's own rule. <kbd>]</kbd> faster, <kbd>[</kbd> slower, <kbd>\\</kbd> back to 1×. Anything from 0.91× to 1.09× is just 1×. If you change the speed with a site's own controls, sobrio leaves it alone on that page. Optionally, video and audio that start playing sound before you touch the page are paused; muted ones play on.
 

@@ -29,7 +29,8 @@ reales), `--shots DIR` y `--console TEXTO`. `--keys` solo corre con `--then-ext-
 `--late-load`, `--clipboard`, y en `--keys` `click@x:y` y `Ctrl+J~` (tecla sostenida, con
 autorepeat). `marionette.py` tiene `--user-content
 FILE` (un `userContent.css` para el perfil), `--late-install` (la pestaña ya abierta al instalar)
-y `--pref nombre=json` (por ejemplo `media.autoplay.default=0`). Las páginas de prueba se sirven
+`--pref nombre=json` (por ejemplo `media.autoplay.default=0`) y `--chrome-eval` (en el chrome de
+la ventana: `gBrowser`, `gURLBar`, `BrowserCommands.openTab()`). Las páginas de prueba se sirven
 con `python3 -I -m http.server` desde una carpeta fuera del repo.
 
 ## Reglas
@@ -90,13 +91,19 @@ con `python3 -I -m http.server` desde una carpeta fuera del repo.
   respeta). `emptied` llega antes que el `ratechange` de un `load()`; `loadstart`, después.
 - El switcher frena en `window` (captura) teclas, `beforeinput`, `input` y composición, para que
   la página no lea lo que se escribe; por eso el escudo llama a `update` él mismo.
-- Chrome no conoce `loadReplace` de `tabs.update`: lanza un `TypeError` en el momento de la
-  llamada (no rechaza la promesa), así que va en `try/catch` y se repite sin él.
+- `focusPage`: ni `focus()` ni navegar la pestaña (`tabs.update`) le quitan el foco a la barra
+  de direcciones. Solo una pestaña que la extensión crea con otra dirección empieza con la página
+  enfocada, así que se crea una nueva con `?focus` en el mismo lugar y se cierra la original
+  (como New Tab Override). `tabs.create` con `cookieStoreId` pide el permiso `cookies`, incluso
+  `firefox-default`: no se pasa, y en una pestaña de contenedor no se hace.
+- Chrome lanza un `TypeError` en el momento de la llamada (no rechaza la promesa) ante una
+  propiedad que no conoce, como `loadReplace` de Firefox.
 - Chrome llama `chrome://newtab/` a la pestaña donde está la nueva pestaña de sobrio: para saber
   si un mensaje viene de ella, `sender.url`, no `tab.url`.
 - Un `<svg>` no tiene la propiedad `hidden` de HTML: se oculta con `toggleAttribute('hidden')`.
-- El foco de la nueva pestaña (`focusPage`) no se puede probar en headless ni en Xvfb: nadie
-  recibe el foco. Solo a mano.
+- El foco real de la nueva pestaña no se puede medir: en headless y en Xvfb sin gestor de
+  ventanas Firefox no enfoca nada, ni la barra. Se prueba la mecánica (la pestaña se reemplaza)
+  con `marionette.py --chrome-eval` y el foco a mano.
 - Alt+letra choca con atajos del navegador (Alt+D va a la barra de direcciones) y Marionette no
   aplica Alt en Firefox: en pruebas, Ctrl+Shift.
 - Pruebas de navegador que conviene repetir: Wikipedia queda negra; GitHub con `--dark` usa su

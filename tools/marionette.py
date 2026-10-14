@@ -106,6 +106,7 @@ def main():
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--pref', action='append', default=[], help='name=json value')
+    ap.add_argument('--chrome-eval', help="after --ext-eval: run this in the browser window's chrome (gBrowser, gURLBar)")
     ap.add_argument('--console', help='print browser console messages containing this text')
     ap.add_argument('--binary', default=shutil.which('librewolf') or shutil.which('firefox'))
     args = ap.parse_args()
@@ -148,6 +149,8 @@ def main():
             m.call('WebDriver:Navigate', {'url': f'moz-extension://{host}/popup.html'})
             print(json.dumps({'ext_eval': m.call('WebDriver:ExecuteScript',
                                                   {'script': wrap(args.ext_eval), 'args': []})}))
+        if args.chrome_eval:
+            print(json.dumps({'chrome_eval': m.run(wrap(args.chrome_eval), 'chrome')}))
         if args.shots:
             os.makedirs(args.shots, exist_ok=True)
         for i, url in enumerate(args.urls):

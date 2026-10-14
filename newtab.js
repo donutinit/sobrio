@@ -82,21 +82,29 @@
     paint();
   }
 
-  // Browsers keep the focus in the address bar on a new tab, and no page or extension can take
-  // it from there. With focusPage, the tab loads itself again through tabs.update: a
-  // navigation, which gives the page the focus (the address bar then shows this page's url).
-  function takeFocus() {
+  // Browsers keep the focus in the address bar on a new tab, and nothing a page or an extension
+  // does moves it: not focus(), not loading the tab again. Only a tab an extension creates with
+  // another address starts with the page focused (New Tab Override does the same). So with
+  // focusPage this tab gives its place to a new one with ?focus: same window, position and
+  // group. The address bar then shows this page's address instead of staying empty.
+  async function takeFocus() {
     if (!settings.newtab.focusPage || new URLSearchParams(location.search).has('focus')) return;
-    const url = chrome.runtime.getURL('newtab.html?focus');
-    chrome.tabs.getCurrent().then((tab) => {
-      if (!tab) return;
-      // loadReplace (no extra history entry) only exists in Firefox; Chrome throws on it.
-      try {
-        chrome.tabs.update(tab.id, { url, loadReplace: true });
-      } catch {
-        chrome.tabs.update(tab.id, { url });
-      }
+    const tab = await chrome.tabs.getCurrent();
+    if (!tab?.active) return; // in the background there is no focus to take
+    // Opening a tab in a Firefox container needs the cookies permission: a container tab keeps
+    // its container and the address bar its focus. Private windows need nothing.
+    if (tab.cookieStoreId && !['firefox-default', 'firefox-private'].includes(tab.cookieStoreId)) return;
+    const created = await chrome.tabs.create({
+      url: chrome.runtime.getURL('newtab.html?focus'),
+      windowId: tab.windowId,
+      index: tab.index,
+      active: true,
+      ...(tab.openerTabId != null && { openerTabId: tab.openerTabId }),
     });
+    if (tab.groupId !== undefined && tab.groupId !== -1 && chrome.tabs.group) {
+      await chrome.tabs.group({ groupId: tab.groupId, tabIds: created.id }).catch(() => {});
+    }
+    await chrome.tabs.remove(tab.id);
   }
 
   // Timers sleep in background tabs and while the computer sleeps: redraw on coming back.
@@ -122,7 +130,8 @@
 
   chrome.storage.local.get(['settings', 'theme']).then((stored) => {
     settings = mergeSettings(stored.settings);
-    takeFocus(); // the page draws anyway: if the reload does not happen, it is not left blank
+    // The page draws anyway: if the new tab cannot be made, this one is not left blank.
+    takeFocus().catch((error) => console.warn('sobrio: cannot take the focus', error));
     locale = pickLocale(settings.newtab.locales);
     apply(stored);
   });

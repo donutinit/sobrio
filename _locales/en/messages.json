@@ -497,7 +497,7 @@
     "message": "Take the focus from the address bar"
   },
   "newtabFocusPageHint": {
-    "message": "The tab loads itself again, so the address bar shows its address instead of staying empty."
+    "message": "The tab is replaced by a new one in the same place, so the address bar shows its address instead of staying empty."
   },
   "mediaPauseAutoplay": {
     "message": "Pause video and audio that play on their own"
