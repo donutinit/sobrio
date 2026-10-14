@@ -17,6 +17,7 @@ const {
   isValidShortcutKeys,
   cleanUrl,
   toggledPatterns,
+  snapSpeed,
 } = require('../settings.js');
 
 test('nothing stored gives the defaults, as a copy', () => {
@@ -174,7 +175,7 @@ test('desiredSpeed: the first matching rule, else the global speed', () => {
 
 test('stepSpeed adds steps, rounds and stays within 0.25 and 4', () => {
   assert.equal(stepSpeed(1.1, 0.1, 1), 1.2);
-  assert.equal(stepSpeed(1, 0.05, -1), 0.95);
+  assert.equal(stepSpeed(1, 0.05, -1), 0.9);
   assert.equal(stepSpeed(3.9, 0.25, 1), 4);
   assert.equal(stepSpeed(0.3, 0.1, -1), 0.25);
 });
@@ -344,4 +345,28 @@ test('toggledPatterns: off adds the exact host, on removes every pattern that co
   assert.deepEqual(toggledPatterns(['a.com', 'b.com'], 'b.com'), ['a.com']);
   assert.deepEqual(toggledPatterns(['*.example.com', 'docs.example.com', 'x.com'], 'docs.example.com'), ['x.com']);
   assert.deepEqual(toggledPatterns(undefined, 'b.com'), ['b.com']);
+});
+
+test('snapSpeed: from 0.91 to 1.09 is just 1', () => {
+  assert.equal(snapSpeed(0.91), 1);
+  assert.equal(snapSpeed(1.09), 1);
+  assert.equal(snapSpeed(1.05), 1);
+  assert.equal(snapSpeed(0.9), 0.9);
+  assert.equal(snapSpeed(1.1), 1.1);
+});
+
+test('stepSpeed never sticks at 1 and snaps into it', () => {
+  assert.equal(stepSpeed(1, 0.05, 1), 1.1);
+  assert.equal(stepSpeed(1, 0.05, -1), 0.9);
+  assert.equal(stepSpeed(1.1, 0.05, -1), 1);
+  assert.equal(stepSpeed(0.9, 0.05, 1), 1);
+  assert.equal(stepSpeed(1, 0.25, 1), 1.25);
+});
+
+test('saved speeds near 1 are 1', () => {
+  const settings = mergeSettings({ speed: { speed: 1.05, rules: [{ pattern: 'a.com', speed: 0.95 }] },
+    shortcuts: [{ keys: 'Alt+1', action: 'speed', param: 1.08 }] });
+  assert.equal(settings.speed.speed, 1);
+  assert.equal(settings.speed.rules[0].speed, 1);
+  assert.equal(settings.shortcuts[0].param, 1);
 });

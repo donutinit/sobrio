@@ -147,9 +147,12 @@
     settings.dark.selection = settings.dark.selection.toLowerCase();
     // The new tab picks one of these at random for the date; none means the browser's.
     settings.newtab.locales = [...new Set(settings.newtab.locales.map(canonicalLocale).filter(Boolean))].slice(0, 30);
+    settings.speed.speed = snapSpeed(settings.speed.speed);
     settings.speed.rules = settings.speed.rules
       .map((rule) => isObject(rule) && { pattern: normalizePattern(rule.pattern), speed: rule.speed })
-      .filter((rule) => rule && rule.pattern && range(0.25, 4)(rule.speed));
+      .filter((rule) => rule && rule.pattern && range(0.25, 4)(rule.speed))
+      .map((rule) => ({ ...rule, speed: snapSpeed(rule.speed) }));
+    settings.shortcuts = settings.shortcuts.map((s) => (s.action === 'speed' ? { ...s, param: snapSpeed(s.param) } : s));
     return settings;
   }
 
@@ -255,8 +258,20 @@
     return speed.rules.find((rule) => hostMatches(rule.pattern, host))?.speed ?? speed.speed;
   }
 
+  // Diego's rule: anything from 0.91 to 1.09 is just 1.
+  const nearOne = (v) => v >= 0.91 && v <= 1.09;
+  const snapSpeed = (v) => (nearOne(v) ? 1 : v);
+
+  // One step, rounded to 2 decimals and kept within 0.25 and 4. Leaving 1 jumps past the band
+  // around it (1 → 1.1 with a 0.05 step), so ] and [ never stick there.
   function stepSpeed(value, step, dir) {
-    return Math.min(4, Math.max(0.25, Math.round((value + dir * step) * 100) / 100));
+    const fit = (v) => Math.min(4, Math.max(0.25, Math.round(v * 100) / 100));
+    let next = fit(value + dir * step);
+    if (nearOne(value)) {
+      while (nearOne(next) && next > 0.25 && next < 4) next = fit(next + dir * step);
+      return next;
+    }
+    return snapSpeed(next);
   }
 
   const LOAD_WINDOW = 1500; // ms after a new source in which a reset to 1 is the site's doing
@@ -330,7 +345,7 @@
   const api = {
     DEFAULTS, ACTIONS, mergeSettings, hostMatches, normalizePattern, matchingPatterns, siteState,
     parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
-    normalizeKeys, isValidShortcutKeys, cleanUrl, toggledPatterns,
+    normalizeKeys, isValidShortcutKeys, cleanUrl, toggledPatterns, snapSpeed,
   };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.settings = api;
