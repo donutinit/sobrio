@@ -55,7 +55,40 @@
     return !(parsed.hostname === 'chrome.google.com' && parsed.pathname.startsWith('/webstore'));
   }
 
-  const api = { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject };
+  // Dark Reader only sends cross-origin requests for public https hosts, but the background
+  // follows redirects, so where a redirect lands gets the same check (Dark Reader's
+  // shouldIgnoreCors): no LAN, localhost or IP hosts, no custom ports.
+  const LOCAL_ALIASES = [
+    '127-0-0-1.org.uk', '42foo.com', 'domaincontrol.com', 'fbi.com', 'fuf.me', 'lacolhost.com',
+    'local.sisteminha.com', 'localfabriek.nl', 'localhost', 'localhst.co.uk', 'localmachine.info',
+    'localmachine.name', 'localtest.me', 'lvh.me', 'mouse-potato.com', 'nip.io', 'sslip.io', 'vcap.me',
+    'xip.io', 'yoogle.com',
+  ];
+  const LOCAL_SUFFIXES = [
+    '.corp', '.direct', '.home', '.internal', '.intranet', '.lan', '.local', '.localdomain', '.test', '.zz',
+    ...LOCAL_ALIASES.map((alias) => `.${alias}`),
+  ];
+
+  function redirectAllowed(url) {
+    let parsed;
+    try {
+      parsed = new URL(url);
+    } catch {
+      return false;
+    }
+    const host = parsed.hostname.replace(/\.$/, '');
+    const last = host.split('.').pop();
+    return (
+      parsed.protocol === 'https:' &&
+      parsed.port === '' &&
+      !host.startsWith('[') &&
+      !/^(0x[0-9a-f]+|\d+)$/i.test(last) &&
+      !LOCAL_ALIASES.includes(host) &&
+      !LOCAL_SUFFIXES.some((suffix) => host.endsWith(suffix))
+    );
+  }
+
+  const api = { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject, redirectAllowed };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.guard = api;
   if (typeof module === 'object') module.exports = api;

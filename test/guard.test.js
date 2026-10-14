@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject } = require('../guard.js');
+const { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject, redirectAllowed } = require('../guard.js');
 
 test('only http and https', () => {
   assert.equal(fetchAllowed('https://cdn.x/a.css'), true);
@@ -44,4 +44,22 @@ test('canInject: regular pages yes, browser pages and stores no', () => {
   assert.equal(canInject('https://chromewebstore.google.com/detail/x'), false);
   assert.equal(canInject('https://chrome.google.com/webstore/detail/x'), false);
   assert.equal(canInject('https://chrome.google.com/search'), true);
+});
+
+test('redirects may only land on public https hosts, like Dark Reader allows', () => {
+  assert.equal(redirectAllowed('https://cdn.example.com/x.css'), true);
+  assert.equal(redirectAllowed('https://example.com./x.css'), true);
+  assert.equal(redirectAllowed('http://cdn.example.com/x.css'), false);
+  assert.equal(redirectAllowed('https://cdn.example.com:8443/x.css'), false);
+  assert.equal(redirectAllowed('https://localhost/x.css'), false);
+  assert.equal(redirectAllowed('https://localhost./x.css'), false);
+  assert.equal(redirectAllowed('https://192.168.1.1/app.css'), false);
+  assert.equal(redirectAllowed('https://0x7f000001/app.css'), false);
+  assert.equal(redirectAllowed('https://[::1]/app.css'), false);
+  assert.equal(redirectAllowed('https://printer.local/x.css'), false);
+  assert.equal(redirectAllowed('https://router.lan/x.css'), false);
+  assert.equal(redirectAllowed('https://wiki.corp.internal/x.css'), false);
+  assert.equal(redirectAllowed('https://lvh.me/x.css'), false);
+  assert.equal(redirectAllowed('https://10.0.0.1.nip.io/x.css'), false);
+  assert.equal(redirectAllowed('not a url'), false);
 });

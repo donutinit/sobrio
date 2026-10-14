@@ -26,6 +26,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 async function fetchForDarkReader(url) {
   if (!guard.fetchAllowed(url)) return { ok: false, error: 'url not allowed' };
   const response = await fetch(url, { credentials: 'omit' });
+  if (response.redirected && !guard.redirectAllowed(response.url)) {
+    response.body?.cancel();
+    return { ok: false, error: 'redirect not allowed' };
+  }
   const type = response.headers.get('content-type');
   if (!guard.responseAllowed(type, Number(response.headers.get('content-length') ?? 0))) {
     response.body?.cancel();
