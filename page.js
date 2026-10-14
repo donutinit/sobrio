@@ -9,7 +9,11 @@
 
   // Both go in before storage answers, with the defaults: the usual case waits for nothing.
   const css = addStyle('sobrio-css', buildCss(DEFAULTS.css, null));
-  const fallback = addStyle('sobrio-fallback', 'html { background: #000 !important; }');
+  // Until storage answers, everything dark, as strict as Dark Reader's own fallback (which takes
+  // over in the same task when it starts): only the html would let a white body flash.
+  const fallback = addStyle('sobrio-fallback',
+    'html, body, body :not(iframe) { background-color: #000 !important; border-color: #404040 !important;' +
+    ' color: #e8e6e3 !important; }');
   let current = null; // the Dark Reader theme in use, as JSON; null while it is off
   let nativeDark = false; // the detector found the page's own dark theme
   let checking = false;
