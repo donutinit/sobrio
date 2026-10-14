@@ -29,8 +29,11 @@ SWITCHER_STATE = '''function () {
 
 
 def keys(tokens):
-    """'rust,Ctrl+j,Shift+Tab' -> [(modifiers, key)]; plain words are typed letter by letter."""
+    """'rust,Ctrl+j,click@640:300' -> [(modifiers, key)]; plain words are typed letter by letter."""
     for token in tokens.split(','):
+        if token.startswith('click@'):
+            yield ['click'], token[len('click@'):]
+            continue
         *mods, key = token.split('+')
         if mods or key in SPECIAL_KEYS or len(key) == 1:
             yield [m for m in mods], key
@@ -87,6 +90,12 @@ class Pipe:
             self.events.append(reply)
 
     def press(self, mods, key, session):
+        if mods == ['click']:
+            x, y = (float(v) for v in key.split(':'))
+            for kind in ('mousePressed', 'mouseReleased'):
+                self.call('Input.dispatchMouseEvent',
+                          {'type': kind, 'x': x, 'y': y, 'button': 'left', 'clickCount': 1}, session)
+            return
         bits = sum(MODIFIERS[m] for m in mods)
         if key in SPECIAL_KEYS:
             event = {'key': key, 'code': key, 'windowsVirtualKeyCode': SPECIAL_KEYS[key]}
@@ -130,7 +139,7 @@ def main():
     ap.add_argument('--eval', default='return null')
     ap.add_argument('--ext-eval')
     ap.add_argument('--then-ext-eval', help='after each page: run this in an extension tab, then --eval again')
-    ap.add_argument('--keys', help="after --then-ext-eval, press these: 'rust,Ctrl+j,Tab,Enter'")
+    ap.add_argument('--keys', help="after --then-ext-eval, press these: 'rust,Ctrl+j,Tab,Enter,click@x:y'")
     ap.add_argument('--switcher', action='store_true', help='print the switcher state (closed shadow root)')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)

@@ -45,6 +45,9 @@
     const frame = el('div', popup ? 'popup' : 'backdrop', box);
     root.append(el('style', null, sobrio.SWITCHER_CSS), frame);
     if (!popup) frame.addEventListener('mousedown', (e) => e.target === frame && close());
+    // Clicks inside keep the focus in the input: the keyboard shield only covers events that
+    // come from the switcher, and Esc and typing must keep working.
+    box.addEventListener('mousedown', (e) => e.target !== input && e.preventDefault());
 
     const commandsOn = !popup && Boolean(sobrio.siteState) && match.commandsAllowed(hostname);
     let bookmarks = [];
