@@ -29,8 +29,10 @@
     const state = siteState(stored, hostname);
     if (state.css && !css.isConnected) root.append(css);
     if (!state.css) css.remove();
-    setDark(state.dark);
+    // Out before setDark, in the same task (so nothing paints in between): the detector may
+    // measure right away and must not see this black as the page's own.
     fallback.remove();
+    setDark(state.dark);
   }
 
   function setDark(on) {
