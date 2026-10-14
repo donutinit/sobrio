@@ -40,7 +40,7 @@ Browsers keep the focus in the address bar on a new tab, and no extension can ta
 
 `settings` in the switcher, or the extension's preferences in `about:addons` / `chrome://extensions`. One tab per part: Style, Dark mode, Exceptions, Switcher, Shortcuts, New tab, Media and Stats. Every change saves itself and applies to open tabs right away.
 
-Exceptions take sites as `example.com` (that site only) or `*.example.com` (the site and its subdomains), for the stylesheet and for dark mode separately.
+Exceptions take sites as `example.com` (that site only) or `*.example.com` (the site and its subdomains), for the stylesheet and for dark mode separately. A third list keeps a site's own animations and transitions while the rest of the stylesheet applies; it starts with `chatgpt.com`, whose view drifts while it writes if its animations are cut.
 
 ## Theme it from `userContent.css`
 

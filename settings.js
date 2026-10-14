@@ -196,10 +196,16 @@
   }
 
   // storage.local holds {darkOff: string[], cssOff: string[]} of patterns; true means on.
+  // Sites where the stylesheet leaves animations and transitions alone (animOff), until the
+  // person saves a list of their own. ChatGPT's view drifts while it writes if they are cut.
+  const DEFAULT_ANIM_OFF = ['chatgpt.com'];
+
   function siteState(stored, host) {
+    const animOff = Array.isArray(stored?.animOff) ? stored.animOff : DEFAULT_ANIM_OFF;
     return {
       dark: matchingPatterns(stored?.darkOff, host).length === 0,
       css: matchingPatterns(stored?.cssOff, host).length === 0,
+      animations: matchingPatterns(animOff, host).length === 0,
     };
   }
 
@@ -343,7 +349,7 @@
   }
 
   const api = {
-    DEFAULTS, ACTIONS, mergeSettings, hostMatches, normalizePattern, matchingPatterns, siteState,
+    DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, mergeSettings, hostMatches, normalizePattern, matchingPatterns, siteState,
     parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
     normalizeKeys, isValidShortcutKeys, cleanUrl, toggledPatterns, snapSpeed,
   };

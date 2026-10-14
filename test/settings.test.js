@@ -2,6 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const {
   DEFAULTS,
+  DEFAULT_ANIM_OFF,
   mergeSettings,
   hostMatches,
   normalizePattern,
@@ -106,15 +107,15 @@ test('normalizePattern rejects what is not a site', () => {
 
 test('siteState with patterns', () => {
   const stored = { darkOff: ['*.github.com'], cssOff: ['news.ycombinator.com'] };
-  assert.deepEqual(siteState(stored, 'gist.github.com'), { dark: false, css: true });
-  assert.deepEqual(siteState(stored, 'github.com'), { dark: false, css: true });
-  assert.deepEqual(siteState(stored, 'news.ycombinator.com'), { dark: true, css: false });
-  assert.deepEqual(siteState(stored, 'ycombinator.com'), { dark: true, css: true });
+  assert.deepEqual(siteState(stored, 'gist.github.com'), { dark: false, css: true, animations: true });
+  assert.deepEqual(siteState(stored, 'github.com'), { dark: false, css: true, animations: true });
+  assert.deepEqual(siteState(stored, 'news.ycombinator.com'), { dark: true, css: false, animations: true });
+  assert.deepEqual(siteState(stored, 'ycombinator.com'), { dark: true, css: true, animations: true });
 });
 
 test('siteState with nothing stored means everything on', () => {
-  assert.deepEqual(siteState(undefined, 'a.com'), { dark: true, css: true });
-  assert.deepEqual(siteState({ darkOff: 'junk', cssOff: [null, 3] }, 'a.com'), { dark: true, css: true });
+  assert.deepEqual(siteState(undefined, 'a.com'), { dark: true, css: true, animations: true });
+  assert.deepEqual(siteState({ darkOff: 'junk', cssOff: [null, 3], animOff: [null] }, 'a.com'), { dark: true, css: true, animations: true });
 });
 
 test('matchingPatterns lists every pattern that covers the site', () => {
@@ -378,4 +379,16 @@ test('saved speeds near 1 are 1', () => {
   assert.equal(settings.speed.speed, 1);
   assert.equal(settings.speed.rules[0].speed, 1);
   assert.equal(settings.shortcuts[0].param, 1);
+});
+
+test('siteState: ChatGPT keeps its animations until the list is saved', () => {
+  assert.deepEqual(DEFAULT_ANIM_OFF, ['chatgpt.com']);
+  assert.equal(siteState(undefined, 'chatgpt.com').animations, false);
+  assert.equal(siteState({}, 'chatgpt.com').animations, false);
+  assert.equal(siteState(undefined, 'example.com').animations, true);
+  // A saved list is the person's: ChatGPT out of it gets the cut, others in it keep theirs.
+  assert.equal(siteState({ animOff: [] }, 'chatgpt.com').animations, true);
+  assert.equal(siteState({ animOff: ['*.example.com'] }, 'app.example.com').animations, false);
+  assert.equal(siteState({ animOff: ['*.example.com'] }, 'chatgpt.com').animations, true);
+  assert.equal(siteState({ animOff: 'junk' }, 'chatgpt.com').animations, false);
 });

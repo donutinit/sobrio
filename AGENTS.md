@@ -47,7 +47,9 @@ con `python3 -I -m http.server` desde una carpeta fuera del repo.
   primero y comandos en inglés (v0.3), y desde 0.3.2 todos los interruptores de estilo menos
   escala de grises y contorno de foco, y `focusPage`. Guardar en ajustes escribe el objeto
   entero, así que un default nuevo no le llega a quien ya guardó: hay que avisarlo. `stats` vive aparte en
-  `storage.local` (`{[url]: {count, last, title}}`, máximo 2,000).
+  `storage.local` (`{[url]: {count, last, title}}`, máximo 2,000). `cssOff`, `darkOff` y
+  `animOff` son listas de patrones; `animOff` sin guardar vale `DEFAULT_ANIM_OFF`
+  (`['chatgpt.com']`).
 - Atajos, velocidad, aviso y pausa del autoplay solo actúan con eventos `isTrusted`: una página
   no debe poder disparar acciones de la extensión.
 - `darkreader.js`, `fonts/` y `fonts.css` no se editan: se regeneran con `tools/vendor-*.py`, que
@@ -106,6 +108,12 @@ con `python3 -I -m http.server` desde una carpeta fuera del repo.
 - El foco real de la nueva pestaña no se puede medir: en headless y en Xvfb sin gestor de
   ventanas Firefox no enfoca nada, ni la barra. Se prueba la mecánica (la pestaña se reemplaza)
   con `marionette.py --chrome-eval` y el foco a mano.
+- ChatGPT: con el corte de animaciones, la vista se va moviendo sola mientras genera si uno
+  subió un poco. No es un elemento puntual (devolver la animación de las palabras, las
+  transiciones o las animaciones del hilo con un snippet no lo arregló), así que chatgpt.com va
+  en `animOff` por defecto: ahí el CSS de sobrio aplica sin el corte. ChatGPT con sesión no
+  genera en un navegador automatizado (`cloudflare_challenge`); sin sesión el streaming llega a
+  chorros o de golpe y no sirve para medir.
 - Alt+letra choca con atajos del navegador (Alt+D va a la barra de direcciones) y Marionette no
   aplica Alt en Firefox: en pruebas, Ctrl+Shift.
 - Pruebas de navegador que conviene repetir: Wikipedia queda negra; GitHub con `--dark` usa su

@@ -5,7 +5,7 @@
   const hostname = location.hostname;
   const { detector, buildCss } = sobrio;
   const { DEFAULTS, mergeSettings, siteState, darkTheme } = sobrio.settings;
-  const KEYS = ['darkOff', 'cssOff', 'settings', 'theme'];
+  const KEYS = ['darkOff', 'cssOff', 'animOff', 'settings', 'theme'];
 
   // Both go in before storage answers, with the defaults: the usual case waits for nothing.
   const css = addStyle('sobrio-css', buildCss(DEFAULTS.css, null));
@@ -37,7 +37,9 @@
     const settings = mergeSettings(stored?.settings);
     const theme = stored?.theme ?? null;
     const state = siteState(stored, hostname);
-    const text = state.css ? buildCss(settings.css, theme) : '';
+    // On a site that keeps its animations, the rest of the stylesheet still applies.
+    const switches = state.animations ? settings.css : { ...settings.css, animations: false };
+    const text = state.css ? buildCss(switches, theme) : '';
     if (text) {
       if (css.textContent !== text) css.textContent = text; // rewriting restyles the whole page
       if (!css.isConnected) root.append(css);

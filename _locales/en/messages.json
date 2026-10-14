@@ -504,5 +504,11 @@
   },
   "toastSpeedOff": {
     "message": "Media speed is off in the settings"
+  },
+  "exceptionsAnimations": {
+    "message": "With their own animations"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "The rest of sobrio's CSS applies, but animations and transitions are not cut. ChatGPT needs it: without them its view drifts while it writes."
   }
 }

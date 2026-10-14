@@ -1,14 +1,14 @@
 // The settings page. Every change saves itself, and every open tab applies it live.
 (() => {
-  const { mergeSettings, normalizePattern, storeThemeHook, ACTIONS, normalizeKeys, isValidShortcutKeys } = sobrio.settings;
+  const { mergeSettings, normalizePattern, storeThemeHook, DEFAULT_ANIM_OFF, ACTIONS, normalizeKeys, isValidShortcutKeys } = sobrio.settings;
   const { ENGINES, allEngines, shortUrl } = sobrio.match;
   const { weightOf } = sobrio.stats;
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions) || key;
-  const KEYS = ['settings', 'theme', 'darkOff', 'cssOff', 'stats'];
+  const KEYS = ['settings', 'theme', 'darkOff', 'cssOff', 'animOff', 'stats'];
 
   let settings = mergeSettings(undefined);
   let theme = null;
-  let lists = { cssOff: [], darkOff: [] };
+  let lists = { cssOff: [], darkOff: [], animOff: DEFAULT_ANIM_OFF };
   let stats = {};
   const syncs = []; // each one repaints a control from settings, theme and lists
 
@@ -223,7 +223,8 @@
       el('div', { className: 'adder' }, pattern, value, add), status, items);
   }
 
-  function exceptionList(key, title) {
+  // fallback: the list while nothing is saved (animOff starts with ChatGPT).
+  function exceptionList(key, title, { help, fallback = [] } = {}) {
     const input = el('input', { className: 'text', placeholder: t('patternPlaceholder'), spellcheck: false });
     const add = el('button', { type: 'button', textContent: t('add') });
     const status = el('p', { className: 'status' });
@@ -238,14 +239,14 @@
       input.value = '';
       status.textContent = '';
       const current = (await chrome.storage.local.get(key))[key];
-      const list = Array.isArray(current) ? current : [];
+      const list = Array.isArray(current) ? current : fallback;
       if (!list.includes(pattern)) await chrome.storage.local.set({ [key]: [...list, pattern] });
     };
     add.addEventListener('click', submit);
     input.addEventListener('keydown', (e) => e.key === 'Enter' && submit());
     const remove = async (pattern) => {
       const current = (await chrome.storage.local.get(key))[key];
-      await chrome.storage.local.set({ [key]: (Array.isArray(current) ? current : []).filter((p) => p !== pattern) });
+      await chrome.storage.local.set({ [key]: (Array.isArray(current) ? current : fallback).filter((p) => p !== pattern) });
     };
     syncs.push(() => {
       const items = lists[key].map((pattern) => el('li', {},
@@ -253,7 +254,9 @@
         el('button', { type: 'button', textContent: '×', title: t('remove'), onclick: () => remove(pattern) })));
       patterns.replaceChildren(...(items.length ? items : [el('li', { className: 'empty', textContent: t('emptyList') })]));
     });
-    return el('div', { className: 'list' }, el('h3', { textContent: t(title) }), el('div', { className: 'adder' }, input, add), status, patterns);
+    return el('div', { className: 'list' }, el('h3', { textContent: t(title) }),
+      ...(help ? [el('p', { className: 'help', textContent: t(help) })] : []),
+      el('div', { className: 'adder' }, input, add), status, patterns);
   }
 
   // A short text, saved 600 ms after typing stops. valid(value) may reject it.
@@ -544,7 +547,8 @@
       panel('exceptions',
         el('p', { className: 'help', textContent: t('exceptionsHelp') }),
         exceptionList('cssOff', 'exceptionsCss'),
-        exceptionList('darkOff', 'exceptionsDark')),
+        exceptionList('darkOff', 'exceptionsDark'),
+        exceptionList('animOff', 'exceptionsAnimations', { help: 'exceptionsAnimationsHelp', fallback: DEFAULT_ANIM_OFF })),
       panel('switcher',
         selectRow('switcher.precision', 'switcherPrecision', () =>
           ['strict', 'normal', 'loose'].map((value) => ({ value, label: t(`precision_${value}`) }))),
@@ -629,7 +633,11 @@
     settings = mergeSettings(stored.settings);
     theme = stored.theme ?? null;
     const array = (value) => (Array.isArray(value) ? value.filter((p) => typeof p === 'string') : []);
-    lists = { cssOff: array(stored.cssOff), darkOff: array(stored.darkOff) };
+    lists = {
+      cssOff: array(stored.cssOff),
+      darkOff: array(stored.darkOff),
+      animOff: Array.isArray(stored.animOff) ? array(stored.animOff) : DEFAULT_ANIM_OFF,
+    };
     stats = stored.stats && typeof stored.stats === 'object' ? stored.stats : {};
     paintTheme();
     repaint();
