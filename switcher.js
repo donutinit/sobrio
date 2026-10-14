@@ -51,7 +51,7 @@
     // come from the switcher, and Esc and typing must keep working.
     box.addEventListener('mousedown', (e) => e.target !== input && e.preventDefault());
 
-    const commandsOn = !popup && Boolean(sobrio.siteState) && match.commandsAllowed(hostname);
+    const commandsOn = !popup && Boolean(sobrio.settings) && match.commandsAllowed(hostname);
     let bookmarks = [];
     // Until the list arrives nothing jumps to an engine, and an early Enter waits for it:
     // a quick "gh" + Enter means the bookmark, not a web search.
@@ -72,7 +72,7 @@
       });
     if (commandsOn) {
       chrome.storage.local.get(['darkOff', 'cssOff']).then((stored) => {
-        site = sobrio.siteState(stored, hostname);
+        site = sobrio.settings.siteState(stored, hostname);
         update();
       });
     }

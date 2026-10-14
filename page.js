@@ -2,7 +2,8 @@
 (() => {
   const root = document.documentElement;
   const hostname = location.hostname;
-  const { detector, siteState } = sobrio;
+  const { detector } = sobrio;
+  const { siteState } = sobrio.settings;
 
   // Both go in before storage answers: sites with everything on (the usual case) wait for nothing.
   const css = addStyle('sobrio-css', sobrio.CUSTOM_CSS);
