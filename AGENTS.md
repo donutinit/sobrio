@@ -26,7 +26,8 @@ reales), `--shots DIR` y `--console TEXTO`. `--keys` solo corre con `--then-ext-
 `"return 1"`) y su resultado sale como `"after"`, no `"eval"`. `cdp.py` también tiene `--dark`,
 `--autoplay` (medios con sonido sin gesto), `--switcher` (lee el shadow root cerrado),
 `--busy-worker MS`, `--settle S`, `--targets`, `--full`, `--after-ext-eval`, `--sw-eval`,
-`--late-load`, `--clipboard` y `click@x:y` en `--keys`. `marionette.py` tiene `--user-content
+`--late-load`, `--clipboard`, y en `--keys` `click@x:y` y `Ctrl+J~` (tecla sostenida, con
+autorepeat). `marionette.py` tiene `--user-content
 FILE` (un `userContent.css` para el perfil), `--late-install` (la pestaña ya abierta al instalar)
 y `--pref nombre=json` (por ejemplo `media.autoplay.default=0`). Las páginas de prueba se sirven
 con `python3 -I -m http.server` desde una carpeta fuera del repo.
@@ -91,6 +92,8 @@ con `python3 -I -m http.server` desde una carpeta fuera del repo.
   la página no lea lo que se escribe; por eso el escudo llama a `update` él mismo.
 - Chrome no conoce `loadReplace` de `tabs.update`: lanza un `TypeError` en el momento de la
   llamada (no rechaza la promesa), así que va en `try/catch` y se repite sin él.
+- Chrome llama `chrome://newtab/` a la pestaña donde está la nueva pestaña de sobrio: para saber
+  si un mensaje viene de ella, `sender.url`, no `tab.url`.
 - Un `<svg>` no tiene la propiedad `hidden` de HTML: se oculta con `toggleAttribute('hidden')`.
 - El foco de la nueva pestaña (`focusPage`) no se puede probar en headless ni en Xvfb: nadie
   recibe el foco. Solo a mano.
