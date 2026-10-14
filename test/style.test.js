@@ -64,3 +64,33 @@ test('--sobrio-corners from the theme hook wins over the switch', () => {
   assert.ok(!buildCss(ALL_ON, { corners: 'round' }).includes('border-radius'));
   assert.ok(buildCss(ALL_ON, { text: '#ffffff' }).includes('border-radius: 0'));
 });
+
+test('v0.3 switches bring their own rules', () => {
+  const cases = {
+    hideScrollbars: 'scrollbar-width: none !important',
+    underlineLinks: 'text-decoration: underline !important',
+    selectableText: 'user-select: text !important',
+    noUppercase: 'text-transform: none !important',
+    grayscaleMedia: 'filter: grayscale(1) !important',
+    focusRing: 'outline: 2px solid currentColor !important',
+  };
+  for (const [key, rule] of Object.entries(cases)) {
+    assert.ok(buildCss(only(key), null).includes(rule), key);
+    assert.ok(!buildCss(ALL_OFF, null).includes(rule), key);
+  }
+  assert.ok(buildCss(only('focusRing'), null).includes(':focus-visible'));
+  assert.ok(buildCss(only('underlineLinks'), null).includes('a[href]'));
+});
+
+test('hidden scrollbars win over thin ones', () => {
+  const css = buildCss({ ...ALL_OFF, thinScrollbars: true, hideScrollbars: true }, null);
+  assert.ok(css.includes('scrollbar-width: none'));
+  assert.ok(!css.includes('scrollbar-width: thin'));
+});
+
+test('the custom snippet goes last, as written', () => {
+  const snippet = 'p { color: red; }';
+  assert.equal(buildCss({ ...ALL_OFF, custom: snippet }, null), snippet);
+  assert.ok(buildCss({ ...ALL_ON, custom: snippet }, null).endsWith(`\n\n${snippet}`));
+  assert.equal(buildCss({ ...ALL_OFF, custom: '   ' }, null), '');
+});

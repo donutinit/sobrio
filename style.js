@@ -29,7 +29,15 @@
         'transition-delay: 0s',
       ]));
     }
-    if (css.thinScrollbars) rules.push(rule('*', ['scrollbar-width: thin']));
+    if (css.hideScrollbars) rules.push(rule('*', ['scrollbar-width: none']));
+    else if (css.thinScrollbars) rules.push(rule('*', ['scrollbar-width: thin']));
+    if (css.underlineLinks) rules.push(rule('a[href]', ['text-decoration: underline']));
+    if (css.selectableText) rules.push(rule('*', ['user-select: text', '-webkit-user-select: text']));
+    if (css.noUppercase) rules.push(rule('*', ['text-transform: none']));
+    if (css.grayscaleMedia) rules.push(rule('img,\nvideo,\npicture,\ncanvas,\nsvg image', ['filter: grayscale(1)']));
+    if (css.focusRing) rules.push(rule(':focus-visible', ['outline: 2px solid currentColor', 'outline-offset: 2px']));
+    // The person's own snippet goes last, as written, so it can override everything above.
+    if (typeof css.custom === 'string' && css.custom.trim()) rules.push(css.custom);
     return rules.join('\n\n');
   }
 
