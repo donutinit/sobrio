@@ -8,7 +8,7 @@ mkdir -p dist
 rm -f "$out"
 # The notices travel with the code: darkreader.js is MIT and its header carries no license.
 zip -q -r "$out" LICENSE THIRD_PARTY_NOTICES.md manifest.json _locales icons/icon-*.png popup.html \
-  boot.js settings.js custom-css.js darkreader.js detector.js page.js \
+  boot.js settings.js style.js darkreader.js detector.js page.js \
   background.js guard.js match.js switcher-css.js switcher.js popup.js
 cp "$out" "dist/sobrio-$version.xpi"
 echo "$out dist/sobrio-$version.xpi"

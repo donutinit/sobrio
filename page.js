@@ -1,21 +1,23 @@
-// Runs in every frame at document_start: custom CSS, dark mode and per-site state.
+// Runs in every frame at document_start: the stylesheet, dark mode and per-site state,
+// all following settings and the userContent.css theme hook live.
 (() => {
   const root = document.documentElement;
   const hostname = location.hostname;
-  const { detector } = sobrio;
-  const { siteState } = sobrio.settings;
+  const { detector, buildCss } = sobrio;
+  const { DEFAULTS, mergeSettings, siteState, darkTheme } = sobrio.settings;
+  const KEYS = ['darkOff', 'cssOff', 'settings', 'theme'];
 
-  // Both go in before storage answers: sites with everything on (the usual case) wait for nothing.
-  const css = addStyle('sobrio-css', sobrio.CUSTOM_CSS);
+  // Both go in before storage answers, with the defaults: the usual case waits for nothing.
+  const css = addStyle('sobrio-css', buildCss(DEFAULTS.css, null));
   const fallback = addStyle('sobrio-fallback', 'html { background: #000 !important; }');
-  let dark = false;
+  let current = null; // the Dark Reader theme in use, as JSON; null while it is off
+  let nativeDark = false; // the detector found the page's own dark theme
+  let checking = false;
 
   DarkReader.setFetchMethod(fetchThroughBackground);
-  chrome.storage.local.get(['darkOff', 'cssOff']).then(apply, () => apply(undefined));
+  chrome.storage.local.get(KEYS).then(apply, () => apply(undefined));
   chrome.storage.onChanged.addListener((changes, area) => {
-    if (area === 'local' && (changes.darkOff || changes.cssOff)) {
-      chrome.storage.local.get(['darkOff', 'cssOff']).then(apply);
-    }
+    if (area === 'local' && KEYS.some((key) => changes[key])) chrome.storage.local.get(KEYS).then(apply);
   });
 
   function addStyle(id, text) {
@@ -27,35 +29,57 @@
   }
 
   function apply(stored) {
+    const settings = mergeSettings(stored?.settings);
+    const theme = stored?.theme ?? null;
     const state = siteState(stored, hostname);
-    if (state.css && !css.isConnected) root.append(css);
-    if (!state.css) css.remove();
+    const text = state.css ? buildCss(settings.css, theme) : '';
+    if (text) {
+      css.textContent = text;
+      if (!css.isConnected) root.append(css);
+    } else {
+      css.remove();
+    }
     // Out before setDark, in the same task (so nothing paints in between): the detector may
     // measure right away and must not see this black as the page's own.
     fallback.remove();
-    setDark(state.dark);
+    setDark(settings.dark.enabled && state.dark, darkTheme(settings.dark, theme), settings.dark.detect);
   }
 
-  function setDark(on) {
-    if (on === dark) return;
-    dark = on;
-    if (!on) {
-      DarkReader.disable();
+  function setDark(on, theme, detect) {
+    if (!on || (detect && nativeDark)) {
+      if (current) DarkReader.disable();
+      current = null;
       return;
     }
-    try {
-      DarkReader.enable({ darkSchemeBackgroundColor: '#000000' });
-    } catch (error) {
-      console.error('sobrio: dark mode failed, leaving the page as it was', error);
-      DarkReader.disable();
-      return;
+    const key = JSON.stringify(theme);
+    if (key !== current) {
+      try {
+        // A second enable while on is taken for another Dark Reader instance and ignored,
+        // so a new theme goes through disable first (same task: nothing paints in between).
+        if (current) DarkReader.disable();
+        DarkReader.enable(theme);
+        current = key;
+      } catch (error) {
+        console.error('sobrio: dark mode failed, leaving the page as it was', error);
+        DarkReader.disable();
+        current = null;
+        return;
+      }
     }
-    // Once there is content, and again on load, when late stylesheets have arrived.
-    const check = () => {
-      if (dark && DarkReader.isEnabled() && detector.detectDark(document)) DarkReader.disable();
-    };
-    detector.whenReady(document, check);
-    if (document.readyState !== 'complete') addEventListener('load', check, { once: true });
+    if (detect && !checking) {
+      checking = true;
+      // Once there is content, and again on load, when late stylesheets have arrived.
+      detector.whenReady(document, check);
+      if (document.readyState !== 'complete') addEventListener('load', check, { once: true });
+    }
+  }
+
+  function check() {
+    if (current && DarkReader.isEnabled() && detector.detectDark(document)) {
+      nativeDark = true;
+      DarkReader.disable();
+      current = null;
+    }
   }
 
   // Dark Reader reads cross-origin stylesheets and images; the background may, a content script may not.
