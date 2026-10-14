@@ -91,7 +91,13 @@
     );
   }
 
-  const api = { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject, redirectAllowed };
+  // sobrio's new tab page (the extension sees its own pages' urls without the tabs
+  // permission). about:newtab, about:home or chrome://newtab mean sobrio's is not in use.
+  function isOwnNewtab(url, newtabUrl) {
+    return typeof url === 'string' && url.split(/[?#]/)[0] === newtabUrl;
+  }
+
+  const api = { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject, redirectAllowed, isOwnNewtab };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.guard = api;
   if (typeof module === 'object') module.exports = api;

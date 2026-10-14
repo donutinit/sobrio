@@ -146,6 +146,7 @@ def main():
     ap.add_argument('--targets', action='store_true', help='print the urls of the open pages at the end')
     ap.add_argument('--full', action='store_true', help='screenshots of the whole page, not just the window')
     ap.add_argument('--after-ext-eval', help='after --keys and --eval: run this in an extension tab')
+    ap.add_argument('--sw-eval', help='after --then-ext-eval: run this inside the service worker')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--dark', action='store_true', help='emulate prefers-color-scheme: dark')
@@ -198,6 +199,11 @@ def main():
                 cdp.call('Target.closeTarget', {'targetId': other})
                 cdp.call('Target.activateTarget', {'targetId': target})
                 time.sleep(1.5)
+                if args.sw_eval:
+                    worker = next(t['targetId'] for t in cdp.call('Target.getTargets')['targetInfos']
+                                  if t['type'] == 'service_worker' and ext_id in t['url'])
+                    worker_session = cdp.call('Target.attachToTarget', {'targetId': worker, 'flatten': True})['sessionId']
+                    print(json.dumps({'sw_eval': cdp.evaluate(args.sw_eval, worker_session)}))
                 for mods, key in keys(args.keys or ''):
                     if key:
                         cdp.press(mods, key, session)

@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject, redirectAllowed } = require('../guard.js');
+const { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject, redirectAllowed, isOwnNewtab } = require('../guard.js');
 
 test('only http and https', () => {
   assert.equal(fetchAllowed('https://cdn.x/a.css'), true);
@@ -69,4 +69,14 @@ test('canInject: pdfs open in the browser viewer, so they go to the popup', () =
   assert.equal(canInject('https://example.com/Paper.PDF?download=0#page=2'), false);
   assert.equal(canInject('file:///home/me/scan.pdf'), false);
   assert.equal(canInject('https://example.com/pdf-guide'), true);
+});
+
+test('isOwnNewtab: only the own new tab page, never the browser one', () => {
+  const own = 'moz-extension://abc/newtab.html';
+  assert.equal(isOwnNewtab(own, own), true);
+  assert.equal(isOwnNewtab(`${own}#x`, own), true);
+  assert.equal(isOwnNewtab('about:home', own), false);
+  assert.equal(isOwnNewtab('about:newtab', own), false);
+  assert.equal(isOwnNewtab('chrome://newtab/', own), false);
+  assert.equal(isOwnNewtab(undefined, own), false);
 });

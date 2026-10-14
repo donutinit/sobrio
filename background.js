@@ -91,7 +91,7 @@ const NEWTAB = chrome.runtime.getURL('newtab.html');
 
 function openSwitcher(tab) {
   // sobrio's own new tab has the switcher already: focus it there instead of the popup.
-  if (tab?.url === NEWTAB || /^(about:newtab|about:home|chrome:\/\/newtab\/?)$/.test(tab?.url ?? '')) {
+  if (guard.isOwnNewtab(tab?.url, NEWTAB)) {
     chrome.runtime.sendMessage({ sobrio: 'focus-switcher', tabId: tab.id }).catch(() => {});
     return;
   }
