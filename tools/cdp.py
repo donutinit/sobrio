@@ -147,6 +147,7 @@ def main():
     ap.add_argument('--full', action='store_true', help='screenshots of the whole page, not just the window')
     ap.add_argument('--after-ext-eval', help='after --keys and --eval: run this in an extension tab')
     ap.add_argument('--sw-eval', help='after --then-ext-eval: run this inside the service worker')
+    ap.add_argument('--late-load', action='store_true', help='open the first url before loading the extension')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--dark', action='store_true', help='emulate prefers-color-scheme: dark')
@@ -157,13 +158,17 @@ def main():
     profile = tempfile.mkdtemp(prefix='sobrio-chromium-')
     cdp = Pipe(args.binary, profile, ['--force-dark-mode'] if args.dark else [])
     try:
+        early = None
+        if args.late_load and args.urls:  # a tab already open when the extension arrives
+            early = cdp.call('Target.createTarget', {'url': args.urls[0]})['targetId']
+            time.sleep(args.wait)
         ext_id = cdp.call('Extensions.loadUnpacked', {'path': os.path.abspath(args.ext_dir)})['id']
         time.sleep(1)
         workers = [t['url'] for t in cdp.call('Target.getTargets')['targetInfos']
                    if t['type'] == 'service_worker' and ext_id in t['url']]
         print(json.dumps({'extension': ext_id, 'service_worker': workers}))
 
-        target = cdp.call('Target.createTarget', {'url': 'about:blank'})['targetId']
+        target = early or cdp.call('Target.createTarget', {'url': 'about:blank'})['targetId']
         session = cdp.call('Target.attachToTarget', {'targetId': target, 'flatten': True})['sessionId']
         for domain in ('Page', 'Runtime', 'Log', 'DOM'):
             cdp.call(f'{domain}.enable', {}, session)
@@ -171,15 +176,23 @@ def main():
             cdp.call('Emulation.setEmulatedMedia',
                      {'features': [{'name': 'prefers-color-scheme', 'value': 'dark'}]}, session)
         if args.ext_eval:
-            cdp.call('Page.navigate', {'url': f'chrome-extension://{ext_id}/popup.html'}, session)
-            time.sleep(1)
-            print(json.dumps({'ext_eval': cdp.evaluate(args.ext_eval, session)}))
+            if early:  # keep the early page: use a tab of its own
+                ext = cdp.call('Target.createTarget', {'url': f'chrome-extension://{ext_id}/popup.html'})['targetId']
+                ext_session = cdp.call('Target.attachToTarget', {'targetId': ext, 'flatten': True})['sessionId']
+                time.sleep(1)
+                print(json.dumps({'ext_eval': cdp.evaluate(args.ext_eval, ext_session)}))
+                cdp.call('Target.closeTarget', {'targetId': ext})
+            else:
+                cdp.call('Page.navigate', {'url': f'chrome-extension://{ext_id}/popup.html'}, session)
+                time.sleep(1)
+                print(json.dumps({'ext_eval': cdp.evaluate(args.ext_eval, session)}))
         if args.shots:
             os.makedirs(args.shots, exist_ok=True)
         for i, url in enumerate(args.urls):
             if url.startswith('ext:'):  # a page of the extension, e.g. ext:options.html
                 url = f'chrome-extension://{ext_id}/{url[4:]}'
-            cdp.call('Page.navigate', {'url': url}, session)
+            if not (early and i == 0):
+                cdp.call('Page.navigate', {'url': url}, session)
             time.sleep(args.wait)
             print(json.dumps({'url': url, 'eval': cdp.evaluate(args.eval, session)}))
             if args.then_ext_eval:
