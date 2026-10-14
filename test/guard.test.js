@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { MAX_BYTES, fetchAllowed, responseAllowed, toBase64 } = require('../guard.js');
+const { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject } = require('../guard.js');
 
 test('only http and https', () => {
   assert.equal(fetchAllowed('https://cdn.x/a.css'), true);
@@ -28,4 +28,20 @@ test('toBase64 roundtrip', () => {
   const bytes = new Uint8Array(70000).map((_, i) => (i * 7) % 256);
   const decoded = Uint8Array.from(atob(toBase64(bytes.buffer)), (c) => c.charCodeAt(0));
   assert.deepEqual(decoded, bytes);
+});
+
+test('canInject: regular pages yes, browser pages and stores no', () => {
+  assert.equal(canInject('https://github.com/x'), true);
+  assert.equal(canInject('http://localhost:3000/'), true);
+  assert.equal(canInject('file:///home/me/notes.html'), true);
+  assert.equal(canInject(undefined), false);
+  assert.equal(canInject('about:addons'), false);
+  assert.equal(canInject('chrome://settings'), false);
+  assert.equal(canInject('moz-extension://abc/popup.html'), false);
+  assert.equal(canInject('view-source:https://github.com/'), false);
+  assert.equal(canInject('https://addons.mozilla.org/en-US/firefox/'), false);
+  assert.equal(canInject('https://accounts.firefox.com/'), false);
+  assert.equal(canInject('https://chromewebstore.google.com/detail/x'), false);
+  assert.equal(canInject('https://chrome.google.com/webstore/detail/x'), false);
+  assert.equal(canInject('https://chrome.google.com/search'), true);
 });

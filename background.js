@@ -1,19 +1,25 @@
 // Firefox loads the helpers through background.scripts; Chrome's service worker imports them.
-if (typeof importScripts === 'function') importScripts('guard.js');
+if (typeof importScripts === 'function') importScripts('guard.js', 'match.js');
 
-const { guard } = sobrio;
+const { guard, match } = sobrio;
+
+const handlers = {
+  fetch: (message) => fetchForDarkReader(message.url),
+  bookmarks: () => getBookmarks(),
+  open: (message, sender) => openUrl(message.url, message.newTab, sender.tab),
+};
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (sender.id !== chrome.runtime.id) return;
-  if (message?.sobrio === 'fetch') {
-    fetchForDarkReader(message.url).then(sendResponse, (error) =>
-      sendResponse({ ok: false, error: String(error) }),
-    );
-    return true;
+  const handler = handlers[message?.sobrio];
+  if (!handler) {
+    // darkreader.js also forwards its own messages here. Answer them empty so
+    // Chrome does not log "receiving end does not exist".
+    sendResponse();
+    return;
   }
-  // darkreader.js also forwards its own messages here. Answer them empty so
-  // Chrome does not log "receiving end does not exist".
-  sendResponse();
+  handler(message, sender).then(sendResponse, (error) => sendResponse({ ok: false, error: String(error) }));
+  return true;
 });
 
 // Never sends cookies and never hands back anything but CSS or images, capped in size.
@@ -40,15 +46,39 @@ async function fetchForDarkReader(url) {
   return { ok: true, status: response.status, type, base64: guard.toBase64(body) };
 }
 
+// Flattened once and kept until the bookmarks change. A restarted worker rebuilds it.
+let bookmarks = null;
+
+async function getBookmarks() {
+  if (!bookmarks) bookmarks = match.flattenBookmarks(await chrome.bookmarks.getTree());
+  return bookmarks;
+}
+
+for (const event of ['onCreated', 'onRemoved', 'onChanged', 'onMoved']) {
+  chrome.bookmarks[event].addListener(() => {
+    bookmarks = null;
+  });
+}
+
+// From a page the tab is the sender's; from the popup it is the active one.
+async function openUrl(url, newTab, tab) {
+  tab ??= (await chrome.tabs.query({ active: true, lastFocusedWindow: true }))[0];
+  if (newTab) {
+    await chrome.tabs.create({ url, index: tab ? tab.index + 1 : undefined, openerTabId: tab?.id });
+  } else {
+    await chrome.tabs.update(tab.id, { url });
+  }
+  return true;
+}
+
 chrome.commands.onCommand.addListener((command, tab) => {
-  if (command !== 'open-switcher') return;
-  openSwitcher(tab);
+  if (command === 'open-switcher') openSwitcher(tab);
 });
 
 function openSwitcher(tab) {
   // Firefox only allows openPopup() synchronously inside the command handler,
   // so pages where injection cannot work go straight to the popup.
-  if (!tab?.id || !/^(https?|file):/.test(tab.url ?? '')) {
+  if (!tab?.id || !guard.canInject(tab.url)) {
     openPopup();
     return;
   }

@@ -12,7 +12,7 @@
   },
   "background": {
     "service_worker": "background.js",
-    "scripts": ["guard.js", "background.js"]
+    "scripts": ["guard.js", "match.js", "background.js"]
   },
   "permissions": ["bookmarks", "storage", "scripting"],
   "host_permissions": ["<all_urls>"],

@@ -25,7 +25,37 @@
     return btoa(binary);
   }
 
-  const api = { MAX_BYTES, fetchAllowed, responseAllowed, toBase64 };
+  // Where browsers never let an extension inject: Firefox's
+  // extensions.webextensions.restrictedDomains and Chrome's web store.
+  const RESTRICTED_HOSTS = new Set([
+    'accounts-static.cdn.mozilla.net',
+    'accounts.firefox.com',
+    'addons.cdn.mozilla.net',
+    'addons.mozilla.org',
+    'api.accounts.firefox.com',
+    'content.cdn.mozilla.net',
+    'discovery.addons.mozilla.org',
+    'install.mozilla.org',
+    'oauth.accounts.firefox.com',
+    'profile.accounts.firefox.com',
+    'support.mozilla.org',
+    'sync.services.mozilla.com',
+    'chromewebstore.google.com',
+  ]);
+
+  function canInject(url) {
+    let parsed;
+    try {
+      parsed = new URL(url);
+    } catch {
+      return false;
+    }
+    if (!['http:', 'https:', 'file:'].includes(parsed.protocol)) return false;
+    if (RESTRICTED_HOSTS.has(parsed.hostname)) return false;
+    return !(parsed.hostname === 'chrome.google.com' && parsed.pathname.startsWith('/webstore'));
+  }
+
+  const api = { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.guard = api;
   if (typeof module === 'object') module.exports = api;
