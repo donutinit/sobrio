@@ -27,10 +27,13 @@ test('nothing stored gives the defaults, as a copy', () => {
   assert.equal(DEFAULTS.css.corners, true);
 });
 
-test('defaults keep v0.1 behavior', () => {
-  const v01 = ['corners', 'shadows', 'blur', 'animations', 'youtubePlayer', 'smoothScroll', 'thinScrollbars', 'fixedBackgrounds'];
-  assert.ok(v01.every((key) => DEFAULTS.css[key] === true));
-  assert.ok(Object.keys(DEFAULTS.css).filter((key) => !v01.includes(key)).every((key) => !DEFAULTS.css[key]));
+test('defaults: every style switch on but grayscale and the focus ring, and the new tab takes the focus', () => {
+  const off = ['grayscaleMedia', 'focusRing'];
+  const switches = Object.keys(DEFAULTS.css).filter((key) => key !== 'custom');
+  assert.ok(switches.filter((key) => !off.includes(key)).every((key) => DEFAULTS.css[key] === true));
+  assert.ok(off.every((key) => DEFAULTS.css[key] === false));
+  assert.equal(DEFAULTS.css.custom, '');
+  assert.equal(DEFAULTS.newtab.focusPage, true);
   assert.equal(DEFAULTS.dark.background, '#000000');
   assert.equal(DEFAULTS.dark.text, '#e8e6e3');
   assert.equal(DEFAULTS.speed.speed, 1);
@@ -220,18 +223,14 @@ test('speedKey: modifiers are not shortcuts, AltGr is (Spanish layouts)', () => 
   assert.equal(speedKey(key(']', { ctrlKey: true, altKey: true, altGraph: true })), 1);
 });
 
-test('v0.3 defaults: new things off, Google first, normal precision', () => {
-  assert.deepEqual(
-    [DEFAULTS.css.hideScrollbars, DEFAULTS.css.underlineLinks, DEFAULTS.css.selectableText,
-      DEFAULTS.css.noUppercase, DEFAULTS.css.grayscaleMedia, DEFAULTS.css.focusRing, DEFAULTS.css.custom],
-    [false, false, false, false, false, false, '']);
+test('v0.3 defaults: Google first, normal precision, the rest of the new things off', () => {
   assert.equal(DEFAULTS.switcher.precision, 'normal');
   assert.equal(DEFAULTS.switcher.defaultEngine, 'google');
   assert.deepEqual(DEFAULTS.switcher.customEngines, []);
   assert.deepEqual(
     [DEFAULTS.newtab.layout, DEFAULTS.newtab.greeting, DEFAULTS.newtab.name, DEFAULTS.newtab.focusPage,
       DEFAULTS.newtab.customTimeFont, DEFAULTS.newtab.customDateFont, DEFAULTS.newtab.customTimeWeight],
-    ['clasico', false, '', false, '', '', 300]);
+    ['clasico', false, '', true, '', '', 300]);
   assert.deepEqual(DEFAULTS.media, { pauseAutoplay: false });
   assert.deepEqual(DEFAULTS.shortcuts, []);
 });

@@ -14,6 +14,7 @@ const {
   searchUrl,
   displayTitle,
   shortUrl,
+  hostLength,
 } = require('../match.js');
 
 let nextId = 0;
@@ -316,4 +317,13 @@ test('memory: with an empty query the most used come first', () => {
   const list = many(5);
   const boost = (b) => (b === list[1] ? 10 : 0);
   assert.equal(searchBookmarks(list, '', 50, 'normal', boost)[0].bookmark, list[1]);
+});
+
+test('hostLength: where the host ends in a short url', () => {
+  assert.equal(hostLength('dash.cloudflare.com/'), 19);
+  assert.equal(hostLength('github.com/donutinit?tab=repositories'), 10);
+  assert.equal(hostLength('localhost:8080/x'), 14);
+  assert.equal(hostLength('about:addons'), 12);
+  assert.equal(hostLength('example.com?q=1'), 11);
+  assert.equal(hostLength('example.com#top'), 11);
 });

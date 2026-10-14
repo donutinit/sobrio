@@ -47,8 +47,9 @@
       '--s-bar': theme.accent,
       '--s-hit': theme.accent,
       '--s-input': theme.text,
-      '--s-title': theme.textMuted,
-      '--s-sub': theme.textMuted && `color-mix(in srgb, ${theme.textMuted} 65%, ${theme.background ?? '#000'})`,
+      '--s-title': theme.text && `color-mix(in srgb, ${theme.text} 82%, ${theme.background ?? '#000'})`,
+      '--s-host': theme.text && `color-mix(in srgb, ${theme.text} 64%, ${theme.background ?? '#000'})`,
+      '--s-sub': theme.textMuted,
       '--s-font': theme.font && `${theme.font}, system-ui, sans-serif`,
     };
     return Object.fromEntries(Object.entries(vars).filter(([, value]) => value));
@@ -113,7 +114,13 @@
     function bookmarkRow({ bookmark, hits }) {
       const sub = document.createDocumentFragment();
       if (bookmark.folder) sub.append(highlight(bookmark.folder, hits.folder), ' · ');
-      sub.append(highlight(match.shortUrl(bookmark.url), hits.url));
+      // The host brighter than the rest, so it reads first.
+      const url = match.shortUrl(bookmark.url);
+      const cut = match.hostLength(url);
+      sub.append(
+        el('span', 'host', highlight(url.slice(0, cut), hits.url.filter((i) => i < cut))),
+        highlight(url.slice(cut), hits.url.filter((i) => i >= cut).map((i) => i - cut)),
+      );
       return {
         title: highlight(match.displayTitle(bookmark), bookmark.title ? hits.title : []),
         sub,

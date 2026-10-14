@@ -6,7 +6,7 @@ Based on [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://g
 
 ## What it does
 
-**One stylesheet, everywhere.** No rounded corners, shadows, text shadows or blur. Animations and transitions cut to nothing, except in YouTube's player. Thin scrollbars, no smooth scrolling, backgrounds that scroll with the page. Each piece is a switch in the settings, and there are more that start off: hidden scrollbars, underlined links, text you can always select, no forced capitals, images and video in grayscale, a visible focus ring. Below them, a box for your own CSS, added last on every site.
+**One stylesheet, everywhere.** No rounded corners, shadows, text shadows or blur. Animations and transitions cut to nothing, except in YouTube's player. No scrollbars, no smooth scrolling, backgrounds that scroll with the page. Links underlined, any text selectable, no capitals forced by CSS. Each piece is a switch in the settings (thin scrollbars instead of none, too), and two more start off: images and video in grayscale, and a visible focus ring. Below them, a box for your own CSS, added last on every site.
 
 **Black, smartly.** Dark Reader's dynamic engine turns every site black (`#000`), color by color. Sites that already have a dark theme of their own keep it. Brightness, contrast, sepia, grayscale and the colors are in the settings; there are no schedules.
 
@@ -30,7 +30,7 @@ Three commands, typed in the switcher:
 
 **A new tab.** The date and the time, set with care, and the switcher under them. Six layouts: classic, just the time, one line, stacked (hours over minutes), corner and a minimal analog clock. Four typographic styles: Editorial (Instrument Serif and Inter), Swiss (Inter), Machine (IBM Plex Mono) and Book (EB Garamond), or fonts of your own installed on the machine. An optional greeting with your name. Give it a list of languages and every new tab says the date in one of them, at random.
 
-Browsers keep the focus in the address bar on a new tab, and no extension can take it from there. If you would rather type into the switcher right away, turn on *Take the focus from the address bar*: the tab is replaced by a new one in the same place, which starts with the page focused, and the address bar then shows the page's address instead of staying empty. In a Firefox container tab it stays as it is.
+Browsers keep the focus in the address bar on a new tab, and no extension can take it from there. So that you can type into the switcher right away, the tab is replaced by a new one in the same place, which starts with the page focused; the address bar then shows the page's address instead of staying empty. In a Firefox container tab it stays as it is. Turn off *Take the focus from the address bar* to keep the browser's way.
 
 **Media speed.** Every video and audio plays at the speed you set, or at a site's own rule. <kbd>]</kbd> faster, <kbd>[</kbd> slower, <kbd>\\</kbd> back to 1×. Anything from 0.91× to 1.09× is just 1×. If you change the speed with a site's own controls, sobrio leaves it alone on that page. Optionally, video and audio that start playing sound before you touch the page are paused; muted ones play on.
 

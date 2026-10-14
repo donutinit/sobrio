@@ -9,9 +9,10 @@ sobrio.SWITCHER_CSS = String.raw`
   --s-row: #1a1a1a;
   --s-bar: #fff;
   --s-input: #fff;
-  --s-title: #888;
+  --s-title: #c8c8c8;
   --s-hit: #fff;
-  --s-sub: #555;
+  --s-host: #a6a6a6;
+  --s-sub: #858585;
   --s-font: system-ui, sans-serif;
 }
 .backdrop {
@@ -67,6 +68,8 @@ sobrio.SWITCHER_CSS = String.raw`
   padding: 4px 0;
   overflow-y: auto;
   list-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--s-border) transparent;
 }
 .row {
   padding: 7px 14px 7px 12px;
@@ -77,6 +80,9 @@ sobrio.SWITCHER_CSS = String.raw`
   border-left-color: var(--s-bar);
   background: var(--s-row);
 }
+.row.selected .title {
+  color: var(--s-input);
+}
 .title,
 .sub {
   overflow: hidden;
@@ -86,7 +92,10 @@ sobrio.SWITCHER_CSS = String.raw`
 .sub {
   margin-top: 2px;
   color: var(--s-sub);
-  font-size: 12px;
+  font-size: 13px;
+}
+.host {
+  color: var(--s-host);
 }
 b {
   color: var(--s-hit);

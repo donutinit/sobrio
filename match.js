@@ -22,6 +22,12 @@
     return url.replace(/^[a-z][a-z0-9+.-]*:\/\//i, '').replace(/^www\./i, '');
   }
 
+  // Where the host ends in a short url: the switcher shows it brighter than the path.
+  function hostLength(short) {
+    const end = short.search(/[/?#]/);
+    return end === -1 ? short.length : end;
+  }
+
   function displayTitle(bookmark) {
     return bookmark.title || bookmark.url;
   }
@@ -197,6 +203,7 @@
     searchUrl,
     displayTitle,
     shortUrl,
+    hostLength,
   };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.match = api;

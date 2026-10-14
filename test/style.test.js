@@ -3,11 +3,12 @@ const assert = require('node:assert/strict');
 const { buildCss } = require('../style.js');
 const { DEFAULTS } = require('../settings.js');
 
-const ALL_ON = DEFAULTS.css;
-const ALL_OFF = Object.fromEntries(Object.keys(ALL_ON).map((key) => [key, false]));
+const ALL_OFF = Object.fromEntries(Object.keys(DEFAULTS.css).map((key) => [key, false]));
+const V01 = ['corners', 'shadows', 'blur', 'animations', 'youtubePlayer', 'smoothScroll', 'thinScrollbars', 'fixedBackgrounds'];
+const ALL_ON = { ...ALL_OFF, ...Object.fromEntries(V01.map((key) => [key, true])) };
 const only = (key, extra = {}) => ({ ...ALL_OFF, [key]: true, ...extra });
 
-test('all on is the v0.1 stylesheet', () => {
+test('the v0.1 switches together are the v0.1 stylesheet', () => {
   const css = buildCss(ALL_ON, null);
   for (const piece of [
     'scroll-behavior: auto !important',
@@ -26,6 +27,14 @@ test('all on is the v0.1 stylesheet', () => {
   ]) {
     assert.ok(css.includes(piece), piece);
   }
+});
+
+test('the defaults: no scrollbars, underlined links, selectable text, no forced capitals', () => {
+  const css = buildCss(DEFAULTS.css, null);
+  for (const piece of ['scrollbar-width: none', 'text-decoration: underline', 'user-select: text', 'text-transform: none']) {
+    assert.ok(css.includes(piece), piece);
+  }
+  for (const piece of ['scrollbar-width: thin', 'grayscale', ':focus-visible']) assert.ok(!css.includes(piece), piece);
 });
 
 test('all off is empty', () => {

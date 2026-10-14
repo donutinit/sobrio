@@ -6,7 +6,7 @@
     css: {
       corners: true, shadows: true, blur: true, animations: true, youtubePlayer: true,
       smoothScroll: true, thinScrollbars: true, fixedBackgrounds: true,
-      hideScrollbars: false, underlineLinks: false, selectableText: false, noUppercase: false,
+      hideScrollbars: true, underlineLinks: true, selectableText: true, noUppercase: true,
       grayscaleMedia: false, focusRing: false, custom: '',
     },
     dark: {
@@ -20,7 +20,7 @@
     },
     newtab: {
       style: 'editorial', locales: [], clock: 'auto', date: true, time: true, switcher: true,
-      layout: 'clasico', greeting: false, name: '', focusPage: false,
+      layout: 'clasico', greeting: false, name: '', focusPage: true,
       customTimeFont: '', customDateFont: '', customTimeWeight: 300,
     },
     speed: { enabled: true, speed: 1, step: 0.1, shortcuts: true, rules: [] },

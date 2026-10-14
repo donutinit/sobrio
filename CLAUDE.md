@@ -43,8 +43,10 @@ con `python3 -I -m http.server` desde una carpeta fuera del repo.
   inyección) y la parte pura de `detector.js`. No tocan `chrome.*` al cargar, para
   que `node --test` los pruebe. Exportan en `globalThis.sobrio` y en `module.exports`.
 - `settings` en `storage.local` se lee siempre con `mergeSettings`: cada campo inválido cae a su
-  default. Los defaults reproducen v0.1, salvo lo que Diego pidió como nuevo default en v0.3
-  (precisión `normal`, Google primero, comandos en inglés). `stats` vive aparte en
+  default. Los defaults son los que Diego pidió: los de v0.1, más precisión `normal`, Google
+  primero y comandos en inglés (v0.3), y desde 0.3.2 todos los interruptores de estilo menos
+  escala de grises y contorno de foco, y `focusPage`. Guardar en ajustes escribe el objeto
+  entero, así que un default nuevo no le llega a quien ya guardó: hay que avisarlo. `stats` vive aparte en
   `storage.local` (`{[url]: {count, last, title}}`, máximo 2,000).
 - Atajos, velocidad, aviso y pausa del autoplay solo actúan con eventos `isTrusted`: una página
   no debe poder disparar acciones de la extensión.
