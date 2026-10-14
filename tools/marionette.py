@@ -20,6 +20,22 @@ import tempfile
 import time
 
 ADDON_ID = 'sobrio@donutinit'
+WEBDRIVER_KEYS = {'Ctrl': '\ue009', 'Shift': '\ue008', 'Alt': '\ue00a', 'Meta': '\ue03d', 'Tab': '\ue004',
+                  'Enter': '\ue007', 'Escape': '\ue00c', 'ArrowUp': '\ue013', 'ArrowDown': '\ue015'}
+
+
+def key_actions(tokens):
+    """'rust,Ctrl+j,Shift+Tab' as WebDriver key actions; plain words are typed letter by letter."""
+    actions = []
+    for token in tokens.split(','):
+        *mods, key = token.split('+')
+        presses = [key] if mods or key in WEBDRIVER_KEYS or len(key) == 1 else list(key)
+        for press in presses:
+            values = [WEBDRIVER_KEYS[m] for m in mods] + [WEBDRIVER_KEYS.get(press, press)]
+            actions += [{'type': 'keyDown', 'value': v} for v in values]
+            actions += [{'type': 'keyUp', 'value': v} for v in reversed(values)]
+            actions.append({'type': 'pause', 'duration': 150})
+    return [{'type': 'key', 'id': 'keyboard', 'actions': actions}]
 
 
 class Marionette:
@@ -83,6 +99,7 @@ def main():
     ap.add_argument('--eval', default='return null')
     ap.add_argument('--ext-eval')
     ap.add_argument('--then-ext-eval', help='after each page: run this in an extension tab, then --eval again')
+    ap.add_argument('--keys', help="after --then-ext-eval, press these: 'rust,Ctrl+j,Tab,Enter'")
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--pref', action='append', default=[], help='name=json value')
@@ -138,8 +155,16 @@ def main():
                 m.call('WebDriver:CloseWindow')
                 m.call('WebDriver:SwitchToWindow', {'handle': page})
                 time.sleep(1.5)
+                if args.keys:
+                    m.call('WebDriver:PerformActions', {'actions': key_actions(args.keys)})
+                    m.call('WebDriver:ReleaseActions')
+                    time.sleep(0.5)
                 after = m.call('WebDriver:ExecuteScript', {'script': wrap(args.eval), 'args': []})
                 print(json.dumps({'url': url, 'after': after}))
+                if args.shots:
+                    png = base64.b64decode(m.call('WebDriver:TakeScreenshot', {'full': False}))
+                    with open(os.path.join(args.shots, f'firefox-{i}-after.png'), 'wb') as f:
+                        f.write(png)
             if args.shots:
                 png = base64.b64decode(m.call('WebDriver:TakeScreenshot', {'full': False}))
                 with open(os.path.join(args.shots, f'firefox-{i}.png'), 'wb') as f:

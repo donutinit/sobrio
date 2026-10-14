@@ -17,6 +17,27 @@ import sys
 import tempfile
 import time
 
+SPECIAL_KEYS = {'Tab': 9, 'Enter': 13, 'Escape': 27, 'ArrowUp': 38, 'ArrowDown': 40}
+MODIFIERS = {'Alt': 1, 'Ctrl': 2, 'Meta': 4, 'Shift': 8}
+SWITCHER_STATE = '''function () {
+    const rows = [...this.querySelectorAll('.row')];
+    return {mode: this.querySelector('.mode').textContent, value: this.querySelector('.input').value,
+            focused: this.activeElement?.className ?? null, selected: rows.findIndex(r => r.classList.contains('selected')),
+            rows: rows.map(r => r.querySelector('.title').textContent + ' | ' + r.querySelector('.sub').textContent),
+            empty: this.querySelector('.empty')?.textContent ?? null};
+}'''
+
+
+def keys(tokens):
+    """'rust,Ctrl+j,Shift+Tab' -> [(modifiers, key)]; plain words are typed letter by letter."""
+    for token in tokens.split(','):
+        *mods, key = token.split('+')
+        if mods or key in SPECIAL_KEYS or len(key) == 1:
+            yield [m for m in mods], key
+        else:
+            for char in key:
+                yield [], char
+
 
 class Pipe:
     def __init__(self, binary, profile, extra):
@@ -65,6 +86,34 @@ class Pipe:
                 return reply['result']
             self.events.append(reply)
 
+    def press(self, mods, key, session):
+        bits = sum(MODIFIERS[m] for m in mods)
+        if key in SPECIAL_KEYS:
+            event = {'key': key, 'code': key, 'windowsVirtualKeyCode': SPECIAL_KEYS[key]}
+            if key == 'Enter' and not bits:
+                event['text'] = '\r'
+        elif bits & ~MODIFIERS['Shift']:
+            event = {'key': key, 'code': f'Key{key.upper()}', 'windowsVirtualKeyCode': ord(key.upper())}
+        else:
+            event = {'key': key, 'text': key, 'windowsVirtualKeyCode': ord(key.upper())}
+        down = 'keyDown' if 'text' in event else 'rawKeyDown'
+        self.call('Input.dispatchKeyEvent', {'type': down, 'modifiers': bits, **event}, session)
+        self.call('Input.dispatchKeyEvent', {'type': 'keyUp', 'modifiers': bits, **event}, session)
+
+    def switcher_state(self, session):
+        root = self.call('DOM.getDocument', {'depth': -1, 'pierce': True}, session)['root']
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            if node.get('nodeName') == 'SOBRIO-SWITCHER' and node.get('shadowRoots'):
+                shadow = self.call('DOM.resolveNode', {'backendNodeId': node['shadowRoots'][0]['backendNodeId']}, session)
+                result = self.call('Runtime.callFunctionOn', {
+                    'objectId': shadow['object']['objectId'], 'functionDeclaration': SWITCHER_STATE,
+                    'returnByValue': True}, session)
+                return result['result'].get('value')
+            stack.extend(node.get('children', []))
+        return None
+
     def evaluate(self, script, session):
         result = self.call('Runtime.evaluate', {
             'expression': f'(async () => {{ {script} }})()',
@@ -81,6 +130,8 @@ def main():
     ap.add_argument('--eval', default='return null')
     ap.add_argument('--ext-eval')
     ap.add_argument('--then-ext-eval', help='after each page: run this in an extension tab, then --eval again')
+    ap.add_argument('--keys', help="after --then-ext-eval, press these: 'rust,Ctrl+j,Tab,Enter'")
+    ap.add_argument('--switcher', action='store_true', help='print the switcher state (closed shadow root)')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--dark', action='store_true', help='emulate prefers-color-scheme: dark')
@@ -99,7 +150,7 @@ def main():
 
         target = cdp.call('Target.createTarget', {'url': 'about:blank'})['targetId']
         session = cdp.call('Target.attachToTarget', {'targetId': target, 'flatten': True})['sessionId']
-        for domain in ('Page', 'Runtime', 'Log'):
+        for domain in ('Page', 'Runtime', 'Log', 'DOM'):
             cdp.call(f'{domain}.enable', {}, session)
         if args.dark:
             cdp.call('Emulation.setEmulatedMedia',
@@ -122,8 +173,19 @@ def main():
                 time.sleep(1)
                 print(json.dumps({'then_ext_eval': cdp.evaluate(args.then_ext_eval, other_session)}))
                 cdp.call('Target.closeTarget', {'targetId': other})
+                cdp.call('Target.activateTarget', {'targetId': target})
                 time.sleep(1.5)
+                for mods, key in keys(args.keys or ''):
+                    if key:
+                        cdp.press(mods, key, session)
+                        time.sleep(0.15)
                 print(json.dumps({'url': url, 'after': cdp.evaluate(args.eval, session)}))
+                if args.switcher:
+                    print(json.dumps({'switcher': cdp.switcher_state(session)}))
+                if args.shots:
+                    png = cdp.call('Page.captureScreenshot', {'format': 'png'}, session)['data']
+                    with open(os.path.join(args.shots, f'chromium-{i}-after.png'), 'wb') as f:
+                        f.write(base64.b64decode(png))
             if args.shots:
                 png = cdp.call('Page.captureScreenshot', {'format': 'png'}, session)['data']
                 with open(os.path.join(args.shots, f'chromium-{i}.png'), 'wb') as f:

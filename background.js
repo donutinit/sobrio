@@ -83,7 +83,7 @@ function openSwitcher(tab) {
     return;
   }
   chrome.scripting
-    .executeScript({ target: { tabId: tab.id }, files: ['match.js', 'switcher.js'] })
+    .executeScript({ target: { tabId: tab.id }, files: ['match.js', 'switcher-css.js', 'switcher.js'] })
     .catch(openPopup);
 }
 
