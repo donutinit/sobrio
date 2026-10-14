@@ -6,7 +6,8 @@ version=$(sed -n 's/^  "version": "\(.*\)",$/\1/p' manifest.json)
 out="dist/sobrio-$version.zip"
 mkdir -p dist
 rm -f "$out"
-zip -q -r "$out" manifest.json _locales icons/icon-*.png popup.html \
+# The notices travel with the code: darkreader.js is MIT and its header carries no license.
+zip -q -r "$out" LICENSE THIRD_PARTY_NOTICES.md manifest.json _locales icons/icon-*.png popup.html \
   boot.js custom-css.js darkreader.js detector.js page.js \
   background.js guard.js match.js switcher-css.js switcher.js popup.js
 cp "$out" "dist/sobrio-$version.xpi"
