@@ -35,7 +35,7 @@
     const state = siteState(stored, hostname);
     const text = state.css ? buildCss(settings.css, theme) : '';
     if (text) {
-      css.textContent = text;
+      if (css.textContent !== text) css.textContent = text; // rewriting restyles the whole page
       if (!css.isConnected) root.append(css);
     } else {
       css.remove();
