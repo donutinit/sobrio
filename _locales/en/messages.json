@@ -201,5 +201,59 @@
   },
   "optionsFooter": {
     "message": "Changes save themselves and apply to open tabs right away. The shortcut is changed in about:addons or chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "New tab"
+  },
+  "sectionNewtab": {
+    "message": "New tab"
+  },
+  "newtabStyle": {
+    "message": "Typography"
+  },
+  "newtabStyle_editorial": {
+    "message": "Editorial: Instrument Serif and Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Swiss: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Machine: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Book: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Theme: the font from userContent.css"
+  },
+  "newtabClock": {
+    "message": "Clock"
+  },
+  "newtabClock_auto": {
+    "message": "As the browser's language"
+  },
+  "newtabClock_24": {
+    "message": "24 hours"
+  },
+  "newtabClock_12": {
+    "message": "12 hours"
+  },
+  "newtabDate": {
+    "message": "Show the date"
+  },
+  "newtabTime": {
+    "message": "Show the time"
+  },
+  "newtabSwitcher": {
+    "message": "Show the switcher"
+  },
+  "newtabLocales": {
+    "message": "Languages for the date"
+  },
+  "newtabLocalesHelp": {
+    "message": "Every new tab says the date in one of these, at random."
+  },
+  "localesEmpty": {
+    "message": "The browser's language"
   }
 }

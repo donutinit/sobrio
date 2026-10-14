@@ -102,6 +102,18 @@ b {
   color: var(--s-sub);
   font-size: 12px;
 }
+.inline .box {
+  width: 100%;
+  max-height: 52vh;
+  background: transparent;
+}
+.inline .box.blank .bar {
+  border-bottom: 0;
+}
+.list[hidden],
+.hints[hidden] {
+  display: none;
+}
 .popup .box {
   width: 640px;
   max-height: 560px;

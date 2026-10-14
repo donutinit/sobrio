@@ -201,5 +201,59 @@
   },
   "optionsFooter": {
     "message": "Los cambios se guardan solos y se aplican al momento en las pestañas abiertas. El atajo se cambia en about:addons o en chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "Nueva pestaña"
+  },
+  "sectionNewtab": {
+    "message": "Nueva pestaña"
+  },
+  "newtabStyle": {
+    "message": "Tipografía"
+  },
+  "newtabStyle_editorial": {
+    "message": "Editorial: Instrument Serif e Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Suizo: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Máquina: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Libro: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Tema: la fuente de userContent.css"
+  },
+  "newtabClock": {
+    "message": "Reloj"
+  },
+  "newtabClock_auto": {
+    "message": "Como el idioma del navegador"
+  },
+  "newtabClock_24": {
+    "message": "24 horas"
+  },
+  "newtabClock_12": {
+    "message": "12 horas"
+  },
+  "newtabDate": {
+    "message": "Mostrar la fecha"
+  },
+  "newtabTime": {
+    "message": "Mostrar la hora"
+  },
+  "newtabSwitcher": {
+    "message": "Mostrar el switcher"
+  },
+  "newtabLocales": {
+    "message": "Idiomas de la fecha"
+  },
+  "newtabLocalesHelp": {
+    "message": "Cada pestaña nueva dice la fecha en uno de estos, al azar."
+  },
+  "localesEmpty": {
+    "message": "El idioma del navegador"
   }
 }

@@ -32,3 +32,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## Fonts
+
+The new tab bundles these fonts from [Fontsource](https://fontsource.org), latin and latin-ext
+subsets only, unchanged. All are under the SIL Open Font License 1.1; each license is in
+`fonts/` next to its files.
+
+- Instrument Serif (`fonts/instrument-serif-LICENSE.txt`)
+- Inter (`fonts/inter-LICENSE.txt`)
+- IBM Plex Mono (`fonts/ibm-plex-mono-LICENSE.txt`)
+- EB Garamond (`fonts/eb-garamond-LICENSE.txt`)

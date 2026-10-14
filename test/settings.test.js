@@ -35,7 +35,7 @@ test('valid stored values win', () => {
     css: { corners: false },
     dark: { brightness: 80, background: '#07090F', selection: '#171d2b' },
     switcher: { engines: { google: false } },
-    newtab: { style: 'libro', locale: 'ja-JP', clock: '12' },
+    newtab: { style: 'libro', locales: ['fr', 'de-DE', 'fr', 'it'], clock: '12' },
     speed: { speed: 1.5, step: 0.25, rules: [{ pattern: 'YouTube.com', speed: 2 }] },
   });
   assert.equal(settings.css.corners, false);
@@ -46,7 +46,7 @@ test('valid stored values win', () => {
   assert.equal(settings.switcher.engines.google, false);
   assert.equal(settings.switcher.engines.duckduckgo, true);
   assert.equal(settings.newtab.style, 'libro');
-  assert.equal(settings.newtab.locale, 'ja-JP');
+  assert.deepEqual(settings.newtab.locales, ['fr', 'de-DE', 'it']);
   assert.equal(settings.newtab.clock, '12');
   assert.equal(settings.speed.speed, 1.5);
   assert.equal(settings.speed.step, 0.25);
@@ -58,7 +58,7 @@ test('corrupt or out of range values fall back field by field', () => {
     css: { corners: 'yes', blur: 0 },
     dark: { enabled: null, brightness: 400, contrast: Number.NaN, sepia: -1, background: 'black', text: '#fff' },
     switcher: { bookmarks: 1, engines: { google: 'no', altavista: true } },
-    newtab: { style: 'comic', locale: 'not a locale!!', clock: 24 },
+    newtab: { style: 'comic', locales: 'fr', clock: 24 },
     speed: { speed: 9, step: 0.3, shortcuts: 'on', rules: [{ pattern: 'a b', speed: 2 }, { pattern: 'x.com', speed: 99 }, 'junk'] },
   });
   assert.deepEqual(settings, DEFAULTS);
@@ -172,4 +172,9 @@ test('stepSpeed adds steps, rounds and stays within 0.25 and 4', () => {
   assert.equal(stepSpeed(1, 0.05, -1), 0.95);
   assert.equal(stepSpeed(3.9, 0.25, 1), 4);
   assert.equal(stepSpeed(0.3, 0.1, -1), 0.25);
+});
+
+test('newtab locales: invalid entries drop out one by one', () => {
+  assert.deepEqual(mergeSettings({ newtab: { locales: ['es-MX', 'not a locale!!', 3, '', 'EN-us'] } }).newtab.locales, ['es-MX', 'en-US']);
+  assert.deepEqual(DEFAULTS.newtab.locales, []);
 });

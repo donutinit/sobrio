@@ -1,0 +1,118 @@
+/* The new tab: the date over the time, then the switcher. Each style is one decision of
+   family, weight, size and tracking; hierarchy comes from scale and color, not boxes. */
+:root {
+  --bg: #000;
+  --text: #e8e6e3;
+  --muted: #8a8a8a;
+  --theme-font: system-ui, sans-serif;
+  --time-size: clamp(88px, 15vw, 184px);
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+main {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  padding: 26vh 16px 16px;
+  text-align: center;
+}
+
+.date,
+.time {
+  margin: 0;
+}
+
+.date {
+  color: var(--muted);
+}
+
+.time {
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.period {
+  margin-left: 0.14em;
+  color: var(--muted);
+  font-size: 0.26em;
+  letter-spacing: 0.04em;
+}
+
+.switcher {
+  width: min(560px, 100%);
+  margin-top: 56px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Editorial: a display serif against a quiet sans, like a magazine masthead. */
+[data-style='editorial'] .date {
+  font: 400 15px/1.4 'Inter Variable', system-ui, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+[data-style='editorial'] .time {
+  margin-top: 6px;
+  font: 400 var(--time-size)/1 'Instrument Serif', Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+/* Suizo: one family; the hierarchy is weight and scale. */
+[data-style='suizo'] .date {
+  font: 500 12px/1.4 'Inter Variable', system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+[data-style='suizo'] .time {
+  margin-top: 14px;
+  font: 200 var(--time-size)/1 'Inter Variable', system-ui, sans-serif;
+  letter-spacing: -0.05em;
+}
+
+/* Máquina: the terminal's monospace. */
+[data-style='maquina'] .date {
+  font: 400 13px/1.4 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+[data-style='maquina'] .time {
+  margin-top: 12px;
+  font: 300 calc(var(--time-size) * 0.8)/1 'IBM Plex Mono', ui-monospace, monospace;
+  letter-spacing: -0.04em;
+}
+
+/* Libro: a classic book face, small caps and old-style figures. */
+[data-style='libro'] .date {
+  font: 400 19px/1.4 'EB Garamond Variable', Garamond, serif;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+}
+
+[data-style='libro'] .time {
+  margin-top: 4px;
+  font: 400 var(--time-size)/1 'EB Garamond Variable', Garamond, serif;
+  font-variant-numeric: oldstyle-nums tabular-nums;
+}
+
+/* Tema: the font from userContent.css (--sobrio-font), installed on this machine. */
+[data-style='tema'] .date {
+  font: 400 15px/1.4 var(--theme-font);
+}
+
+[data-style='tema'] .time {
+  margin-top: 8px;
+  font: 300 var(--time-size)/1 var(--theme-font);
+  letter-spacing: -0.03em;
+}

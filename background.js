@@ -87,7 +87,14 @@ chrome.commands.onCommand.addListener((command, tab) => {
   if (command === 'open-switcher') openSwitcher(tab);
 });
 
+const NEWTAB = chrome.runtime.getURL('newtab.html');
+
 function openSwitcher(tab) {
+  // sobrio's own new tab has the switcher already: focus it there instead of the popup.
+  if (tab?.url === NEWTAB || /^(about:newtab|about:home|chrome:\/\/newtab\/?)$/.test(tab?.url ?? '')) {
+    chrome.runtime.sendMessage({ sobrio: 'focus-switcher', tabId: tab.id }).catch(() => {});
+    return;
+  }
   // Firefox only allows openPopup() synchronously inside the command handler,
   // so pages where injection cannot work go straight to the popup.
   if (!tab?.id || !guard.canInject(tab.url)) {

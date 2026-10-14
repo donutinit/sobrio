@@ -265,6 +265,10 @@ button:hover {
   gap: 8px;
 }
 
+.adder select {
+  flex: 1;
+}
+
 .adder .text {
   flex: 1;
 }

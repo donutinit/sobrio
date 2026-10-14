@@ -124,6 +124,56 @@
     return node;
   }
 
+  // A select. choices() returns [{value, label}], so it can depend on the theme.
+  function selectRow(path, label, choices) {
+    const id = `field-${path}`;
+    const select = el('select', { id });
+    const node = row(id, label, [select]);
+    select.addEventListener('change', () => set(path, select.value));
+    syncs.push(() => {
+      const list = choices();
+      const current = get(path);
+      if (select.dataset.choices !== JSON.stringify(list)) {
+        select.replaceChildren(...list.map(({ value, label: text }) => el('option', { value, textContent: text })));
+        select.dataset.choices = JSON.stringify(list);
+      }
+      select.value = list.some((choice) => choice.value === current) ? current : list[0].value;
+    });
+    return node;
+  }
+
+  // Each language written in itself: "français", "Deutsch", "日本語".
+  const LANGUAGES = ['en', 'es', 'fr', 'de', 'it', 'pt', 'nl', 'sv', 'nb', 'da', 'fi', 'pl', 'cs', 'sk', 'hu',
+    'ro', 'tr', 'el', 'ru', 'uk', 'bg', 'sr', 'hr', 'sl', 'lt', 'lv', 'et', 'ca', 'eu', 'gl', 'ga', 'cy', 'is',
+    'ja', 'ko', 'zh-Hans', 'zh-Hant', 'ar', 'he', 'hi', 'th', 'vi', 'id', 'ms', 'sw', 'fil'];
+  function languageName(code) {
+    let name = code;
+    try {
+      name = new Intl.DisplayNames([code], { type: 'language' }).of(code) ?? code;
+    } catch {}
+    return name.charAt(0).toLocaleUpperCase(code) + name.slice(1);
+  }
+
+  function localesList() {
+    const select = el('select', {}, ...LANGUAGES.map((code) => el('option', { value: code, textContent: languageName(code) })));
+    const add = el('button', { type: 'button', textContent: t('add') });
+    const items = el('ul', { className: 'patterns' });
+    add.addEventListener('click', () => {
+      if (!settings.newtab.locales.includes(select.value)) set('newtab.locales', [...settings.newtab.locales, select.value]);
+    });
+    syncs.push(() => {
+      const rows = settings.newtab.locales.map((code) => el('li', {},
+        el('span', { textContent: `${languageName(code)} · ${code}` }),
+        el('button', { type: 'button', textContent: '×', title: t('remove'),
+          onclick: () => set('newtab.locales', settings.newtab.locales.filter((c) => c !== code)) })));
+      items.replaceChildren(...(rows.length ? rows : [el('li', { className: 'empty', textContent: t('localesEmpty') })]));
+    });
+    return el('div', { className: 'list' },
+      el('h3', { textContent: t('newtabLocales') }),
+      el('p', { className: 'help', textContent: t('newtabLocalesHelp') }),
+      el('div', { className: 'adder' }, select, add), items);
+  }
+
   function exceptionList(key, title) {
     const input = el('input', { className: 'text', placeholder: t('patternPlaceholder'), spellcheck: false });
     const add = el('button', { type: 'button', textContent: t('add') });
@@ -218,6 +268,16 @@
         switchRow('switcher.commands', 'switcherCommands'),
         switchRow('switcher.hints', 'switcherHints'),
         switcherStatus),
+      section('sectionNewtab',
+        selectRow('newtab.style', 'newtabStyle', () => [
+          ...['editorial', 'suizo', 'maquina', 'libro'].map((value) => ({ value, label: t(`newtabStyle_${value}`) })),
+          ...(theme?.font ? [{ value: 'tema', label: t('newtabStyle_tema') }] : []),
+        ]),
+        selectRow('newtab.clock', 'newtabClock', () => ['auto', '24', '12'].map((value) => ({ value, label: t(`newtabClock_${value}`) }))),
+        switchRow('newtab.date', 'newtabDate'),
+        switchRow('newtab.time', 'newtabTime'),
+        switchRow('newtab.switcher', 'newtabSwitcher'),
+        localesList()),
       el('p', { className: 'footer', textContent: t('optionsFooter') }),
     );
   }

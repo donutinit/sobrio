@@ -15,7 +15,7 @@
       bookmarks: true, autoSearch: true, commands: true, hints: true,
       engines: { duckduckgo: true, google: true, youtube: true, wikipedia: true, github: true },
     },
-    newtab: { style: 'editorial', locale: '', clock: 'auto', date: true, time: true, switcher: true },
+    newtab: { style: 'editorial', locales: [], clock: 'auto', date: true, time: true, switcher: true },
     speed: { enabled: true, speed: 1, step: 0.1, shortcuts: true, rules: [] },
   };
 
@@ -24,12 +24,12 @@
   const range = (low, high) => (v) => typeof v === 'number' && Number.isFinite(v) && v >= low && v <= high;
   const oneOf = (...options) => (v) => options.includes(v);
   const color = (v) => typeof v === 'string' && HEX.test(v);
-  const locale = (v) => {
-    if (v === '') return true;
+  const canonicalLocale = (v) => {
+    if (typeof v !== 'string' || !v) return null;
     try {
-      return typeof v === 'string' && Intl.getCanonicalLocales(v).length === 1;
+      return Intl.getCanonicalLocales(v)[0] ?? null;
     } catch {
-      return false;
+      return null;
     }
   };
 
@@ -46,7 +46,7 @@
       engines: Object.fromEntries(Object.keys(DEFAULTS.switcher.engines).map((key) => [key, bool])),
     },
     newtab: {
-      style: oneOf('editorial', 'suizo', 'maquina', 'libro', 'tema'), locale,
+      style: oneOf('editorial', 'suizo', 'maquina', 'libro', 'tema'), locales: Array.isArray,
       clock: oneOf('auto', '24', '12'), date: bool, time: bool, switcher: bool,
     },
     speed: { enabled: bool, speed: range(0.25, 4), step: oneOf(0.05, 0.1, 0.25), shortcuts: bool, rules: Array.isArray },
@@ -69,6 +69,8 @@
     settings.dark.background = settings.dark.background.toLowerCase();
     settings.dark.text = settings.dark.text.toLowerCase();
     settings.dark.selection = settings.dark.selection.toLowerCase();
+    // The new tab picks one of these at random for the date; none means the browser's.
+    settings.newtab.locales = [...new Set(settings.newtab.locales.map(canonicalLocale).filter(Boolean))].slice(0, 30);
     settings.speed.rules = settings.speed.rules
       .map((rule) => isObject(rule) && { pattern: normalizePattern(rule.pattern), speed: rule.speed })
       .filter((rule) => rule && rule.pattern && range(0.25, 4)(rule.speed));

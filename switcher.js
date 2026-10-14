@@ -178,6 +178,11 @@
       mode.textContent = engine ? engine.name : '★';
       input.placeholder = engine ? t('placeholderEngine', engine.name) : t('placeholderBookmarks');
       hints.hidden = !settings.switcher.hints;
+      // On the new tab the page stays clean until something is typed.
+      const blank = layout === 'inline' && !input.value.trim();
+      box.classList.toggle('blank', blank);
+      list.hidden = blank;
+      if (blank) hints.hidden = true;
       list.replaceChildren(
         ...rows.map((row, i) => {
           const item = el('li', 'row', el('div', 'title', row.title), el('div', 'sub', row.sub));
@@ -217,7 +222,10 @@
         state = { mode: match.nextMode(match.modes(settings.switcher), state.mode, e.shiftKey ? -1 : 1), manual: true };
         update();
       } else if (key === 'Enter') activate(selected, ctrl);
-      else if (key === 'Escape') close();
+      else if (key === 'Escape' && layout === 'inline') {
+        input.value = '';
+        update();
+      } else if (key === 'Escape') close();
       else return;
       e.preventDefault();
     }
@@ -225,7 +233,7 @@
     input.addEventListener('input', update);
     update();
     input.focus();
-    return { onKey, onInput: update };
+    return { onKey, onInput: update, focus: () => input.focus() };
   }
 
   function toggleSwitcher() {
