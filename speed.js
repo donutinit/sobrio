@@ -1,10 +1,12 @@
 // Media speed, the essentials of Global Speed: every <video> and <audio> plays at the global
-// speed or at its site's rule, and ] faster, [ slower, \ back to 1 change it.
+// speed or at its site's rule, and ] faster, [ slower, \ back to 1 change it. Also
+// media.pauseAutoplay: sound that starts before the person touched the page is paused.
 (() => {
   const { mergeSettings, desiredSpeed, stepSpeed, hostMatches, classifyRateChange, speedKey } = sobrio.settings;
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions);
   const host = location.hostname;
   let speed = mergeSettings(undefined).speed;
+  let pauseAutoplay = false;
   let target = 1; // what sobrio wants here
   let pageOwn = null; // a speed the page chose itself (its own menu): left alone until navigation
   const ours = new WeakMap(); // media → the rate sobrio set last, to know its own ratechange
@@ -37,6 +39,16 @@
   for (const type of ['loadedmetadata', 'play']) {
     document.addEventListener(type, (e) => isMedia(e.target) && apply(e.target), true);
   }
+  // Muted media (a looping background, a gif turned video) plays on; it is paused if it
+  // becomes audible before any gesture.
+  const audible = (media) => !media.muted && media.volume > 0;
+  function holdAutoplay(media) {
+    if (pauseAutoplay && !media.paused && audible(media) && !navigator.userActivation.hasBeenActive) media.pause();
+  }
+  for (const type of ['play', 'volumechange']) {
+    document.addEventListener(type, (e) => isMedia(e.target) && holdAutoplay(e.target), true);
+  }
+
   document.addEventListener('ratechange', (e) => {
     const media = e.target;
     if (!isMedia(media) || !speed.enabled) return;
@@ -98,7 +110,11 @@
 
   function update(stored) {
     const wasOn = speed.enabled;
-    speed = mergeSettings(stored?.settings).speed;
+    const settings = mergeSettings(stored?.settings);
+    speed = settings.speed;
+    pauseAutoplay = settings.media.pauseAutoplay;
+    // Autoplay can start before storage answers.
+    allMedia().forEach(holdAutoplay);
     target = desiredSpeed(speed, host);
     if (wasOn && !speed.enabled && pageOwn === null) {
       // Turned off: what sobrio sped up goes back to normal; a speed the page chose stays.

@@ -152,12 +152,14 @@ def main():
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--dark', action='store_true', help='emulate prefers-color-scheme: dark')
+    ap.add_argument('--autoplay', action='store_true', help='let media play with sound without a gesture')
     ap.add_argument('--console', help='print console and log entries containing this text')
     ap.add_argument('--binary', default=shutil.which('chromium-browser') or shutil.which('chromium'))
     args = ap.parse_args()
 
     profile = tempfile.mkdtemp(prefix='sobrio-chromium-')
-    cdp = Pipe(args.binary, profile, ['--force-dark-mode'] if args.dark else [])
+    flags = (['--force-dark-mode'] if args.dark else []) + (['--autoplay-policy=no-user-gesture-required'] if args.autoplay else [])
+    cdp = Pipe(args.binary, profile, flags)
     try:
         early = None
         if args.late_load and args.urls:  # a tab already open when the extension arrives
