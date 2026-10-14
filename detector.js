@@ -85,6 +85,17 @@
     };
   }
 
+  // Dark Reader's own sheets: its <style class="darkreader"> elements and the override it adopts
+  // after each sheet the page adopts (first rule #__darkreader__adoptedOverride). In Firefox
+  // the page's adopted list is read through wrappedJSObject, as Dark Reader itself does.
+  function darkReaderSheets(doc) {
+    const adopted = doc.adoptedStyleSheets?.wrappedJSObject ?? doc.adoptedStyleSheets ?? [];
+    return [
+      ...[...doc.styleSheets].filter((s) => s.ownerNode?.classList?.contains('darkreader')),
+      ...[...adopted].filter((s) => s.cssRules?.[0]?.selectorText?.startsWith('#__darkreader')),
+    ];
+  }
+
   function detectDark(doc) {
     const meta = schemeFromMeta(doc.querySelector('meta[name="color-scheme"]')?.content);
     if (meta) return meta === 'dark';
@@ -101,7 +112,7 @@
     const still = doc.createElement('style');
     still.textContent = '*, *::before, *::after { transition: none !important; }';
     doc.documentElement.append(still);
-    const sheets = [...doc.styleSheets].filter((s) => s.ownerNode?.classList?.contains('darkreader'));
+    const sheets = darkReaderSheets(doc);
     sheets.forEach((s) => (s.disabled = true));
     try {
       return isDarkFromSamples(samplePage(doc));
@@ -150,7 +161,7 @@
     onState();
   }
 
-  const api = { parseColor, lightness, schemeFromMeta, isDarkFromSamples, detectDark, whenReady };
+  const api = { parseColor, lightness, schemeFromMeta, isDarkFromSamples, darkReaderSheets, detectDark, whenReady };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.detector = api;
   if (typeof module === 'object') module.exports = api;

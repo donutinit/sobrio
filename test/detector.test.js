@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { parseColor, lightness, schemeFromMeta, isDarkFromSamples } = require('../detector.js');
+const { parseColor, lightness, schemeFromMeta, isDarkFromSamples, darkReaderSheets } = require('../detector.js');
 
 const WHITE = 'rgb(255, 255, 255)';
 const DARK = 'rgb(30, 30, 30)';
@@ -80,4 +80,19 @@ test('unparseable sample means light', () => {
 test('pure black sample is inconclusive, so light', () => {
   // sobrio's own dark background: seeing it means Dark Reader's sheets were still applied.
   assert.equal(isDarkFromSamples(page({ rootBg: DARK, samples: [{ bg: 'rgb(0, 0, 0)', color: LIGHT_TEXT }] })), false);
+});
+
+test('darkReaderSheets finds its style elements and its adopted overrides', () => {
+  const classes = (...names) => ({ classList: { contains: (c) => names.includes(c) } });
+  const mine = { ownerNode: classes('darkreader', 'darkreader--sync') };
+  const page = { ownerNode: classes() };
+  const override = { cssRules: [{ selectorText: '#__darkreader__adoptedOverride' }] };
+  const pageAdopted = { cssRules: [{ selectorText: 'body' }] };
+  const emptyAdopted = { cssRules: [] };
+  const doc = { styleSheets: [mine, page], adoptedStyleSheets: [pageAdopted, override, emptyAdopted] };
+  assert.deepEqual(darkReaderSheets(doc), [mine, override]);
+});
+
+test('darkReaderSheets copes without adoptedStyleSheets', () => {
+  assert.deepEqual(darkReaderSheets({ styleSheets: [] }), []);
 });
