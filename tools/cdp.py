@@ -148,6 +148,7 @@ def main():
     ap.add_argument('--after-ext-eval', help='after --keys and --eval: run this in an extension tab')
     ap.add_argument('--sw-eval', help='after --then-ext-eval: run this inside the service worker')
     ap.add_argument('--late-load', action='store_true', help='open the first url before loading the extension')
+    ap.add_argument('--clipboard', action='store_true', help='let pages read and write the clipboard')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--dark', action='store_true', help='emulate prefers-color-scheme: dark')
@@ -162,6 +163,8 @@ def main():
         if args.late_load and args.urls:  # a tab already open when the extension arrives
             early = cdp.call('Target.createTarget', {'url': args.urls[0]})['targetId']
             time.sleep(args.wait)
+        if args.clipboard:
+            cdp.call('Browser.grantPermissions', {'permissions': ['clipboardReadWrite', 'clipboardSanitizedWrite']})
         ext_id = cdp.call('Extensions.loadUnpacked', {'path': os.path.abspath(args.ext_dir)})['id']
         time.sleep(1)
         workers = [t['url'] for t in cdp.call('Target.getTargets')['targetInfos']

@@ -279,5 +279,29 @@
   },
   "speedPageOnly": {
     "message": "this page only"
+  },
+  "toastDarkOn": {
+    "message": "Dark mode on"
+  },
+  "toastDarkOff": {
+    "message": "Dark mode off"
+  },
+  "toastCssOn": {
+    "message": "Stylesheet on"
+  },
+  "toastCssOff": {
+    "message": "Stylesheet off"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Dark mode on everywhere"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Dark mode off everywhere"
+  },
+  "toastCopied": {
+    "message": "Clean link copied"
+  },
+  "toastCopyFailed": {
+    "message": "Could not copy"
   }
 }

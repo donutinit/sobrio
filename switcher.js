@@ -155,10 +155,7 @@
         return;
       }
       const key = kind === 'dark' ? 'darkOff' : 'cssOff';
-      const current = (await chrome.storage.local.get(key))[key];
-      const patterns = Array.isArray(current) ? current : [];
-      const covering = matchingPatterns(patterns, hostname);
-      const next = covering.length ? patterns.filter((p) => !covering.includes(p)) : [...patterns, hostname];
+      const next = sobrio.settings.toggledPatterns((await chrome.storage.local.get(key))[key], hostname);
       await chrome.storage.local.set({ [key]: next });
     }
 

@@ -91,31 +91,9 @@
     }, 300);
   }
 
-  let toastHost = null;
-  let toastTimer;
-
-  // A small box at the top left, inside the fullscreen element when there is one.
+  // The shared notice from toast.js.
   function toast(value, pageOnly) {
-    if (!toastHost) {
-      toastHost = document.createElement('sobrio-speed');
-      toastHost.style.cssText =
-        'all: initial !important; position: fixed !important; top: 16px !important; left: 16px !important; z-index: 2147483647 !important;';
-      const shadow = toastHost.attachShadow({ mode: 'closed' });
-      const style = document.createElement('style');
-      style.textContent =
-        '.toast { padding: 6px 10px; border: 1px solid #333; background: #000; color: #fff;' +
-        ' font: 14px/1.3 system-ui, sans-serif; font-variant-numeric: tabular-nums; }' +
-        ' .toast span { color: #888; }';
-      toastHost.box = document.createElement('div');
-      toastHost.box.className = 'toast';
-      shadow.append(style, toastHost.box);
-    }
-    const label = document.createElement('span');
-    label.textContent = pageOnly ? ` · ${t('speedPageOnly')}` : '';
-    toastHost.box.replaceChildren(`${Number(value.toFixed(2))}×`, label);
-    (document.fullscreenElement ?? document.documentElement).append(toastHost);
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastHost.remove(), 900);
+    sobrio.toast?.(`${Number(value.toFixed(2))}×`, pageOnly ? t('speedPageOnly') : '', 900);
   }
 
   function update(stored) {

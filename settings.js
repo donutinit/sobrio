@@ -184,6 +184,14 @@
     return (Array.isArray(list) ? list : []).filter((p) => typeof p === 'string' && hostMatches(p, host));
   }
 
+  // td and ta: turning a site off adds its exact host; turning it on removes every pattern that
+  // covers it, wildcards included.
+  function toggledPatterns(list, host) {
+    const patterns = Array.isArray(list) ? list.filter((p) => typeof p === 'string') : [];
+    const covering = matchingPatterns(patterns, host);
+    return covering.length ? patterns.filter((p) => !covering.includes(p)) : [...patterns, host];
+  }
+
   // storage.local holds {darkOff: string[], cssOff: string[]} of patterns; true means on.
   function siteState(stored, host) {
     return {
@@ -322,7 +330,7 @@
   const api = {
     DEFAULTS, ACTIONS, mergeSettings, hostMatches, normalizePattern, matchingPatterns, siteState,
     parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
-    normalizeKeys, isValidShortcutKeys, cleanUrl,
+    normalizeKeys, isValidShortcutKeys, cleanUrl, toggledPatterns,
   };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.settings = api;

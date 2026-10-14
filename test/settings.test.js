@@ -16,6 +16,7 @@ const {
   normalizeKeys,
   isValidShortcutKeys,
   cleanUrl,
+  toggledPatterns,
 } = require('../settings.js');
 
 test('nothing stored gives the defaults, as a copy', () => {
@@ -336,4 +337,11 @@ test('memory is on by default and must be a boolean', () => {
   assert.equal(DEFAULTS.switcher.memory, true);
   assert.equal(mergeSettings({ switcher: { memory: false } }).switcher.memory, false);
   assert.equal(mergeSettings({ switcher: { memory: 'yes' } }).switcher.memory, true);
+});
+
+test('toggledPatterns: off adds the exact host, on removes every pattern that covers it', () => {
+  assert.deepEqual(toggledPatterns(['a.com'], 'b.com'), ['a.com', 'b.com']);
+  assert.deepEqual(toggledPatterns(['a.com', 'b.com'], 'b.com'), ['a.com']);
+  assert.deepEqual(toggledPatterns(['*.example.com', 'docs.example.com', 'x.com'], 'docs.example.com'), ['x.com']);
+  assert.deepEqual(toggledPatterns(undefined, 'b.com'), ['b.com']);
 });

@@ -279,5 +279,29 @@
   },
   "speedPageOnly": {
     "message": "solo esta página"
+  },
+  "toastDarkOn": {
+    "message": "Modo oscuro prendido"
+  },
+  "toastDarkOff": {
+    "message": "Modo oscuro apagado"
+  },
+  "toastCssOn": {
+    "message": "CSS prendido"
+  },
+  "toastCssOff": {
+    "message": "CSS apagado"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Modo oscuro prendido en todos lados"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Modo oscuro apagado en todos lados"
+  },
+  "toastCopied": {
+    "message": "Enlace limpio copiado"
+  },
+  "toastCopyFailed": {
+    "message": "No se pudo copiar"
   }
 }

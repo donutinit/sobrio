@@ -19,6 +19,7 @@ const handlers = {
     return true;
   },
   settings: () => chrome.runtime.openOptionsPage().then(() => true),
+  shortcut: (message, sender) => runShortcut(message, sender.tab),
 };
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -74,6 +75,32 @@ for (const event of ['onCreated', 'onRemoved', 'onChanged', 'onMoved']) {
   chrome.bookmarks[event].addListener(() => {
     bookmarks = null;
   });
+}
+
+// The shortcut actions a page cannot run itself (shortcuts.js runs the rest).
+async function runShortcut({ action, param, text }, tab) {
+  const { settings } = await chrome.storage.local.get('settings');
+  const { switcher } = sobrio.settings.mergeSettings(settings);
+  if (action === 'switcher') return showSwitcher(tab);
+  if (action === 'search') return showSwitcher(tab, param);
+  if (action === 'searchSelection') {
+    const engine = match.engineById(param, switcher);
+    if (!text || !engine) return showSwitcher(tab, param);
+    return openUrl(match.searchUrl(engine, text), true, tab);
+  }
+  if (action === 'openUrl' || action === 'openUrlNewTab') return openUrl(param, action === 'openUrlNewTab', tab);
+  if (action === 'settings') return chrome.runtime.openOptionsPage().then(() => true);
+  return false;
+}
+
+// On sobrio's own new tab the switcher is already there: focus it. Elsewhere, inject it.
+async function showSwitcher(tab, mode) {
+  if (guard.isOwnNewtab(tab?.url, NEWTAB)) {
+    await chrome.runtime.sendMessage({ sobrio: 'focus-switcher', tabId: tab.id }).catch(() => {});
+    return true;
+  }
+  await injectSwitcher(tab.id, mode);
+  return true;
 }
 
 // The switcher's memory: count the bookmark just opened, if memory is on.
