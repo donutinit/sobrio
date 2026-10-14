@@ -100,8 +100,11 @@
     });
 
     const open = (url, newTab) => send({ sobrio: 'open', url, newTab });
+    // td and ta act through page.js, which only runs where boot.js did (sobrio.send): not in
+    // the popup, nor in tabs that were open before sobrio was installed or updated.
     const commandAllowed = (kind) =>
-      settings.switcher.commands && (kind === 'settings' || (!popup && match.commandsAllowed(hostname)));
+      settings.switcher.commands &&
+      (kind === 'settings' || (!popup && Boolean(sobrio.send) && match.commandsAllowed(hostname)));
 
     function bookmarkRow({ bookmark, hits }) {
       const sub = document.createDocumentFragment();
