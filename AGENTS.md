@@ -16,6 +16,7 @@ python3 -I tools/cdp.py . <url>... --eval '<js>'    # Chromium headless (instala
 python3 -I tools/marionette.py . <url>... --eval '<js>'  # LibreWolf headless (en la máquina de Diego)
 python3 -I tools/vendor-darkreader.py <versión>     # actualizar Dark Reader
 python3 -I tools/vendor-fonts.py                    # actualizar las fuentes de la nueva pestaña
+python3 -I tools/make-icons.py                      # redibujar icons/ desde la retícula del isotipo
 scripts/pack.sh                                     # dist/sobrio-<versión>.zip y .xpi
 ```
 
@@ -33,6 +34,16 @@ FILE` (un `userContent.css` para el perfil), `--late-install` (la pestaña ya ab
 la ventana: `gBrowser`, `gURLBar`, `BrowserCommands.openTab()`). Las páginas de prueba se sirven
 con `python3 -I -m http.server` desde una carpeta fuera del repo.
 
+## Marca
+
+Blanco y negro, nada más (lo secundario es la misma tinta al 60 %, las líneas al 20 %).
+Instrument Sans y DM Mono solo en la marca y las imágenes; las páginas de la extensión usan la
+fuente del lector. El isotipo es un cuadrado con un punto final cuadrado en una retícula de 16:
+los PNG salen de `tools/make-icons.py`, nunca a mano. Los íconos de interfaz están en `icons.js`
+(retícula de 24, trazo 1.5, nada redondo). Todo en `docs/brand/README.md`; las capturas del README
+en `docs/screens`. Las imágenes que muestran una página sin sobrio se sacan con una extensión vacía
+en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
+
 ## Reglas
 
 - Sin build, sin `package.json` y sin dependencias de npm. JS plano: content scripts y páginas no
@@ -40,7 +51,7 @@ con `python3 -I -m http.server` desde una carpeta fuera del repo.
 - La lógica pura vive en `settings.js` (modelo, patrones, gancho de tema, velocidad, atajos,
   `cleanUrl`), `style.js` (el CSS por interruptores), `match.js` (switcher y motores), `stats.js`
   (peso de lo abierto), `clock.js` (fecha, hora, saludo y agujas), `guard.js` (descargas e
-  inyección) y la parte pura de `detector.js`. No tocan `chrome.*` al cargar, para
+  inyección), `icons.js` (los íconos como datos) y la parte pura de `detector.js`. No tocan `chrome.*` al cargar, para
   que `node --test` los pruebe. Exportan en `globalThis.sobrio` y en `module.exports`.
 - `settings` en `storage.local` se lee siempre con `mergeSettings`: cada campo inválido cae a su
   default. Los defaults son los que Diego pidió: los de v0.1, más precisión `normal`, Google
@@ -66,8 +77,8 @@ con `python3 -I -m http.server` desde una carpeta fuera del repo.
 - Firefox solo deja abrir el popup de forma síncrona dentro del handler del atajo. Por eso
   `guard.canInject` decide antes de intentar inyectar.
 - El switcher vive en un shadow root cerrado. Lo que necesita entra por `files` de
-  `executeScript` (`settings.js`, `stats.js`, `match.js`, `switcher-css.js`, `switcher.js`); su
-  CSS es un string. Sus colores son variables `--s-*`.
+  `executeScript` (`settings.js`, `stats.js`, `match.js`, `icons.js`, `switcher-css.js`,
+  `switcher.js`); su CSS es un string. Sus colores son variables `--s-*`.
 - El gancho de tema son variables `--sobrio-*` en `userContent.css` dentro de
   `@-moz-document url-prefix("moz-extension://")`. Solo el background de Firefox (y la página de
   ajustes) las lee; `storeThemeHook` escribe `theme` solo si cambió. En dot, la plantilla

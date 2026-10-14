@@ -1,0 +1,70 @@
+<!doctype html>
+<!-- The README banner and the GitHub social preview, 1280 × 640. Open it with #light for the
+     light version; tools/cdp.py takes the screenshots (see docs/brand/README.md). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>sobrio.</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=DM+Mono:wght@400&display=swap">
+<style>
+  :root { --ink: #fff; --paper: #000; }
+  :root.light { --ink: #000; --paper: #fff; }
+  html, body { margin: 0; background: var(--paper); }
+  .banner {
+    box-sizing: border-box;
+    width: 1280px;
+    height: 640px;
+    padding: 96px 104px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .lockup { display: flex; align-items: center; gap: 32px; }
+  .lockup svg { display: block; }
+  .wordmark {
+    font: 500 128px/1 'Instrument Sans', sans-serif;
+    letter-spacing: -0.045em;
+    white-space: nowrap;
+  }
+  .stop {
+    display: inline-block;
+    width: 0.15em;
+    height: 0.15em;
+    margin-left: 0.03em;
+    background: var(--ink);
+  }
+  .tagline {
+    margin: 0 0 22px;
+    max-width: 760px;
+    font: 400 36px/1.3 'Instrument Sans', sans-serif;
+    letter-spacing: -0.01em;
+  }
+  .features {
+    margin: 0;
+    font: 400 15px/1 'DM Mono', monospace;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="lockup">
+    <svg width="120" height="120" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true">
+      <path d="M0 0H16V16H0Z M10 10V13H13V10Z" fill="currentColor" fill-rule="evenodd"></path>
+    </svg>
+    <span class="wordmark">sobrio<span class="stop"></span></span>
+  </div>
+  <div>
+    <p class="tagline">An opinionated extension on how the web should look and how a browser should feel.</p>
+    <p class="features">dark mode · stylesheet · switcher · new tab · shortcuts · media</p>
+  </div>
+</div>
+<script>
+  if (location.hash === '#light') document.documentElement.classList.add('light');
+</script>
+</body>
+</html>
