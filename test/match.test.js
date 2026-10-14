@@ -122,6 +122,22 @@ test('10k bookmarks search under 200 ms', () => {
   assert.ok(performance.now() - start < 200);
 });
 
+test('5k realistic bookmarks: under 40 ms per keystroke once loaded', () => {
+  const words = ['react', 'hooks', 'rust', 'ownership', 'design', 'system', 'notes', 'guide', 'api', 'reference',
+    'docs', 'video', 'music', 'recipe', 'travel', 'photo', 'font', 'color', 'grid', 'layout'];
+  const pick = (i, n) => Array.from({ length: n }, (_, k) => words[(i * 7 + k * 13) % words.length]).join(' ');
+  const list = Array.from({ length: 5000 }, (_, i) => bm(
+    `${pick(i, 6)} ${i}`,
+    `https://www.${words[i % 20]}-site${i}.com/path/to/${pick(i + 3, 3).replace(/ /g, '/')}?q=${i}`,
+    `Dev / ${words[i % 7]} / ${words[i % 5]}`,
+    i,
+  ));
+  searchBookmarks(list, 'warm');
+  const start = performance.now();
+  for (const q of ['re', 'rea', 'reac', 'react', 'react h']) searchBookmarks(list, q);
+  assert.ok((performance.now() - start) / 5 < 40);
+});
+
 const toolbar = (children) => [{ id: '0', title: '', children: [{ id: '1', title: 'Bookmarks bar', children }] }];
 
 test('flatten skips folders, separators, javascript:, place:, data:', () => {

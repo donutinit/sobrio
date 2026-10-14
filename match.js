@@ -98,6 +98,17 @@
 
   const newestFirst = (a, b) => b.bookmark.dateAdded - a.bookmark.dateAdded;
 
+  // Folding is most of the cost, so each bookmark is folded once, not on every keystroke.
+  const folded = new WeakMap();
+  function foldedFields(bookmark) {
+    let fields = folded.get(bookmark);
+    if (!fields) {
+      fields = { title: fold(bookmark.title), folder: fold(bookmark.folder), url: fold(shortUrl(bookmark.url)) };
+      folded.set(bookmark, fields);
+    }
+    return fields;
+  }
+
   function searchBookmarks(list, query, limit = MAX_RESULTS) {
     const words = fold(query).split(/\s+/).filter(Boolean);
     if (!words.length) {
@@ -108,12 +119,7 @@
     }
     const results = [];
     for (const bookmark of list) {
-      const fields = {
-        title: fold(bookmark.title),
-        folder: fold(bookmark.folder),
-        url: fold(shortUrl(bookmark.url)),
-      };
-      const scored = scoreBookmark(fields, words);
+      const scored = scoreBookmark(foldedFields(bookmark), words);
       if (scored) results.push({ bookmark, ...scored });
     }
     return results.sort((a, b) => b.score - a.score || newestFirst(a, b)).slice(0, limit);
