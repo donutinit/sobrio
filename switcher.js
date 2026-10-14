@@ -53,15 +53,23 @@
 
     const commandsOn = !popup && Boolean(sobrio.siteState) && match.commandsAllowed(hostname);
     let bookmarks = [];
+    // Until the list arrives nothing jumps to an engine, and an early Enter waits for it:
+    // a quick "gh" + Enter means the bookmark, not a web search.
+    let loaded = false;
+    let pendingEnter = null;
     let site = { dark: true, css: true };
     let state = { mode: 0, manual: false };
     let rows = [];
     let selected = 0;
 
-    send({ sobrio: 'bookmarks' }).then((answer) => {
-      bookmarks = Array.isArray(answer) ? answer : [];
-      update();
-    });
+    send({ sobrio: 'bookmarks' })
+      .catch(() => [])
+      .then((answer) => {
+        bookmarks = Array.isArray(answer) ? answer : [];
+        loaded = true;
+        update();
+        if (pendingEnter) activate(selected, pendingEnter.newTab);
+      });
     if (commandsOn) {
       chrome.storage.local.get(['darkOff', 'cssOff']).then((stored) => {
         site = sobrio.siteState(stored, hostname);
@@ -108,7 +116,7 @@
       const query = input.value;
       const results = match.searchBookmarks(bookmarks, query);
       const command = commandsOn ? match.parseCommand(query) : null;
-      state = match.autoMode(state, query, results.length > 0 || command !== null);
+      state = match.autoMode(state, query, !loaded || results.length > 0 || command !== null);
       rows = [];
       if (state.mode === 0) {
         if (command) rows.push(commandRow(command));
@@ -143,6 +151,10 @@
     }
 
     async function activate(i, newTab) {
+      if (!loaded && state.mode === 0) {
+        pendingEnter = { newTab };
+        return;
+      }
       const row = rows[i];
       if (!row) return;
       await row.run(newTab);

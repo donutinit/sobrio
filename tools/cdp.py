@@ -141,6 +141,8 @@ def main():
     ap.add_argument('--then-ext-eval', help='after each page: run this in an extension tab, then --eval again')
     ap.add_argument('--keys', help="after --then-ext-eval, press these: 'rust,Ctrl+j,Tab,Enter,click@x:y'")
     ap.add_argument('--switcher', action='store_true', help='print the switcher state (closed shadow root)')
+    ap.add_argument('--busy-worker', type=int, help='block the service worker this many ms before --then-ext-eval')
+    ap.add_argument('--settle', type=float, default=0, help='seconds to wait after --keys before --eval')
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--dark', action='store_true', help='emulate prefers-color-scheme: dark')
@@ -175,6 +177,13 @@ def main():
             time.sleep(args.wait)
             print(json.dumps({'url': url, 'eval': cdp.evaluate(args.eval, session)}))
             if args.then_ext_eval:
+                if args.busy_worker:
+                    worker = next(t['targetId'] for t in cdp.call('Target.getTargets')['targetInfos']
+                                  if t['type'] == 'service_worker' and ext_id in t['url'])
+                    worker_session = cdp.call('Target.attachToTarget',
+                                              {'targetId': worker, 'flatten': True})['sessionId']
+                    cdp.call('Runtime.evaluate', {'expression': 'setTimeout(() => { const end = Date.now() + '
+                             f'{args.busy_worker}; while (Date.now() < end); }}, 0); 1'}, worker_session)
                 other = cdp.call('Target.createTarget',
                                  {'url': f'chrome-extension://{ext_id}/popup.html'})['targetId']
                 other_session = cdp.call('Target.attachToTarget',
@@ -188,6 +197,7 @@ def main():
                     if key:
                         cdp.press(mods, key, session)
                         time.sleep(0.15)
+                time.sleep(args.settle)
                 print(json.dumps({'url': url, 'after': cdp.evaluate(args.eval, session)}))
                 if args.switcher:
                     print(json.dumps({'switcher': cdp.switcher_state(session)}))
