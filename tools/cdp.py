@@ -29,8 +29,13 @@ SWITCHER_STATE = '''function () {
 
 
 def keys(tokens):
-    """'rust,Ctrl+j,click@640:300' -> [(modifiers, key)]; plain words are typed letter by letter."""
+    """'rust,Ctrl+j,click@640:300' -> [(modifiers, key)]; plain words are typed letter by letter.
+    A trailing ~ (Ctrl+j~) sends the key as an autorepeat, like a held key."""
     for token in tokens.split(','):
+        if len(token) > 1 and token.endswith('~'):
+            *mods, key = token[:-1].split('+')
+            yield [*mods, 'repeat'], key
+            continue
         if token.startswith('click@'):
             yield ['click'], token[len('click@'):]
             continue
@@ -96,7 +101,8 @@ class Pipe:
                 self.call('Input.dispatchMouseEvent',
                           {'type': kind, 'x': x, 'y': y, 'button': 'left', 'clickCount': 1}, session)
             return
-        bits = sum(MODIFIERS[m] for m in mods)
+        repeat = 'repeat' in mods
+        bits = sum(MODIFIERS[m] for m in mods if m != 'repeat')
         if key in SPECIAL_KEYS:
             event = {'key': key, 'code': key, 'windowsVirtualKeyCode': SPECIAL_KEYS[key]}
             if key == 'Enter' and not bits:
@@ -106,6 +112,8 @@ class Pipe:
         else:
             event = {'key': key, 'text': key, 'windowsVirtualKeyCode': ord(key.upper())}
         down = 'keyDown' if 'text' in event else 'rawKeyDown'
+        if repeat:
+            event['autoRepeat'] = True
         self.call('Input.dispatchKeyEvent', {'type': down, 'modifiers': bits, **event}, session)
         self.call('Input.dispatchKeyEvent', {'type': 'keyUp', 'modifiers': bits, **event}, session)
 
