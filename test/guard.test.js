@@ -63,3 +63,10 @@ test('redirects may only land on public https hosts, like Dark Reader allows', (
   assert.equal(redirectAllowed('https://10.0.0.1.nip.io/x.css'), false);
   assert.equal(redirectAllowed('not a url'), false);
 });
+
+test('canInject: pdfs open in the browser viewer, so they go to the popup', () => {
+  assert.equal(canInject('https://example.com/paper.pdf'), false);
+  assert.equal(canInject('https://example.com/Paper.PDF?download=0#page=2'), false);
+  assert.equal(canInject('file:///home/me/scan.pdf'), false);
+  assert.equal(canInject('https://example.com/pdf-guide'), true);
+});

@@ -27,7 +27,7 @@ Two commands, typed in the switcher:
 
 The change applies at once in every tab of that site and is remembered.
 
-On pages where extensions cannot run (`about:` and `chrome://` pages, the add-on stores) the shortcut opens the switcher from the toolbar button instead. The toolbar button always opens it too.
+On pages where extensions cannot run (`about:` and `chrome://` pages, the add-on stores, PDFs) the shortcut opens the switcher from the toolbar button instead. The toolbar button always opens it too. In Firefox a few pages are only recognized too late (a PDF without `.pdf` in its address, error pages): there the shortcut does nothing and the toolbar button still works.
 
 ## Install
 

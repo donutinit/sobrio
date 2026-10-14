@@ -52,6 +52,9 @@
     }
     if (!['http:', 'https:', 'file:'].includes(parsed.protocol)) return false;
     if (RESTRICTED_HOSTS.has(parsed.hostname)) return false;
+    // The built-in PDF viewers take no content scripts, and Firefox cannot fall back to the
+    // popup after a failed injection.
+    if (/\.pdf$/i.test(parsed.pathname)) return false;
     return !(parsed.hostname === 'chrome.google.com' && parsed.pathname.startsWith('/webstore'));
   }
 
