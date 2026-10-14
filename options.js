@@ -76,11 +76,12 @@
     const input = el('input', { type: 'range', className: 'range', id, min, max, step });
     const value = el('span', { className: 'value' });
     const node = row(id, label, [...extra, input, value]);
-    const save = debounced((number) => set(path, number));
+    // The label follows the drag; the value is saved once the slider is let go, since every
+    // save makes each open tab redo its dark mode.
     input.addEventListener('input', () => {
       value.textContent = format(Number(input.value));
-      save(Number(input.value));
     });
+    input.addEventListener('change', () => set(path, Number(input.value)));
     syncs.push(() => {
       if (document.activeElement !== input) input.value = get(path);
       value.textContent = format(get(path));
@@ -116,7 +117,8 @@
       autoSwitch.hidden = !auto || Boolean(fromTheme);
       autoSwitch.checked = current === '';
       if (auto && current === '') input.hidden = true;
-      if (document.activeElement !== input && current) input.value = current;
+      // Seeded with a visible gray, so leaving Auto never picks black on black.
+      if (document.activeElement !== input) input.value = current || '#3a3a3a';
       value.hidden = Boolean(fromTheme);
       value.textContent = current || t('auto');
       node.classList.toggle('off', Boolean(dependsOn) && !get(dependsOn));
