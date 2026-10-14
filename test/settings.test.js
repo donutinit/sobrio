@@ -13,6 +13,9 @@ const {
   stepSpeed,
   classifyRateChange,
   speedKey,
+  normalizeKeys,
+  isValidShortcutKeys,
+  cleanUrl,
 } = require('../settings.js');
 
 test('nothing stored gives the defaults, as a copy', () => {
@@ -23,10 +26,9 @@ test('nothing stored gives the defaults, as a copy', () => {
 });
 
 test('defaults keep v0.1 behavior', () => {
-  assert.deepEqual(DEFAULTS.css, {
-    corners: true, shadows: true, blur: true, animations: true, youtubePlayer: true,
-    smoothScroll: true, thinScrollbars: true, fixedBackgrounds: true,
-  });
+  const v01 = ['corners', 'shadows', 'blur', 'animations', 'youtubePlayer', 'smoothScroll', 'thinScrollbars', 'fixedBackgrounds'];
+  assert.ok(v01.every((key) => DEFAULTS.css[key] === true));
+  assert.ok(Object.keys(DEFAULTS.css).filter((key) => !v01.includes(key)).every((key) => !DEFAULTS.css[key]));
   assert.equal(DEFAULTS.dark.background, '#000000');
   assert.equal(DEFAULTS.dark.text, '#e8e6e3');
   assert.equal(DEFAULTS.speed.speed, 1);
@@ -214,4 +216,118 @@ test('speedKey: modifiers are not shortcuts, AltGr is (Spanish layouts)', () => 
   assert.equal(speedKey(key(']', { altGraph: true })), 1);
   // Windows reports AltGr as Ctrl+Alt.
   assert.equal(speedKey(key(']', { ctrlKey: true, altKey: true, altGraph: true })), 1);
+});
+
+test('v0.3 defaults: new things off, Google first, normal precision', () => {
+  assert.deepEqual(
+    [DEFAULTS.css.hideScrollbars, DEFAULTS.css.underlineLinks, DEFAULTS.css.selectableText,
+      DEFAULTS.css.noUppercase, DEFAULTS.css.grayscaleMedia, DEFAULTS.css.focusRing, DEFAULTS.css.custom],
+    [false, false, false, false, false, false, '']);
+  assert.equal(DEFAULTS.switcher.precision, 'normal');
+  assert.equal(DEFAULTS.switcher.defaultEngine, 'google');
+  assert.deepEqual(DEFAULTS.switcher.customEngines, []);
+  assert.deepEqual(
+    [DEFAULTS.newtab.layout, DEFAULTS.newtab.greeting, DEFAULTS.newtab.name, DEFAULTS.newtab.focusPage,
+      DEFAULTS.newtab.customTimeFont, DEFAULTS.newtab.customDateFont, DEFAULTS.newtab.customTimeWeight],
+    ['clasico', false, '', false, '', '', 300]);
+  assert.deepEqual(DEFAULTS.media, { pauseAutoplay: false });
+  assert.deepEqual(DEFAULTS.shortcuts, []);
+});
+
+test('custom css: kept as text, cut at 50,000 characters', () => {
+  assert.equal(mergeSettings({ css: { custom: 'a { color: red }' } }).css.custom, 'a { color: red }');
+  assert.equal(mergeSettings({ css: { custom: 'x'.repeat(60000) } }).css.custom.length, 50000);
+  assert.equal(mergeSettings({ css: { custom: 42 } }).css.custom, '');
+});
+
+test('custom engines: http(s) with %s, a name, at most 10, ids kept', () => {
+  const settings = mergeSettings({ switcher: { customEngines: [
+    { id: 'custom-a1', name: 'SearXNG', url: 'https://search.example.com/search?q=%s' },
+    { id: 'custom-b2', name: 'No placeholder', url: 'https://example.com/search' },
+    { id: 'custom-c3', name: 'Script', url: 'javascript:alert(%s)' },
+    { id: 'custom-d4', name: '', url: 'https://a.com/?q=%s' },
+    { name: 'No id', url: 'http://b.com/?q=%s' },
+    'junk',
+  ] } });
+  assert.deepEqual(settings.switcher.customEngines, [
+    { id: 'custom-a1', name: 'SearXNG', url: 'https://search.example.com/search?q=%s' },
+    { id: 'custom-5', name: 'No id', url: 'http://b.com/?q=%s' },
+  ]);
+  const many = Array.from({ length: 14 }, (_, i) => ({ id: `custom-${i}`, name: `E${i}`, url: `https://e${i}.com/?q=%s` }));
+  assert.equal(mergeSettings({ switcher: { customEngines: many } }).switcher.customEngines.length, 10);
+});
+
+test('defaultEngine: a built-in or an existing custom engine, else Google', () => {
+  const custom = [{ id: 'custom-a1', name: 'SearXNG', url: 'https://s.example.com/?q=%s' }];
+  assert.equal(mergeSettings({ switcher: { defaultEngine: 'duckduckgo' } }).switcher.defaultEngine, 'duckduckgo');
+  assert.equal(mergeSettings({ switcher: { defaultEngine: 'custom-a1', customEngines: custom } }).switcher.defaultEngine, 'custom-a1');
+  assert.equal(mergeSettings({ switcher: { defaultEngine: 'custom-gone' } }).switcher.defaultEngine, 'google');
+  assert.equal(mergeSettings({ switcher: { precision: 'fuzzy' } }).switcher.precision, 'normal');
+});
+
+test('new tab: layouts, greeting, name and custom fonts validated', () => {
+  const settings = mergeSettings({ newtab: {
+    layout: 'analogico', greeting: true, name: 'Diego', style: 'custom',
+    customTimeFont: '"Acumin Pro", sans-serif', customDateFont: 'x; } body {', customTimeWeight: 700, focusPage: true,
+  } });
+  assert.deepEqual(
+    [settings.newtab.layout, settings.newtab.greeting, settings.newtab.name, settings.newtab.style,
+      settings.newtab.customTimeFont, settings.newtab.customDateFont, settings.newtab.customTimeWeight, settings.newtab.focusPage],
+    ['analogico', true, 'Diego', 'custom', '"Acumin Pro", sans-serif', '', 700, true]);
+  assert.equal(mergeSettings({ newtab: { layout: 'tiles', customTimeWeight: 350, name: 'x'.repeat(80) } }).newtab.layout, 'clasico');
+  assert.equal(mergeSettings({ newtab: { customTimeWeight: 350 } }).newtab.customTimeWeight, 300);
+  assert.equal(mergeSettings({ newtab: { name: 'x'.repeat(80) } }).newtab.name.length, 40);
+});
+
+const ev = (key, mods = {}) => ({ key, ctrlKey: false, altKey: false, shiftKey: false, metaKey: false, ...mods });
+
+test('normalizeKeys: modifiers in a fixed order, letters upper case', () => {
+  assert.equal(normalizeKeys(ev('d', { altKey: true })), 'Alt+D');
+  assert.equal(normalizeKeys(ev('K', { ctrlKey: true, shiftKey: true })), 'Ctrl+Shift+K');
+  assert.equal(normalizeKeys(ev('F5')), 'F5');
+  assert.equal(normalizeKeys(ev(' ', { metaKey: true, ctrlKey: true })), 'Ctrl+Meta+Space');
+  assert.equal(normalizeKeys(ev('ArrowUp', { altKey: true })), 'Alt+ArrowUp');
+  assert.equal(normalizeKeys(ev('Control', { ctrlKey: true })), null);
+  assert.equal(normalizeKeys(ev('Shift', { shiftKey: true })), null);
+});
+
+test('isValidShortcutKeys: needs Ctrl, Alt or Meta, or a function key', () => {
+  assert.equal(isValidShortcutKeys('Alt+D'), true);
+  assert.equal(isValidShortcutKeys('Ctrl+Shift+K'), true);
+  assert.equal(isValidShortcutKeys('F5'), true);
+  assert.equal(isValidShortcutKeys('Shift+F12'), true);
+  assert.equal(isValidShortcutKeys('D'), false);
+  assert.equal(isValidShortcutKeys('Shift+D'), false);
+  assert.equal(isValidShortcutKeys('Alt+'), false);
+  assert.equal(isValidShortcutKeys('Shift+Alt+D'), false);
+  assert.equal(isValidShortcutKeys(''), false);
+});
+
+test('shortcuts: valid ones kept with their param, duplicates and junk out', () => {
+  const settings = mergeSettings({ shortcuts: [
+    { keys: 'Alt+D', action: 'toggleDark', param: 'ignored' },
+    { keys: 'Alt+D', action: 'toggleCss' },
+    { keys: 'Alt+G', action: 'openUrlNewTab', param: 'https://github.com/' },
+    { keys: 'Alt+J', action: 'openUrl', param: 'javascript:alert(1)' },
+    { keys: 'Alt+1', action: 'speed', param: 1.5 },
+    { keys: 'Alt+2', action: 'speed', param: 9 },
+    { keys: 'Alt+S', action: 'search', param: 'youtube' },
+    { keys: 'D', action: 'toggleDark' },
+    { keys: 'Alt+X', action: 'format c:' },
+  ] });
+  assert.deepEqual(settings.shortcuts, [
+    { keys: 'Alt+D', action: 'toggleDark' },
+    { keys: 'Alt+G', action: 'openUrlNewTab', param: 'https://github.com/' },
+    { keys: 'Alt+1', action: 'speed', param: 1.5 },
+    { keys: 'Alt+S', action: 'search', param: 'youtube' },
+  ]);
+});
+
+test('cleanUrl drops tracking parameters only', () => {
+  assert.equal(cleanUrl('https://a.com/x?utm_source=n&utm_medium=e&id=7#top'), 'https://a.com/x?id=7#top');
+  assert.equal(cleanUrl('https://youtu.be/abc?si=XYZ&t=42'), 'https://youtu.be/abc?t=42');
+  assert.equal(cleanUrl('https://a.com/?fbclid=1&gclid=2&msclkid=3&igshid=4&mc_cid=5&q=ok'), 'https://a.com/?q=ok');
+  assert.equal(cleanUrl('https://a.com/path'), 'https://a.com/path');
+  assert.equal(cleanUrl('https://a.com/?utm_campaign=x'), 'https://a.com/');
+  assert.equal(cleanUrl('not a url'), 'not a url');
 });

@@ -6,6 +6,8 @@
     css: {
       corners: true, shadows: true, blur: true, animations: true, youtubePlayer: true,
       smoothScroll: true, thinScrollbars: true, fixedBackgrounds: true,
+      hideScrollbars: false, underlineLinks: false, selectableText: false, noUppercase: false,
+      grayscaleMedia: false, focusRing: false, custom: '',
     },
     dark: {
       enabled: true, detect: true, brightness: 100, contrast: 100, sepia: 0, grayscale: 0,
@@ -13,11 +15,24 @@
     },
     switcher: {
       bookmarks: true, autoSearch: true, commands: true, hints: true,
-      engines: { duckduckgo: true, google: true, youtube: true, wikipedia: true, github: true },
+      engines: { google: true, duckduckgo: true, youtube: true, wikipedia: true, github: true },
+      precision: 'normal', defaultEngine: 'google', customEngines: [],
     },
-    newtab: { style: 'editorial', locales: [], clock: 'auto', date: true, time: true, switcher: true },
+    newtab: {
+      style: 'editorial', locales: [], clock: 'auto', date: true, time: true, switcher: true,
+      layout: 'clasico', greeting: false, name: '', focusPage: false,
+      customTimeFont: '', customDateFont: '', customTimeWeight: 300,
+    },
     speed: { enabled: true, speed: 1, step: 0.1, shortcuts: true, rules: [] },
+    media: { pauseAutoplay: false },
+    shortcuts: [],
   };
+
+  const ACTIONS = {
+    switcher: null, toggleDark: null, toggleCss: null, toggleDarkEverywhere: null, copyCleanUrl: null,
+    settings: null, search: 'engine', searchSelection: 'engine', openUrl: 'url', openUrlNewTab: 'url', speed: 'speed',
+  };
+  const FONT_UNSAFE = /[;{}<>\\]/;
 
   const HEX = /^#[0-9a-f]{6}$/i;
   const bool = (v) => typeof v === 'boolean';
@@ -33,9 +48,11 @@
     }
   };
 
+  const fontName = (v) => typeof v === 'string' && v.length <= 100 && !FONT_UNSAFE.test(v);
+
   // Same shape as DEFAULTS: each leaf says what a stored value must be to be kept.
   const VALID = {
-    css: Object.fromEntries(Object.keys(DEFAULTS.css).map((key) => [key, bool])),
+    css: { ...Object.fromEntries(Object.keys(DEFAULTS.css).map((key) => [key, bool])), custom: (v) => typeof v === 'string' },
     dark: {
       enabled: bool, detect: bool, brightness: range(50, 150), contrast: range(50, 150),
       sepia: range(0, 100), grayscale: range(0, 100), background: color, text: color,
@@ -44,13 +61,65 @@
     switcher: {
       bookmarks: bool, autoSearch: bool, commands: bool, hints: bool,
       engines: Object.fromEntries(Object.keys(DEFAULTS.switcher.engines).map((key) => [key, bool])),
+      precision: oneOf('strict', 'normal', 'loose'),
+      defaultEngine: (v) => typeof v === 'string',
+      customEngines: Array.isArray,
     },
     newtab: {
-      style: oneOf('editorial', 'suizo', 'maquina', 'libro', 'tema'), locales: Array.isArray,
+      style: oneOf('editorial', 'suizo', 'maquina', 'libro', 'tema', 'custom'), locales: Array.isArray,
       clock: oneOf('auto', '24', '12'), date: bool, time: bool, switcher: bool,
+      layout: oneOf('clasico', 'hora', 'linea', 'apilado', 'esquina', 'analogico'),
+      greeting: bool, name: (v) => typeof v === 'string', focusPage: bool,
+      customTimeFont: fontName, customDateFont: fontName,
+      customTimeWeight: oneOf(100, 200, 300, 400, 500, 600, 700, 800, 900),
     },
     speed: { enabled: bool, speed: range(0.25, 4), step: oneOf(0.05, 0.1, 0.25), shortcuts: bool, rules: Array.isArray },
+    media: { pauseAutoplay: bool },
+    shortcuts: Array.isArray,
   };
+
+  const httpUrl = (v) => {
+    try {
+      return typeof v === 'string' && ['http:', 'https:'].includes(new URL(v).protocol);
+    } catch {
+      return false;
+    }
+  };
+
+  function mergeEngines(list) {
+    const ids = new Set();
+    return list
+      .map((engine, i) => {
+        if (!isObject(engine) || typeof engine.name !== 'string' || !engine.name.trim()) return null;
+        if (!httpUrl(engine.url) || !engine.url.includes('%s')) return null;
+        let id = typeof engine.id === 'string' && /^custom-[a-z0-9]+$/.test(engine.id) ? engine.id : `custom-${i + 1}`;
+        if (ids.has(id)) id = `custom-${i + 1}`;
+        ids.add(id);
+        return { id, name: engine.name.trim().slice(0, 40), url: engine.url };
+      })
+      .filter(Boolean)
+      .slice(0, 10);
+  }
+
+  const PARAM = {
+    engine: (v) => typeof v === 'string' && /^[a-z0-9-]+$/.test(v),
+    url: httpUrl,
+    speed: range(0.25, 4),
+  };
+
+  function mergeShortcuts(list) {
+    const seen = new Set();
+    const out = [];
+    for (const item of list) {
+      if (!isObject(item) || !isValidShortcutKeys(item.keys) || seen.has(item.keys)) continue;
+      if (!Object.hasOwn(ACTIONS, item.action)) continue;
+      const kind = ACTIONS[item.action];
+      if (kind && !PARAM[kind](item.param)) continue;
+      seen.add(item.keys);
+      out.push(kind ? { keys: item.keys, action: item.action, param: item.param } : { keys: item.keys, action: item.action });
+    }
+    return out.slice(0, 30);
+  }
 
   const isObject = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
 
@@ -66,6 +135,12 @@
 
   function mergeSettings(stored) {
     const settings = mergeLevel(DEFAULTS, VALID, stored);
+    settings.css.custom = settings.css.custom.slice(0, 50000);
+    settings.switcher.customEngines = mergeEngines(settings.switcher.customEngines);
+    const engineIds = [...Object.keys(DEFAULTS.switcher.engines), ...settings.switcher.customEngines.map((e) => e.id)];
+    if (!engineIds.includes(settings.switcher.defaultEngine)) settings.switcher.defaultEngine = 'google';
+    settings.newtab.name = settings.newtab.name.slice(0, 40);
+    settings.shortcuts = mergeShortcuts(settings.shortcuts);
     settings.dark.background = settings.dark.background.toLowerCase();
     settings.dark.text = settings.dark.text.toLowerCase();
     settings.dark.selection = settings.dark.selection.toLowerCase();
@@ -194,9 +269,59 @@
     return { ']': 1, '[': -1, '\\': 0 }[key] ?? null;
   }
 
+  const MODIFIERS = ['Ctrl', 'Alt', 'Shift', 'Meta'];
+  const MODIFIER_KEYS = ['Control', 'Alt', 'Shift', 'Meta', 'AltGraph', 'OS', 'Super', 'Hyper'];
+
+  // A keydown as "Ctrl+Alt+Shift+Meta+Key" in that order; null for a modifier alone.
+  function normalizeKeys({ key, ctrlKey, altKey, shiftKey, metaKey }) {
+    if (!key || MODIFIER_KEYS.includes(key)) return null;
+    const name = key === ' ' ? 'Space' : key.length === 1 ? key.toUpperCase() : key;
+    return [ctrlKey && 'Ctrl', altKey && 'Alt', shiftKey && 'Shift', metaKey && 'Meta', name].filter(Boolean).join('+');
+  }
+
+  // Canonical order, and Ctrl, Alt or Meta unless it is a function key: plain letters belong
+  // to typing.
+  function isValidShortcutKeys(keys) {
+    if (typeof keys !== 'string') return false;
+    const parts = keys.split('+');
+    const key = parts.pop();
+    if (!key) return false;
+    let last = -1;
+    for (const part of parts) {
+      const index = MODIFIERS.indexOf(part);
+      if (index <= last) return false;
+      last = index;
+    }
+    return parts.some((part) => part !== 'Shift') || /^F([1-9]|1[0-9]|2[0-4])$/.test(key);
+  }
+
+  const TRACKING = new Set(['fbclid', 'gclid', 'dclid', 'gbraid', 'wbraid', 'msclkid', 'yclid', 'twclid', 'ttclid',
+    'igshid', 'mc_cid', 'mc_eid', 'si', 'ref_src', 'ref_url', '_hsenc', '_hsmi', 'mkt_tok', 'spm', 'vero_id']);
+
+  // The URL without tracking parameters; the rest of the query keeps its own encoding.
+  function cleanUrl(url) {
+    let parsed;
+    try {
+      parsed = new URL(url);
+    } catch {
+      return url;
+    }
+    const kept = parsed.search.slice(1).split('&').filter((part) => {
+      if (!part) return false;
+      let name = part.split('=')[0];
+      try {
+        name = decodeURIComponent(name);
+      } catch {}
+      return !(name.startsWith('utm_') || TRACKING.has(name));
+    });
+    parsed.search = kept.length ? `?${kept.join('&')}` : '';
+    return parsed.href;
+  }
+
   const api = {
-    DEFAULTS, mergeSettings, hostMatches, normalizePattern, matchingPatterns, siteState,
+    DEFAULTS, ACTIONS, mergeSettings, hostMatches, normalizePattern, matchingPatterns, siteState,
     parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
+    normalizeKeys, isValidShortcutKeys, cleanUrl,
   };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.settings = api;
