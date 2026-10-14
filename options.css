@@ -40,6 +40,9 @@ header {
 }
 
 h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin: 0;
   font-size: 22px;
   font-weight: 600;
@@ -77,7 +80,23 @@ h1 {
   top: 24px;
 }
 
+.wordmark {
+  letter-spacing: -0.02em;
+}
+
+/* The square full stop of the wordmark, on the baseline. */
+.stop {
+  display: inline-block;
+  width: 0.15em;
+  height: 0.15em;
+  margin-left: 0.04em;
+  background: currentColor;
+}
+
 .tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   height: 36px;
   padding: 0 12px;
   border: 0;

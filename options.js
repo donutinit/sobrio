@@ -462,7 +462,8 @@
   // the url's hash, arrows to move.
   function tabs(panels) {
     const buttons = TABS.map((id) => {
-      const button = el('button', { type: 'button', className: 'tab', id: `tab-${id}`, textContent: t(`tab_${id}`) });
+      const button = el('button', { type: 'button', className: 'tab', id: `tab-${id}` },
+        sobrio.icons.icon(id, 16), el('span', { textContent: t(`tab_${id}`) }));
       button.setAttribute('role', 'tab');
       button.setAttribute('aria-controls', `panel-${id}`);
       button.addEventListener('click', () => open(id, true));
@@ -606,7 +607,9 @@
       panel('stats', statsTable()),
     ];
     document.querySelector('main').append(
-      el('header', {}, el('h1', { textContent: 'sobrio' }), version),
+      // The brand's lockup: the isotype, then "sobrio" with its square full stop.
+      el('header', {}, el('h1', {}, sobrio.icons.isotype(22),
+        el('span', { className: 'wordmark' }, 'sobrio', el('span', { className: 'stop' }))), version),
       el('p', { className: 'tagline', textContent: t('description') }),
       tabs(panels),
       el('p', { className: 'footer', textContent: t('optionsFooter') }),

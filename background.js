@@ -158,7 +158,7 @@ async function injectSwitcher(tabId, mode) {
       args: [mode],
     });
   }
-  await chrome.scripting.executeScript({ target, files: ['settings.js', 'stats.js', 'match.js', 'switcher-css.js', 'switcher.js'] });
+  await chrome.scripting.executeScript({ target, files: ['settings.js', 'stats.js', 'match.js', 'icons.js', 'switcher-css.js', 'switcher.js'] });
 }
 
 function openPopup() {

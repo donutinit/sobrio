@@ -43,6 +43,9 @@ sobrio.SWITCHER_CSS = String.raw`
   padding: 12px 14px;
   border-bottom: 1px solid var(--s-border);
 }
+.mode svg {
+  display: block;
+}
 .mode {
   flex: none;
   color: var(--s-title);

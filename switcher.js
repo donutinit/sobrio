@@ -191,7 +191,10 @@
 
     function render() {
       const engine = match.engineById(state.mode, settings.switcher);
-      mode.textContent = engine ? engine.name : '★';
+      // Bookmarks show the brand's bookmark icon; an engine, its name.
+      if (engine) mode.textContent = engine.name;
+      else if (!mode.querySelector('svg')) mode.replaceChildren(sobrio.icons.icon('bookmark', 16));
+      mode.title = engine ? '' : t('placeholderBookmarks');
       input.placeholder = engine ? t('placeholderEngine', engine.name) : t('placeholderBookmarks');
       hints.hidden = !settings.switcher.hints;
       // On the new tab the page stays clean until something is typed.
