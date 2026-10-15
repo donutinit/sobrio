@@ -338,7 +338,7 @@
     "message": "Tu CSS"
   },
   "styleCustomHelp": {
-    "message": "Va después de todo lo de arriba, en cada sitio donde el CSS está prendido. ta lo apaga junto con lo demás. Usa !important para ganarle al sitio."
+    "message": "Va después de todo lo de arriba, en una hoja propia, en cada sitio donde el CSS está prendido; un @import va hasta arriba. ta lo apaga junto con lo demás. Usa !important para ganarle al sitio. Los sitios pueden leerlo, como cualquier estilo de su página."
   },
   "switcherPrecision": {
     "message": "Precisión de la búsqueda"

@@ -390,6 +390,22 @@ kbd {
   tab-size: 2;
 }
 
+.snippet-foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.count {
+  color: var(--muted);
+  font: 12px/1.4 ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.count.full {
+  color: var(--text);
+}
+
 .snippet:focus-visible {
   outline: 1px solid var(--accent);
   outline-offset: 3px;

@@ -36,12 +36,17 @@
     if (css.noUppercase) rules.push(rule('*', ['text-transform: none']));
     if (css.grayscaleMedia) rules.push(rule('img,\nvideo,\npicture,\ncanvas,\nsvg image', ['filter: grayscale(1)']));
     if (css.focusRing) rules.push(rule(':focus-visible', ['outline: 2px solid currentColor', 'outline-offset: 2px']));
-    // The person's own snippet goes last, as written, so it can override everything above.
-    if (typeof css.custom === 'string' && css.custom.trim()) rules.push(css.custom);
     return rules.join('\n\n');
+  }
+
+  // The person's own snippet, as written. It gets a sheet of its own after sobrio's: an @import
+  // at its top works, and a broken rule in it cannot reach the rules before it.
+  function customCss(css) {
+    return typeof css.custom === 'string' && css.custom.trim() ? css.custom : '';
   }
 
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.buildCss = buildCss;
-  if (typeof module === 'object') module.exports = { buildCss };
+  globalThis.sobrio.customCss = customCss;
+  if (typeof module === 'object') module.exports = { buildCss, customCss };
 })();

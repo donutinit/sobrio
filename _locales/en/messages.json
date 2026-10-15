@@ -338,7 +338,7 @@
     "message": "Your CSS"
   },
   "styleCustomHelp": {
-    "message": "Added after everything above, on every site where the CSS is on. ta turns it off with the rest. Use !important to win over the site."
+    "message": "Added after everything above, in a sheet of its own, on every site where the CSS is on; an @import goes at the very top. ta turns it off with the rest. Use !important to win over the site. Sites can read it, as they can read any style on their page."
   },
   "switcherPrecision": {
     "message": "Search precision"

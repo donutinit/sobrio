@@ -39,12 +39,23 @@
     repaint();
   }
 
+  // fn after ms of quiet; flush() runs a call still waiting, right away.
   function debounced(fn, ms = 200) {
     let timer;
-    return (...args) => {
+    let waiting = null;
+    const call = (...args) => {
       clearTimeout(timer);
-      timer = setTimeout(() => fn(...args), ms);
+      waiting = args;
+      timer = setTimeout(call.flush, ms);
     };
+    call.flush = () => {
+      clearTimeout(timer);
+      if (!waiting) return;
+      const args = waiting;
+      waiting = null;
+      fn(...args);
+    };
+    return call;
   }
 
   function flash(status, text) {
@@ -278,18 +289,34 @@
     return node;
   }
 
-  // The person's own CSS: a monospaced area, saved 600 ms after typing stops.
+  // The person's own CSS: a monospaced area up to the 50,000 characters settings keep, saved 600 ms
+  // after typing stops, or at once when the area or the page is left.
+  const CUSTOM_MAX = 50000;
   function snippetEditor() {
     const area = el('textarea', { className: 'snippet', id: 'field-css.custom', rows: 12, spellcheck: false,
-      placeholder: 'a:visited {\n  color: #9b8aff !important;\n}' });
+      maxLength: CUSTOM_MAX, placeholder: 'a:visited {\n  color: #9b8aff !important;\n}' });
+    const count = el('span', { className: 'count' });
+    count.setAttribute('aria-live', 'polite');
+    const number = new Intl.NumberFormat();
+    const counted = () => {
+      count.textContent = `${number.format(area.value.length)} / ${number.format(CUSTOM_MAX)}`;
+      count.classList.toggle('full', area.value.length >= CUSTOM_MAX);
+    };
     const save = debounced((value) => set('css.custom', value), 600);
-    area.addEventListener('input', () => save(area.value));
+    area.addEventListener('input', () => {
+      counted();
+      save(area.value);
+    });
+    area.addEventListener('blur', save.flush);
+    addEventListener('pagehide', save.flush);
+    document.addEventListener('visibilitychange', () => document.visibilityState === 'hidden' && save.flush());
     syncs.push(() => {
       if (document.activeElement !== area) area.value = settings.css.custom;
+      counted();
     });
     return el('div', { className: 'list' },
       el('h3', {}, el('label', { htmlFor: 'field-css.custom', textContent: t('styleCustom') })),
-      el('p', { className: 'help', textContent: t('styleCustomHelp') }), area);
+      el('p', { className: 'help', textContent: t('styleCustomHelp') }), area, el('div', { className: 'snippet-foot' }, count));
   }
 
   function customEngines() {

@@ -3,12 +3,15 @@
 (() => {
   const root = document.documentElement;
   const hostname = location.hostname;
-  const { detector, buildCss } = sobrio;
+  const { detector, buildCss, customCss } = sobrio;
   const { DEFAULTS, mergeSettings, siteState, darkTheme } = sobrio.settings;
   const KEYS = ['darkOff', 'cssOff', 'animOff', 'settings', 'theme'];
 
   // Both go in before storage answers, with the defaults: the usual case waits for nothing.
   const css = addStyle('sobrio-css', buildCss(DEFAULTS.css, null));
+  // The person's CSS (settings.css.custom), right after sobrio's; in once storage answers.
+  const custom = document.createElement('style');
+  custom.id = 'sobrio-css-custom';
   // Until storage answers, everything dark, as strict as Dark Reader's own fallback (which takes
   // over in the same task when it starts): only the html would let a white body flash.
   const fallback = addStyle('sobrio-fallback',
@@ -45,6 +48,16 @@
       if (!css.isConnected) root.append(css);
     } else {
       css.remove();
+    }
+    const own = state.css ? customCss(settings.css) : '';
+    if (own) {
+      if (custom.textContent !== own) custom.textContent = own;
+      if (css.isConnected ? css.nextElementSibling !== custom : !custom.isConnected) {
+        if (css.isConnected) css.after(custom);
+        else root.append(custom);
+      }
+    } else {
+      custom.remove();
     }
     // Out before setDark, in the same task (so nothing paints in between): the detector may
     // measure right away and must not see this black as the page's own.

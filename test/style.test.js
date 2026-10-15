@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { buildCss } = require('../style.js');
+const { buildCss, customCss } = require('../style.js');
 const { DEFAULTS } = require('../settings.js');
 
 const ALL_OFF = Object.fromEntries(Object.keys(DEFAULTS.css).map((key) => [key, false]));
@@ -97,17 +97,20 @@ test('hidden scrollbars win over thin ones', () => {
   assert.ok(!css.includes('scrollbar-width: thin'));
 });
 
-test('the custom snippet goes last, as written', () => {
-  const snippet = 'p { color: red; }';
-  assert.equal(buildCss({ ...ALL_OFF, custom: snippet }, null), snippet);
-  assert.ok(buildCss({ ...ALL_ON, custom: snippet }, null).endsWith(`\n\n${snippet}`));
-  assert.equal(buildCss({ ...ALL_OFF, custom: '   ' }, null), '');
+test('the custom snippet is not part of sobrio\'s sheet: it gets a sheet of its own', () => {
+  assert.equal(buildCss({ ...ALL_OFF, custom: 'p { color: red; }' }, null), '');
+  assert.ok(!buildCss({ ...ALL_ON, custom: '@import url(x.css);' }, null).includes('@import'));
 });
 
-test('a broken snippet comes after every rule of sobrio, which are all closed', () => {
+test('customCss: the snippet as written, nothing for blanks', () => {
+  assert.equal(customCss({ custom: 'p { color: red; }' }), 'p { color: red; }');
+  assert.equal(customCss({ custom: '@import url(x.css);\np {}' }), '@import url(x.css);\np {}');
+  assert.equal(customCss({ custom: '   ' }), '');
+  assert.equal(customCss({ custom: 3 }), '');
+  assert.equal(customCss({}), '');
+});
+
+test('sobrio\'s sheet is balanced, so a broken snippet in its own sheet cannot reach it', () => {
   const clean = buildCss(ALL_ON, null);
-  for (const garbage of ['} * { color: red', 'p { color: red', '/* never closed', '@media (', '</style><script>']) {
-    assert.ok(buildCss({ ...ALL_ON, custom: garbage }, null).startsWith(`${clean}\n\n`), garbage);
-  }
   assert.equal(clean.split('{').length, clean.split('}').length);
 });
