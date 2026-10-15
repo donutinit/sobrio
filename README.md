@@ -76,6 +76,8 @@ Record a key combination in the settings and pick what it does: open the switche
 
 A backup at the bottom of every tab saves everything (settings, exceptions, shortcuts and the switcher's memory) to a file, and restores it in another browser. The welcome guide, which opens once on install, is there too.
 
+Local addresses (`localhost`, `127.0.0.1`, `192.168.x`, `.local` names and the rest of your machine or network) are left alone by default, so your own work shows as it is; a switch at the top of the Exceptions tab changes that.
+
 Exceptions take sites as `example.com` (that site only) or `*.example.com` (the site and its subdomains), for the stylesheet and for dark mode separately. A third list keeps a site's own animations and transitions while the rest of the stylesheet applies; it starts with `chatgpt.com`, whose view drifts while it writes if its animations are cut.
 
 ### Theme it from `userContent.css`
