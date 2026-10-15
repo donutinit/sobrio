@@ -12,6 +12,30 @@
   <a href="#development">Development</a>
 </p>
 
+<p align="center"><sub>
+  <b>English</b> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.de.md">Deutsch</a> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.it.md">Italiano</a> ·
+  <a href="README.pt-BR.md">Português (Brasil)</a> ·
+  <a href="README.nl.md">Nederlands</a> ·
+  <a href="README.sv.md">Svenska</a> ·
+  <a href="README.pl.md">Polski</a> ·
+  <a href="README.cs.md">Čeština</a> ·
+  <a href="README.hu.md">Magyar</a> ·
+  <a href="README.ro.md">Română</a> ·
+  <a href="README.tr.md">Türkçe</a> ·
+  <a href="README.ru.md">Русский</a> ·
+  <a href="README.uk.md">Українська</a> ·
+  <a href="README.id.md">Bahasa Indonesia</a> ·
+  <a href="README.vi.md">Tiếng Việt</a> ·
+  <a href="README.ja.md">日本語</a> ·
+  <a href="README.ko.md">한국어</a> ·
+  <a href="README.zh-CN.md">简体中文</a> ·
+  <a href="README.zh-TW.md">繁體中文</a>
+</sub></p>
+
 sobrio takes one small part of [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) and [Global Speed](https://github.com/polywock/globalSpeed), and nothing else. One extension for Firefox, LibreWolf and Chrome, two colors, no rounded corners, and nothing leaves your browser.
 
 ![The switcher open over Wikipedia, which sobrio turned black: typing "ru" lists Rust bookmarks with the matched letters in bold.](docs/screens/switcher.png)
