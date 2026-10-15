@@ -522,5 +522,43 @@
   },
   "commandName_settings": {
     "message": "Open the settings"
+  },
+  "backupLabel": {
+    "message": "Backup"
+  },
+  "backupExport": {
+    "message": "Export"
+  },
+  "backupImport": {
+    "message": "Import…"
+  },
+  "backupConfirm": {
+    "message": "Replace everything with this backup"
+  },
+  "backupExported": {
+    "message": "Saved to your downloads"
+  },
+  "backupInvalid": {
+    "message": "That file is not a sobrio backup"
+  },
+  "backupImported": {
+    "message": "Backup restored"
+  },
+  "welcomeOpen": {
+    "message": "Welcome guide"
+  },
+  "backupSummary": {
+    "message": "Shortcuts: $SHORTCUTS$ · exceptions: $EXCEPTIONS$ · remembered pages: $PAGES$. It replaces what is here now.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
   }
 }

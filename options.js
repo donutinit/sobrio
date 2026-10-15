@@ -1,6 +1,6 @@
 // The settings page. Every change saves itself, and every open tab applies it live.
 (() => {
-  const { mergeSettings, normalizePattern, storeThemeHook, DEFAULT_ANIM_OFF, isCommandWord, ACTIONS, normalizeKeys, isValidShortcutKeys } = sobrio.settings;
+  const { mergeSettings, normalizePattern, storeThemeHook, DEFAULT_ANIM_OFF, isCommandWord, makeBackup, readBackup, ACTIONS, normalizeKeys, isValidShortcutKeys } = sobrio.settings;
   const { ENGINES, allEngines, shortUrl } = sobrio.match;
   const { weightOf } = sobrio.stats;
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions) || key;
@@ -495,6 +495,73 @@
     });
   }
 
+  // Under every tab: the welcome guide, and a backup of everything to a file or back from one.
+  // Restoring replaces what is here, so it waits for a second click, as resetting the stats does.
+  function backupBar() {
+    const guide = el('button', { type: 'button', textContent: t('welcomeOpen') });
+    const save = el('button', { type: 'button', textContent: t('backupExport') });
+    const restore = el('button', { type: 'button', textContent: t('backupImport') });
+    const file = el('input', { type: 'file', accept: 'application/json,.json', hidden: true });
+    const status = el('p', { className: 'status' });
+    status.setAttribute('role', 'status');
+    let pending = null;
+    let timer;
+    const disarm = () => {
+      clearTimeout(timer);
+      pending = null;
+      restore.textContent = t('backupImport');
+    };
+    guide.addEventListener('click', () => chrome.tabs.create({ url: chrome.runtime.getURL('welcome.html') }));
+    save.addEventListener('click', async () => {
+      const stored = await chrome.storage.local.get(['settings', 'cssOff', 'darkOff', 'animOff', 'stats']);
+      const backup = makeBackup(stored, chrome.runtime.getManifest().version);
+      const url = URL.createObjectURL(new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' }));
+      // Named by the local date (sv writes it as YYYY-MM-DD).
+      const link = el('a', { href: url, download: `sobrio-${new Date().toLocaleDateString('sv')}.json` });
+      document.body.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+      flash(status, t('backupExported'));
+    });
+    restore.addEventListener('click', async () => {
+      if (!pending) {
+        file.click();
+        return;
+      }
+      const { animOff, ...values } = pending;
+      disarm();
+      await chrome.storage.local.set(values);
+      if (animOff) await chrome.storage.local.set({ animOff });
+      else await chrome.storage.local.remove('animOff');
+      flash(status, t('backupImported'));
+    });
+    file.addEventListener('change', async () => {
+      const chosen = file.files[0];
+      file.value = '';
+      if (!chosen) return;
+      const backup = chosen.size <= 5_000_000 ? readBackup(await chosen.text()) : null;
+      if (!backup) {
+        disarm();
+        flash(status, t('backupInvalid'));
+        return;
+      }
+      pending = backup;
+      restore.textContent = t('backupConfirm');
+      const exceptions = backup.cssOff.length + backup.darkOff.length + (backup.animOff?.length ?? 0);
+      status.textContent = t('backupSummary', String(backup.settings.shortcuts.length), String(exceptions),
+        String(Object.keys(backup.stats).length));
+      timer = setTimeout(() => {
+        disarm();
+        status.textContent = '';
+      }, 15000);
+    });
+    return el('div', { className: 'backup' },
+      el('div', { className: 'backup-row' }, el('span', { className: 'backup-label', textContent: t('backupLabel') }),
+        save, restore, file, el('span', { className: 'spacer' }), guide),
+      status);
+  }
+
   const TABS = ['style', 'dark', 'exceptions', 'switcher', 'shortcuts', 'newtab', 'media', 'stats'];
 
   function panel(id, ...children) {
@@ -656,6 +723,7 @@
         el('span', { className: 'wordmark' }, 'sobrio', el('span', { className: 'stop' }))), version),
       el('p', { className: 'tagline', textContent: t('description') }),
       tabs(panels),
+      backupBar(),
       el('p', { className: 'footer', textContent: t('optionsFooter') }),
     );
   }

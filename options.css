@@ -554,7 +554,32 @@ kbd {
   font-size: 13px;
 }
 
-.footer {
+.backup {
   margin-top: 64px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.backup-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.backup-label {
+  margin-right: 8px;
+  color: var(--muted);
+  font: 12px/1 ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.backup-row .spacer {
+  flex: 1;
+}
+
+.footer {
+  margin-top: 24px;
   font-size: 13px;
 }

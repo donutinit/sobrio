@@ -167,6 +167,54 @@
     return settings;
   }
 
+  // A backup of everything the person chose: the settings, the three exception lists and the
+  // switcher's memory. Not the theme, which comes from this machine's userContent.css.
+  function makeBackup(stored, version, now = new Date()) {
+    const list = (value) => (Array.isArray(value) ? value.filter((p) => typeof p === 'string') : []);
+    return {
+      sobrio: 1,
+      version,
+      exported: now.toISOString(),
+      settings: mergeSettings(stored?.settings),
+      cssOff: list(stored?.cssOff),
+      darkOff: list(stored?.darkOff),
+      animOff: Array.isArray(stored?.animOff) ? list(stored.animOff) : [...DEFAULT_ANIM_OFF],
+      stats: isObject(stored?.stats) ? stored.stats : {},
+    };
+  }
+
+  // A backup file back into storage values, every field checked as on any read: what is wrong is
+  // dropped and the rest comes in. Not a sobrio backup: null. No animOff list: undefined (the
+  // default stays).
+  function readBackup(text) {
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      return null;
+    }
+    if (!isObject(data) || data.sobrio !== 1) return null;
+    const patterns = (value) => (Array.isArray(value) ? [...new Set(value.map(normalizePattern).filter(Boolean))] : []);
+    return {
+      settings: mergeSettings(data.settings),
+      cssOff: patterns(data.cssOff),
+      darkOff: patterns(data.darkOff),
+      animOff: Array.isArray(data.animOff) ? patterns(data.animOff) : undefined,
+      stats: readStats(data.stats),
+    };
+  }
+
+  // The switcher's memory from a backup: http(s) pages with a positive count, at most 2,000.
+  function readStats(value) {
+    if (!isObject(value)) return {};
+    const entries = Object.entries(value).filter(([url, entry]) => /^https?:\/\//i.test(url) && isObject(entry)
+      && Number.isInteger(entry.count) && entry.count > 0 && Number.isFinite(entry.last));
+    return Object.fromEntries(entries
+      .sort(([, a], [, b]) => b.last - a.last)
+      .slice(0, 2000)
+      .map(([url, entry]) => [url, { count: entry.count, last: entry.last, title: typeof entry.title === 'string' ? entry.title.slice(0, 200) : '' }]));
+  }
+
   // "example.com" is that host only; "*.example.com" is example.com and every subdomain.
   function hostMatches(pattern, host) {
     if (!host) return false;
@@ -360,7 +408,7 @@
   }
 
   const api = {
-    DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, isCommandWord, mergeSettings, hostMatches, normalizePattern, matchingPatterns, siteState,
+    DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, isCommandWord, mergeSettings, makeBackup, readBackup, hostMatches, normalizePattern, matchingPatterns, siteState,
     parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
     normalizeKeys, isValidShortcutKeys, cleanUrl, toggledPatterns, snapSpeed,
   };

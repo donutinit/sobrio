@@ -522,5 +522,43 @@
   },
   "commandName_settings": {
     "message": "Abrir los ajustes"
+  },
+  "backupLabel": {
+    "message": "Respaldo"
+  },
+  "backupExport": {
+    "message": "Exportar"
+  },
+  "backupImport": {
+    "message": "Importar…"
+  },
+  "backupConfirm": {
+    "message": "Reemplazar todo con este respaldo"
+  },
+  "backupExported": {
+    "message": "Guardado en tus descargas"
+  },
+  "backupInvalid": {
+    "message": "Ese archivo no es un respaldo de sobrio"
+  },
+  "backupImported": {
+    "message": "Respaldo restaurado"
+  },
+  "welcomeOpen": {
+    "message": "Guía de bienvenida"
+  },
+  "backupSummary": {
+    "message": "Atajos: $SHORTCUTS$ · excepciones: $EXCEPTIONS$ · páginas recordadas: $PAGES$. Reemplaza lo que hay ahora.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
   }
 }
