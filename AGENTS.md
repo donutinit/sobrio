@@ -45,10 +45,15 @@ ellos (`README.<idioma>.md`, con la barra de idiomas arriba), más la ficha de A
 `docs/amo-listing/`. `test/locales.test.js` exige que cada idioma tenga todas las claves con los
 mismos placeholders y `$TOKENS$`, sin rayas, y la descripción del manifest en 132 caracteres o
 menos (el límite de Chrome). Un texto nuevo va en todos los idiomas; si cambia el README en inglés,
-cambian los demás. Las traducciones las hicieron agentes Haiku con un mismo brief: `sobrio`,
-`switcher`, `td`, `ta`, `settings`, las teclas y los nombres de productos no se traducen. `cdp.py
---lang de` abre Chromium en otro idioma para revisarlas. Árabe y hebreo esperan a que las páginas
-sepan escribir de derecha a izquierda.
+cambian los demás.
+
+- Las traducciones siempre las hace un modelo barato (Haiku, o GPT Luna), un agente por idioma
+  con un mismo brief; nunca el modelo principal. Diego lo pidió así. El modelo principal solo
+  escribe el brief y revisa el resultado (test, validación y una mirada en el navegador).
+- No se traducen: `sobrio`, `switcher`, `td`, `ta`, `settings`, `options`, las teclas, `%s` y los
+  nombres de productos y fuentes. Sin rayas.
+- `cdp.py --lang de` abre Chromium en otro idioma para revisarlas.
+- Árabe y hebreo esperan a que las páginas sepan escribir de derecha a izquierda.
 
 ## Lo que sobrio no es
 
