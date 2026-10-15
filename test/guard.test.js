@@ -1,6 +1,8 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject, redirectAllowed, isOwnNewtab } = require('../guard.js');
+const {
+  MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject, redirectAllowed, isOwnNewtab, shouldWelcome,
+} = require('../guard.js');
 
 test('only http and https', () => {
   assert.equal(fetchAllowed('https://cdn.x/a.css'), true);
@@ -79,4 +81,12 @@ test('isOwnNewtab: only the own new tab page, never the browser one', () => {
   assert.equal(isOwnNewtab('about:newtab', own), false);
   assert.equal(isOwnNewtab('chrome://newtab/', own), false);
   assert.equal(isOwnNewtab(undefined, own), false);
+});
+
+test('the welcome guide opens on a real install only', () => {
+  assert.equal(shouldWelcome('install', 'normal'), true);
+  assert.equal(shouldWelcome('install', undefined), true);
+  assert.equal(shouldWelcome('install', 'development'), false); // unpacked or temporary loads
+  assert.equal(shouldWelcome('update', 'normal'), false);
+  assert.equal(shouldWelcome('browser_update', 'normal'), false);
 });

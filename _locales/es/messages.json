@@ -560,5 +560,60 @@
         "content": "$3"
       }
     }
+  },
+  "welcomeTitle": {
+    "message": "Te damos la bienvenida a sobrio."
+  },
+  "welcomeLead": {
+    "message": "La web en blanco y negro, más tranquila y a un atajo de distancia. Cinco cosas que vale la pena saber."
+  },
+  "welcomeSwitcher": {
+    "message": "Abre el switcher en cualquier página: escribe para buscar en tus bookmarks, Tab recorre los motores de búsqueda, Enter abre y Ctrl+Enter abre en pestaña nueva. El botón de la barra también lo abre."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Tu nueva pestaña"
+  },
+  "welcomeNewtab": {
+    "message": "Tu navegador puede preguntar si conservas la nueva pestaña de sobrio: consérvala. Le quita el foco a la barra de direcciones para que escribas en el switcher de inmediato."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Tus propios atajos"
+  },
+  "welcomeShortcuts": {
+    "message": "Graba cualquier combinación en los ajustes para abrir una dirección, buscar la selección, fijar la velocidad de los videos o copiar un enlace sin rastreo."
+  },
+  "welcomeSystemTitle": {
+    "message": "Un sistema oscuro"
+  },
+  "welcomeSystem": {
+    "message": "Pon tu sistema en apariencia oscura: los sitios con tema oscuro propio lo usan, y sobrio los deja en paz."
+  },
+  "welcomeSettings": {
+    "message": "Abrir los ajustes"
+  },
+  "welcomeFooter": {
+    "message": "Nada sale de tu navegador. Los ajustes tienen un respaldo para llevarte todo esto a otro navegador."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ y $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Cada sitio se pone negro, color por color. Si alguno se ve mal, escribe $DARK$ en el switcher para apagar ahí el modo oscuro, o $CSS$ para quitarle la hoja de estilo de sobrio. Las dos palabras se cambian en los ajustes.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
   }
 }

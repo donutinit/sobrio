@@ -1,0 +1,122 @@
+/* The welcome guide: the settings page's look, one column, five things to know. */
+:root {
+  --bg: #000;
+  --text: #e8e6e3;
+  --muted: #8a8a8a;
+  --line: #1c1c1c;
+  --font: system-ui, sans-serif;
+  color-scheme: dark;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 var(--font);
+}
+
+main {
+  box-sizing: border-box;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 96px 16px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.wordmark {
+  letter-spacing: -0.02em;
+}
+
+/* The square full stop of the wordmark, on the baseline. */
+.stop {
+  display: inline-block;
+  width: 0.15em;
+  height: 0.15em;
+  margin-left: 0.04em;
+  background: currentColor;
+}
+
+h1 {
+  margin: 56px 0 8px;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.things {
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.things li {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+}
+
+.things svg {
+  margin-top: 4px;
+}
+
+h2 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+h2.keys {
+  font-family: ui-monospace, monospace;
+  font-size: 15px;
+}
+
+.things p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.actions {
+  margin-top: 32px;
+}
+
+button {
+  height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 0;
+  background: var(--text);
+  color: var(--bg);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 1px solid var(--text);
+  outline-offset: 3px;
+}
+
+.footer {
+  margin: 32px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}

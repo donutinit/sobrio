@@ -106,6 +106,8 @@ def main():
     ap.add_argument('--shots')
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--pref', action='append', default=[], help='name=json value')
+    ap.add_argument('--permanent', action='store_true',
+                    help='install ext_dir (then an .xpi) as a normal add-on, as a person would, not a temporary one')
     ap.add_argument('--chrome-eval', help="after --ext-eval: run this in the browser window's chrome (gBrowser, gURLBar)")
     ap.add_argument('--console', help='print browser console messages containing this text')
     ap.add_argument('--binary', default=shutil.which('librewolf') or shutil.which('firefox'))
@@ -141,7 +143,7 @@ def main():
         if args.late_install and args.urls:
             m.call('WebDriver:Navigate', {'url': args.urls[0]})
             time.sleep(args.wait)
-        m.call('Addon:Install', {'path': os.path.abspath(args.ext_dir), 'temporary': True})
+        m.call('Addon:Install', {'path': os.path.abspath(args.ext_dir), 'temporary': not args.permanent})
         host = m.run(
             f'return WebExtensionPolicy.getByID({json.dumps(ADDON_ID)}).mozExtensionHostname',
             'chrome')

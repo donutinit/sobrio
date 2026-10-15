@@ -133,6 +133,11 @@ async function openUrl(url, newTab, tab) {
   return true;
 }
 
+chrome.runtime.onInstalled.addListener(async ({ reason }) => {
+  const self = await chrome.management.getSelf().catch(() => null);
+  if (guard.shouldWelcome(reason, self?.installType)) chrome.tabs.create({ url: chrome.runtime.getURL('welcome.html') });
+});
+
 chrome.commands.onCommand.addListener((command, tab) => {
   if (command === 'open-switcher') openSwitcher(tab);
 });

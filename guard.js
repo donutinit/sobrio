@@ -97,7 +97,13 @@
     return typeof url === 'string' && url.split(/[?#]/)[0] === newtabUrl;
   }
 
-  const api = { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject, redirectAllowed, isOwnNewtab };
+  // The welcome guide opens once, on a real install: not on updates, and not for unpacked or
+  // temporary loads (installType "development"), where every test run would get a tab.
+  function shouldWelcome(reason, installType) {
+    return reason === 'install' && installType !== 'development';
+  }
+
+  const api = { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject, redirectAllowed, isOwnNewtab, shouldWelcome };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.guard = api;
   if (typeof module === 'object') module.exports = api;

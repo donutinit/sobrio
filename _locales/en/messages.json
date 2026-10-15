@@ -560,5 +560,60 @@
         "content": "$3"
       }
     }
+  },
+  "welcomeTitle": {
+    "message": "Welcome to sobrio."
+  },
+  "welcomeLead": {
+    "message": "The web in black and white, quieter, and a keyboard away. Five things worth knowing."
+  },
+  "welcomeSwitcher": {
+    "message": "Opens the switcher on any page: type to search your bookmarks, Tab to move through search engines, Enter to open, Ctrl+Enter for a new tab. The toolbar button opens it too."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Your new tab"
+  },
+  "welcomeNewtab": {
+    "message": "Your browser may ask whether to keep the new tab sobrio sets: keep it. It takes the focus from the address bar, so you can type into the switcher right away."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Shortcuts of your own"
+  },
+  "welcomeShortcuts": {
+    "message": "Record any combination in the settings to open an address, search the selection, set the media speed or copy a link without tracking."
+  },
+  "welcomeSystemTitle": {
+    "message": "A dark system"
+  },
+  "welcomeSystem": {
+    "message": "Set your system to a dark appearance: sites with a dark theme of their own switch to it, and sobrio leaves them alone."
+  },
+  "welcomeSettings": {
+    "message": "Open the settings"
+  },
+  "welcomeFooter": {
+    "message": "Nothing leaves your browser. The settings keep a backup, to take all this to another browser."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ and $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Every site turns black, color by color. If one looks wrong, type $DARK$ in the switcher to turn dark mode off there, or $CSS$ to drop sobrio's stylesheet on that site. Both words can be changed in the settings.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
   }
 }
