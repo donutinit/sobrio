@@ -38,6 +38,18 @@ con `python3 -I -m http.server` desde una carpeta fuera del repo, y se abren com
 `http://sobrio.test:<puerto>/`: las dos herramientas resuelven `sobrio.test` a esta máquina, con un
 nombre que no es local (`127.0.0.1` y `localhost` quedan fuera de sobrio por defecto).
 
+## Idiomas
+
+`_locales/en` es la fuente; hay 20 idiomas más (los textos de la interfaz) y el README en todos
+ellos (`README.<idioma>.md`, con la barra de idiomas arriba), más la ficha de AMO de cada uno en
+`docs/amo-listing/`. `test/locales.test.js` exige que cada idioma tenga todas las claves con los
+mismos placeholders y `$TOKENS$`, sin rayas, y la descripción del manifest en 132 caracteres o
+menos (el límite de Chrome). Un texto nuevo va en todos los idiomas; si cambia el README en inglés,
+cambian los demás. Las traducciones las hicieron agentes Haiku con un mismo brief: `sobrio`,
+`switcher`, `td`, `ta`, `settings`, las teclas y los nombres de productos no se traducen. `cdp.py
+--lang de` abre Chromium en otro idioma para revisarlas. Árabe y hebreo esperan a que las páginas
+sepan escribir de derecha a izquierda.
+
 ## Lo que sobrio no es
 
 - No busca en pestañas abiertas ni en el historial: el switcher es para bookmarks y motores.

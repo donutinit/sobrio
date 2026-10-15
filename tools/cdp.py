@@ -161,6 +161,7 @@ def main():
     ap.add_argument('--wait', type=float, default=4)
     ap.add_argument('--dark', action='store_true', help='emulate prefers-color-scheme: dark')
     ap.add_argument('--autoplay', action='store_true', help='let media play with sound without a gesture')
+    ap.add_argument('--lang', help="the browser's language, for the extension's translations (de, ja, pt-BR…)")
     ap.add_argument('--console', help='print console and log entries containing this text')
     ap.add_argument('--binary', default=shutil.which('chromium-browser') or shutil.which('chromium'))
     args = ap.parse_args()
@@ -169,7 +170,8 @@ def main():
     # sobrio.test is the fixtures' server on this machine under a name that is not local
     # (sobrio leaves local addresses alone by default).
     flags = ['--host-resolver-rules=MAP sobrio.test 127.0.0.1'] + (['--force-dark-mode'] if args.dark else []) \
-        + (['--autoplay-policy=no-user-gesture-required'] if args.autoplay else [])
+        + (['--autoplay-policy=no-user-gesture-required'] if args.autoplay else []) \
+        + ([f'--lang={args.lang}', f'--accept-lang={args.lang}'] if args.lang else [])
     cdp = Pipe(args.binary, profile, flags)
     try:
         early = None
