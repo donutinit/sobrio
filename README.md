@@ -22,7 +22,7 @@ sobrio takes one small part of [Stylus](https://github.com/openstyles/stylus), [
 
 No rounded corners, shadows, text shadows or blur. Animations and transitions cut to nothing, except in YouTube's player. No scrollbars, no smooth scrolling, backgrounds that scroll with the page. Links underlined, any text selectable, no capitals forced by CSS.
 
-Each piece is a switch in the settings (thin scrollbars instead of none, too), and two more start off: images and video in grayscale, and a visible focus ring. Below them, a box for your own CSS, added last on every site.
+Each piece is a switch in the settings (thin scrollbars instead of none, too), and two more start off: images and video in grayscale, and a visible focus ring. Below them, a box for your own CSS (up to 50,000 characters), in a sheet of its own after sobrio's on every site, so an `@import` at its top works.
 
 ### Black, smartly
 
@@ -66,13 +66,15 @@ Every video and audio plays at the speed you set, or at a site's own rule. <kbd>
 
 ### Shortcuts of your own
 
-Record a key combination in the settings and pick what it does: open the switcher, search in an engine (or search the selected text), toggle dark mode or the stylesheet on the site, dark mode everywhere, open an address here or in a new tab, set the media speed, copy the page's link without tracking parameters (`utm_*`, `fbclid`, `gclid` and friends), or open the settings. They need <kbd>Ctrl</kbd>, <kbd>Alt</kbd> or <kbd>Meta</kbd>, or a function key.
+Record a key combination in the settings and pick what it does: open the switcher, search in an engine (or search the selected text), toggle dark mode or the stylesheet on the site, dark mode everywhere, open an address here or in a new tab, set the media speed, copy the page's link without tracking parameters (`utm_*`, `fbclid`, `gclid` and friends), or open the settings. They need <kbd>Ctrl</kbd>, <kbd>Alt</kbd> or <kbd>Meta</kbd>, or a function key. They also work with the focus inside an embedded frame (Google Docs, a video player), and always act on the site in the address bar.
 
 ## Settings
 
 ![The settings, on the Style tab: a list of switches beside the tabs Style, Dark mode, Exceptions, Switcher, Shortcuts, New tab, Media and Stats.](docs/screens/settings.png)
 
 `settings` in the switcher, or the extension's preferences in `about:addons` / `chrome://extensions`. One tab per part: Style, Dark mode, Exceptions, Switcher, Shortcuts, New tab, Media and Stats. Every change saves itself and applies to open tabs right away.
+
+A backup at the bottom of every tab saves everything (settings, exceptions, shortcuts and the switcher's memory) to a file, and restores it in another browser. The welcome guide, which opens once on install, is there too.
 
 Exceptions take sites as `example.com` (that site only) or `*.example.com` (the site and its subdomains), for the stylesheet and for dark mode separately. A third list keeps a site's own animations and transitions while the rest of the stylesheet applies; it starts with `chatgpt.com`, whose view drifts while it writes if its animations are cut.
 

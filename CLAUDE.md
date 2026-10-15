@@ -31,9 +31,15 @@ reales), `--shots DIR` y `--console TEXTO`. `--keys` solo corre con `--then-ext-
 `--late-load`, `--clipboard`, y en `--keys` `click@x:y` y `Ctrl+J~` (tecla sostenida, con
 autorepeat). `marionette.py` tiene `--user-content
 FILE` (un `userContent.css` para el perfil), `--late-install` (la pestaña ya abierta al instalar)
-`--pref nombre=json` (por ejemplo `media.autoplay.default=0`) y `--chrome-eval` (en el chrome de
+`--permanent` (instala un .xpi como lo haría una persona, no temporal: así corre la bienvenida de
+`onInstalled`), `--pref nombre=json` (por ejemplo `media.autoplay.default=0`) y `--chrome-eval` (en el chrome de
 la ventana: `gBrowser`, `gURLBar`, `BrowserCommands.openTab()`). Las páginas de prueba se sirven
 con `python3 -I -m http.server` desde una carpeta fuera del repo.
+
+## Lo que sobrio no es
+
+- No busca en pestañas abiertas ni en el historial: el switcher es para bookmarks y motores.
+  Diego lo descartó porque va en contra de la idea de la extensión.
 
 ## Marca
 
