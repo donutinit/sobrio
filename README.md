@@ -123,6 +123,8 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
+To release, bump the version in `manifest.json`, commit, and push a tag `v<version>`. The release workflow tests, packs and publishes a GitHub release with the zip and the xpi, and sends the zip to addons.mozilla.org when the repository variable `AMO_PUBLISH` is `true` (with the secrets `AMO_JWT_ISSUER` and `AMO_JWT_SECRET`).
+
 The brand (the isotype, the two colors, the type and the icons) is in [docs/brand](docs/brand/README.md).
 
 ## License

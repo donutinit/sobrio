@@ -3,6 +3,20 @@
 What goes in the AMO listing and in the notes for reviewers. The package is
 `dist/sobrio-<version>.zip` from `scripts/pack.sh`; AMO takes the zip as is.
 
+## Updates
+
+The first version and the listing were submitted by hand. Later versions go out with a tag: the
+release workflow runs `scripts/publish-amo.py`, which uploads the zip, waits for AMO's validation
+and creates the version with the release notes and the block under "Notes for reviewers" below.
+It needs, once:
+
+1. API keys from https://addons.mozilla.org/developers/addon/api/key/, stored as repository
+   secrets: `gh secret set AMO_JWT_ISSUER` and `gh secret set AMO_JWT_SECRET`.
+2. A check: Actions › Release › Run workflow validates the current package with those keys and
+   sends nothing.
+3. The switch: `gh variable set AMO_PUBLISH --body true`. Until then a tag makes only the GitHub
+   release.
+
 ## Listing
 
 - **Name:** sobrio

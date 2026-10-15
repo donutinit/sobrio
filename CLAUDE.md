@@ -18,6 +18,7 @@ python3 -I tools/vendor-darkreader.py <versión>     # actualizar Dark Reader
 python3 -I tools/vendor-fonts.py                    # actualizar las fuentes de la nueva pestaña
 python3 -I tools/make-icons.py                      # redibujar icons/ desde la retícula del isotipo
 scripts/pack.sh                                     # dist/sobrio-<versión>.zip y .xpi
+scripts/publish-amo.py dist/sobrio-<versión>.zip    # mandarla a addons.mozilla.org (lo usa CI)
 ```
 
 Las dos herramientas cargan la extensión en un perfil temporal. Una URL `ext:options.html` abre
@@ -133,6 +134,16 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   GitHub no deja pasar la `s` al sitio; la nueva pestaña con cada estilo y diseño; velocidad con
   un `<audio>` local; el autoplay con una página con `<audio autoplay>` y `--autoplay`; grabar un
   atajo en los ajustes con teclas reales; el flash con una página de CSS blanco.
+
+## Publicar
+
+Subir la versión en `manifest.json`, commit en main y un tag `v<versión>` empujado. El workflow
+`release` revisa que el tag coincida, corre los tests, arma el paquete y crea el release de GitHub
+con el zip y el xpi. Si la variable del repo `AMO_PUBLISH` vale `true`, además lo manda a
+addons.mozilla.org con los secretos `AMO_JWT_ISSUER` y `AMO_JWT_SECRET`, con las notas del release
+y las notas para revisores de `docs/amo.md`. Correrlo a mano (Actions › Release › Run workflow)
+solo valida el paquete y las llaves contra AMO, sin mandar nada. Cada versión que llega a AMO
+entra a revisión: no mandar varias seguidas.
 
 ## Commits
 

@@ -1,0 +1,77 @@
+name: Release
+
+# A tag vX.Y.Z (matching manifest.json) builds the package, publishes a GitHub release with the
+# zip and the xpi and, once the repository variable AMO_PUBLISH is "true", sends it to
+# addons.mozilla.org. Run by hand, it checks the package and the AMO keys without sending anything.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Package and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Test
+        run: node --test
+
+      - name: Version
+        id: version
+        run: |
+          version=$(python3 -c "import json; print(json.load(open('manifest.json'))['version'])")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if [ "$GITHUB_REF_TYPE" = tag ] && [ "$GITHUB_REF_NAME" != "v$version" ]; then
+            echo "::error::the tag $GITHUB_REF_NAME does not match manifest.json ($version)"
+            exit 1
+          fi
+
+      - name: Package
+        run: scripts/pack.sh
+
+      - name: Release notes
+        run: |
+          previous=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || true)
+          if [ -n "$previous" ]; then
+            git log --no-merges --format='- %s' "$previous..HEAD" > notes.md
+          else
+            echo "- First release." > notes.md
+          fi
+          cat notes.md
+
+      - name: GitHub release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" "dist/sobrio-$VERSION.zip" "dist/sobrio-$VERSION.xpi"
+          --title "sobrio $VERSION" --notes-file notes.md --verify-tag
+
+      - name: Check against addons.mozilla.org
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: python3 -I scripts/publish-amo.py "dist/sobrio-$VERSION.zip" --validate-only
+
+      - name: Send to addons.mozilla.org
+        if: github.ref_type == 'tag' && vars.AMO_PUBLISH == 'true'
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: python3 -I scripts/publish-amo.py "dist/sobrio-$VERSION.zip" --notes notes.md
