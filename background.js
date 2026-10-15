@@ -22,6 +22,15 @@ const handlers = {
   // sender.url is the page that asked: sobrio's new tab even where Chrome calls the tab
   // chrome://newtab/.
   shortcut: (message, sender) => runShortcut(message, sender.tab, sender.url),
+  // A shortcut pressed inside an iframe: the tab's top frame runs it, as the site in the address
+  // bar. It finds the shortcut again by its keys in its own settings.
+  'shortcut-frame': async (message, sender) => {
+    if (!sender.tab || typeof message.keys !== 'string') return false;
+    const text = typeof message.text === 'string' ? message.text.slice(0, 500) : undefined;
+    await chrome.tabs.sendMessage(sender.tab.id, { sobrio: 'run-shortcut', keys: message.keys, text }, { frameId: 0 })
+      .catch(() => {});
+    return true;
+  },
 };
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
