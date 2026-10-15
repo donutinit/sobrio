@@ -120,6 +120,9 @@ def main():
         'browser.shell.checkDefaultBrowser': False,
         'xpinstall.signatures.required': False,
         'datareporting.policy.dataSubmissionEnabled': False,
+        # sobrio.test is the fixtures' server on this machine under a name that is not local
+        # (sobrio leaves local addresses alone by default).
+        'network.dns.localDomains': 'sobrio.test',
     }
     if args.user_content:
         os.makedirs(os.path.join(profile, 'chrome'))

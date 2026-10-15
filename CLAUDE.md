@@ -34,7 +34,9 @@ FILE` (un `userContent.css` para el perfil), `--late-install` (la pestaña ya ab
 `--permanent` (instala un .xpi como lo haría una persona, no temporal: así corre la bienvenida de
 `onInstalled`), `--pref nombre=json` (por ejemplo `media.autoplay.default=0`) y `--chrome-eval` (en el chrome de
 la ventana: `gBrowser`, `gURLBar`, `BrowserCommands.openTab()`). Las páginas de prueba se sirven
-con `python3 -I -m http.server` desde una carpeta fuera del repo.
+con `python3 -I -m http.server` desde una carpeta fuera del repo, y se abren como
+`http://sobrio.test:<puerto>/`: las dos herramientas resuelven `sobrio.test` a esta máquina, con un
+nombre que no es local (`127.0.0.1` y `localhost` quedan fuera de sobrio por defecto).
 
 ## Lo que sobrio no es
 

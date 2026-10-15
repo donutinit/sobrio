@@ -166,7 +166,10 @@ def main():
     args = ap.parse_args()
 
     profile = tempfile.mkdtemp(prefix='sobrio-chromium-')
-    flags = (['--force-dark-mode'] if args.dark else []) + (['--autoplay-policy=no-user-gesture-required'] if args.autoplay else [])
+    # sobrio.test is the fixtures' server on this machine under a name that is not local
+    # (sobrio leaves local addresses alone by default).
+    flags = ['--host-resolver-rules=MAP sobrio.test 127.0.0.1'] + (['--force-dark-mode'] if args.dark else []) \
+        + (['--autoplay-policy=no-user-gesture-required'] if args.autoplay else [])
     cdp = Pipe(args.binary, profile, flags)
     try:
         early = None
