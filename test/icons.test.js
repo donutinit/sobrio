@@ -8,14 +8,17 @@ test('every settings tab and the switcher have an icon', () => {
   }
 });
 
-test('icons are drawn inside the 24 grid with plain shapes only', () => {
+test('icons are drawn on the 16 grid of the isotype, with plain shapes only', () => {
   for (const [name, parts] of Object.entries(ICONS)) {
     for (const [tag, attrs] of parts) {
       assert.ok(['path', 'rect'].includes(tag), `${name}: ${tag}`);
       const numbers = tag === 'rect'
         ? [attrs.x, attrs.y, attrs.x + attrs.width, attrs.y + attrs.height]
         : attrs.d.match(/-?\d+(\.\d+)?/g).map(Number);
-      assert.ok(numbers.every((n) => n >= 0 && n <= 24), `${name}: ${numbers}`);
+      assert.ok(numbers.every((n) => n >= 0 && n <= 16), `${name}: ${numbers}`);
+      // Pixel-true at 16 px: fills on whole pixels, 1 px outlines on half pixels.
+      if (tag === 'rect' && attrs.fill) assert.ok([attrs.x, attrs.y, attrs.width, attrs.height].every(Number.isInteger), name);
+      if (tag === 'rect' && !attrs.fill) assert.ok([attrs.x, attrs.y].every((n) => n % 1 === 0.5), name);
       // Nothing round: no arcs or curves in a path.
       if (tag === 'path') assert.ok(!/[aAcCqQsStT]/.test(attrs.d), `${name}: ${attrs.d}`);
     }

@@ -36,9 +36,10 @@ brand typefaces are for the mark, the listings and images like these.
 
 ## Icons
 
-`icons.js` holds the interface icons as data. A 24 grid with the drawing inside 16 × 16, a 1.5
-stroke with square ends and joins, only squares, straight lines and diagonals, and fills that are
-solid halves or blocks, like the dot. They take the color of the text.
+`icons.js` holds the interface icons as data, drawn on the isotype's own 16 grid: 1 px lines on
+half pixels and solid fills on whole ones, so at 16 px and at every multiple each line lands on a
+pixel and nothing is blurred. Only squares, straight lines and diagonals, square ends and joins,
+and fills that are solid halves or blocks, like the dot. They take the color of the text.
 
 ## Images
 

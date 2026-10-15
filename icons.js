@@ -1,21 +1,24 @@
-// sobrio's interface icons, from its brand: a 24 grid with the drawing in 16 × 16, a 1.5 stroke
-// with square ends, nothing round, and solid halves or blocks like the isotype's dot. Each icon is
-// a list of [tag, attributes]; `fill: true` marks a solid piece. They take the text color.
+// sobrio's interface icons, from its brand: drawn on the isotype's 16 grid, so at 16 px (and at
+// any multiple) every line lands on whole pixels and nothing is blurred. 1 px outlines on half
+// pixels, solid fills on whole ones, nothing round, and solid halves or blocks like the isotype's
+// dot. Each icon is a list of [tag, attributes]; `fill: true` marks a solid piece. They take the
+// text color.
 (() => {
+  const BOX = { x: 1.5, y: 1.5, width: 13, height: 13 };
   const ICONS = {
-    bookmark: [['path', { d: 'M6 3.75 H18 V20.25 L12 15.5 L6 20.25 Z' }]],
-    style: [['path', { d: 'M4 20 V4 H20' }], ['rect', { x: 9, y: 9, width: 11, height: 11, fill: true }]],
-    dark: [['rect', { x: 4, y: 4, width: 16, height: 16 }], ['rect', { x: 12, y: 3.25, width: 8.75, height: 17.5, fill: true }]],
-    exceptions: [['rect', { x: 4, y: 4, width: 16, height: 16 }], ['path', { d: 'M4 20 L20 4' }]],
-    switcher: [['rect', { x: 4, y: 4, width: 11, height: 11 }], ['path', { d: 'M15 15 L20 20' }]],
-    shortcuts: [['rect', { x: 4, y: 6, width: 16, height: 12 }], ['rect', { x: 8, y: 13, width: 8, height: 2, fill: true }]],
-    newtab: [['rect', { x: 4, y: 4, width: 16, height: 16 }], ['rect', { x: 3.25, y: 3.25, width: 17.5, height: 5, fill: true }]],
-    media: [['path', { d: 'M4 6 L11 12 L4 18 Z M12 6 L19 12 L12 18 Z', fill: true }]],
+    bookmark: [['path', { d: 'M3.5 1.5 H12.5 V14.5 L8 11 L3.5 14.5 Z' }]],
+    style: [['path', { d: 'M1.5 15 V1.5 H15' }], ['rect', { x: 5, y: 5, width: 10, height: 10, fill: true }]],
+    dark: [['rect', BOX], ['rect', { x: 8, y: 1, width: 7, height: 14, fill: true }]],
+    exceptions: [['rect', BOX], ['path', { d: 'M2 14 L14 2' }]],
+    switcher: [['rect', { x: 1.5, y: 1.5, width: 8, height: 8 }], ['path', { d: 'M10 10 L14.5 14.5' }]],
+    shortcuts: [['rect', { x: 1.5, y: 3.5, width: 13, height: 9 }], ['rect', { x: 5, y: 9, width: 6, height: 1, fill: true }]],
+    newtab: [['rect', BOX], ['rect', { x: 1, y: 1, width: 14, height: 4, fill: true }]],
+    media: [['path', { d: 'M1 3 L7 8 L1 13 Z M8 3 L14 8 L8 13 Z', fill: true }]],
     stats: [
-      ['path', { d: 'M3.75 20.25 H20.25' }],
-      ['rect', { x: 5, y: 13, width: 3, height: 6.5, fill: true }],
-      ['rect', { x: 10.5, y: 9, width: 3, height: 10.5, fill: true }],
-      ['rect', { x: 16, y: 5, width: 3, height: 14.5, fill: true }],
+      ['path', { d: 'M1 14.5 H15' }],
+      ['rect', { x: 2, y: 9, width: 2, height: 5, fill: true }],
+      ['rect', { x: 7, y: 6, width: 2, height: 8, fill: true }],
+      ['rect', { x: 12, y: 3, width: 2, height: 11, fill: true }],
     ],
   };
 
@@ -32,8 +35,8 @@
   }
 
   function icon(name, size = 16) {
-    const node = svg('0 0 24 24', size, {
-      fill: 'none', stroke: 'currentColor', 'stroke-width': 1.5, 'stroke-linecap': 'square',
+    const node = svg('0 0 16 16', size, {
+      fill: 'none', stroke: 'currentColor', 'stroke-width': 1, 'stroke-linecap': 'square', 'shape-rendering': 'crispEdges',
     });
     for (const [tag, { fill, ...attrs }] of ICONS[name] ?? []) {
       const part = document.createElementNS(NS, tag);
