@@ -44,7 +44,7 @@ It remembers what you open from it: a bookmark you open often, and lately, climb
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | next / previous engine |
 | <kbd>Esc</kbd> | close |
 
-Three commands, typed in the switcher:
+Three commands, typed in the switcher. They work from the toolbar button too, on the site of the active tab, and their words are yours to change in Settings › Switcher:
 
 | Command | |
 |---|---|

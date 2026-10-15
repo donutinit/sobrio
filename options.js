@@ -1,6 +1,6 @@
 // The settings page. Every change saves itself, and every open tab applies it live.
 (() => {
-  const { mergeSettings, normalizePattern, storeThemeHook, DEFAULT_ANIM_OFF, ACTIONS, normalizeKeys, isValidShortcutKeys } = sobrio.settings;
+  const { mergeSettings, normalizePattern, storeThemeHook, DEFAULT_ANIM_OFF, isCommandWord, ACTIONS, normalizeKeys, isValidShortcutKeys } = sobrio.settings;
   const { ENGINES, allEngines, shortUrl } = sobrio.match;
   const { weightOf } = sobrio.stats;
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions) || key;
@@ -265,7 +265,13 @@
     const input = el('input', { className: 'text', id, placeholder: t(placeholder), spellcheck: false });
     const node = row(id, label, [input], { showIf });
     const save = debounced((value) => valid(value) && set(path, value), 600);
-    input.addEventListener('input', () => save(input.value.trim()));
+    // A value that cannot be saved shows it at once (a dashed border) and keeps what was saved.
+    input.addEventListener('input', () => {
+      const value = input.value.trim();
+      input.classList.toggle('invalid', !valid(value));
+      input.setAttribute('aria-invalid', String(!valid(value)));
+      save(value);
+    });
     syncs.push(() => {
       if (document.activeElement !== input) input.value = get(path);
     });
@@ -452,6 +458,16 @@
       table, el('div', { className: 'stats-foot' }, resetAll));
   }
 
+  // A switcher command's word: one word, and not another command's.
+  function commandNameRow(kind) {
+    return textRow(`switcher.commandNames.${kind}`, `commandName_${kind}`, {
+      placeholder: { dark: 'td', css: 'ta', settings: 'settings' }[kind],
+      showIf: () => settings.switcher.commands,
+      valid: (value) => isCommandWord(value) && !Object.entries(settings.switcher.commandNames)
+        .some(([other, name]) => other !== kind && name === value.toLowerCase()),
+    });
+  }
+
   const TABS = ['style', 'dark', 'exceptions', 'switcher', 'shortcuts', 'newtab', 'media', 'stats'];
 
   function panel(id, ...children) {
@@ -566,7 +582,8 @@
           return node;
         }),
         switchRow('switcher.autoSearch', 'switcherAutoSearch'),
-        switchRow('switcher.commands', 'switcherCommands'),
+        switchRow('switcher.commands', 'switcherCommands', { hint: 'switcherCommandsHint' }),
+        ...['dark', 'css', 'settings'].map(commandNameRow),
         switchRow('switcher.hints', 'switcherHints'),
         switcherStatus,
         customEngines()),

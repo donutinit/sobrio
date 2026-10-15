@@ -17,6 +17,7 @@
       bookmarks: true, autoSearch: true, commands: true, hints: true,
       engines: { google: true, duckduckgo: true, youtube: true, wikipedia: true, github: true },
       precision: 'normal', defaultEngine: 'google', customEngines: [], memory: true,
+      commandNames: { dark: 'td', css: 'ta', settings: 'settings' },
     },
     newtab: {
       style: 'editorial', locales: [], clock: 'auto', date: true, time: true, switcher: true,
@@ -51,6 +52,9 @@
   const fontName = (v) => typeof v === 'string' && v.length <= 100 && !FONT_UNSAFE.test(v);
 
   // Same shape as DEFAULTS: each leaf says what a stored value must be to be kept.
+  // A switcher command: one word of letters or digits, any alphabet, at most 16.
+  const isCommandWord = (v) => typeof v === 'string' && /^[\p{L}\p{N}]{1,16}$/u.test(v.trim());
+
   const VALID = {
     css: { ...Object.fromEntries(Object.keys(DEFAULTS.css).map((key) => [key, bool])), custom: (v) => typeof v === 'string' },
     dark: {
@@ -65,6 +69,7 @@
       defaultEngine: (v) => typeof v === 'string',
       customEngines: Array.isArray,
       memory: bool,
+      commandNames: { dark: isCommandWord, css: isCommandWord, settings: isCommandWord },
     },
     newtab: {
       style: oneOf('editorial', 'suizo', 'maquina', 'libro', 'tema', 'custom'), locales: Array.isArray,
@@ -141,6 +146,12 @@
     const engineIds = [...Object.keys(DEFAULTS.switcher.engines), ...settings.switcher.customEngines.map((e) => e.id)];
     if (!engineIds.includes(settings.switcher.defaultEngine)) settings.switcher.defaultEngine = 'google';
     settings.newtab.name = settings.newtab.name.slice(0, 40);
+    // The switcher's commands: one word each, lower case, and no two alike (else the defaults).
+    const names = settings.switcher.commandNames;
+    for (const kind of Object.keys(names)) names[kind] = names[kind].trim().toLowerCase();
+    if (new Set(Object.values(names)).size < Object.keys(names).length) {
+      settings.switcher.commandNames = structuredClone(DEFAULTS.switcher.commandNames);
+    }
     settings.shortcuts = mergeShortcuts(settings.shortcuts);
     settings.dark.background = settings.dark.background.toLowerCase();
     settings.dark.text = settings.dark.text.toLowerCase();
@@ -349,7 +360,7 @@
   }
 
   const api = {
-    DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, mergeSettings, hostMatches, normalizePattern, matchingPatterns, siteState,
+    DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, isCommandWord, mergeSettings, hostMatches, normalizePattern, matchingPatterns, siteState,
     parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
     normalizeKeys, isValidShortcutKeys, cleanUrl, toggledPatterns, snapSpeed,
   };

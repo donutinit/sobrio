@@ -176,7 +176,7 @@
     "message": "Search the web when no bookmark matches"
   },
   "switcherCommands": {
-    "message": "Commands: td, ta and settings"
+    "message": "Commands in the switcher"
   },
   "switcherHints": {
     "message": "Shortcut line"
@@ -510,5 +510,17 @@
   },
   "exceptionsAnimationsHelp": {
     "message": "The rest of sobrio's CSS applies, but animations and transitions are not cut. ChatGPT needs it: without them its view drifts while it writes."
+  },
+  "switcherCommandsHint": {
+    "message": "Each one a single word of letters or numbers, different from the others."
+  },
+  "commandName_dark": {
+    "message": "Dark mode on this site"
+  },
+  "commandName_css": {
+    "message": "Stylesheet on this site"
+  },
+  "commandName_settings": {
+    "message": "Open the settings"
   }
 }

@@ -179,6 +179,10 @@ h2 {
   width: 220px;
 }
 
+.text.invalid {
+  border-style: dashed;
+}
+
 .row .note {
   font-size: 13px;
 }

@@ -15,6 +15,7 @@ const {
   displayTitle,
   shortUrl,
   hostLength,
+  siteHost,
 } = require('../match.js');
 
 let nextId = 0;
@@ -326,4 +327,26 @@ test('hostLength: where the host ends in a short url', () => {
   assert.equal(hostLength('about:addons'), 12);
   assert.equal(hostLength('example.com?q=1'), 11);
   assert.equal(hostLength('example.com#top'), 11);
+});
+
+test('parseCommand with names of your own', () => {
+  const names = { dark: 'oscuro', css: 'css', settings: 'ajustes' };
+  assert.equal(parseCommand(' Oscuro ', names), 'dark');
+  assert.equal(parseCommand('css', names), 'css');
+  assert.equal(parseCommand('ajustes', names), 'settings');
+  assert.equal(parseCommand('td', names), null);
+  assert.equal(parseCommand('settings', names), null);
+  // options stays a way to the settings unless a command of yours took the word.
+  assert.equal(parseCommand('options', names), 'settings');
+  assert.equal(parseCommand('options', { dark: 'options', css: 'ta', settings: 'settings' }), 'dark');
+});
+
+test('siteHost: the host of an http(s) page, else nothing', () => {
+  assert.equal(siteHost('https://github.com/donutinit/sobrio'), 'github.com');
+  assert.equal(siteHost('http://127.0.0.1:8765/a'), '127.0.0.1');
+  assert.equal(siteHost('about:addons'), '');
+  assert.equal(siteHost('moz-extension://abc/newtab.html'), '');
+  assert.equal(siteHost('file:///home/a.html'), '');
+  assert.equal(siteHost(undefined), '');
+  assert.equal(siteHost('not a url'), '');
 });

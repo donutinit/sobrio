@@ -392,3 +392,18 @@ test('siteState: ChatGPT keeps its animations until the list is saved', () => {
   assert.equal(siteState({ animOff: ['*.example.com'] }, 'chatgpt.com').animations, true);
   assert.equal(siteState({ animOff: 'junk' }, 'chatgpt.com').animations, false);
 });
+
+test('command names: td, ta and settings by default; yours if each is one word and different', () => {
+  assert.deepEqual(DEFAULTS.switcher.commandNames, { dark: 'td', css: 'ta', settings: 'settings' });
+  const own = mergeSettings({ switcher: { commandNames: { dark: ' Oscuro ', css: 'css', settings: 'ajustes' } } });
+  assert.deepEqual(own.switcher.commandNames, { dark: 'oscuro', css: 'css', settings: 'ajustes' });
+  // A bad one falls back alone: spaces, empty, too long, not text.
+  assert.equal(mergeSettings({ switcher: { commandNames: { dark: 'modo oscuro' } } }).switcher.commandNames.dark, 'td');
+  assert.equal(mergeSettings({ switcher: { commandNames: { css: '' } } }).switcher.commandNames.css, 'ta');
+  assert.equal(mergeSettings({ switcher: { commandNames: { css: 'x'.repeat(17) } } }).switcher.commandNames.css, 'ta');
+  assert.equal(mergeSettings({ switcher: { commandNames: { settings: 3 } } }).switcher.commandNames.settings, 'settings');
+  assert.equal(mergeSettings({ switcher: { commandNames: { dark: 'año' } } }).switcher.commandNames.dark, 'año');
+  // Two commands cannot share a word: then all three go back to the defaults.
+  assert.deepEqual(mergeSettings({ switcher: { commandNames: { dark: 'ta' } } }).switcher.commandNames,
+    { dark: 'td', css: 'ta', settings: 'settings' });
+});

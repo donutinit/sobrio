@@ -40,7 +40,8 @@ Blanco y negro, nada más (lo secundario es la misma tinta al 60 %, las líneas 
 Instrument Sans y DM Mono solo en la marca y las imágenes; las páginas de la extensión usan la
 fuente del lector. El isotipo es un cuadrado con un punto final cuadrado en una retícula de 16:
 los PNG salen de `tools/make-icons.py`, nunca a mano. Los íconos de interfaz están en `icons.js`
-(retícula de 24, trazo 1.5, nada redondo). Todo en `docs/brand/README.md`; las capturas del README
+(la retícula de 16 del isotipo, trazo de 1 px en medios píxeles, rellenos en píxeles enteros,
+`crispEdges`: nítidos a 16 px y sus múltiplos; nada redondo). Todo en `docs/brand/README.md`; las capturas del README
 en `docs/screens`. Las imágenes que muestran una página sin sobrio se sacan con una extensión vacía
 en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
 

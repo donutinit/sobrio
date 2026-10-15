@@ -105,11 +105,11 @@
 
     // record: the title to remember the page under (bookmarks only; searches are not counted).
     const open = (url, newTab, record) => send({ sobrio: 'open', url, newTab, record });
-    // td and ta act through page.js, which only runs where boot.js did (sobrio.send): not in
-    // the popup, nor in tabs that were open before sobrio was installed or updated.
+    // td and ta change the site's exceptions. In a page they need page.js (sobrio.send, from
+    // boot.js), else nothing would change until a reload; the popup acts on the active tab's site.
     const commandAllowed = (kind) =>
       settings.switcher.commands &&
-      (kind === 'settings' || (!popup && Boolean(sobrio.send) && match.commandsAllowed(hostname)));
+      (kind === 'settings' || ((popup || Boolean(sobrio.send)) && match.commandsAllowed(hostname)));
 
     function bookmarkRow({ bookmark, hits }) {
       const sub = document.createDocumentFragment();
@@ -138,9 +138,9 @@
 
     function commandRow(kind) {
       if (kind === 'settings') {
-        return { title: t('openSettings'), sub: 'settings', run: () => send({ sobrio: 'settings' }) };
+        return { title: t('openSettings'), sub: settings.switcher.commandNames.settings, run: () => send({ sobrio: 'settings' }) };
       }
-      const sub = kind === 'dark' ? 'td' : 'ta';
+      const sub = settings.switcher.commandNames[kind];
       if (kind === 'dark' && !settings.dark.enabled) {
         return { title: t('darkOnEverywhere'), sub, run: () => toggle(kind) };
       }
@@ -175,7 +175,7 @@
       const results = settings.switcher.bookmarks
         ? match.searchBookmarks(bookmarks, query, undefined, settings.switcher.precision, boost)
         : [];
-      const parsed = match.parseCommand(query);
+      const parsed = match.parseCommand(query, settings.switcher.commandNames);
       const command = parsed && commandAllowed(parsed) ? parsed : null;
       state = match.autoMode(state, query, !loaded || results.length > 0 || command !== null, modes, settings.switcher.autoSearch);
       rows = [];

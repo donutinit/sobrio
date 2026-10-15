@@ -175,10 +175,25 @@
     return { mode: engine, manual: false };
   }
 
-  const COMMANDS = new Map([['td', 'dark'], ['ta', 'css'], ['settings', 'settings'], ['options', 'settings']]);
+  const DEFAULT_COMMANDS = { dark: 'td', css: 'ta', settings: 'settings' };
 
-  function parseCommand(query) {
-    return COMMANDS.get(query.trim().toLowerCase()) ?? null;
+  // names: the person's words (settings.switcher.commandNames). "options" also opens the
+  // settings while none of theirs uses it.
+  function parseCommand(query, names = DEFAULT_COMMANDS) {
+    const word = query.trim().toLowerCase();
+    if (!word) return null;
+    const kind = Object.keys(names).find((key) => names[key] === word);
+    return kind ?? (word === 'options' ? 'settings' : null);
+  }
+
+  // The site a tab shows, for td and ta from the popup: only http(s) pages have one.
+  function siteHost(url) {
+    try {
+      const parsed = new URL(url);
+      return ['http:', 'https:'].includes(parsed.protocol) ? parsed.hostname : '';
+    } catch {
+      return '';
+    }
   }
 
   function commandsAllowed(hostname) {
@@ -204,6 +219,7 @@
     displayTitle,
     shortUrl,
     hostLength,
+    siteHost,
   };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.match = api;
