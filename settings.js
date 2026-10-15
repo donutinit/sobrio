@@ -381,6 +381,9 @@
   // site's own controls, or the site restoring a speed it saved ('page', left alone).
   function classifyRateChange({ rate, ours, sinceLoad }) {
     const near = (a, b) => Math.abs(a - b) < 0.001;
+    // Browsers play from 1/16 to 16 times. Anything else (WhatsApp sets 0 to hold a video) is
+    // the page's business, not a speed the person chose: it must not spread to every video.
+    if (!(rate >= 0.0625 && rate <= 16)) return 'ignore';
     if (ours !== undefined && near(rate, ours)) return 'ours';
     if (sinceLoad < LOAD_WINDOW && near(rate, 1)) return 'reset';
     return 'page';

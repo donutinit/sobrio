@@ -407,3 +407,14 @@ test('command names: td, ta and settings by default; yours if each is one word a
   assert.deepEqual(mergeSettings({ switcher: { commandNames: { dark: 'ta' } } }).switcher.commandNames,
     { dark: 'td', css: 'ta', settings: 'settings' });
 });
+
+test('classifyRateChange: a rate no person picks (0, out of range, not a number) is ignored', () => {
+  // WhatsApp sets a video to 0: it must not become the page's speed for every other video.
+  assert.equal(classifyRateChange({ rate: 0, ours: 1.5, sinceLoad: Infinity }), 'ignore');
+  assert.equal(classifyRateChange({ rate: 0, ours: undefined, sinceLoad: 100 }), 'ignore');
+  assert.equal(classifyRateChange({ rate: Number.NaN, ours: 1.5, sinceLoad: Infinity }), 'ignore');
+  assert.equal(classifyRateChange({ rate: 0.05, ours: 1.5, sinceLoad: Infinity }), 'ignore');
+  assert.equal(classifyRateChange({ rate: 17, ours: 1.5, sinceLoad: Infinity }), 'ignore');
+  assert.equal(classifyRateChange({ rate: 0.1, ours: 1.5, sinceLoad: Infinity }), 'page');
+  assert.equal(classifyRateChange({ rate: 16, ours: 1.5, sinceLoad: Infinity }), 'page');
+});

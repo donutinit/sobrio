@@ -18,6 +18,7 @@
   // Both rates: a new source resets playbackRate to defaultPlaybackRate. Either write fires a
   // ratechange, so ours is set before writing.
   function write(media, rate) {
+    if (!(rate > 0)) return; // never a stopped clock: a 0 would keep the video from playing
     if (close(media.playbackRate, rate) && close(media.defaultPlaybackRate, rate)) return;
     ours.set(media, rate);
     media.defaultPlaybackRate = rate;
