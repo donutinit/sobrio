@@ -52,7 +52,10 @@
     const own = state.css ? customCss(settings.css) : '';
     if (own) {
       if (custom.textContent !== own) custom.textContent = own;
-      if (css.isConnected ? css.nextElementSibling !== custom : !custom.isConnected) {
+      // After sobrio's sheet, not necessarily right after it (Dark Reader puts its own there).
+      // Moving it re-parses it and restyles the page, so it moves only when it is out of place.
+      const after = (node) => node.compareDocumentPosition(custom) & Node.DOCUMENT_POSITION_FOLLOWING;
+      if (!custom.isConnected || (css.isConnected && !after(css))) {
         if (css.isConnected) css.after(custom);
         else root.append(custom);
       }

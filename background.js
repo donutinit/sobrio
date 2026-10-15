@@ -22,14 +22,14 @@ const handlers = {
   // sender.url is the page that asked: sobrio's new tab even where Chrome calls the tab
   // chrome://newtab/.
   shortcut: (message, sender) => runShortcut(message, sender.tab, sender.url),
-  // A shortcut pressed inside an iframe: the tab's top frame runs it, as the site in the address
-  // bar. It finds the shortcut again by its keys in its own settings.
+  // A shortcut about the site pressed inside an iframe: the tab's top frame runs it, as the site in
+  // the address bar, finding it again by its keys in its own settings and only if the site is still
+  // the one the tab showed. False when nothing there can run it.
   'shortcut-frame': async (message, sender) => {
     if (!sender.tab || typeof message.keys !== 'string') return false;
-    const text = typeof message.text === 'string' ? message.text.slice(0, 500) : undefined;
-    await chrome.tabs.sendMessage(sender.tab.id, { sobrio: 'run-shortcut', keys: message.keys, text }, { frameId: 0 })
-      .catch(() => {});
-    return true;
+    const host = match.siteHost(sender.tab.url);
+    return chrome.tabs.sendMessage(sender.tab.id, { sobrio: 'run-shortcut', keys: message.keys, host }, { frameId: 0 })
+      .then((ran) => ran === true, () => false);
   },
 };
 
@@ -134,7 +134,7 @@ async function openUrl(url, newTab, tab) {
 }
 
 chrome.runtime.onInstalled.addListener(async ({ reason }) => {
-  const self = await chrome.management.getSelf().catch(() => null);
+  const self = await Promise.resolve(chrome.management?.getSelf?.()).catch(() => null);
   if (guard.shouldWelcome(reason, self?.installType)) chrome.tabs.create({ url: chrome.runtime.getURL('welcome.html') });
 });
 

@@ -157,12 +157,14 @@
     settings.dark.text = settings.dark.text.toLowerCase();
     settings.dark.selection = settings.dark.selection.toLowerCase();
     // The new tab picks one of these at random for the date; none means the browser's.
-    settings.newtab.locales = [...new Set(settings.newtab.locales.map(canonicalLocale).filter(Boolean))].slice(0, 30);
+    settings.newtab.locales = [...new Set(settings.newtab.locales.slice(0, 100).map(canonicalLocale).filter(Boolean))].slice(0, 30);
     settings.speed.speed = snapSpeed(settings.speed.speed);
     settings.speed.rules = settings.speed.rules
+      .slice(0, 1000)
       .map((rule) => isObject(rule) && { pattern: normalizePattern(rule.pattern), speed: rule.speed })
       .filter((rule) => rule && rule.pattern && range(0.25, 4)(rule.speed))
-      .map((rule) => ({ ...rule, speed: snapSpeed(rule.speed) }));
+      .map((rule) => ({ ...rule, speed: snapSpeed(rule.speed) }))
+      .slice(0, 200);
     settings.shortcuts = settings.shortcuts.map((s) => (s.action === 'speed' ? { ...s, param: snapSpeed(s.param) } : s));
     return settings;
   }
@@ -178,7 +180,7 @@
       settings: mergeSettings(stored?.settings),
       cssOff: list(stored?.cssOff),
       darkOff: list(stored?.darkOff),
-      animOff: Array.isArray(stored?.animOff) ? list(stored.animOff) : [...DEFAULT_ANIM_OFF],
+      ...(Array.isArray(stored?.animOff) && { animOff: list(stored.animOff) }),
       stats: isObject(stored?.stats) ? stored.stats : {},
     };
   }
@@ -194,7 +196,10 @@
       return null;
     }
     if (!isObject(data) || data.sobrio !== 1) return null;
-    const patterns = (value) => (Array.isArray(value) ? [...new Set(value.map(normalizePattern).filter(Boolean))] : []);
+    // At most 500 sites per list: enough for anyone, and every page reads the lists as it loads.
+    const patterns = (value) => (Array.isArray(value)
+      ? [...new Set(value.slice(0, 2000).map(normalizePattern).filter(Boolean))].slice(0, 500)
+      : []);
     return {
       settings: mergeSettings(data.settings),
       cssOff: patterns(data.cssOff),
@@ -204,11 +209,41 @@
     };
   }
 
-  // The switcher's memory from a backup: http(s) pages with a positive count, at most 2,000.
+  // What an import would bring that reaches beyond sobrio, shown before it is confirmed: the hosts
+  // the CSS loads from (@import, url()), the person's own engines and where URL shortcuts go.
+  function backupDetails(backup) {
+    const { css, switcher, shortcuts } = backup.settings;
+    const hostOf = (url) => {
+      try {
+        const parsed = new URL(url, 'https://relative.invalid/');
+        return ['http:', 'https:'].includes(parsed.protocol) && parsed.hostname !== 'relative.invalid' ? parsed.hostname : '';
+      } catch {
+        return '';
+      }
+    };
+    const references = [
+      ...[...css.custom.matchAll(/url\(\s*(['"]?)([^'")]+)\1\s*\)/gi)].map((m) => m[2]),
+      ...[...css.custom.matchAll(/@import\s+(['"])([^'"]+)\1/gi)].map((m) => m[2]),
+    ];
+    return {
+      cssLength: css.custom.length,
+      cssHosts: [...new Set(references.map(hostOf).filter(Boolean))],
+      engines: switcher.customEngines.map((engine) => ({
+        name: engine.name, host: hostOf(engine.url), isDefault: switcher.defaultEngine === engine.id,
+      })),
+      addresses: shortcuts.filter((s) => s.action === 'openUrl' || s.action === 'openUrlNewTab')
+        .map((s) => ({ keys: s.keys, host: hostOf(s.param) })),
+    };
+  }
+
+  // The switcher's memory from a backup: any page it opened (an address up to 2,048 characters),
+  // a count up to a million and a last open no later than tomorrow; at most 2,000, the newest.
   function readStats(value) {
     if (!isObject(value)) return {};
-    const entries = Object.entries(value).filter(([url, entry]) => /^https?:\/\//i.test(url) && isObject(entry)
-      && Number.isInteger(entry.count) && entry.count > 0 && Number.isFinite(entry.last));
+    const latest = Date.now() + 86400000;
+    const entries = Object.entries(value).filter(([url, entry]) => url.length <= 2048 && isObject(entry)
+      && Number.isInteger(entry.count) && entry.count > 0 && entry.count <= 1e6
+      && Number.isFinite(entry.last) && entry.last >= 0 && entry.last <= latest);
     return Object.fromEntries(entries
       .sort(([, a], [, b]) => b.last - a.last)
       .slice(0, 2000)
@@ -408,7 +443,7 @@
   }
 
   const api = {
-    DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, isCommandWord, mergeSettings, makeBackup, readBackup, hostMatches, normalizePattern, matchingPatterns, siteState,
+    DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, isCommandWord, mergeSettings, makeBackup, readBackup, backupDetails, hostMatches, normalizePattern, matchingPatterns, siteState,
     parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
     normalizeKeys, isValidShortcutKeys, cleanUrl, toggledPatterns, snapSpeed,
   };

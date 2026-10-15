@@ -1,6 +1,7 @@
 // The person's own keyboard shortcuts (settings.shortcuts): each combination runs an action.
-// Every frame listens, since the focus may be inside an iframe (Google Docs, an embedded player),
-// but the action runs in the top frame, so that a shortcut means the site in the address bar.
+// Every frame listens, since the focus may be inside an iframe (Google Docs, an embedded player).
+// What concerns the site (td, ta, copying its link) runs in the top frame, the site in the address
+// bar; everything else runs where the key was pressed (the speed of the player that has the focus).
 (() => {
   const top = window === window.top;
   const { mergeSettings, normalizeKeys, toggledPatterns, siteState, cleanUrl } = sobrio.settings;
@@ -17,6 +18,9 @@
     if (area === 'local' && changes.settings) load(changes.settings.newValue);
   });
 
+  // The actions about the site in the address bar: from an iframe, the top frame runs them.
+  const SITE_ACTIONS = new Set(['toggleDark', 'toggleCss', 'copyCleanUrl']);
+
   const isEditable = (node) => node?.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(node?.tagName ?? '');
 
   addEventListener('keydown', (e) => {
@@ -31,29 +35,39 @@
     e.stopImmediatePropagation();
     // A held key repeats: the shortcut runs once per press (one tab, one toggle).
     if (e.repeat) return;
-    if (top) {
-      run(shortcut).catch((error) => console.warn('sobrio: shortcut failed', error));
+    const failed = (error) => console.warn('sobrio: shortcut failed', error);
+    if (top || !SITE_ACTIONS.has(shortcut.action)) {
+      run(shortcut).catch(failed);
     } else {
-      // The top frame runs it, found again by its keys; the frame sends only its selection.
-      const text = shortcut.action === 'searchSelection' ? selectionText() : undefined;
-      send({ sobrio: 'shortcut-frame', keys, text }).catch((error) => console.warn('sobrio: shortcut failed', error));
+      // The top frame runs it, found again by its keys. If it cannot (a page from before sobrio
+      // was installed), say so instead of swallowing the key in silence.
+      send({ sobrio: 'shortcut-frame', keys }).then((ran) => {
+        if (ran === false) sobrio.toast?.(t('shortcutReload'));
+      }, failed);
     }
   }, true);
 
   if (top) {
-    chrome.runtime.onMessage.addListener((message) => {
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       if (message?.sobrio !== 'run-shortcut') return;
-      const shortcut = settings.shortcuts.find((s) => s.keys === message.keys);
-      if (shortcut) run(shortcut, message.text).catch((error) => console.warn('sobrio: shortcut failed', error));
+      // The page may have changed between the key and this message: only the same site runs it.
+      const shortcut = message.host === location.hostname && settings.shortcuts.find((s) => s.keys === message.keys);
+      if (shortcut) run(shortcut).catch((error) => console.warn('sobrio: shortcut failed', error));
+      sendResponse(Boolean(shortcut));
     });
   }
 
-  // The selected text, also inside a text field, at most 500 characters: a search, not an essay.
+  // The selected text, at most 500 characters: a search, not an essay. Inside a text field too,
+  // but never a password, card or one-time code: those must not end up in a search engine.
   function selectionText() {
     const field = document.activeElement;
-    const inField = /^(INPUT|TEXTAREA)$/.test(field?.tagName ?? '') && typeof field.selectionStart === 'number';
-    const text = inField ? field.value.slice(field.selectionStart, field.selectionEnd) : String(getSelection());
-    return text.trim().slice(0, 500);
+    if (field?.tagName === 'TEXTAREA' || field?.tagName === 'INPUT') {
+      const plain = field.tagName === 'TEXTAREA' || ['text', 'search', 'url'].includes(field.type);
+      if (!plain || /password|cc-|one-time-code/i.test(field.autocomplete ?? '')) return '';
+      if (typeof field.selectionStart !== 'number') return '';
+      return field.value.slice(field.selectionStart, field.selectionEnd).trim().slice(0, 500);
+    }
+    return String(getSelection()).trim().slice(0, 500);
   }
 
   async function rawSettings() {
@@ -88,8 +102,7 @@
     }
   }
 
-  // frameText: the selection of the iframe the shortcut came from.
-  async function run({ action, param }, frameText) {
+  async function run({ action, param }) {
     const toast = sobrio.toast ?? (() => {});
     if (action === 'toggleDark' && onPage && !settings.dark.enabled) {
       // Like td: with dark mode off everywhere, it turns it back on.
@@ -117,7 +130,7 @@
       toast(t((await copy(url)) ? 'toastCopied' : 'toastCopyFailed'), url.length > 60 ? `${url.slice(0, 57)}…` : url, 1600);
     } else {
       // switcher, search, searchSelection, openUrl, openUrlNewTab, settings: the background's.
-      const text = action === 'searchSelection' ? frameText || selectionText() : undefined;
+      const text = action === 'searchSelection' ? selectionText() : undefined;
       await send({ sobrio: 'shortcut', action, param, text });
     }
   }

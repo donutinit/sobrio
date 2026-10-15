@@ -1,6 +1,6 @@
 // The settings page. Every change saves itself, and every open tab applies it live.
 (() => {
-  const { mergeSettings, normalizePattern, storeThemeHook, DEFAULT_ANIM_OFF, isCommandWord, makeBackup, readBackup, ACTIONS, normalizeKeys, isValidShortcutKeys } = sobrio.settings;
+  const { mergeSettings, normalizePattern, storeThemeHook, DEFAULT_ANIM_OFF, isCommandWord, makeBackup, readBackup, backupDetails, ACTIONS, normalizeKeys, isValidShortcutKeys } = sobrio.settings;
   const { ENGINES, allEngines, shortUrl } = sobrio.match;
   const { weightOf } = sobrio.stats;
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions) || key;
@@ -295,8 +295,9 @@
   function snippetEditor() {
     const area = el('textarea', { className: 'snippet', id: 'field-css.custom', rows: 12, spellcheck: false,
       maxLength: CUSTOM_MAX, placeholder: 'a:visited {\n  color: #9b8aff !important;\n}' });
-    const count = el('span', { className: 'count' });
-    count.setAttribute('aria-live', 'polite');
+    // Described by the counter, not a live region: read when asked, not on every key.
+    const count = el('span', { className: 'count', id: 'custom-count' });
+    area.setAttribute('aria-describedby', 'custom-count');
     const number = new Intl.NumberFormat();
     const counted = () => {
       count.textContent = `${number.format(area.value.length)} / ${number.format(CUSTOM_MAX)}`;
@@ -504,12 +505,27 @@
     const file = el('input', { type: 'file', accept: 'application/json,.json', hidden: true });
     const status = el('p', { className: 'status' });
     status.setAttribute('role', 'status');
+    const details = el('ul', { className: 'backup-details' });
     let pending = null;
     let timer;
     const disarm = () => {
       clearTimeout(timer);
       pending = null;
       restore.textContent = t('backupImport');
+      details.replaceChildren();
+    };
+    // Before confirming, what in the file reaches beyond sobrio: the CSS and where it loads from,
+    // the engines that would get what is typed, the addresses shortcuts would open.
+    const describe = (backup) => {
+      const { cssLength, cssHosts, engines, addresses } = backupDetails(backup);
+      const lines = [];
+      if (cssLength) {
+        lines.push(t('backupCss', new Intl.NumberFormat().format(cssLength))
+          + (cssHosts.length ? `, ${t('backupLoadsFrom', cssHosts.join(', '))}` : ''));
+      }
+      for (const engine of engines) lines.push(t('backupEngine', engine.name, engine.host) + (engine.isDefault ? ` ${t('backupDefault')}` : ''));
+      for (const address of addresses) lines.push(t('backupAddress', address.keys, address.host));
+      details.replaceChildren(...lines.map((line) => el('li', { textContent: line })));
     };
     guide.addEventListener('click', () => chrome.tabs.create({ url: chrome.runtime.getURL('welcome.html') }));
     save.addEventListener('click', async () => {
@@ -531,16 +547,23 @@
       }
       const { animOff, ...values } = pending;
       disarm();
-      await chrome.storage.local.set(values);
-      if (animOff) await chrome.storage.local.set({ animOff });
-      else await chrome.storage.local.remove('animOff');
-      flash(status, t('backupImported'));
+      try {
+        // Everything in one write, so every tab sees the restored state at once (a file with no
+        // animOff list clears it first: the default comes back).
+        if (!animOff) await chrome.storage.local.remove('animOff');
+        await chrome.storage.local.set(animOff ? { ...values, animOff } : values);
+        flash(status, t('backupImported'));
+      } catch (error) {
+        console.error('sobrio: restore failed', error);
+        flash(status, t('backupFailed'));
+      }
     });
     file.addEventListener('change', async () => {
       const chosen = file.files[0];
       file.value = '';
       if (!chosen) return;
-      const backup = chosen.size <= 5_000_000 ? readBackup(await chosen.text()) : null;
+      const text = chosen.size <= 5_000_000 ? await chosen.text().catch(() => '') : '';
+      const backup = text ? readBackup(text) : null;
       if (!backup) {
         disarm();
         flash(status, t('backupInvalid'));
@@ -551,6 +574,7 @@
       const exceptions = backup.cssOff.length + backup.darkOff.length + (backup.animOff?.length ?? 0);
       status.textContent = t('backupSummary', String(backup.settings.shortcuts.length), String(exceptions),
         String(Object.keys(backup.stats).length));
+      describe(backup);
       timer = setTimeout(() => {
         disarm();
         status.textContent = '';
@@ -559,7 +583,7 @@
     return el('div', { className: 'backup' },
       el('div', { className: 'backup-row' }, el('span', { className: 'backup-label', textContent: t('backupLabel') }),
         save, restore, file, el('span', { className: 'spacer' }), guide),
-      status);
+      status, details);
   }
 
   const TABS = ['style', 'dark', 'exceptions', 'switcher', 'shortcuts', 'newtab', 'media', 'stats'];

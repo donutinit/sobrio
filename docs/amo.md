@@ -129,8 +129,16 @@ Permissions:
 
 Network: the background fetches a cross-origin stylesheet or image when Dark Reader asks for it
 (to darken it), only over http(s), without cookies, only text/css or image/*, at most 5 MB, and a
-redirect may only end on a public https host (guard.js). Nothing else is sent anywhere; no
-analytics, no remote code.
+redirect may only end on a public https host (guard.js). sobrio itself sends nothing anywhere; no
+analytics, no remote code. The only other requests are the ones the person writes into their own
+CSS box (an @import or url() of their choosing), loaded by the page like any stylesheet.
+
+On install, management.getSelf() (no permission needed) tells a real install from an unpacked or
+temporary one; only a real install opens the local welcome page (welcome.html) once.
+
+Shortcuts pressed inside an iframe that concern the site (dark mode or the stylesheet on it,
+copying its link) are passed through the background to the tab's top frame with tabs.sendMessage
+(frameId 0); the top frame looks the shortcut up again in its own settings by its keys.
 
 To try it: open any site (it turns black), press Ctrl+Space and type a bookmark's name, type td
 or ta in the switcher, open a new tab, and open the settings from the add-on's preferences.

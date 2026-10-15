@@ -615,5 +615,55 @@
         "content": "$2"
       }
     }
+  },
+  "shortcutReload": {
+    "message": "Reload this page to use sobrio here"
+  },
+  "backupCss": {
+    "message": "Your CSS: $CHARS$ characters",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "loading from $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "Engine $NAME$ at $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ opens $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(the default)"
+  },
+  "backupFailed": {
+    "message": "Could not restore it"
+  },
+  "welcomeNoShortcut": {
+    "message": "The toolbar button"
   }
 }

@@ -17,7 +17,8 @@
       el('div', {}, el('h2', { className: keys ? 'keys' : '', textContent: title }), el('p', { textContent: text })));
   }
 
-  function build(settings) {
+  // keys: the switcher's shortcut as the browser has it now (it can be changed, or be ⌘Space).
+  function build(settings, keys) {
     const { dark, css } = settings.switcher.commandNames;
     const open = el('button', { type: 'button', textContent: t('welcomeSettings') });
     open.addEventListener('click', () => chrome.runtime.openOptionsPage());
@@ -26,7 +27,7 @@
       el('h1', { textContent: t('welcomeTitle') }),
       el('p', { className: 'lead', textContent: t('welcomeLead') }),
       el('ol', { className: 'things' },
-        thing('switcher', 'Ctrl+Space', t('welcomeSwitcher'), true),
+        thing('switcher', keys || t('welcomeNoShortcut'), t('welcomeSwitcher'), Boolean(keys)),
         thing('dark', t('welcomeCommandsTitle', dark, css), t('welcomeCommands', dark, css), true),
         thing('newtab', t('welcomeNewtabTitle'), t('welcomeNewtab')),
         thing('shortcuts', t('welcomeShortcutsTitle'), t('welcomeShortcuts')),
@@ -51,13 +52,17 @@
     }
   }
 
+  let keys = '';
   const apply = (stored) => {
     paint(stored.theme ?? null);
-    build(mergeSettings(stored.settings));
+    build(mergeSettings(stored.settings), keys);
   };
   document.title = `sobrio · ${t('welcomeTitle')}`;
-  build(mergeSettings(undefined));
-  chrome.storage.local.get(['settings', 'theme']).then(apply);
+  build(mergeSettings(undefined), keys);
+  Promise.resolve(chrome.commands?.getAll?.()).catch(() => []).then((commands) => {
+    keys = (commands ?? []).find((command) => command.name === 'open-switcher')?.shortcut ?? '';
+    return chrome.storage.local.get(['settings', 'theme']);
+  }).then(apply);
   chrome.storage.onChanged.addListener((changes, area) => {
     if (area === 'local' && (changes.settings || changes.theme)) chrome.storage.local.get(['settings', 'theme']).then(apply);
   });
