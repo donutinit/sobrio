@@ -665,5 +665,14 @@
   },
   "welcomeNoShortcut": {
     "message": "El botón de la barra"
+  },
+  "exceptionsLocal": {
+    "message": "Dejar en paz las direcciones locales"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, los nombres .local y las demás direcciones de tu máquina o tu red se ven como son: sin hoja de estilo ni modo oscuro."
+  },
+  "localLeftAlone": {
+    "message": "Las direcciones locales se dejan en paz: cámbialo en los ajustes"
   }
 }

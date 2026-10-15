@@ -665,5 +665,14 @@
   },
   "welcomeNoShortcut": {
     "message": "The toolbar button"
+  },
+  "exceptionsLocal": {
+    "message": "Leave local addresses alone"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, .local names and the other addresses of your machine or network keep their own look: no stylesheet, no dark mode."
+  },
+  "localLeftAlone": {
+    "message": "Local addresses are left alone: change it in the settings"
   }
 }

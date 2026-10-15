@@ -4,7 +4,7 @@
 // bar; everything else runs where the key was pressed (the speed of the player that has the focus).
 (() => {
   const top = window === window.top;
-  const { mergeSettings, normalizeKeys, toggledPatterns, siteState, cleanUrl } = sobrio.settings;
+  const { mergeSettings, normalizeKeys, toggledPatterns, siteState, cleanUrl, isLocalHost } = sobrio.settings;
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions);
   const send = (message) => (sobrio.send ?? chrome.runtime.sendMessage.bind(chrome.runtime))(message);
   const onPage = top && !location.protocol.endsWith('-extension:') && Boolean(location.hostname);
@@ -104,7 +104,10 @@
 
   async function run({ action, param }) {
     const toast = sobrio.toast ?? (() => {});
-    if (action === 'toggleDark' && onPage && !settings.dark.enabled) {
+    const localSite = onPage && settings.exceptions.local && isLocalHost(location.hostname);
+    if ((action === 'toggleDark' || action === 'toggleCss') && localSite) {
+      toast(t('localLeftAlone'), location.hostname);
+    } else if (action === 'toggleDark' && onPage && !settings.dark.enabled) {
       // Like td: with dark mode off everywhere, it turns it back on.
       await setDarkEverywhere(true);
       toast(t('toastDarkEverywhereOn'));

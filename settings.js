@@ -26,6 +26,7 @@
     },
     speed: { enabled: true, speed: 1, step: 0.1, shortcuts: true, rules: [] },
     media: { pauseAutoplay: false },
+    exceptions: { local: true },
     shortcuts: [],
   };
 
@@ -81,6 +82,7 @@
     },
     speed: { enabled: bool, speed: range(0.25, 4), step: oneOf(0.05, 0.1, 0.25), shortcuts: bool, rules: Array.isArray },
     media: { pauseAutoplay: bool },
+    exceptions: { local: bool },
     shortcuts: Array.isArray,
   };
 
@@ -294,13 +296,33 @@
   // person saves a list of their own. ChatGPT's view drifts while it writes if they are cut.
   const DEFAULT_ANIM_OFF = ['chatgpt.com'];
 
+  // local: an address of this machine or the local network, left alone (exceptions.local, on by
+  // default): what runs there is the person's own work, to be seen as it is.
   function siteState(stored, host) {
     const animOff = Array.isArray(stored?.animOff) ? stored.animOff : DEFAULT_ANIM_OFF;
+    const local = mergeSettings(stored?.settings).exceptions.local && isLocalHost(host);
     return {
-      dark: matchingPatterns(stored?.darkOff, host).length === 0,
-      css: matchingPatterns(stored?.cssOff, host).length === 0,
+      dark: !local && matchingPatterns(stored?.darkOff, host).length === 0,
+      css: !local && matchingPatterns(stored?.cssOff, host).length === 0,
       animations: matchingPatterns(animOff, host).length === 0,
+      local,
     };
+  }
+
+  // localhost (and *.localhost), the loopback, private, link-local and shared (100.64/10, as
+  // Tailscale uses) IPv4 ranges, IPv6 loopback, unique local and link-local, and .local names.
+  function isLocalHost(host) {
+    const name = String(host ?? '').toLowerCase().replace(/^\[|\]$/g, '').replace(/\.$/, '');
+    if (!name) return false;
+    if (name === 'localhost' || name.endsWith('.localhost') || name.endsWith('.local')) return true;
+    const v4 = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(name);
+    if (v4) {
+      const [a, b, c, d] = v4.slice(1).map(Number);
+      if ([a, b, c, d].some((n) => n > 255)) return false;
+      return a === 127 || a === 10 || a === 0 || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168)
+        || (a === 169 && b === 254) || (a === 100 && b >= 64 && b <= 127);
+    }
+    return name === '::1' || /^f[cd][0-9a-f]{0,2}:/.test(name) || /^fe[89ab][0-9a-f]?:/.test(name);
   }
 
   function hookColor(value) {
@@ -446,7 +468,7 @@
   }
 
   const api = {
-    DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, isCommandWord, mergeSettings, makeBackup, readBackup, backupDetails, hostMatches, normalizePattern, matchingPatterns, siteState,
+    DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, isCommandWord, mergeSettings, makeBackup, readBackup, backupDetails, hostMatches, normalizePattern, matchingPatterns, siteState, isLocalHost,
     parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
     normalizeKeys, isValidShortcutKeys, cleanUrl, toggledPatterns, snapSpeed,
   };

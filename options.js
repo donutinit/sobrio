@@ -680,6 +680,7 @@
         colorRow('dark.text', 'darkText', 'text', { dependsOn: 'dark.enabled' }),
         colorRow('dark.selection', 'darkSelection', 'selection', { auto: true, dependsOn: 'dark.enabled' })),
       panel('exceptions',
+        switchRow('exceptions.local', 'exceptionsLocal', { hint: 'exceptionsLocalHint' }),
         el('p', { className: 'help', textContent: t('exceptionsHelp') }),
         exceptionList('cssOff', 'exceptionsCss'),
         exceptionList('darkOff', 'exceptionsDark'),

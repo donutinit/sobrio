@@ -7,6 +7,7 @@ const {
   hostMatches,
   normalizePattern,
   siteState,
+  isLocalHost,
   matchingPatterns,
   parseThemeHook,
   darkTheme,
@@ -107,15 +108,15 @@ test('normalizePattern rejects what is not a site', () => {
 
 test('siteState with patterns', () => {
   const stored = { darkOff: ['*.github.com'], cssOff: ['news.ycombinator.com'] };
-  assert.deepEqual(siteState(stored, 'gist.github.com'), { dark: false, css: true, animations: true });
-  assert.deepEqual(siteState(stored, 'github.com'), { dark: false, css: true, animations: true });
-  assert.deepEqual(siteState(stored, 'news.ycombinator.com'), { dark: true, css: false, animations: true });
-  assert.deepEqual(siteState(stored, 'ycombinator.com'), { dark: true, css: true, animations: true });
+  assert.deepEqual(siteState(stored, 'gist.github.com'), { dark: false, css: true, animations: true, local: false });
+  assert.deepEqual(siteState(stored, 'github.com'), { dark: false, css: true, animations: true, local: false });
+  assert.deepEqual(siteState(stored, 'news.ycombinator.com'), { dark: true, css: false, animations: true, local: false });
+  assert.deepEqual(siteState(stored, 'ycombinator.com'), { dark: true, css: true, animations: true, local: false });
 });
 
 test('siteState with nothing stored means everything on', () => {
-  assert.deepEqual(siteState(undefined, 'a.com'), { dark: true, css: true, animations: true });
-  assert.deepEqual(siteState({ darkOff: 'junk', cssOff: [null, 3], animOff: [null] }, 'a.com'), { dark: true, css: true, animations: true });
+  assert.deepEqual(siteState(undefined, 'a.com'), { dark: true, css: true, animations: true, local: false });
+  assert.deepEqual(siteState({ darkOff: 'junk', cssOff: [null, 3], animOff: [null] }, 'a.com'), { dark: true, css: true, animations: true, local: false });
 });
 
 test('matchingPatterns lists every pattern that covers the site', () => {
@@ -417,4 +418,28 @@ test('classifyRateChange: a rate no person picks (0, out of range, not a number)
   assert.equal(classifyRateChange({ rate: 17, ours: 1.5, sinceLoad: Infinity }), 'ignore');
   assert.equal(classifyRateChange({ rate: 0.1, ours: 1.5, sinceLoad: Infinity }), 'page');
   assert.equal(classifyRateChange({ rate: 16, ours: 1.5, sinceLoad: Infinity }), 'page');
+});
+
+test('isLocalHost: this machine and the local network', () => {
+  for (const host of ['localhost', 'app.localhost', '127.0.0.1', '127.8.9.10', '0.0.0.0', '10.0.0.5', '172.16.0.1',
+    '172.31.255.255', '192.168.1.20', '169.254.10.10', '100.64.0.1', '100.127.255.254', '[::1]', '::1',
+    '[fd12:3456::1]', '[fe80::1]', 'printer.local', 'NAS.LOCAL', 'localhost.']) {
+    assert.equal(isLocalHost(host), true, host);
+  }
+  for (const host of ['', 'example.com', 'localhost.example.com', 'mylocal', '172.32.0.1', '192.169.0.1', '11.0.0.1',
+    '100.128.0.1', '8.8.8.8', '[2001:db8::1]', 'local', '1270.0.0.1', '999.168.1.1']) {
+    assert.equal(isLocalHost(host), false, host);
+  }
+});
+
+test('local addresses are left alone by default: no stylesheet, no dark mode', () => {
+  assert.equal(DEFAULTS.exceptions.local, true);
+  assert.deepEqual(siteState(undefined, 'localhost'), { dark: false, css: false, animations: true, local: true });
+  assert.deepEqual(siteState({ settings: { exceptions: { local: true } } }, '192.168.1.20'),
+    { dark: false, css: false, animations: true, local: true });
+  // Turned off, a local address is a site like any other, exceptions included.
+  const off = { settings: { exceptions: { local: false } } };
+  assert.deepEqual(siteState(off, 'localhost'), { dark: true, css: true, animations: true, local: false });
+  assert.deepEqual(siteState({ ...off, darkOff: ['localhost'] }, 'localhost'), { dark: false, css: true, animations: true, local: false });
+  assert.deepEqual(siteState(undefined, 'example.com'), { dark: true, css: true, animations: true, local: false });
 });

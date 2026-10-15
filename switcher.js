@@ -141,6 +141,10 @@
         return { title: t('openSettings'), sub: settings.switcher.commandNames.settings, run: () => send({ sobrio: 'settings' }) };
       }
       const sub = settings.switcher.commandNames[kind];
+      // A local address is left alone as a whole: the switch for that is in the settings.
+      if (siteState(stored, hostname).local) {
+        return { title: t('localLeftAlone'), sub, run: () => send({ sobrio: 'settings' }) };
+      }
       if (kind === 'dark' && !settings.dark.enabled) {
         return { title: t('darkOnEverywhere'), sub, run: () => toggle(kind) };
       }

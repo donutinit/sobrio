@@ -4,17 +4,19 @@
   const root = document.documentElement;
   const hostname = location.hostname;
   const { detector, buildCss, customCss } = sobrio;
-  const { DEFAULTS, mergeSettings, siteState, darkTheme } = sobrio.settings;
+  const { DEFAULTS, mergeSettings, siteState, darkTheme, isLocalHost } = sobrio.settings;
   const KEYS = ['darkOff', 'cssOff', 'animOff', 'settings', 'theme'];
 
-  // Both go in before storage answers, with the defaults: the usual case waits for nothing.
-  const css = addStyle('sobrio-css', buildCss(DEFAULTS.css, null));
+  // Both go in before storage answers, with the defaults: the usual case waits for nothing. A local
+  // address is left alone by default, so there neither goes in (no black blink on a dev server).
+  const leftAlone = DEFAULTS.exceptions.local && isLocalHost(hostname);
+  const css = leftAlone ? Object.assign(document.createElement('style'), { id: 'sobrio-css' }) : addStyle('sobrio-css', buildCss(DEFAULTS.css, null));
   // The person's CSS (settings.css.custom), right after sobrio's; in once storage answers.
   const custom = document.createElement('style');
   custom.id = 'sobrio-css-custom';
   // Until storage answers, everything dark, as strict as Dark Reader's own fallback (which takes
   // over in the same task when it starts): only the html would let a white body flash.
-  const fallback = addStyle('sobrio-fallback',
+  const fallback = leftAlone ? null : addStyle('sobrio-fallback',
     'html, body, body :not(iframe) { background-color: #000 !important; border-color: #404040 !important;' +
     ' color: #e8e6e3 !important; }');
   let current = null; // the Dark Reader theme in use, as JSON; null while it is off
@@ -64,7 +66,7 @@
     }
     // Out before setDark, in the same task (so nothing paints in between): the detector may
     // measure right away and must not see this black as the page's own.
-    fallback.remove();
+    fallback?.remove();
     setDark(settings.dark.enabled && state.dark, darkTheme(settings.dark, theme), settings.dark.detect);
   }
 
