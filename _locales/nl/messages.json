@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Een eigenzinnige extensie over hoe het web eruit moet zien en hoe een browser moet aanvoelen."
+  },
+  "commandOpen": {
+    "message": "De switcher openen"
+  },
+  "placeholderBookmarks": {
+    "message": "Bladwijzers doorzoeken"
+  },
+  "placeholderEngine": {
+    "message": "Zoeken op $ENGINE$",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "\"$QUERY$\" zoeken op $ENGINE$",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Geen bladwijzers"
+  },
+  "darkOff": {
+    "message": "Donkere modus uitzetten op $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Donkere modus aanzetten op $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Aangepaste CSS uitzetten op $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Aangepaste CSS aanzetten op $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ bewegen · ↵ openen · ctrl ↵ nieuw tabblad · tab zoekmachines · esc sluiten"
+  },
+  "openSettings": {
+    "message": "Instellingen openen"
+  },
+  "darkOnEverywhere": {
+    "message": "Donkere modus overal aanzetten"
+  },
+  "removesPatterns": {
+    "message": "(verwijdert $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Instellingen"
+  },
+  "styleCorners": {
+    "message": "Geen afgeronde hoeken"
+  },
+  "styleShadows": {
+    "message": "Geen schaduwen"
+  },
+  "styleBlur": {
+    "message": "Geen vervaging"
+  },
+  "styleAnimations": {
+    "message": "Geen animaties of overgangen"
+  },
+  "styleYoutube": {
+    "message": "Behalve in de speler van YouTube"
+  },
+  "styleSmoothScroll": {
+    "message": "Geen vloeiend scrollen"
+  },
+  "styleThinScrollbars": {
+    "message": "Smalle scrollbalken"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Achtergronden scrollen mee met de pagina"
+  },
+  "fromTheme": {
+    "message": "uit het thema (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Sites donker maken"
+  },
+  "darkDetect": {
+    "message": "Sites die al donker zijn met rust laten"
+  },
+  "darkBrightness": {
+    "message": "Helderheid"
+  },
+  "darkContrast": {
+    "message": "Contrast"
+  },
+  "darkSepia": {
+    "message": "Sepia"
+  },
+  "darkGrayscale": {
+    "message": "Grijstinten"
+  },
+  "darkBackground": {
+    "message": "Achtergrond"
+  },
+  "darkText": {
+    "message": "Tekst"
+  },
+  "darkSelection": {
+    "message": "Selectie"
+  },
+  "auto": {
+    "message": "Auto"
+  },
+  "exceptionsHelp": {
+    "message": "example.com is alleen die site; *.example.com geldt ook voor de subdomeinen ervan."
+  },
+  "exceptionsCss": {
+    "message": "Zonder de stijlpagina"
+  },
+  "exceptionsDark": {
+    "message": "Zonder donkere modus"
+  },
+  "patternPlaceholder": {
+    "message": "example.com of *.example.com"
+  },
+  "add": {
+    "message": "Toevoegen"
+  },
+  "remove": {
+    "message": "Verwijderen"
+  },
+  "invalidPattern": {
+    "message": "Dat is geen site"
+  },
+  "emptyList": {
+    "message": "Geen"
+  },
+  "switcherBookmarks": {
+    "message": "Bladwijzers"
+  },
+  "switcherEngine": {
+    "message": "Zoekmachine"
+  },
+  "switcherAutoSearch": {
+    "message": "Het web doorzoeken als geen bladwijzer past"
+  },
+  "switcherCommands": {
+    "message": "Opdrachten in de switcher"
+  },
+  "switcherHints": {
+    "message": "Regel met sneltoetsen"
+  },
+  "lastPiece": {
+    "message": "Bewaar bladwijzers of minstens één zoekmachine"
+  },
+  "optionsFooter": {
+    "message": "Wijzigingen worden meteen opgeslagen en gelden direct voor open tabbladen. De sneltoets wijzig je in about:addons of chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "Nieuw tabblad"
+  },
+  "newtabStyle": {
+    "message": "Typografie"
+  },
+  "newtabStyle_editorial": {
+    "message": "Redactioneel: Instrument Serif en Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Zwitsers: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Machine: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Boek: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Thema: het lettertype uit userContent.css"
+  },
+  "newtabClock": {
+    "message": "Klok"
+  },
+  "newtabClock_auto": {
+    "message": "Zoals de taal van de browser"
+  },
+  "newtabClock_24": {
+    "message": "24 uur"
+  },
+  "newtabClock_12": {
+    "message": "12 uur"
+  },
+  "newtabDate": {
+    "message": "De datum tonen"
+  },
+  "newtabTime": {
+    "message": "De tijd tonen"
+  },
+  "newtabSwitcher": {
+    "message": "De switcher tonen"
+  },
+  "newtabLocales": {
+    "message": "Talen voor de datum"
+  },
+  "newtabLocalesHelp": {
+    "message": "Elk nieuw tabblad zegt de datum willekeurig in een van deze talen."
+  },
+  "localesEmpty": {
+    "message": "De taal van de browser"
+  },
+  "speedEnabled": {
+    "message": "De snelheid van video en audio regelen"
+  },
+  "speedGlobal": {
+    "message": "Snelheid"
+  },
+  "speedStep": {
+    "message": "Stap voor ] en ["
+  },
+  "speedShortcuts": {
+    "message": "Sneltoetsen: ] sneller, [ langzamer, \\ terug naar 1×"
+  },
+  "speedRules": {
+    "message": "Snelheid per site"
+  },
+  "invalidSpeed": {
+    "message": "Tussen 0,25 en 4"
+  },
+  "speedPageOnly": {
+    "message": "alleen deze pagina"
+  },
+  "toastDarkOn": {
+    "message": "Donkere modus aan"
+  },
+  "toastDarkOff": {
+    "message": "Donkere modus uit"
+  },
+  "toastCssOn": {
+    "message": "Stijlpagina aan"
+  },
+  "toastCssOff": {
+    "message": "Stijlpagina uit"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Donkere modus overal aan"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Donkere modus overal uit"
+  },
+  "toastCopied": {
+    "message": "Schone link gekopieerd"
+  },
+  "toastCopyFailed": {
+    "message": "Kopiëren mislukt"
+  },
+  "greetingMorning": {
+    "message": "Goedemorgen"
+  },
+  "greetingAfternoon": {
+    "message": "Goedemiddag"
+  },
+  "greetingEvening": {
+    "message": "Goedenavond"
+  },
+  "tab_style": {
+    "message": "Stijl"
+  },
+  "tab_dark": {
+    "message": "Donkere modus"
+  },
+  "tab_exceptions": {
+    "message": "Uitzonderingen"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Sneltoetsen"
+  },
+  "tab_newtab": {
+    "message": "Nieuw tabblad"
+  },
+  "tab_media": {
+    "message": "Media"
+  },
+  "tab_stats": {
+    "message": "Statistieken"
+  },
+  "styleHideScrollbars": {
+    "message": "Scrollbalken verbergen"
+  },
+  "styleUnderlineLinks": {
+    "message": "Links onderstrepen"
+  },
+  "styleSelectableText": {
+    "message": "Elke tekst selecteerbaar maken"
+  },
+  "styleNoUppercase": {
+    "message": "Geen geforceerde HOOFDLETTERS"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Afbeeldingen en video in grijstinten"
+  },
+  "styleFocusRing": {
+    "message": "Een zichtbare rand om het gefocuste element"
+  },
+  "styleCustom": {
+    "message": "Jouw CSS"
+  },
+  "styleCustomHelp": {
+    "message": "Wordt na alles hierboven toegevoegd, in een eigen stijlblad, op elke site waar de CSS aan staat; een @import komt helemaal bovenaan. ta zet hem uit samen met de rest. Gebruik !important om voorrang te krijgen op de site. Sites kunnen hem lezen, zoals elke stijl op hun pagina."
+  },
+  "switcherPrecision": {
+    "message": "Precisie van zoeken"
+  },
+  "precision_strict": {
+    "message": "Strikt: elk woord zoals getypt"
+  },
+  "precision_normal": {
+    "message": "Normaal"
+  },
+  "precision_loose": {
+    "message": "Ruim: letters in volgorde, overal"
+  },
+  "switcherMemory": {
+    "message": "Onthoud wat ik open en zet het hoger in de lijst"
+  },
+  "switcherDefaultEngine": {
+    "message": "Standaard zoekmachine"
+  },
+  "customEngines": {
+    "message": "Jouw zoekmachines"
+  },
+  "customEnginesHelp": {
+    "message": "%s in het adres wordt vervangen door wat je typt."
+  },
+  "engineName": {
+    "message": "Naam"
+  },
+  "invalidEngine": {
+    "message": "Een naam en een http(s)-adres met %s"
+  },
+  "shortcutsHelp": {
+    "message": "Druk de toetsen in op de knop, kies wat ze doen en voeg ze toe. Ze hebben Ctrl, Alt of Meta nodig, of een functietoets. Alt met een letter kan botsen met de browser (Alt+D gaat naar de adresbalk): Ctrl+Shift of Alt+Shift is veiliger."
+  },
+  "shortcutRecord": {
+    "message": "Toetsen opnemen"
+  },
+  "shortcutPress": {
+    "message": "Druk de toetsen…"
+  },
+  "invalidShortcut": {
+    "message": "Neem een combinatie op met Ctrl, Alt of Meta, of een functietoets"
+  },
+  "duplicateShortcut": {
+    "message": "Die toetsen doen al iets"
+  },
+  "invalidShortcutParam": {
+    "message": "Die actie heeft een geldige waarde nodig"
+  },
+  "action_switcher": {
+    "message": "De switcher openen"
+  },
+  "action_search": {
+    "message": "Zoeken in"
+  },
+  "action_searchSelection": {
+    "message": "De selectie zoeken in"
+  },
+  "action_toggleDark": {
+    "message": "Donkere modus op deze site"
+  },
+  "action_toggleCss": {
+    "message": "CSS op deze site"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Donkere modus overal"
+  },
+  "action_openUrl": {
+    "message": "Een adres openen"
+  },
+  "action_openUrlNewTab": {
+    "message": "Een adres openen in een nieuw tabblad"
+  },
+  "action_speed": {
+    "message": "Mediasnelheid"
+  },
+  "action_copyCleanUrl": {
+    "message": "De link kopiëren zonder tracking"
+  },
+  "action_settings": {
+    "message": "De instellingen openen"
+  },
+  "statsHelp": {
+    "message": "Elke bladwijzer die je opent via de switcher. Het gewicht groeit met het aantal keren dat je hem opent en vervaagt met de tijd; daardoor komt een pagina hoger in de zoekresultaten."
+  },
+  "statsPage": {
+    "message": "Pagina"
+  },
+  "statsOpens": {
+    "message": "Geopend"
+  },
+  "statsWeight": {
+    "message": "Gewicht"
+  },
+  "statsLast": {
+    "message": "Laatst"
+  },
+  "statsReset": {
+    "message": "Resetten"
+  },
+  "statsResetAll": {
+    "message": "Alles resetten"
+  },
+  "statsResetConfirm": {
+    "message": "Klik nog eens om te resetten"
+  },
+  "statsEmpty": {
+    "message": "Nog niets"
+  },
+  "newtabLayout": {
+    "message": "Indeling"
+  },
+  "layout_clasico": {
+    "message": "Klassiek"
+  },
+  "layout_hora": {
+    "message": "Alleen de tijd"
+  },
+  "layout_linea": {
+    "message": "Één regel"
+  },
+  "layout_apilado": {
+    "message": "Gestapeld"
+  },
+  "layout_esquina": {
+    "message": "Hoek"
+  },
+  "layout_analogico": {
+    "message": "Analoog"
+  },
+  "newtabStyle_custom": {
+    "message": "Mijn lettertypen"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Lettertype van de tijd"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Dikte van de tijd"
+  },
+  "newtabCustomDateFont": {
+    "message": "Lettertype van de datum"
+  },
+  "fontPlaceholder": {
+    "message": "Een lettertype dat hier is geïnstalleerd"
+  },
+  "newtabGreeting": {
+    "message": "Begroeting"
+  },
+  "newtabName": {
+    "message": "Je naam"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Optioneel"
+  },
+  "newtabFocusPage": {
+    "message": "De focus uit de adresbalk halen"
+  },
+  "newtabFocusPageHint": {
+    "message": "Het tabblad wordt vervangen door een nieuw op dezelfde plek, zodat de adresbalk het adres van de pagina toont in plaats van leeg te blijven."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Video en audio die vanzelf afspelen pauzeren"
+  },
+  "toastSpeedOff": {
+    "message": "Mediasnelheid staat uit in de instellingen"
+  },
+  "exceptionsAnimations": {
+    "message": "Met hun eigen animaties"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "De rest van de CSS van sobrio geldt, maar animaties en overgangen worden niet afgekapt. ChatGPT heeft dat nodig: zonder hen schuift het beeld weg terwijl het schrijft."
+  },
+  "switcherCommandsHint": {
+    "message": "Elk één woord van letters of cijfers, en elk anders dan de andere."
+  },
+  "commandName_dark": {
+    "message": "Donkere modus op deze site"
+  },
+  "commandName_css": {
+    "message": "Stijlpagina op deze site"
+  },
+  "commandName_settings": {
+    "message": "De instellingen openen"
+  },
+  "backupLabel": {
+    "message": "Back-up"
+  },
+  "backupExport": {
+    "message": "Exporteren"
+  },
+  "backupImport": {
+    "message": "Importeren…"
+  },
+  "backupConfirm": {
+    "message": "Alles vervangen door deze back-up"
+  },
+  "backupExported": {
+    "message": "Opgeslagen in je downloads"
+  },
+  "backupInvalid": {
+    "message": "Dat bestand is geen sobrio-back-up"
+  },
+  "backupImported": {
+    "message": "Back-up hersteld"
+  },
+  "welcomeOpen": {
+    "message": "Welkomstgids"
+  },
+  "backupSummary": {
+    "message": "Sneltoetsen: $SHORTCUTS$ · uitzonderingen: $EXCEPTIONS$ · onthouden pagina's: $PAGES$. Dit vervangt wat er nu staat.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "Welkom bij sobrio."
+  },
+  "welcomeLead": {
+    "message": "Het web in zwart-wit, rustiger, en met het toetsenbord binnen handbereik. Vijf dingen die het waard zijn om te weten."
+  },
+  "welcomeSwitcher": {
+    "message": "Opent de switcher op elke pagina: typ om je bladwijzers te doorzoeken, Tab om door de zoekmachines te gaan, Enter om te openen, Ctrl+Enter voor een nieuw tabblad. De knop in de werkbalk opent hem ook."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Je nieuwe tabblad"
+  },
+  "welcomeNewtab": {
+    "message": "Je browser vraagt misschien of je het nieuwe tabblad van sobrio wilt houden: hou het. Het haalt de focus uit de adresbalk, zodat je meteen in de switcher kunt typen."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Je eigen sneltoetsen"
+  },
+  "welcomeShortcuts": {
+    "message": "Neem in de instellingen elke combinatie op om een adres te openen, de selectie te zoeken, de mediasnelheid in te stellen of een link zonder tracking te kopiëren."
+  },
+  "welcomeSystemTitle": {
+    "message": "Een donker systeem"
+  },
+  "welcomeSystem": {
+    "message": "Zet je systeem op een donkere weergave: sites met een eigen donker thema schakelen daarnaar over, en sobrio laat ze met rust."
+  },
+  "welcomeSettings": {
+    "message": "De instellingen openen"
+  },
+  "welcomeFooter": {
+    "message": "Niets verlaat je browser. De instellingen bewaren een back-up, om dit alles mee te nemen naar een andere browser."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ en $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Elke site wordt zwart, kleur voor kleur. Als er één verkeerd uitziet, typ je $DARK$ in de switcher om de donkere modus daar uit te zetten, of $CSS$ om de stijlpagina van sobrio op die site weg te halen. Beide woorden kun je in de instellingen wijzigen.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "Herlaad deze pagina om sobrio hier te gebruiken"
+  },
+  "backupCss": {
+    "message": "Jouw CSS: $CHARS$ tekens",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "laadt van $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "Zoekmachine $NAME$ op $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ opent $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(de standaard)"
+  },
+  "backupFailed": {
+    "message": "Kon het niet herstellen"
+  },
+  "welcomeNoShortcut": {
+    "message": "De knop in de werkbalk"
+  },
+  "exceptionsLocal": {
+    "message": "Lokale adressen met rust laten"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, .local-namen en de andere adressen van je computer of netwerk behouden hun eigen uiterlijk: geen stijlpagina, geen donkere modus."
+  },
+  "localLeftAlone": {
+    "message": "Lokale adressen blijven met rust: wijzig dat in de instellingen"
+  }
+}

@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Eine Erweiterung mit Haltung darüber, wie das Web aussehen und wie sich ein Browser anfühlen sollte."
+  },
+  "commandOpen": {
+    "message": "Den Switcher öffnen"
+  },
+  "placeholderBookmarks": {
+    "message": "Lesezeichen durchsuchen"
+  },
+  "placeholderEngine": {
+    "message": "In $ENGINE$ suchen",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "\"$QUERY$\" in $ENGINE$ suchen",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Keine Lesezeichen"
+  },
+  "darkOff": {
+    "message": "Dunkelmodus auf $HOST$ ausschalten",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Dunkelmodus auf $HOST$ einschalten",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Eigenes CSS auf $HOST$ ausschalten",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Eigenes CSS auf $HOST$ einschalten",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ bewegen · ↵ öffnen · ctrl ↵ neuer Tab · tab Suchmaschinen · esc schließen"
+  },
+  "openSettings": {
+    "message": "Einstellungen öffnen"
+  },
+  "darkOnEverywhere": {
+    "message": "Dunkelmodus überall einschalten"
+  },
+  "removesPatterns": {
+    "message": "(entfernt $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Einstellungen"
+  },
+  "styleCorners": {
+    "message": "Keine abgerundeten Ecken"
+  },
+  "styleShadows": {
+    "message": "Keine Schatten"
+  },
+  "styleBlur": {
+    "message": "Keine Unschärfe"
+  },
+  "styleAnimations": {
+    "message": "Keine Animationen und Übergänge"
+  },
+  "styleYoutube": {
+    "message": "Außer im Player von YouTube"
+  },
+  "styleSmoothScroll": {
+    "message": "Kein weiches Scrollen"
+  },
+  "styleThinScrollbars": {
+    "message": "Schmale Scrollleisten"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Hintergründe scrollen mit der Seite"
+  },
+  "fromTheme": {
+    "message": "aus dem Design (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Websites dunkel machen"
+  },
+  "darkDetect": {
+    "message": "Websites belassen, die schon dunkel sind"
+  },
+  "darkBrightness": {
+    "message": "Helligkeit"
+  },
+  "darkContrast": {
+    "message": "Kontrast"
+  },
+  "darkSepia": {
+    "message": "Sepia"
+  },
+  "darkGrayscale": {
+    "message": "Graustufen"
+  },
+  "darkBackground": {
+    "message": "Hintergrund"
+  },
+  "darkText": {
+    "message": "Text"
+  },
+  "darkSelection": {
+    "message": "Auswahl"
+  },
+  "auto": {
+    "message": "Auto"
+  },
+  "exceptionsHelp": {
+    "message": "example.com betrifft nur diese Website; *.example.com umfasst auch ihre Subdomains."
+  },
+  "exceptionsCss": {
+    "message": "Ohne das Stylesheet"
+  },
+  "exceptionsDark": {
+    "message": "Ohne Dunkelmodus"
+  },
+  "patternPlaceholder": {
+    "message": "example.com oder *.example.com"
+  },
+  "add": {
+    "message": "Hinzufügen"
+  },
+  "remove": {
+    "message": "Entfernen"
+  },
+  "invalidPattern": {
+    "message": "Das ist keine Website"
+  },
+  "emptyList": {
+    "message": "Keine"
+  },
+  "switcherBookmarks": {
+    "message": "Lesezeichen"
+  },
+  "switcherEngine": {
+    "message": "Suchmaschine"
+  },
+  "switcherAutoSearch": {
+    "message": "Im Web suchen, wenn kein Lesezeichen passt"
+  },
+  "switcherCommands": {
+    "message": "Befehle im Switcher"
+  },
+  "switcherHints": {
+    "message": "Zeile mit Tastenkürzeln"
+  },
+  "lastPiece": {
+    "message": "Lesezeichen oder mindestens eine Suchmaschine behalten"
+  },
+  "optionsFooter": {
+    "message": "Änderungen werden sofort gespeichert und gelten sofort für offene Tabs. Das Tastenkürzel ändert man in about:addons oder chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "Neuer Tab"
+  },
+  "newtabStyle": {
+    "message": "Typografie"
+  },
+  "newtabStyle_editorial": {
+    "message": "Editorial: Instrument Serif und Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Schweizer: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Maschine: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Buch: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Design: die Schrift aus userContent.css"
+  },
+  "newtabClock": {
+    "message": "Uhr"
+  },
+  "newtabClock_auto": {
+    "message": "Wie die Sprache des Browsers"
+  },
+  "newtabClock_24": {
+    "message": "24 Stunden"
+  },
+  "newtabClock_12": {
+    "message": "12 Stunden"
+  },
+  "newtabDate": {
+    "message": "Datum anzeigen"
+  },
+  "newtabTime": {
+    "message": "Uhrzeit anzeigen"
+  },
+  "newtabSwitcher": {
+    "message": "Switcher anzeigen"
+  },
+  "newtabLocales": {
+    "message": "Sprachen für das Datum"
+  },
+  "newtabLocalesHelp": {
+    "message": "Jeder neue Tab nennt das Datum in einer dieser Sprachen, zufällig gewählt."
+  },
+  "localesEmpty": {
+    "message": "Die Sprache des Browsers"
+  },
+  "speedEnabled": {
+    "message": "Geschwindigkeit von Video und Audio steuern"
+  },
+  "speedGlobal": {
+    "message": "Geschwindigkeit"
+  },
+  "speedStep": {
+    "message": "Schritt für ] und ["
+  },
+  "speedShortcuts": {
+    "message": "Tastenkürzel: ] schneller, [ langsamer, \\ zurück auf 1×"
+  },
+  "speedRules": {
+    "message": "Geschwindigkeit pro Website"
+  },
+  "invalidSpeed": {
+    "message": "Zwischen 0,25 und 4"
+  },
+  "speedPageOnly": {
+    "message": "nur diese Seite"
+  },
+  "toastDarkOn": {
+    "message": "Dunkelmodus ein"
+  },
+  "toastDarkOff": {
+    "message": "Dunkelmodus aus"
+  },
+  "toastCssOn": {
+    "message": "Stylesheet ein"
+  },
+  "toastCssOff": {
+    "message": "Stylesheet aus"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Dunkelmodus überall ein"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Dunkelmodus überall aus"
+  },
+  "toastCopied": {
+    "message": "Bereinigter Link kopiert"
+  },
+  "toastCopyFailed": {
+    "message": "Kopieren nicht möglich"
+  },
+  "greetingMorning": {
+    "message": "Guten Morgen"
+  },
+  "greetingAfternoon": {
+    "message": "Guten Tag"
+  },
+  "greetingEvening": {
+    "message": "Guten Abend"
+  },
+  "tab_style": {
+    "message": "Stil"
+  },
+  "tab_dark": {
+    "message": "Dunkelmodus"
+  },
+  "tab_exceptions": {
+    "message": "Ausnahmen"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Tastenkürzel"
+  },
+  "tab_newtab": {
+    "message": "Neuer Tab"
+  },
+  "tab_media": {
+    "message": "Medien"
+  },
+  "tab_stats": {
+    "message": "Statistik"
+  },
+  "styleHideScrollbars": {
+    "message": "Scrollleisten ausblenden"
+  },
+  "styleUnderlineLinks": {
+    "message": "Links unterstreichen"
+  },
+  "styleSelectableText": {
+    "message": "Jeden Text auswählbar lassen"
+  },
+  "styleNoUppercase": {
+    "message": "Keine erzwungenen GROSSBUCHSTABEN"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Bilder und Videos in Graustufen"
+  },
+  "styleFocusRing": {
+    "message": "Ein sichtbarer Rahmen um das fokussierte Element"
+  },
+  "styleCustom": {
+    "message": "Dein CSS"
+  },
+  "styleCustomHelp": {
+    "message": "Wird nach allem oben angefügt, in einem eigenen Stylesheet, auf jeder Website, auf der das CSS eingeschaltet ist; ein @import gehört ganz nach oben. ta schaltet es zusammen mit dem Rest aus. Mit !important setzt du dich gegen die Website durch. Websites können es lesen, wie sie jeden Stil auf ihrer Seite lesen können."
+  },
+  "switcherPrecision": {
+    "message": "Genauigkeit der Suche"
+  },
+  "precision_strict": {
+    "message": "Streng: jedes Wort wie eingegeben"
+  },
+  "precision_normal": {
+    "message": "Normal"
+  },
+  "precision_loose": {
+    "message": "Locker: Buchstaben in Reihenfolge, überall"
+  },
+  "switcherMemory": {
+    "message": "Merken, was ich öffne, und höher einordnen"
+  },
+  "switcherDefaultEngine": {
+    "message": "Standard-Suchmaschine"
+  },
+  "customEngines": {
+    "message": "Deine Suchmaschinen"
+  },
+  "customEnginesHelp": {
+    "message": "%s in der Adresse wird durch deine Eingabe ersetzt."
+  },
+  "engineName": {
+    "message": "Name"
+  },
+  "invalidEngine": {
+    "message": "Ein Name und eine http(s)-Adresse mit %s"
+  },
+  "shortcutsHelp": {
+    "message": "Drücke die Tasten auf dem Button, wähle, was sie tun, und füge sie hinzu. Sie brauchen Ctrl, Alt oder Meta oder eine Funktionstaste. Alt mit einem Buchstaben kann mit dem Browser kollidieren (Alt+D springt in die Adressleiste): Ctrl+Shift oder Alt+Shift sind sicherer."
+  },
+  "shortcutRecord": {
+    "message": "Tasten aufnehmen"
+  },
+  "shortcutPress": {
+    "message": "Drücke die Tasten…"
+  },
+  "invalidShortcut": {
+    "message": "Nimm eine Kombination mit Ctrl, Alt oder Meta oder eine Funktionstaste auf"
+  },
+  "duplicateShortcut": {
+    "message": "Diese Tasten haben schon eine Funktion"
+  },
+  "invalidShortcutParam": {
+    "message": "Diese Aktion braucht einen gültigen Wert"
+  },
+  "action_switcher": {
+    "message": "Den Switcher öffnen"
+  },
+  "action_search": {
+    "message": "Suchen in"
+  },
+  "action_searchSelection": {
+    "message": "Auswahl suchen in"
+  },
+  "action_toggleDark": {
+    "message": "Dunkelmodus auf dieser Website"
+  },
+  "action_toggleCss": {
+    "message": "Eigenes CSS auf dieser Website"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Dunkelmodus überall"
+  },
+  "action_openUrl": {
+    "message": "Eine Adresse öffnen"
+  },
+  "action_openUrlNewTab": {
+    "message": "Eine Adresse in einem neuen Tab öffnen"
+  },
+  "action_speed": {
+    "message": "Medien-Geschwindigkeit"
+  },
+  "action_copyCleanUrl": {
+    "message": "Link ohne Tracking kopieren"
+  },
+  "action_settings": {
+    "message": "Einstellungen öffnen"
+  },
+  "statsHelp": {
+    "message": "Jedes Lesezeichen, das aus dem Switcher geöffnet wurde. Das Gewicht steigt mit den Öffnungen und verblasst mit der Zeit; damit steigt eine Seite in der Suche nach oben."
+  },
+  "statsPage": {
+    "message": "Seite"
+  },
+  "statsOpens": {
+    "message": "Öffnungen"
+  },
+  "statsWeight": {
+    "message": "Gewicht"
+  },
+  "statsLast": {
+    "message": "Letzte"
+  },
+  "statsReset": {
+    "message": "Zurücksetzen"
+  },
+  "statsResetAll": {
+    "message": "Alles zurücksetzen"
+  },
+  "statsResetConfirm": {
+    "message": "Noch einmal klicken zum Zurücksetzen"
+  },
+  "statsEmpty": {
+    "message": "Noch nichts"
+  },
+  "newtabLayout": {
+    "message": "Layout"
+  },
+  "layout_clasico": {
+    "message": "Klassisch"
+  },
+  "layout_hora": {
+    "message": "Nur die Uhrzeit"
+  },
+  "layout_linea": {
+    "message": "Eine Zeile"
+  },
+  "layout_apilado": {
+    "message": "Gestapelt"
+  },
+  "layout_esquina": {
+    "message": "Ecke"
+  },
+  "layout_analogico": {
+    "message": "Analog"
+  },
+  "newtabStyle_custom": {
+    "message": "Meine Schriften"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Schrift der Uhrzeit"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Schriftstärke der Uhrzeit"
+  },
+  "newtabCustomDateFont": {
+    "message": "Schrift des Datums"
+  },
+  "fontPlaceholder": {
+    "message": "Eine hier installierte Schrift"
+  },
+  "newtabGreeting": {
+    "message": "Gruß"
+  },
+  "newtabName": {
+    "message": "Dein Name"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Optional"
+  },
+  "newtabFocusPage": {
+    "message": "Den Fokus aus der Adressleiste nehmen"
+  },
+  "newtabFocusPageHint": {
+    "message": "Der Tab wird an derselben Stelle durch einen neuen ersetzt, damit die Adressleiste die Adresse der Seite zeigt statt leer zu bleiben."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Video und Audio pausieren, die von allein abspielen"
+  },
+  "toastSpeedOff": {
+    "message": "Medien-Geschwindigkeit ist in den Einstellungen ausgeschaltet"
+  },
+  "exceptionsAnimations": {
+    "message": "Mit ihren Animationen"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "Der Rest des CSS von sobrio gilt, aber Animationen und Übergänge werden nicht gekürzt. ChatGPT braucht das: Ohne sie verrutscht die Ansicht, während es schreibt."
+  },
+  "switcherCommandsHint": {
+    "message": "Jeder Befehl ist ein einziges Wort aus Buchstaben oder Zahlen, verschieden von den anderen."
+  },
+  "commandName_dark": {
+    "message": "Dunkelmodus auf dieser Website"
+  },
+  "commandName_css": {
+    "message": "Stylesheet auf dieser Website"
+  },
+  "commandName_settings": {
+    "message": "Einstellungen öffnen"
+  },
+  "backupLabel": {
+    "message": "Sicherung"
+  },
+  "backupExport": {
+    "message": "Exportieren"
+  },
+  "backupImport": {
+    "message": "Importieren…"
+  },
+  "backupConfirm": {
+    "message": "Alles durch diese Sicherung ersetzen"
+  },
+  "backupExported": {
+    "message": "In deinen Downloads gespeichert"
+  },
+  "backupInvalid": {
+    "message": "Diese Datei ist keine Sicherung von sobrio"
+  },
+  "backupImported": {
+    "message": "Sicherung wiederhergestellt"
+  },
+  "welcomeOpen": {
+    "message": "Willkommensanleitung"
+  },
+  "backupSummary": {
+    "message": "Tastenkürzel: $SHORTCUTS$ · Ausnahmen: $EXCEPTIONS$ · gemerkte Seiten: $PAGES$. Sie ersetzt, was jetzt da ist.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "Willkommen bei sobrio."
+  },
+  "welcomeLead": {
+    "message": "Das Web in Schwarzweiß, ruhiger und eine Tastenkombination entfernt. Fünf Dinge, die sich zu wissen lohnen."
+  },
+  "welcomeSwitcher": {
+    "message": "Öffnet den Switcher auf jeder Seite: Tippe, um deine Lesezeichen zu durchsuchen, mit Tab wechselst du durch die Suchmaschinen, Enter öffnet, Ctrl+Enter öffnet in einem neuen Tab. Der Button in der Symbolleiste öffnet ihn auch."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Dein neuer Tab"
+  },
+  "welcomeNewtab": {
+    "message": "Dein Browser fragt vielleicht, ob du den neuen Tab behalten willst, den sobrio setzt: behalte ihn. Er nimmt den Fokus aus der Adressleiste, damit du sofort im Switcher tippen kannst."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Eigene Tastenkürzel"
+  },
+  "welcomeShortcuts": {
+    "message": "Nimm in den Einstellungen eine beliebige Kombination auf, um eine Adresse zu öffnen, die Auswahl zu suchen, die Medien-Geschwindigkeit festzulegen oder einen Link ohne Tracking zu kopieren."
+  },
+  "welcomeSystemTitle": {
+    "message": "Ein dunkles System"
+  },
+  "welcomeSystem": {
+    "message": "Stell dein System auf ein dunkles Erscheinungsbild: Websites mit eigenem dunklen Design wechseln dorthin, und sobrio lässt sie in Ruhe."
+  },
+  "welcomeSettings": {
+    "message": "Einstellungen öffnen"
+  },
+  "welcomeFooter": {
+    "message": "Nichts verlässt deinen Browser. Die Einstellungen haben eine Sicherung, um all das in einen anderen Browser mitzunehmen."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ und $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Jede Website wird schwarz, Farbe für Farbe. Wenn eine falsch aussieht, tippe im Switcher $DARK$, um dort den Dunkelmodus auszuschalten, oder $CSS$, um das Stylesheet von sobrio auf dieser Website zu entfernen. Beide Wörter kannst du in den Einstellungen ändern.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "Lade diese Seite neu, um sobrio hier zu nutzen"
+  },
+  "backupCss": {
+    "message": "Dein CSS: $CHARS$ Zeichen",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "lädt von $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "Suchmaschine $NAME$ auf $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ öffnet $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(die Standardeinstellung)"
+  },
+  "backupFailed": {
+    "message": "Konnte nicht wiederhergestellt werden"
+  },
+  "welcomeNoShortcut": {
+    "message": "Der Button in der Symbolleiste"
+  },
+  "exceptionsLocal": {
+    "message": "Lokale Adressen unberührt lassen"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, .local-Namen und die anderen Adressen deines Rechners oder Netzwerks behalten ihr eigenes Aussehen: kein Stylesheet, kein Dunkelmodus."
+  },
+  "localLeftAlone": {
+    "message": "Lokale Adressen bleiben unberührt: Das ändert man in den Einstellungen"
+  }
+}

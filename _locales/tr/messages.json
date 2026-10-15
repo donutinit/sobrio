@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Web'in nasıl görünmesi ve bir tarayıcının nasıl hissettirmesi gerektiği konusunda kendi görüşü olan bir eklenti."
+  },
+  "commandOpen": {
+    "message": "Switcher'ı aç"
+  },
+  "placeholderBookmarks": {
+    "message": "Yer imlerinde ara"
+  },
+  "placeholderEngine": {
+    "message": "$ENGINE$ üzerinde ara",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "$ENGINE$ üzerinde \"$QUERY$\" ara",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Yer imi yok"
+  },
+  "darkOff": {
+    "message": "$HOST$ üzerinde karanlık modu kapat",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "$HOST$ üzerinde karanlık modu aç",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "$HOST$ üzerinde özel CSS'i kapat",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "$HOST$ üzerinde özel CSS'i aç",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ taşı · ↵ aç · ctrl ↵ yeni sekme · tab arama motorları · esc kapat"
+  },
+  "openSettings": {
+    "message": "Ayarları aç"
+  },
+  "darkOnEverywhere": {
+    "message": "Karanlık modu her yerde aç"
+  },
+  "removesPatterns": {
+    "message": "($PATTERNS$ kaldırır)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Ayarlar"
+  },
+  "styleCorners": {
+    "message": "Yuvarlak köşe yok"
+  },
+  "styleShadows": {
+    "message": "Gölge yok"
+  },
+  "styleBlur": {
+    "message": "Bulanıklık yok"
+  },
+  "styleAnimations": {
+    "message": "Animasyon ve geçiş yok"
+  },
+  "styleYoutube": {
+    "message": "YouTube oynatıcısı hariç"
+  },
+  "styleSmoothScroll": {
+    "message": "Yumuşak kaydırma yok"
+  },
+  "styleThinScrollbars": {
+    "message": "İnce kaydırma çubukları"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Arka planlar sayfayla birlikte kayar"
+  },
+  "fromTheme": {
+    "message": "temadan (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Siteleri karart"
+  },
+  "darkDetect": {
+    "message": "Zaten koyu olan siteleri bırak"
+  },
+  "darkBrightness": {
+    "message": "Parlaklık"
+  },
+  "darkContrast": {
+    "message": "Kontrast"
+  },
+  "darkSepia": {
+    "message": "Sepya"
+  },
+  "darkGrayscale": {
+    "message": "Gri tonlama"
+  },
+  "darkBackground": {
+    "message": "Arka plan"
+  },
+  "darkText": {
+    "message": "Metin"
+  },
+  "darkSelection": {
+    "message": "Seçim"
+  },
+  "auto": {
+    "message": "Otomatik"
+  },
+  "exceptionsHelp": {
+    "message": "example.com yalnızca o siteyi kapsar; *.example.com alt alan adlarını da kapsar."
+  },
+  "exceptionsCss": {
+    "message": "Özel CSS olmadan"
+  },
+  "exceptionsDark": {
+    "message": "Karanlık mod olmadan"
+  },
+  "patternPlaceholder": {
+    "message": "example.com veya *.example.com"
+  },
+  "add": {
+    "message": "Ekle"
+  },
+  "remove": {
+    "message": "Kaldır"
+  },
+  "invalidPattern": {
+    "message": "Bu bir site değil"
+  },
+  "emptyList": {
+    "message": "Yok"
+  },
+  "switcherBookmarks": {
+    "message": "Yer imleri"
+  },
+  "switcherEngine": {
+    "message": "Arama motoru"
+  },
+  "switcherAutoSearch": {
+    "message": "Hiçbir yer imi eşleşmezse webde ara"
+  },
+  "switcherCommands": {
+    "message": "Switcher'daki komutlar"
+  },
+  "switcherHints": {
+    "message": "Kısayol satırı"
+  },
+  "lastPiece": {
+    "message": "Yer imlerini ya da en az bir arama motorunu koru"
+  },
+  "optionsFooter": {
+    "message": "Değişiklikler kendiliğinden kaydedilir ve açık sekmelere hemen uygulanır. Kısayol about:addons ya da chrome://extensions/shortcuts sayfasından değiştirilir."
+  },
+  "newTab": {
+    "message": "Yeni sekme"
+  },
+  "newtabStyle": {
+    "message": "Tipografi"
+  },
+  "newtabStyle_editorial": {
+    "message": "Editoryal: Instrument Serif ve Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "İsviçre: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Makine: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Kitap: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Tema: userContent.css dosyasındaki yazı tipi"
+  },
+  "newtabClock": {
+    "message": "Saat"
+  },
+  "newtabClock_auto": {
+    "message": "Tarayıcının diline göre"
+  },
+  "newtabClock_24": {
+    "message": "24 saat"
+  },
+  "newtabClock_12": {
+    "message": "12 saat"
+  },
+  "newtabDate": {
+    "message": "Tarihi göster"
+  },
+  "newtabTime": {
+    "message": "Saati göster"
+  },
+  "newtabSwitcher": {
+    "message": "Switcher'ı göster"
+  },
+  "newtabLocales": {
+    "message": "Tarih için diller"
+  },
+  "newtabLocalesHelp": {
+    "message": "Her yeni sekme tarihi bunlardan birinde, rastgele söyler."
+  },
+  "localesEmpty": {
+    "message": "Tarayıcının dili"
+  },
+  "speedEnabled": {
+    "message": "Video ve ses hızını denetle"
+  },
+  "speedGlobal": {
+    "message": "Hız"
+  },
+  "speedStep": {
+    "message": "] ve [ için adım"
+  },
+  "speedShortcuts": {
+    "message": "Kısayollar: ] hızlandırır, [ yavaşlatır, \\ 1×'e döndürür"
+  },
+  "speedRules": {
+    "message": "Siteye göre hız"
+  },
+  "invalidSpeed": {
+    "message": "0,25 ile 4 arasında"
+  },
+  "speedPageOnly": {
+    "message": "yalnızca bu sayfa"
+  },
+  "toastDarkOn": {
+    "message": "Karanlık mod açık"
+  },
+  "toastDarkOff": {
+    "message": "Karanlık mod kapalı"
+  },
+  "toastCssOn": {
+    "message": "CSS açık"
+  },
+  "toastCssOff": {
+    "message": "CSS kapalı"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Karanlık mod her yerde açık"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Karanlık mod her yerde kapalı"
+  },
+  "toastCopied": {
+    "message": "Temiz bağlantı kopyalandı"
+  },
+  "toastCopyFailed": {
+    "message": "Kopyalanamadı"
+  },
+  "greetingMorning": {
+    "message": "Günaydın"
+  },
+  "greetingAfternoon": {
+    "message": "İyi günler"
+  },
+  "greetingEvening": {
+    "message": "İyi akşamlar"
+  },
+  "tab_style": {
+    "message": "Stil"
+  },
+  "tab_dark": {
+    "message": "Karanlık mod"
+  },
+  "tab_exceptions": {
+    "message": "İstisnalar"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Kısayollar"
+  },
+  "tab_newtab": {
+    "message": "Yeni sekme"
+  },
+  "tab_media": {
+    "message": "Medya"
+  },
+  "tab_stats": {
+    "message": "İstatistikler"
+  },
+  "styleHideScrollbars": {
+    "message": "Kaydırma çubuklarını gizle"
+  },
+  "styleUnderlineLinks": {
+    "message": "Bağlantıları altı çizili yap"
+  },
+  "styleSelectableText": {
+    "message": "Her metni seçilebilir yap"
+  },
+  "styleNoUppercase": {
+    "message": "Zorunlu BÜYÜK HARF yok"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Resimler ve videolar gri tonlamalı"
+  },
+  "styleFocusRing": {
+    "message": "Odaklanılan öğede görünür bir çerçeve"
+  },
+  "styleCustom": {
+    "message": "Özel CSS"
+  },
+  "styleCustomHelp": {
+    "message": "Yukarıdakilerin hepsinden sonra, ayrı bir sayfada, CSS'in açık olduğu her sitede eklenir; bir @import en üste gider. ta onu diğerleriyle birlikte kapatır. Sitenin üstüne çıkmak için !important kullan. Siteler bunu okuyabilir, sayfalarındaki her stil gibi."
+  },
+  "switcherPrecision": {
+    "message": "Arama hassasiyeti"
+  },
+  "precision_strict": {
+    "message": "Katı: her kelime yazıldığı gibi"
+  },
+  "precision_normal": {
+    "message": "Normal"
+  },
+  "precision_loose": {
+    "message": "Esnek: harfler sırayla, nerede olursa olsun"
+  },
+  "switcherMemory": {
+    "message": "Açtıklarımı hatırla ve aramada öne çıkar"
+  },
+  "switcherDefaultEngine": {
+    "message": "Varsayılan arama motoru"
+  },
+  "customEngines": {
+    "message": "Kendi arama motorların"
+  },
+  "customEnginesHelp": {
+    "message": "Adresteki %s, yazdığın metinle değiştirilir."
+  },
+  "engineName": {
+    "message": "Ad"
+  },
+  "invalidEngine": {
+    "message": "Bir ad ve %s içeren bir http(s) adresi"
+  },
+  "shortcutsHelp": {
+    "message": "Düğmenin üzerindeki tuşlara bas, ne yapacaklarını seç ve ekle. Ctrl, Alt veya Meta ya da bir işlev tuşu içermeliler. Harfli bir Alt kısayolu tarayıcıyla çakışabilir (Alt+D adres çubuğuna gider): Ctrl+Shift ya da Alt+Shift daha güvenlidir."
+  },
+  "shortcutRecord": {
+    "message": "Tuşları kaydet"
+  },
+  "shortcutPress": {
+    "message": "Tuşlara bas…"
+  },
+  "invalidShortcut": {
+    "message": "Ctrl, Alt veya Meta ile ya da bir işlev tuşuyla bir kombinasyon kaydet"
+  },
+  "duplicateShortcut": {
+    "message": "Bu tuşlar zaten bir şey yapıyor"
+  },
+  "invalidShortcutParam": {
+    "message": "Bu işlem geçerli bir değer ister"
+  },
+  "action_switcher": {
+    "message": "Switcher'ı aç"
+  },
+  "action_search": {
+    "message": "Arama motorunda ara"
+  },
+  "action_searchSelection": {
+    "message": "Seçileni arama motorunda ara"
+  },
+  "action_toggleDark": {
+    "message": "Bu sitede karanlık mod"
+  },
+  "action_toggleCss": {
+    "message": "Bu sitede CSS"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Her yerde karanlık mod"
+  },
+  "action_openUrl": {
+    "message": "Bir adres aç"
+  },
+  "action_openUrlNewTab": {
+    "message": "Bir adresi yeni sekmede aç"
+  },
+  "action_speed": {
+    "message": "Medya hızı"
+  },
+  "action_copyCleanUrl": {
+    "message": "Bağlantıyı izleme olmadan kopyala"
+  },
+  "action_settings": {
+    "message": "Ayarları aç"
+  },
+  "statsHelp": {
+    "message": "Switcher'dan açılan her yer imi. Ağırlık açılma sayısıyla artar, zamanla solar; aramada bir sayfayı yukarı taşıyan budur."
+  },
+  "statsPage": {
+    "message": "Sayfa"
+  },
+  "statsOpens": {
+    "message": "Açılma"
+  },
+  "statsWeight": {
+    "message": "Ağırlık"
+  },
+  "statsLast": {
+    "message": "Son"
+  },
+  "statsReset": {
+    "message": "Sıfırla"
+  },
+  "statsResetAll": {
+    "message": "Hepsini sıfırla"
+  },
+  "statsResetConfirm": {
+    "message": "Sıfırlamak için bir kez daha tıkla"
+  },
+  "statsEmpty": {
+    "message": "Henüz bir şey yok"
+  },
+  "newtabLayout": {
+    "message": "Düzen"
+  },
+  "layout_clasico": {
+    "message": "Klasik"
+  },
+  "layout_hora": {
+    "message": "Yalnızca saat"
+  },
+  "layout_linea": {
+    "message": "Tek satır"
+  },
+  "layout_apilado": {
+    "message": "Üst üste"
+  },
+  "layout_esquina": {
+    "message": "Köşe"
+  },
+  "layout_analogico": {
+    "message": "Analog"
+  },
+  "newtabStyle_custom": {
+    "message": "Kendi yazı tiplerim"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Saat yazı tipi"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Saat kalınlığı"
+  },
+  "newtabCustomDateFont": {
+    "message": "Tarih yazı tipi"
+  },
+  "fontPlaceholder": {
+    "message": "Burada kurulu bir yazı tipi"
+  },
+  "newtabGreeting": {
+    "message": "Selamlama"
+  },
+  "newtabName": {
+    "message": "Adın"
+  },
+  "newtabNamePlaceholder": {
+    "message": "İsteğe bağlı"
+  },
+  "newtabFocusPage": {
+    "message": "Odağı adres çubuğundan al"
+  },
+  "newtabFocusPageHint": {
+    "message": "Sekme aynı yerde yeni bir sekmeyle değiştirilir, böylece adres çubuğu boş kalmak yerine sayfanın adresini gösterir."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Kendiliğinden çalan video ve sesi duraklat"
+  },
+  "toastSpeedOff": {
+    "message": "Medya hızı ayarlarda kapalı"
+  },
+  "exceptionsAnimations": {
+    "message": "Kendi animasyonlarıyla"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "sobrio'nun geri kalan CSS'i uygulanır, ama animasyonlar ve geçişler kesilmez. ChatGPT bunu ister: onlar olmazsa yazarken görünümü kayar."
+  },
+  "switcherCommandsHint": {
+    "message": "Her biri harf veya rakamlardan oluşan tek bir kelime, diğerlerinden farklı."
+  },
+  "commandName_dark": {
+    "message": "Bu sitede karanlık mod"
+  },
+  "commandName_css": {
+    "message": "Bu sitede stil sayfası"
+  },
+  "commandName_settings": {
+    "message": "Ayarları aç"
+  },
+  "backupLabel": {
+    "message": "Yedek"
+  },
+  "backupExport": {
+    "message": "Dışa aktar"
+  },
+  "backupImport": {
+    "message": "İçe aktar…"
+  },
+  "backupConfirm": {
+    "message": "Her şeyi bu yedekle değiştir"
+  },
+  "backupExported": {
+    "message": "İndirilenlere kaydedildi"
+  },
+  "backupInvalid": {
+    "message": "Bu dosya bir sobrio yedeği değil"
+  },
+  "backupImported": {
+    "message": "Yedek geri yüklendi"
+  },
+  "welcomeOpen": {
+    "message": "Karşılama rehberi"
+  },
+  "backupSummary": {
+    "message": "Kısayollar: $SHORTCUTS$ · istisnalar: $EXCEPTIONS$ · hatırlanan sayfalar: $PAGES$. Şu anda olanın yerine geçer.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "sobrio'ya hoş geldiniz."
+  },
+  "welcomeLead": {
+    "message": "Web siyah beyaz, daha sakin ve bir kısayol uzağınızda. Bilmeye değer beş şey."
+  },
+  "welcomeSwitcher": {
+    "message": "Switcher'ı her sayfada açar: yazarak yer imlerinizde arayın, Tab ile arama motorları arasında gezin, Enter ile açın, yeni sekmede açmak için Ctrl+Enter. Araç çubuğundaki düğme de onu açar."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Yeni sekmeniz"
+  },
+  "welcomeNewtab": {
+    "message": "Tarayıcınız sobrio'nun ayarladığı yeni sekmeyi tutup tutmayacağınızı sorabilir: tutun. Odağı adres çubuğundan alır, böylece switcher'a hemen yazabilirsiniz."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Kendi kısayollarınız"
+  },
+  "welcomeShortcuts": {
+    "message": "Bir adresi açmak, seçileni aramak, medya hızını ayarlamak ya da izleme olmadan bir bağlantıyı kopyalamak için ayarlarda istediğiniz tuş kombinasyonunu kaydedin."
+  },
+  "welcomeSystemTitle": {
+    "message": "Karanlık bir sistem"
+  },
+  "welcomeSystem": {
+    "message": "Sisteminizi koyu bir görünüme alın: kendi koyu temasına sahip siteler ona geçer ve sobrio onları olduğu gibi bırakır."
+  },
+  "welcomeSettings": {
+    "message": "Ayarları aç"
+  },
+  "welcomeFooter": {
+    "message": "Hiçbir şey tarayıcınızdan çıkmaz. Ayarlar, tüm bunları başka bir tarayıcıya taşımanız için bir yedek tutar."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ ve $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Her site renk renk siyaha döner. Biri yanlış görünürse, orada karanlık modu kapatmak için switcher'a $DARK$, o sitedeki sobrio stil sayfasını kaldırmak için $CSS$ yazın. İki kelime de ayarlarda değiştirilebilir.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "sobrio'yu burada kullanmak için bu sayfayı yeniden yükleyin"
+  },
+  "backupCss": {
+    "message": "Özel CSS'iniz: $CHARS$ karakter",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "$HOSTS$ adresinden yükleniyor",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "$NAME$ arama motoru, $HOST$ adresinde",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ $HOST$ adresini açar",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(varsayılan)"
+  },
+  "backupFailed": {
+    "message": "Geri yüklenemedi"
+  },
+  "welcomeNoShortcut": {
+    "message": "Araç çubuğundaki düğme"
+  },
+  "exceptionsLocal": {
+    "message": "Yerel adresleri olduğu gibi bırak"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, .local adları ve makinenizin ya da ağınızın diğer adresleri kendi görünümünü korur: stil sayfası yok, karanlık mod yok."
+  },
+  "localLeftAlone": {
+    "message": "Yerel adresler olduğu gibi bırakılır: ayarlardan değiştirin"
+  }
+}

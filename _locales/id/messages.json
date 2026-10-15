@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Ekstensi yang punya pendapat tentang bagaimana web seharusnya terlihat dan bagaimana peramban seharusnya terasa."
+  },
+  "commandOpen": {
+    "message": "Buka switcher"
+  },
+  "placeholderBookmarks": {
+    "message": "Cari markah"
+  },
+  "placeholderEngine": {
+    "message": "Cari di $ENGINE$",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "Cari \"$QUERY$\" di $ENGINE$",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Tidak ada markah"
+  },
+  "darkOff": {
+    "message": "Matikan mode gelap di $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Nyalakan mode gelap di $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Matikan CSS kustom di $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Nyalakan CSS kustom di $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ pindah · ↵ buka · ctrl ↵ tab baru · tab mesin · esc tutup"
+  },
+  "openSettings": {
+    "message": "Buka pengaturan"
+  },
+  "darkOnEverywhere": {
+    "message": "Nyalakan mode gelap di semua situs"
+  },
+  "removesPatterns": {
+    "message": "(menghapus $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Pengaturan"
+  },
+  "styleCorners": {
+    "message": "Tanpa sudut membulat"
+  },
+  "styleShadows": {
+    "message": "Tanpa bayangan"
+  },
+  "styleBlur": {
+    "message": "Tanpa blur"
+  },
+  "styleAnimations": {
+    "message": "Tanpa animasi atau transisi"
+  },
+  "styleYoutube": {
+    "message": "Kecuali di pemutar YouTube"
+  },
+  "styleSmoothScroll": {
+    "message": "Tanpa gulir halus"
+  },
+  "styleThinScrollbars": {
+    "message": "Bilah gulir tipis"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Latar ikut bergulir bersama halaman"
+  },
+  "fromTheme": {
+    "message": "dari tema (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Ubah situs menjadi gelap"
+  },
+  "darkDetect": {
+    "message": "Biarkan situs yang sudah gelap"
+  },
+  "darkBrightness": {
+    "message": "Kecerahan"
+  },
+  "darkContrast": {
+    "message": "Kontras"
+  },
+  "darkSepia": {
+    "message": "Sepia"
+  },
+  "darkGrayscale": {
+    "message": "Skala abu-abu"
+  },
+  "darkBackground": {
+    "message": "Latar"
+  },
+  "darkText": {
+    "message": "Teks"
+  },
+  "darkSelection": {
+    "message": "Seleksi"
+  },
+  "auto": {
+    "message": "Otomatis"
+  },
+  "exceptionsHelp": {
+    "message": "example.com hanya untuk situs itu; *.example.com juga mencakup subdomainnya."
+  },
+  "exceptionsCss": {
+    "message": "Tanpa stylesheet"
+  },
+  "exceptionsDark": {
+    "message": "Tanpa mode gelap"
+  },
+  "patternPlaceholder": {
+    "message": "example.com atau *.example.com"
+  },
+  "add": {
+    "message": "Tambah"
+  },
+  "remove": {
+    "message": "Hapus"
+  },
+  "invalidPattern": {
+    "message": "Itu bukan situs"
+  },
+  "emptyList": {
+    "message": "Kosong"
+  },
+  "switcherBookmarks": {
+    "message": "Markah"
+  },
+  "switcherEngine": {
+    "message": "Mesin"
+  },
+  "switcherAutoSearch": {
+    "message": "Cari di web jika tidak ada markah yang cocok"
+  },
+  "switcherCommands": {
+    "message": "Perintah di switcher"
+  },
+  "switcherHints": {
+    "message": "Baris pintasan"
+  },
+  "lastPiece": {
+    "message": "Simpan markah atau setidaknya satu mesin pencari"
+  },
+  "optionsFooter": {
+    "message": "Perubahan tersimpan otomatis dan langsung berlaku di tab yang terbuka. Pintasan diubah di about:addons atau chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "Tab baru"
+  },
+  "newtabStyle": {
+    "message": "Tipografi"
+  },
+  "newtabStyle_editorial": {
+    "message": "Editorial: Instrument Serif dan Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Swiss: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Mesin: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Buku: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Tema: fon dari userContent.css"
+  },
+  "newtabClock": {
+    "message": "Jam"
+  },
+  "newtabClock_auto": {
+    "message": "Mengikuti bahasa peramban"
+  },
+  "newtabClock_24": {
+    "message": "24 jam"
+  },
+  "newtabClock_12": {
+    "message": "12 jam"
+  },
+  "newtabDate": {
+    "message": "Tampilkan tanggal"
+  },
+  "newtabTime": {
+    "message": "Tampilkan waktu"
+  },
+  "newtabSwitcher": {
+    "message": "Tampilkan switcher"
+  },
+  "newtabLocales": {
+    "message": "Bahasa untuk tanggal"
+  },
+  "newtabLocalesHelp": {
+    "message": "Setiap tab baru menampilkan tanggal dalam salah satu bahasa ini, secara acak."
+  },
+  "localesEmpty": {
+    "message": "Bahasa peramban"
+  },
+  "speedEnabled": {
+    "message": "Atur kecepatan video dan audio"
+  },
+  "speedGlobal": {
+    "message": "Kecepatan"
+  },
+  "speedStep": {
+    "message": "Langkah untuk ] dan ["
+  },
+  "speedShortcuts": {
+    "message": "Pintasan: ] lebih cepat, [ lebih lambat, \\ kembali ke 1×"
+  },
+  "speedRules": {
+    "message": "Kecepatan per situs"
+  },
+  "invalidSpeed": {
+    "message": "Antara 0,25 dan 4"
+  },
+  "speedPageOnly": {
+    "message": "hanya halaman ini"
+  },
+  "toastDarkOn": {
+    "message": "Mode gelap menyala"
+  },
+  "toastDarkOff": {
+    "message": "Mode gelap mati"
+  },
+  "toastCssOn": {
+    "message": "Stylesheet menyala"
+  },
+  "toastCssOff": {
+    "message": "Stylesheet mati"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Mode gelap menyala di semua situs"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Mode gelap mati di semua situs"
+  },
+  "toastCopied": {
+    "message": "Tautan bersih disalin"
+  },
+  "toastCopyFailed": {
+    "message": "Tidak bisa menyalin"
+  },
+  "greetingMorning": {
+    "message": "Selamat pagi"
+  },
+  "greetingAfternoon": {
+    "message": "Selamat siang"
+  },
+  "greetingEvening": {
+    "message": "Selamat malam"
+  },
+  "tab_style": {
+    "message": "Gaya"
+  },
+  "tab_dark": {
+    "message": "Mode gelap"
+  },
+  "tab_exceptions": {
+    "message": "Pengecualian"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Pintasan"
+  },
+  "tab_newtab": {
+    "message": "Tab baru"
+  },
+  "tab_media": {
+    "message": "Media"
+  },
+  "tab_stats": {
+    "message": "Statistik"
+  },
+  "styleHideScrollbars": {
+    "message": "Sembunyikan bilah gulir"
+  },
+  "styleUnderlineLinks": {
+    "message": "Garis bawahi tautan"
+  },
+  "styleSelectableText": {
+    "message": "Teks apa pun bisa diseleksi"
+  },
+  "styleNoUppercase": {
+    "message": "Tanpa HURUF KAPITAL paksa"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Gambar dan video dalam skala abu-abu"
+  },
+  "styleFocusRing": {
+    "message": "Cincin yang terlihat pada elemen yang difokus"
+  },
+  "styleCustom": {
+    "message": "CSS kamu"
+  },
+  "styleCustomHelp": {
+    "message": "Ditambahkan setelah semua di atas, dalam lembar tersendiri, di setiap situs tempat CSS aktif; @import ditaruh paling atas. ta mematikannya bersama yang lain. Pakai !important untuk mengalahkan situs. Situs bisa membacanya, seperti mereka bisa membaca gaya apa pun di halaman mereka."
+  },
+  "switcherPrecision": {
+    "message": "Ketepatan pencarian"
+  },
+  "precision_strict": {
+    "message": "Ketat: setiap kata persis seperti diketik"
+  },
+  "precision_normal": {
+    "message": "Normal"
+  },
+  "precision_loose": {
+    "message": "Longgar: huruf berurutan, di mana saja"
+  },
+  "switcherMemory": {
+    "message": "Ingat apa yang dibuka dan naikkan peringkatnya"
+  },
+  "switcherDefaultEngine": {
+    "message": "Mesin default"
+  },
+  "customEngines": {
+    "message": "Mesin kamu"
+  },
+  "customEnginesHelp": {
+    "message": "%s di alamat diganti dengan apa yang kamu ketik."
+  },
+  "engineName": {
+    "message": "Nama"
+  },
+  "invalidEngine": {
+    "message": "Nama dan alamat http(s) dengan %s"
+  },
+  "shortcutsHelp": {
+    "message": "Tekan tombolnya di tombol rekam, pilih fungsinya, lalu tambahkan. Harus memakai Ctrl, Alt atau Meta, atau tombol fungsi. Alt dengan huruf bisa bentrok dengan peramban (Alt+D membuka bilah alamat): Ctrl+Shift atau Alt+Shift lebih aman."
+  },
+  "shortcutRecord": {
+    "message": "Rekam tombol"
+  },
+  "shortcutPress": {
+    "message": "Tekan tombolnya…"
+  },
+  "invalidShortcut": {
+    "message": "Rekam kombinasi dengan Ctrl, Alt atau Meta, atau tombol fungsi"
+  },
+  "duplicateShortcut": {
+    "message": "Tombol itu sudah dipakai untuk fungsi lain"
+  },
+  "invalidShortcutParam": {
+    "message": "Fungsi itu membutuhkan nilai yang valid"
+  },
+  "action_switcher": {
+    "message": "Buka switcher"
+  },
+  "action_search": {
+    "message": "Cari di"
+  },
+  "action_searchSelection": {
+    "message": "Cari seleksi di"
+  },
+  "action_toggleDark": {
+    "message": "Mode gelap di situs ini"
+  },
+  "action_toggleCss": {
+    "message": "CSS di situs ini"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Mode gelap di semua situs"
+  },
+  "action_openUrl": {
+    "message": "Buka alamat"
+  },
+  "action_openUrlNewTab": {
+    "message": "Buka alamat di tab baru"
+  },
+  "action_speed": {
+    "message": "Kecepatan media"
+  },
+  "action_copyCleanUrl": {
+    "message": "Salin tautan tanpa pelacak"
+  },
+  "action_settings": {
+    "message": "Buka pengaturan"
+  },
+  "statsHelp": {
+    "message": "Setiap markah yang dibuka dari switcher. Bobotnya naik seiring pembukaan dan memudar seiring waktu; itulah yang mengangkat sebuah halaman di pencarian."
+  },
+  "statsPage": {
+    "message": "Halaman"
+  },
+  "statsOpens": {
+    "message": "Dibuka"
+  },
+  "statsWeight": {
+    "message": "Bobot"
+  },
+  "statsLast": {
+    "message": "Terakhir"
+  },
+  "statsReset": {
+    "message": "Atur ulang"
+  },
+  "statsResetAll": {
+    "message": "Atur ulang semua"
+  },
+  "statsResetConfirm": {
+    "message": "Klik lagi untuk mengatur ulang"
+  },
+  "statsEmpty": {
+    "message": "Belum ada"
+  },
+  "newtabLayout": {
+    "message": "Tata letak"
+  },
+  "layout_clasico": {
+    "message": "Klasik"
+  },
+  "layout_hora": {
+    "message": "Hanya waktu"
+  },
+  "layout_linea": {
+    "message": "Satu baris"
+  },
+  "layout_apilado": {
+    "message": "Bertumpuk"
+  },
+  "layout_esquina": {
+    "message": "Pojok"
+  },
+  "layout_analogico": {
+    "message": "Analog"
+  },
+  "newtabStyle_custom": {
+    "message": "Fon saya"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Fon waktu"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Ketebalan waktu"
+  },
+  "newtabCustomDateFont": {
+    "message": "Fon tanggal"
+  },
+  "fontPlaceholder": {
+    "message": "Fon yang terpasang di sini"
+  },
+  "newtabGreeting": {
+    "message": "Sapaan"
+  },
+  "newtabName": {
+    "message": "Nama kamu"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Opsional"
+  },
+  "newtabFocusPage": {
+    "message": "Pindahkan fokus dari bilah alamat"
+  },
+  "newtabFocusPageHint": {
+    "message": "Tab diganti dengan tab baru di tempat yang sama, sehingga bilah alamat menampilkan alamatnya, bukan kosong."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Jeda video dan audio yang diputar sendiri"
+  },
+  "toastSpeedOff": {
+    "message": "Kecepatan media mati di pengaturan"
+  },
+  "exceptionsAnimations": {
+    "message": "Dengan animasinya sendiri"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "CSS sobrio yang lain tetap berlaku, tetapi animasi dan transisi tidak dipotong. ChatGPT membutuhkannya: tanpanya, tampilannya bergeser saat menulis."
+  },
+  "switcherCommandsHint": {
+    "message": "Masing-masing satu kata berisi huruf atau angka, dan berbeda dari yang lain."
+  },
+  "commandName_dark": {
+    "message": "Mode gelap di situs ini"
+  },
+  "commandName_css": {
+    "message": "Stylesheet di situs ini"
+  },
+  "commandName_settings": {
+    "message": "Buka pengaturan"
+  },
+  "backupLabel": {
+    "message": "Cadangan"
+  },
+  "backupExport": {
+    "message": "Ekspor"
+  },
+  "backupImport": {
+    "message": "Impor…"
+  },
+  "backupConfirm": {
+    "message": "Ganti semuanya dengan cadangan ini"
+  },
+  "backupExported": {
+    "message": "Disimpan di folder unduhan"
+  },
+  "backupInvalid": {
+    "message": "Berkas itu bukan cadangan sobrio"
+  },
+  "backupImported": {
+    "message": "Cadangan dipulihkan"
+  },
+  "welcomeOpen": {
+    "message": "Panduan selamat datang"
+  },
+  "backupSummary": {
+    "message": "Pintasan: $SHORTCUTS$ · pengecualian: $EXCEPTIONS$ · halaman yang diingat: $PAGES$. Ini menggantikan yang ada sekarang.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "Selamat datang di sobrio."
+  },
+  "welcomeLead": {
+    "message": "Web dalam hitam putih, lebih tenang, dan sejauh satu tombol. Lima hal yang layak kamu ketahui."
+  },
+  "welcomeSwitcher": {
+    "message": "Membuka switcher di halaman mana pun: ketik untuk mencari markah, Tab untuk berpindah antarmesin pencari, Enter untuk membuka, Ctrl+Enter untuk tab baru. Tombol di bilah alat juga membukanya."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Tab baru kamu"
+  },
+  "welcomeNewtab": {
+    "message": "Peramban mungkin bertanya apakah tab baru yang diatur sobrio akan disimpan: simpan saja. Tab ini mengambil fokus dari bilah alamat, jadi kamu bisa langsung mengetik di switcher."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Pintasan milikmu sendiri"
+  },
+  "welcomeShortcuts": {
+    "message": "Rekam kombinasi tombol apa pun di pengaturan untuk membuka alamat, mencari seleksi, mengatur kecepatan media, atau menyalin tautan tanpa pelacak."
+  },
+  "welcomeSystemTitle": {
+    "message": "Sistem yang gelap"
+  },
+  "welcomeSystem": {
+    "message": "Atur sistemmu ke tampilan gelap: situs yang punya tema gelap sendiri akan beralih ke sana, dan sobrio membiarkannya."
+  },
+  "welcomeSettings": {
+    "message": "Buka pengaturan"
+  },
+  "welcomeFooter": {
+    "message": "Tidak ada yang keluar dari peramban kamu. Pengaturan menyimpan cadangan, untuk membawa semua ini ke peramban lain."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ dan $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Setiap situs menjadi hitam, warna demi warna. Jika ada yang tampak salah, ketik $DARK$ di switcher untuk mematikan mode gelap di situs itu, atau $CSS$ untuk melepas stylesheet sobrio di situs itu. Kedua kata ini bisa diubah di pengaturan.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "Muat ulang halaman ini untuk memakai sobrio di sini"
+  },
+  "backupCss": {
+    "message": "CSS kamu: $CHARS$ karakter",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "memuat dari $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "Mesin $NAME$ di $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ membuka $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(bawaan)"
+  },
+  "backupFailed": {
+    "message": "Tidak bisa dipulihkan"
+  },
+  "welcomeNoShortcut": {
+    "message": "Tombol di bilah alat"
+  },
+  "exceptionsLocal": {
+    "message": "Biarkan alamat lokal"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, nama .local dan alamat lain di mesin atau jaringanmu mempertahankan tampilannya sendiri: tanpa stylesheet, tanpa mode gelap."
+  },
+  "localLeftAlone": {
+    "message": "Alamat lokal dibiarkan: ubah di pengaturan"
+  }
+}

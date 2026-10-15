@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Véleményes bővítmény arról, hogyan nézzen ki a web, és hogyan érezze magát a böngésző."
+  },
+  "commandOpen": {
+    "message": "A switcher megnyitása"
+  },
+  "placeholderBookmarks": {
+    "message": "Könyvjelzők keresése"
+  },
+  "placeholderEngine": {
+    "message": "Keresés itt: $ENGINE$",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "Keresés erre: „$QUERY$” itt: $ENGINE$",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Nincsenek könyvjelzők"
+  },
+  "darkOff": {
+    "message": "Sötét mód kikapcsolása itt: $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Sötét mód bekapcsolása itt: $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Egyéni CSS kikapcsolása itt: $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Egyéni CSS bekapcsolása itt: $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ mozgás · ↵ megnyitás · ctrl ↵ új lap · tab keresőmotorok · esc bezárás"
+  },
+  "openSettings": {
+    "message": "Beállítások megnyitása"
+  },
+  "darkOnEverywhere": {
+    "message": "Sötét mód bekapcsolása mindenhol"
+  },
+  "removesPatterns": {
+    "message": "(eltávolítja: $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Beállítások"
+  },
+  "styleCorners": {
+    "message": "Nincsenek lekerekített sarkok"
+  },
+  "styleShadows": {
+    "message": "Nincsenek árnyékok"
+  },
+  "styleBlur": {
+    "message": "Nincs elmosás"
+  },
+  "styleAnimations": {
+    "message": "Nincsenek animációk és átmenetek"
+  },
+  "styleYoutube": {
+    "message": "Kivéve a YouTube lejátszóját"
+  },
+  "styleSmoothScroll": {
+    "message": "Nincs finom görgetés"
+  },
+  "styleThinScrollbars": {
+    "message": "Vékony görgetősávok"
+  },
+  "styleFixedBackgrounds": {
+    "message": "A háttér követi az oldal görgetését"
+  },
+  "fromTheme": {
+    "message": "a témából (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Sötétítse a webhelyeket"
+  },
+  "darkDetect": {
+    "message": "Hagyja érintetlenül a már sötét webhelyeket"
+  },
+  "darkBrightness": {
+    "message": "Fényerő"
+  },
+  "darkContrast": {
+    "message": "Kontraszt"
+  },
+  "darkSepia": {
+    "message": "Szépia"
+  },
+  "darkGrayscale": {
+    "message": "Szürkeárnyalat"
+  },
+  "darkBackground": {
+    "message": "Háttér"
+  },
+  "darkText": {
+    "message": "Szöveg"
+  },
+  "darkSelection": {
+    "message": "Kijelölés"
+  },
+  "auto": {
+    "message": "Automatikus"
+  },
+  "exceptionsHelp": {
+    "message": "Az example.com csak ezt a webhelyet jelöli; a *.example.com az aldomainjeit is lefedi."
+  },
+  "exceptionsCss": {
+    "message": "CSS nélkül"
+  },
+  "exceptionsDark": {
+    "message": "Sötét mód nélkül"
+  },
+  "patternPlaceholder": {
+    "message": "example.com vagy *.example.com"
+  },
+  "add": {
+    "message": "Hozzáadás"
+  },
+  "remove": {
+    "message": "Eltávolítás"
+  },
+  "invalidPattern": {
+    "message": "Ez nem webhely"
+  },
+  "emptyList": {
+    "message": "Nincs"
+  },
+  "switcherBookmarks": {
+    "message": "Könyvjelzők"
+  },
+  "switcherEngine": {
+    "message": "Motor"
+  },
+  "switcherAutoSearch": {
+    "message": "Webes keresés, ha nincs találat a könyvjelzők között"
+  },
+  "switcherCommands": {
+    "message": "Parancsok a switcher-ben"
+  },
+  "switcherHints": {
+    "message": "Billentyűparancs-sor"
+  },
+  "lastPiece": {
+    "message": "Tartson meg könyvjelzőket vagy legalább egy motort"
+  },
+  "optionsFooter": {
+    "message": "A módosítások maguktól mentődnek, és azonnal alkalmazódnak a megnyitott lapokon. A billentyűparancsot az about:addons vagy a chrome://extensions/shortcuts oldalon módosítsd."
+  },
+  "newTab": {
+    "message": "Új lap"
+  },
+  "newtabStyle": {
+    "message": "Tipográfia"
+  },
+  "newtabStyle_editorial": {
+    "message": "Szerkesztőségi: Instrument Serif és Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Svájci: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Gépies: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Könyves: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Téma: a userContent.css betűtípusa"
+  },
+  "newtabClock": {
+    "message": "Óra"
+  },
+  "newtabClock_auto": {
+    "message": "A böngésző nyelve szerint"
+  },
+  "newtabClock_24": {
+    "message": "24 óra"
+  },
+  "newtabClock_12": {
+    "message": "12 óra"
+  },
+  "newtabDate": {
+    "message": "Dátum megjelenítése"
+  },
+  "newtabTime": {
+    "message": "Idő megjelenítése"
+  },
+  "newtabSwitcher": {
+    "message": "Switcher megjelenítése"
+  },
+  "newtabLocales": {
+    "message": "A dátum nyelvei"
+  },
+  "newtabLocalesHelp": {
+    "message": "Minden új lap a dátumot ezek egyikén mondja, véletlenszerűen."
+  },
+  "localesEmpty": {
+    "message": "A böngésző nyelve"
+  },
+  "speedEnabled": {
+    "message": "Videó és hang lejátszási sebességének szabályozása"
+  },
+  "speedGlobal": {
+    "message": "Sebesség"
+  },
+  "speedStep": {
+    "message": "A ] és a [ lépésköze"
+  },
+  "speedShortcuts": {
+    "message": "Parancsok: ] gyorsabban, [ lassabban, \\ vissza 1×-re"
+  },
+  "speedRules": {
+    "message": "Sebesség webhelyenként"
+  },
+  "invalidSpeed": {
+    "message": "0,25 és 4 között"
+  },
+  "speedPageOnly": {
+    "message": "csak ezen az oldalon"
+  },
+  "toastDarkOn": {
+    "message": "Sötét mód bekapcsolva"
+  },
+  "toastDarkOff": {
+    "message": "Sötét mód kikapcsolva"
+  },
+  "toastCssOn": {
+    "message": "Stíluslap bekapcsolva"
+  },
+  "toastCssOff": {
+    "message": "Stíluslap kikapcsolva"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Sötét mód bekapcsolva mindenhol"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Sötét mód kikapcsolva mindenhol"
+  },
+  "toastCopied": {
+    "message": "Tisztított hivatkozás másolva"
+  },
+  "toastCopyFailed": {
+    "message": "Nem sikerült másolni"
+  },
+  "greetingMorning": {
+    "message": "Jó reggelt"
+  },
+  "greetingAfternoon": {
+    "message": "Jó napot"
+  },
+  "greetingEvening": {
+    "message": "Jó estét"
+  },
+  "tab_style": {
+    "message": "Stílus"
+  },
+  "tab_dark": {
+    "message": "Sötét mód"
+  },
+  "tab_exceptions": {
+    "message": "Kivételek"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Billentyűparancsok"
+  },
+  "tab_newtab": {
+    "message": "Új lap"
+  },
+  "tab_media": {
+    "message": "Média"
+  },
+  "tab_stats": {
+    "message": "Statisztika"
+  },
+  "styleHideScrollbars": {
+    "message": "Görgetősávok elrejtése"
+  },
+  "styleUnderlineLinks": {
+    "message": "Aláhúzott hivatkozások"
+  },
+  "styleSelectableText": {
+    "message": "Bármilyen szöveg kijelölhető"
+  },
+  "styleNoUppercase": {
+    "message": "Nincsenek kényszerített NAGYBETŰK"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Képek és videók szürkeárnyalatosan"
+  },
+  "styleFocusRing": {
+    "message": "Látható keret a fókuszált elemen"
+  },
+  "styleCustom": {
+    "message": "Saját CSS"
+  },
+  "styleCustomHelp": {
+    "message": "Minden más után, külön stíluslapon kerül be, azokon a webhelyeken, ahol a CSS be van kapcsolva; az @import a legelejére kerül. A ta a többivel együtt kikapcsolja. A webhely felülírásához használd az !important jelölést. A webhelyek olvashatják, ahogy bármely stílust az oldalukon."
+  },
+  "switcherPrecision": {
+    "message": "Keresési pontosság"
+  },
+  "precision_strict": {
+    "message": "Szigorú: minden szó pontosan úgy, ahogy begépelted"
+  },
+  "precision_normal": {
+    "message": "Normál"
+  },
+  "precision_loose": {
+    "message": "Laza: a betűk sorrendben, bárhol"
+  },
+  "switcherMemory": {
+    "message": "Emlékezzen arra, amit megnyitok, és emelje feljebb a találatok között"
+  },
+  "switcherDefaultEngine": {
+    "message": "Alapértelmezett motor"
+  },
+  "customEngines": {
+    "message": "Saját motorok"
+  },
+  "customEnginesHelp": {
+    "message": "A címben a %s helyére kerül az, amit beírsz."
+  },
+  "engineName": {
+    "message": "Név"
+  },
+  "invalidEngine": {
+    "message": "Név és egy http(s) cím, benne %s"
+  },
+  "shortcutsHelp": {
+    "message": "Nyomd le a billentyűket a gomb fölött, válaszd ki, mit tegyenek, és add hozzá őket. Ctrl, Alt vagy Meta kell hozzájuk, vagy egy funkcióbillentyű. Az Alt betűvel ütközhet a böngészővel (az Alt+D a címsorba visz): a Ctrl+Shift vagy az Alt+Shift biztonságosabb."
+  },
+  "shortcutRecord": {
+    "message": "Billentyűk rögzítése"
+  },
+  "shortcutPress": {
+    "message": "Nyomd le a billentyűket…"
+  },
+  "invalidShortcut": {
+    "message": "Rögzíts egy kombinációt Ctrl, Alt vagy Meta billentyűvel, vagy egy funkcióbillentyűvel"
+  },
+  "duplicateShortcut": {
+    "message": "Ezek a billentyűk már tesznek valamit"
+  },
+  "invalidShortcutParam": {
+    "message": "Ehhez a művelethez érvényes érték kell"
+  },
+  "action_switcher": {
+    "message": "A switcher megnyitása"
+  },
+  "action_search": {
+    "message": "Keresés itt:"
+  },
+  "action_searchSelection": {
+    "message": "A kijelölt szöveg keresése itt:"
+  },
+  "action_toggleDark": {
+    "message": "Sötét mód ezen a webhelyen"
+  },
+  "action_toggleCss": {
+    "message": "CSS ezen a webhelyen"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Sötét mód mindenhol"
+  },
+  "action_openUrl": {
+    "message": "Cím megnyitása"
+  },
+  "action_openUrlNewTab": {
+    "message": "Cím megnyitása új lapon"
+  },
+  "action_speed": {
+    "message": "Média sebessége"
+  },
+  "action_copyCleanUrl": {
+    "message": "Hivatkozás másolása nyomkövetés nélkül"
+  },
+  "action_settings": {
+    "message": "Beállítások megnyitása"
+  },
+  "statsHelp": {
+    "message": "Minden könyvjelző, amelyet a switcher-ből nyitottak meg. A súly a megnyitásokkal nő, és idővel csökken; ez emeli feljebb az oldalt a keresésben."
+  },
+  "statsPage": {
+    "message": "Oldal"
+  },
+  "statsOpens": {
+    "message": "Megnyitások"
+  },
+  "statsWeight": {
+    "message": "Súly"
+  },
+  "statsLast": {
+    "message": "Utolsó"
+  },
+  "statsReset": {
+    "message": "Visszaállítás"
+  },
+  "statsResetAll": {
+    "message": "Mindent visszaállít"
+  },
+  "statsResetConfirm": {
+    "message": "Kattints újra a visszaállításhoz"
+  },
+  "statsEmpty": {
+    "message": "Még semmi"
+  },
+  "newtabLayout": {
+    "message": "Elrendezés"
+  },
+  "layout_clasico": {
+    "message": "Klasszikus"
+  },
+  "layout_hora": {
+    "message": "Csak az idő"
+  },
+  "layout_linea": {
+    "message": "Egy sorban"
+  },
+  "layout_apilado": {
+    "message": "Egymás alatt"
+  },
+  "layout_esquina": {
+    "message": "Sarok"
+  },
+  "layout_analogico": {
+    "message": "Analóg"
+  },
+  "newtabStyle_custom": {
+    "message": "Saját betűtípusok"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Az idő betűtípusa"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Az idő vastagsága"
+  },
+  "newtabCustomDateFont": {
+    "message": "A dátum betűtípusa"
+  },
+  "fontPlaceholder": {
+    "message": "Itt telepített betűtípus"
+  },
+  "newtabGreeting": {
+    "message": "Köszöntés"
+  },
+  "newtabName": {
+    "message": "A neved"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Nem kötelező"
+  },
+  "newtabFocusPage": {
+    "message": "Vedd el a fókuszt a címsortól"
+  },
+  "newtabFocusPageHint": {
+    "message": "A lap helyén ugyanott új lap nyílik, így a címsor az oldal címét mutatja, és nem marad üres."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Szünetelteti a magától induló videót és hangot"
+  },
+  "toastSpeedOff": {
+    "message": "A média sebessége ki van kapcsolva a beállításokban"
+  },
+  "exceptionsAnimations": {
+    "message": "Saját animációkkal"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "A sobrio többi CSS-e érvényes, de az animációkat és átmeneteket nem vágja le. A ChatGPT-nek erre szüksége van: nélkülük a nézete elcsúszik az írás közben."
+  },
+  "switcherCommandsHint": {
+    "message": "Mindegyik egyetlen betűkből vagy számokból álló szó, és különbözik a többitől."
+  },
+  "commandName_dark": {
+    "message": "Sötét mód ezen a webhelyen"
+  },
+  "commandName_css": {
+    "message": "Stíluslap ezen a webhelyen"
+  },
+  "commandName_settings": {
+    "message": "Beállítások megnyitása"
+  },
+  "backupLabel": {
+    "message": "Biztonsági mentés"
+  },
+  "backupExport": {
+    "message": "Exportálás"
+  },
+  "backupImport": {
+    "message": "Importálás…"
+  },
+  "backupConfirm": {
+    "message": "Mindent cseréld ki erre a mentésre"
+  },
+  "backupExported": {
+    "message": "Mentve a letöltésekhez"
+  },
+  "backupInvalid": {
+    "message": "Ez a fájl nem sobrio-mentés"
+  },
+  "backupImported": {
+    "message": "A mentés visszaállítva"
+  },
+  "welcomeOpen": {
+    "message": "Üdvözlő útmutató"
+  },
+  "backupSummary": {
+    "message": "Billentyűparancsok: $SHORTCUTS$ · kivételek: $EXCEPTIONS$ · megjegyzett oldalak: $PAGES$. Felülírja a most itt lévőket.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "Üdv a sobrio-ban."
+  },
+  "welcomeLead": {
+    "message": "A web fekete-fehérben, nyugodtabban, és egy billentyűparancsnyira. Öt dolog, amit érdemes tudni."
+  },
+  "welcomeSwitcher": {
+    "message": "A switcher bármely oldalon megnyílik: gépelj a könyvjelzők közötti kereséshez, a Tab a keresőmotorok között lépeget, az Enter megnyit, a Ctrl+Enter új lapon nyit. Az eszköztár gombja is megnyitja."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Az új lapod"
+  },
+  "welcomeNewtab": {
+    "message": "A böngésző megkérdezheti, megtartod-e a sobrio által beállított új lapot: tartsd meg. Elveszi a fókuszt a címsortól, így azonnal a switcher-be írhatsz."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Saját billentyűparancsok"
+  },
+  "welcomeShortcuts": {
+    "message": "Rögzíts bármilyen billentyűkombinációt a beállításokban: cím megnyitásához, a kijelölt szöveg kereséséhez, a videók sebességének beállításához vagy a hivatkozás nyomkövetés nélküli másolásához."
+  },
+  "welcomeSystemTitle": {
+    "message": "Sötét rendszer"
+  },
+  "welcomeSystem": {
+    "message": "Állítsd a rendszeredet sötét megjelenésre: a saját sötét témával rendelkező webhelyek átváltanak rá, a sobrio pedig nem nyúl hozzájuk."
+  },
+  "welcomeSettings": {
+    "message": "Beállítások megnyitása"
+  },
+  "welcomeFooter": {
+    "message": "Semmi nem hagyja el a böngészőt. A beállítások biztonsági mentést készítenek, hogy mindezt átvidd egy másik böngészőbe."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ és $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Minden webhely színenként feketére vált. Ha valamelyik rosszul néz ki, a switcher-be írd be a $DARK$ parancsot, hogy ott kikapcsold a sötét módot, vagy a $CSS$ parancsot, hogy eltávolítsd a sobrio stíluslapját azon a webhelyen. Mindkét szó megváltoztatható a beállításokban.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "Töltsd újra ezt az oldalt, hogy itt használhasd a sobrio-t"
+  },
+  "backupCss": {
+    "message": "Saját CSS: $CHARS$ karakter",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "innen tölt be: $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "$NAME$ motor, $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ megnyitja: $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(az alapértelmezett)"
+  },
+  "backupFailed": {
+    "message": "Nem sikerült visszaállítani"
+  },
+  "welcomeNoShortcut": {
+    "message": "Az eszköztár gombja"
+  },
+  "exceptionsLocal": {
+    "message": "Hagyd érintetlenül a helyi címeket"
+  },
+  "exceptionsLocalHint": {
+    "message": "A localhost, a 127.0.0.1, a 192.168.x, a .local nevek és a géped vagy a hálózatod többi címe megtartja a saját megjelenését: nincs stíluslap, nincs sötét mód."
+  },
+  "localLeftAlone": {
+    "message": "A helyi címek érintetlenek maradnak: a beállításokban módosíthatod"
+  }
+}

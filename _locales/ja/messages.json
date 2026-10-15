@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Web の見え方と、ブラウザの使い心地について独自の考えを持つ拡張機能。"
+  },
+  "commandOpen": {
+    "message": "switcherを開く"
+  },
+  "placeholderBookmarks": {
+    "message": "ブックマークを検索"
+  },
+  "placeholderEngine": {
+    "message": "$ENGINE$ で検索",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "\"$QUERY$\" を $ENGINE$ で検索",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "ブックマークはありません"
+  },
+  "darkOff": {
+    "message": "$HOST$ のダークモードをオフ",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "$HOST$ のダークモードをオン",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "$HOST$ の独自CSSをオフ",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "$HOST$ の独自CSSをオン",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ 移動 · ↵ 開く · ctrl ↵ 新しいタブ · tab 検索エンジン · esc 閉じる"
+  },
+  "openSettings": {
+    "message": "設定を開く"
+  },
+  "darkOnEverywhere": {
+    "message": "すべてのサイトでダークモードをオン"
+  },
+  "removesPatterns": {
+    "message": "($PATTERNS$ を削除)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "設定"
+  },
+  "styleCorners": {
+    "message": "角丸をなくす"
+  },
+  "styleShadows": {
+    "message": "影をなくす"
+  },
+  "styleBlur": {
+    "message": "ぼかしをなくす"
+  },
+  "styleAnimations": {
+    "message": "アニメーションとトランジションをなくす"
+  },
+  "styleYoutube": {
+    "message": "YouTube のプレーヤーを除く"
+  },
+  "styleSmoothScroll": {
+    "message": "スムーズスクロールをなくす"
+  },
+  "styleThinScrollbars": {
+    "message": "細いスクロールバー"
+  },
+  "styleFixedBackgrounds": {
+    "message": "背景をページと一緒にスクロールさせる"
+  },
+  "fromTheme": {
+    "message": "テーマから (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "サイトをダークにする"
+  },
+  "darkDetect": {
+    "message": "すでにダークなサイトはそのままにする"
+  },
+  "darkBrightness": {
+    "message": "明るさ"
+  },
+  "darkContrast": {
+    "message": "コントラスト"
+  },
+  "darkSepia": {
+    "message": "セピア"
+  },
+  "darkGrayscale": {
+    "message": "グレースケール"
+  },
+  "darkBackground": {
+    "message": "背景"
+  },
+  "darkText": {
+    "message": "テキスト"
+  },
+  "darkSelection": {
+    "message": "選択"
+  },
+  "auto": {
+    "message": "自動"
+  },
+  "exceptionsHelp": {
+    "message": "example.com はそのサイトだけ。*.example.com はサブドメインも含みます。"
+  },
+  "exceptionsCss": {
+    "message": "CSSを適用しない"
+  },
+  "exceptionsDark": {
+    "message": "ダークモードを適用しない"
+  },
+  "patternPlaceholder": {
+    "message": "example.com または *.example.com"
+  },
+  "add": {
+    "message": "追加"
+  },
+  "remove": {
+    "message": "削除"
+  },
+  "invalidPattern": {
+    "message": "サイトとして認識できません"
+  },
+  "emptyList": {
+    "message": "なし"
+  },
+  "switcherBookmarks": {
+    "message": "ブックマーク"
+  },
+  "switcherEngine": {
+    "message": "検索エンジン"
+  },
+  "switcherAutoSearch": {
+    "message": "ブックマークが一致しないとき、ウェブを検索"
+  },
+  "switcherCommands": {
+    "message": "switcherのコマンド"
+  },
+  "switcherHints": {
+    "message": "ショートカットの行"
+  },
+  "lastPiece": {
+    "message": "ブックマークか検索エンジンを少なくとも1つ残す"
+  },
+  "optionsFooter": {
+    "message": "変更は自動で保存され、開いているタブにすぐ反映されます。ショートカットは about:addons または chrome://extensions/shortcuts で変更します。"
+  },
+  "newTab": {
+    "message": "新しいタブ"
+  },
+  "newtabStyle": {
+    "message": "書体"
+  },
+  "newtabStyle_editorial": {
+    "message": "エディトリアル: Instrument Serif と Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "スイス: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "マシン: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "ブック: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "テーマ: userContent.css のフォント"
+  },
+  "newtabClock": {
+    "message": "時計"
+  },
+  "newtabClock_auto": {
+    "message": "ブラウザの言語に合わせる"
+  },
+  "newtabClock_24": {
+    "message": "24時間"
+  },
+  "newtabClock_12": {
+    "message": "12時間"
+  },
+  "newtabDate": {
+    "message": "日付を表示"
+  },
+  "newtabTime": {
+    "message": "時刻を表示"
+  },
+  "newtabSwitcher": {
+    "message": "switcherを表示"
+  },
+  "newtabLocales": {
+    "message": "日付の言語"
+  },
+  "newtabLocalesHelp": {
+    "message": "新しいタブを開くたびに、これらのいずれかの言語で日付をランダムに表示します。"
+  },
+  "localesEmpty": {
+    "message": "ブラウザの言語"
+  },
+  "speedEnabled": {
+    "message": "動画と音声の再生速度を調整"
+  },
+  "speedGlobal": {
+    "message": "速度"
+  },
+  "speedStep": {
+    "message": "] と [ の刻み幅"
+  },
+  "speedShortcuts": {
+    "message": "ショートカット: ] で速く、[ で遅く、\\ で 1× に戻す"
+  },
+  "speedRules": {
+    "message": "サイトごとの速度"
+  },
+  "invalidSpeed": {
+    "message": "0.25 から 4 の間"
+  },
+  "speedPageOnly": {
+    "message": "このページだけ"
+  },
+  "toastDarkOn": {
+    "message": "ダークモードをオンにしました"
+  },
+  "toastDarkOff": {
+    "message": "ダークモードをオフにしました"
+  },
+  "toastCssOn": {
+    "message": "スタイルシートをオンにしました"
+  },
+  "toastCssOff": {
+    "message": "スタイルシートをオフにしました"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "すべてのサイトでダークモードをオンにしました"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "すべてのサイトでダークモードをオフにしました"
+  },
+  "toastCopied": {
+    "message": "追跡パラメータを除いたリンクをコピーしました"
+  },
+  "toastCopyFailed": {
+    "message": "コピーできませんでした"
+  },
+  "greetingMorning": {
+    "message": "おはようございます"
+  },
+  "greetingAfternoon": {
+    "message": "こんにちは"
+  },
+  "greetingEvening": {
+    "message": "こんばんは"
+  },
+  "tab_style": {
+    "message": "スタイル"
+  },
+  "tab_dark": {
+    "message": "ダークモード"
+  },
+  "tab_exceptions": {
+    "message": "例外"
+  },
+  "tab_switcher": {
+    "message": "switcher"
+  },
+  "tab_shortcuts": {
+    "message": "ショートカット"
+  },
+  "tab_newtab": {
+    "message": "新しいタブ"
+  },
+  "tab_media": {
+    "message": "メディア"
+  },
+  "tab_stats": {
+    "message": "統計"
+  },
+  "styleHideScrollbars": {
+    "message": "スクロールバーを隠す"
+  },
+  "styleUnderlineLinks": {
+    "message": "リンクに下線"
+  },
+  "styleSelectableText": {
+    "message": "どのテキストも選択できるようにする"
+  },
+  "styleNoUppercase": {
+    "message": "強制的な大文字をなくす"
+  },
+  "styleGrayscaleMedia": {
+    "message": "画像と動画をグレースケールに"
+  },
+  "styleFocusRing": {
+    "message": "フォーカスした要素に枠を表示"
+  },
+  "styleCustom": {
+    "message": "独自のCSS"
+  },
+  "styleCustomHelp": {
+    "message": "上記すべての後に、独自のシートとして、CSSがオンのすべてのサイトに追加されます。@import は一番上に書きます。ta で他の設定と一緒にオフにできます。サイトより優先するには !important を使います。サイトからも読み取れます。ページのほかのスタイルと同様です。"
+  },
+  "switcherPrecision": {
+    "message": "検索の精度"
+  },
+  "precision_strict": {
+    "message": "厳密: 入力したとおりに各単語を検索"
+  },
+  "precision_normal": {
+    "message": "標準"
+  },
+  "precision_loose": {
+    "message": "ゆるい: 文字の順番が合えばどこでも"
+  },
+  "switcherMemory": {
+    "message": "開いたものを記録し、検索で上位に表示"
+  },
+  "switcherDefaultEngine": {
+    "message": "デフォルトの検索エンジン"
+  },
+  "customEngines": {
+    "message": "独自の検索エンジン"
+  },
+  "customEnginesHelp": {
+    "message": "アドレス内の %s が入力内容に置き換えられます。"
+  },
+  "engineName": {
+    "message": "名前"
+  },
+  "invalidEngine": {
+    "message": "名前と、%s を含む http(s) のアドレスを入力してください"
+  },
+  "shortcutsHelp": {
+    "message": "ボタンの上でキーを押し、動作を選んで追加します。Ctrl、Alt、Meta のいずれか、またはファンクションキーが必要です。Alt と文字の組み合わせはブラウザと衝突することがあります (Alt+D はアドレスバーに移動)。Ctrl+Shift や Alt+Shift のほうが安全です。"
+  },
+  "shortcutRecord": {
+    "message": "キーを記録"
+  },
+  "shortcutPress": {
+    "message": "キーを押してください…"
+  },
+  "invalidShortcut": {
+    "message": "Ctrl、Alt、Meta のいずれか、またはファンクションキーを含む組み合わせを記録してください"
+  },
+  "duplicateShortcut": {
+    "message": "そのキーはすでに別の動作に使われています"
+  },
+  "invalidShortcutParam": {
+    "message": "この動作には有効な値が必要です"
+  },
+  "action_switcher": {
+    "message": "switcherを開く"
+  },
+  "action_search": {
+    "message": "次で検索"
+  },
+  "action_searchSelection": {
+    "message": "選択したテキストを次で検索"
+  },
+  "action_toggleDark": {
+    "message": "このサイトのダークモード"
+  },
+  "action_toggleCss": {
+    "message": "このサイトの独自CSS"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "すべてのサイトのダークモード"
+  },
+  "action_openUrl": {
+    "message": "アドレスを開く"
+  },
+  "action_openUrlNewTab": {
+    "message": "アドレスを新しいタブで開く"
+  },
+  "action_speed": {
+    "message": "メディアの速度"
+  },
+  "action_copyCleanUrl": {
+    "message": "追跡なしでリンクをコピー"
+  },
+  "action_settings": {
+    "message": "設定を開く"
+  },
+  "statsHelp": {
+    "message": "switcherから開いたブックマークごとの記録です。重みは開いた回数で増え、時間とともに減ります。検索でページを上位に上げるのはこの重みです。"
+  },
+  "statsPage": {
+    "message": "ページ"
+  },
+  "statsOpens": {
+    "message": "回数"
+  },
+  "statsWeight": {
+    "message": "重み"
+  },
+  "statsLast": {
+    "message": "最後"
+  },
+  "statsReset": {
+    "message": "リセット"
+  },
+  "statsResetAll": {
+    "message": "すべてリセット"
+  },
+  "statsResetConfirm": {
+    "message": "もう一度クリックしてリセット"
+  },
+  "statsEmpty": {
+    "message": "まだありません"
+  },
+  "newtabLayout": {
+    "message": "レイアウト"
+  },
+  "layout_clasico": {
+    "message": "クラシック"
+  },
+  "layout_hora": {
+    "message": "時刻のみ"
+  },
+  "layout_linea": {
+    "message": "1行"
+  },
+  "layout_apilado": {
+    "message": "積み重ね"
+  },
+  "layout_esquina": {
+    "message": "隅"
+  },
+  "layout_analogico": {
+    "message": "アナログ"
+  },
+  "newtabStyle_custom": {
+    "message": "独自のフォント"
+  },
+  "newtabCustomTimeFont": {
+    "message": "時刻のフォント"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "時刻の太さ"
+  },
+  "newtabCustomDateFont": {
+    "message": "日付のフォント"
+  },
+  "fontPlaceholder": {
+    "message": "ここにインストールされたフォント"
+  },
+  "newtabGreeting": {
+    "message": "あいさつ"
+  },
+  "newtabName": {
+    "message": "名前"
+  },
+  "newtabNamePlaceholder": {
+    "message": "任意"
+  },
+  "newtabFocusPage": {
+    "message": "アドレスバーからフォーカスを移す"
+  },
+  "newtabFocusPageHint": {
+    "message": "タブは同じ場所の新しいタブに置き換えられるため、アドレスバーは空のままにならず、そのページのアドレスを表示します。"
+  },
+  "mediaPauseAutoplay": {
+    "message": "自動で再生される動画と音声を一時停止"
+  },
+  "toastSpeedOff": {
+    "message": "メディアの速度は設定でオフになっています"
+  },
+  "exceptionsAnimations": {
+    "message": "独自のアニメーションを残す"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "sobrio の残りのCSSは適用されますが、アニメーションとトランジションは削除されません。ChatGPT では必要です。削除すると、文章の生成中に表示がずれます。"
+  },
+  "switcherCommandsHint": {
+    "message": "それぞれ、文字または数字だけからなる1語で、ほかとは異なる必要があります。"
+  },
+  "commandName_dark": {
+    "message": "このサイトのダークモード"
+  },
+  "commandName_css": {
+    "message": "このサイトのスタイルシート"
+  },
+  "commandName_settings": {
+    "message": "設定を開く"
+  },
+  "backupLabel": {
+    "message": "バックアップ"
+  },
+  "backupExport": {
+    "message": "書き出し"
+  },
+  "backupImport": {
+    "message": "読み込み…"
+  },
+  "backupConfirm": {
+    "message": "このバックアップで全体を置き換える"
+  },
+  "backupExported": {
+    "message": "ダウンロードに保存しました"
+  },
+  "backupInvalid": {
+    "message": "sobrio のバックアップではありません"
+  },
+  "backupImported": {
+    "message": "バックアップを復元しました"
+  },
+  "welcomeOpen": {
+    "message": "ようこそガイド"
+  },
+  "backupSummary": {
+    "message": "ショートカット: $SHORTCUTS$ · 例外: $EXCEPTIONS$ · 記憶したページ: $PAGES$。現在の内容は置き換えられます。",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "sobrio へようこそ。"
+  },
+  "welcomeLead": {
+    "message": "白黒で、落ち着いていて、キーボードひとつで操作できる Web です。知っておきたいことが5つあります。"
+  },
+  "welcomeSwitcher": {
+    "message": "どのページでも switcherを開きます。入力するとブックマークを検索し、Tab で検索エンジンを切り替え、Enter で開き、Ctrl+Enter で新しいタブに開きます。ツールバーのボタンからも開けます。"
+  },
+  "welcomeNewtabTitle": {
+    "message": "新しいタブ"
+  },
+  "welcomeNewtab": {
+    "message": "ブラウザが sobrio の新しいタブを残すかどうか尋ねることがあります。残してください。アドレスバーからフォーカスを移すので、switcherにすぐ入力できます。"
+  },
+  "welcomeShortcutsTitle": {
+    "message": "独自のショートカット"
+  },
+  "welcomeShortcuts": {
+    "message": "設定で任意の組み合わせを記録して、アドレスを開く、選択したテキストを検索する、メディアの速度を設定する、追跡なしでリンクをコピーする、などに割り当てられます。"
+  },
+  "welcomeSystemTitle": {
+    "message": "ダークなシステム"
+  },
+  "welcomeSystem": {
+    "message": "システムをダークの外観にしてください。独自のダークテーマを持つサイトはそれに切り替わり、sobrio はそれらに手を加えません。"
+  },
+  "welcomeSettings": {
+    "message": "設定を開く"
+  },
+  "welcomeFooter": {
+    "message": "データはブラウザの外に出ません。設定にはバックアップがあり、これらすべてを別のブラウザに移せます。"
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ と $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "すべてのサイトは色ごとに黒くなります。見た目がおかしいサイトでは、switcherに $DARK$ と入力してそのサイトのダークモードをオフにするか、$CSS$ と入力して sobrio のスタイルシートを外せます。どちらの語も設定で変更できます。",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "sobrio をここで使うには、このページを再読み込みしてください"
+  },
+  "backupCss": {
+    "message": "独自のCSS: $CHARS$ 文字",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "$HOSTS$ から読み込み",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "検索エンジン $NAME$ ($HOST$)",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ で $HOST$ を開く",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(デフォルト)"
+  },
+  "backupFailed": {
+    "message": "復元できませんでした"
+  },
+  "welcomeNoShortcut": {
+    "message": "ツールバーのボタン"
+  },
+  "exceptionsLocal": {
+    "message": "ローカルアドレスはそのままにする"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost、127.0.0.1、192.168.x、.local の名前、そのほかお使いのマシンやネットワークのアドレスは、独自の見た目を保ちます。スタイルシートもダークモードも適用されません。"
+  },
+  "localLeftAlone": {
+    "message": "ローカルアドレスはそのままです。設定で変更できます"
+  }
+}

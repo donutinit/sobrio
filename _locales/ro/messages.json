@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "O extensie cu opinii despre cum ar trebui să arate web-ul și cum ar trebui să se simtă un browser."
+  },
+  "commandOpen": {
+    "message": "Deschide switcher-ul"
+  },
+  "placeholderBookmarks": {
+    "message": "Caută în marcaje"
+  },
+  "placeholderEngine": {
+    "message": "Caută pe $ENGINE$",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "Caută „$QUERY$” pe $ENGINE$",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Niciun marcaj"
+  },
+  "darkOff": {
+    "message": "Dezactivează modul întunecat pe $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Activează modul întunecat pe $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Dezactivează CSS-ul propriu pe $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Activează CSS-ul propriu pe $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ mută · ↵ deschide · ctrl ↵ filă nouă · tab motoare · esc închide"
+  },
+  "openSettings": {
+    "message": "Deschide setările"
+  },
+  "darkOnEverywhere": {
+    "message": "Activează modul întunecat peste tot"
+  },
+  "removesPatterns": {
+    "message": "(elimină $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Setări"
+  },
+  "styleCorners": {
+    "message": "Fără colțuri rotunjite"
+  },
+  "styleShadows": {
+    "message": "Fără umbre"
+  },
+  "styleBlur": {
+    "message": "Fără estompare"
+  },
+  "styleAnimations": {
+    "message": "Fără animații sau tranziții"
+  },
+  "styleYoutube": {
+    "message": "Cu excepția playerului de pe YouTube"
+  },
+  "styleSmoothScroll": {
+    "message": "Fără derulare lină"
+  },
+  "styleThinScrollbars": {
+    "message": "Bare de derulare subțiri"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Fundalurile se derulează odată cu pagina"
+  },
+  "fromTheme": {
+    "message": "din temă (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Transformă site-urile în mod întunecat"
+  },
+  "darkDetect": {
+    "message": "Lasă neatinse site-urile care sunt deja întunecate"
+  },
+  "darkBrightness": {
+    "message": "Luminozitate"
+  },
+  "darkContrast": {
+    "message": "Contrast"
+  },
+  "darkSepia": {
+    "message": "Sepia"
+  },
+  "darkGrayscale": {
+    "message": "Tonuri de gri"
+  },
+  "darkBackground": {
+    "message": "Fundal"
+  },
+  "darkText": {
+    "message": "Text"
+  },
+  "darkSelection": {
+    "message": "Selecție"
+  },
+  "auto": {
+    "message": "Automat"
+  },
+  "exceptionsHelp": {
+    "message": "example.com înseamnă doar acel site; *.example.com include și subdomeniile lui."
+  },
+  "exceptionsCss": {
+    "message": "Fără foaia de stiluri"
+  },
+  "exceptionsDark": {
+    "message": "Fără mod întunecat"
+  },
+  "patternPlaceholder": {
+    "message": "example.com sau *.example.com"
+  },
+  "add": {
+    "message": "Adaugă"
+  },
+  "remove": {
+    "message": "Elimină"
+  },
+  "invalidPattern": {
+    "message": "Acesta nu este un site"
+  },
+  "emptyList": {
+    "message": "Niciunul"
+  },
+  "switcherBookmarks": {
+    "message": "Marcaje"
+  },
+  "switcherEngine": {
+    "message": "Motor"
+  },
+  "switcherAutoSearch": {
+    "message": "Caută pe web când niciun marcaj nu se potrivește"
+  },
+  "switcherCommands": {
+    "message": "Comenzi în switcher"
+  },
+  "switcherHints": {
+    "message": "Linia cu indicații"
+  },
+  "lastPiece": {
+    "message": "Păstrează marcajele sau cel puțin un motor"
+  },
+  "optionsFooter": {
+    "message": "Modificările se salvează singure și se aplică imediat în filele deschise. Comanda rapidă se schimbă în about:addons sau chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "Filă nouă"
+  },
+  "newtabStyle": {
+    "message": "Tipografie"
+  },
+  "newtabStyle_editorial": {
+    "message": "Editorial: Instrument Serif și Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Elvețian: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Mașină: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Carte: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Temă: fontul din userContent.css"
+  },
+  "newtabClock": {
+    "message": "Ceas"
+  },
+  "newtabClock_auto": {
+    "message": "Ca limba browserului"
+  },
+  "newtabClock_24": {
+    "message": "24 de ore"
+  },
+  "newtabClock_12": {
+    "message": "12 ore"
+  },
+  "newtabDate": {
+    "message": "Arată data"
+  },
+  "newtabTime": {
+    "message": "Arată ora"
+  },
+  "newtabSwitcher": {
+    "message": "Arată switcher-ul"
+  },
+  "newtabLocales": {
+    "message": "Limbile pentru dată"
+  },
+  "newtabLocalesHelp": {
+    "message": "Fiecare filă nouă spune data în una dintre aceste limbi, aleasă la întâmplare."
+  },
+  "localesEmpty": {
+    "message": "Limba browserului"
+  },
+  "speedEnabled": {
+    "message": "Controlează viteza video și audio"
+  },
+  "speedGlobal": {
+    "message": "Viteza"
+  },
+  "speedStep": {
+    "message": "Pas pentru ] și ["
+  },
+  "speedShortcuts": {
+    "message": "Comenzi: ] mai rapid, [ mai lent, \\ înapoi la 1×"
+  },
+  "speedRules": {
+    "message": "Viteza pe site"
+  },
+  "invalidSpeed": {
+    "message": "Între 0,25 și 4"
+  },
+  "speedPageOnly": {
+    "message": "doar această pagină"
+  },
+  "toastDarkOn": {
+    "message": "Mod întunecat activat"
+  },
+  "toastDarkOff": {
+    "message": "Mod întunecat dezactivat"
+  },
+  "toastCssOn": {
+    "message": "Foaia de stiluri activată"
+  },
+  "toastCssOff": {
+    "message": "Foaia de stiluri dezactivată"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Mod întunecat activat peste tot"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Mod întunecat dezactivat peste tot"
+  },
+  "toastCopied": {
+    "message": "Link curat copiat"
+  },
+  "toastCopyFailed": {
+    "message": "Nu s-a putut copia"
+  },
+  "greetingMorning": {
+    "message": "Bună dimineața"
+  },
+  "greetingAfternoon": {
+    "message": "Bună ziua"
+  },
+  "greetingEvening": {
+    "message": "Bună seara"
+  },
+  "tab_style": {
+    "message": "Stil"
+  },
+  "tab_dark": {
+    "message": "Mod întunecat"
+  },
+  "tab_exceptions": {
+    "message": "Excepții"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Comenzi rapide"
+  },
+  "tab_newtab": {
+    "message": "Filă nouă"
+  },
+  "tab_media": {
+    "message": "Media"
+  },
+  "tab_stats": {
+    "message": "Statistici"
+  },
+  "styleHideScrollbars": {
+    "message": "Ascunde barele de derulare"
+  },
+  "styleUnderlineLinks": {
+    "message": "Subliniază linkurile"
+  },
+  "styleSelectableText": {
+    "message": "Orice text poate fi selectat"
+  },
+  "styleNoUppercase": {
+    "message": "Fără MAJUSCULE forțate"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Imagini și video în tonuri de gri"
+  },
+  "styleFocusRing": {
+    "message": "Un contur vizibil în jurul elementului activ"
+  },
+  "styleCustom": {
+    "message": "CSS-ul tău"
+  },
+  "styleCustomHelp": {
+    "message": "Adăugat după tot ce e mai sus, într-o foaie separată, pe fiecare site unde CSS-ul e activ; un @import merge chiar la început. ta îl oprește împreună cu restul. Folosește !important ca să câștigi în fața site-ului. Site-urile pot citi acest CSS, la fel cum pot citi orice stil din pagina lor."
+  },
+  "switcherPrecision": {
+    "message": "Precizia căutării"
+  },
+  "precision_strict": {
+    "message": "Strictă: fiecare cuvânt cum e scris"
+  },
+  "precision_normal": {
+    "message": "Normală"
+  },
+  "precision_loose": {
+    "message": "Relaxată: litere în ordine, oriunde"
+  },
+  "switcherMemory": {
+    "message": "Ține minte ce deschid și le ridică în listă"
+  },
+  "switcherDefaultEngine": {
+    "message": "Motorul implicit"
+  },
+  "customEngines": {
+    "message": "Motoarele tale"
+  },
+  "customEnginesHelp": {
+    "message": "%s din adresă este înlocuit cu ce scrii."
+  },
+  "engineName": {
+    "message": "Nume"
+  },
+  "invalidEngine": {
+    "message": "Un nume și o adresă http(s) cu %s"
+  },
+  "shortcutsHelp": {
+    "message": "Apasă tastele pe buton, alege ce fac și adaugă-le. Trebuie Ctrl, Alt sau Meta, ori o tastă de funcție. Alt cu o literă se poate ciocni cu browserul (Alt+D merge la bara de adrese): Ctrl+Shift sau Alt+Shift sunt mai sigure."
+  },
+  "shortcutRecord": {
+    "message": "Înregistrează tastele"
+  },
+  "shortcutPress": {
+    "message": "Apasă tastele…"
+  },
+  "invalidShortcut": {
+    "message": "Înregistrează o combinație cu Ctrl, Alt sau Meta, ori o tastă de funcție"
+  },
+  "duplicateShortcut": {
+    "message": "Aceste taste fac deja ceva"
+  },
+  "invalidShortcutParam": {
+    "message": "Acțiunea cere o valoare validă"
+  },
+  "action_switcher": {
+    "message": "Deschide switcher-ul"
+  },
+  "action_search": {
+    "message": "Caută în"
+  },
+  "action_searchSelection": {
+    "message": "Caută selecția în"
+  },
+  "action_toggleDark": {
+    "message": "Mod întunecat pe acest site"
+  },
+  "action_toggleCss": {
+    "message": "CSS pe acest site"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Mod întunecat peste tot"
+  },
+  "action_openUrl": {
+    "message": "Deschide o adresă"
+  },
+  "action_openUrlNewTab": {
+    "message": "Deschide o adresă într-o filă nouă"
+  },
+  "action_speed": {
+    "message": "Viteza media"
+  },
+  "action_copyCleanUrl": {
+    "message": "Copiază linkul fără urmărire"
+  },
+  "action_settings": {
+    "message": "Deschide setările"
+  },
+  "statsHelp": {
+    "message": "Fiecare marcaj deschis din switcher. Greutatea crește cu deschiderile și scade cu timpul; ea ridică pagina în căutare."
+  },
+  "statsPage": {
+    "message": "Pagina"
+  },
+  "statsOpens": {
+    "message": "Deschideri"
+  },
+  "statsWeight": {
+    "message": "Greutate"
+  },
+  "statsLast": {
+    "message": "Ultima"
+  },
+  "statsReset": {
+    "message": "Resetează"
+  },
+  "statsResetAll": {
+    "message": "Resetează tot"
+  },
+  "statsResetConfirm": {
+    "message": "Apasă din nou ca să resetezi"
+  },
+  "statsEmpty": {
+    "message": "Nimic încă"
+  },
+  "newtabLayout": {
+    "message": "Aspect"
+  },
+  "layout_clasico": {
+    "message": "Clasic"
+  },
+  "layout_hora": {
+    "message": "Doar ora"
+  },
+  "layout_linea": {
+    "message": "Pe o linie"
+  },
+  "layout_apilado": {
+    "message": "Stivuit"
+  },
+  "layout_esquina": {
+    "message": "Colț"
+  },
+  "layout_analogico": {
+    "message": "Analogic"
+  },
+  "newtabStyle_custom": {
+    "message": "Fonturile mele"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Fontul orei"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Grosimea orei"
+  },
+  "newtabCustomDateFont": {
+    "message": "Fontul datei"
+  },
+  "fontPlaceholder": {
+    "message": "Un font instalat aici"
+  },
+  "newtabGreeting": {
+    "message": "Salut"
+  },
+  "newtabName": {
+    "message": "Numele tău"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Opțional"
+  },
+  "newtabFocusPage": {
+    "message": "Scoate focusul din bara de adrese"
+  },
+  "newtabFocusPageHint": {
+    "message": "Fila este înlocuită cu una nouă în același loc, ca bara de adrese să arate adresa paginii în loc să rămână goală."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Oprește video și audio care pornesc singure"
+  },
+  "toastSpeedOff": {
+    "message": "Viteza media este dezactivată în setări"
+  },
+  "exceptionsAnimations": {
+    "message": "Cu animațiile lor"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "Restul CSS-ului sobrio se aplică, dar animațiile și tranzițiile nu sunt tăiate. ChatGPT are nevoie de asta: fără ele, pagina lui se deplasează cât scrie."
+  },
+  "switcherCommandsHint": {
+    "message": "Fiecare este un singur cuvânt din litere sau cifre, diferit de celelalte."
+  },
+  "commandName_dark": {
+    "message": "Mod întunecat pe acest site"
+  },
+  "commandName_css": {
+    "message": "Foaia de stiluri pe acest site"
+  },
+  "commandName_settings": {
+    "message": "Deschide setările"
+  },
+  "backupLabel": {
+    "message": "Copie de rezervă"
+  },
+  "backupExport": {
+    "message": "Exportă"
+  },
+  "backupImport": {
+    "message": "Importă…"
+  },
+  "backupConfirm": {
+    "message": "Înlocuiește tot cu această copie"
+  },
+  "backupExported": {
+    "message": "Salvat în descărcări"
+  },
+  "backupInvalid": {
+    "message": "Acest fișier nu este o copie de rezervă sobrio"
+  },
+  "backupImported": {
+    "message": "Copia de rezervă a fost restaurată"
+  },
+  "welcomeOpen": {
+    "message": "Ghidul de bun venit"
+  },
+  "backupSummary": {
+    "message": "Comenzi: $SHORTCUTS$ · excepții: $EXCEPTIONS$ · pagini memorate: $PAGES$. Înlocuiește ce e aici acum.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "Bun venit în sobrio."
+  },
+  "welcomeLead": {
+    "message": "Web-ul în alb și negru, mai liniștit și la o apăsare de tastă. Cinci lucruri de știut."
+  },
+  "welcomeSwitcher": {
+    "message": "Deschide switcher-ul pe orice pagină: scrie ca să cauți în marcaje, Tab ca să treci prin motoarele de căutare, Enter ca să deschizi, Ctrl+Enter pentru o filă nouă. Butonul din bara de instrumente îl deschide și el."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Fila ta nouă"
+  },
+  "welcomeNewtab": {
+    "message": "Browserul poate întreba dacă păstrezi fila nouă setată de sobrio: păstreaz-o. Ia focusul din bara de adrese, ca să poți scrie în switcher imediat."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Comenzile tale rapide"
+  },
+  "welcomeShortcuts": {
+    "message": "Înregistrează orice combinație în setări ca să deschizi o adresă, să cauți selecția, să setezi viteza media sau să copiezi un link fără urmărire."
+  },
+  "welcomeSystemTitle": {
+    "message": "Un sistem întunecat"
+  },
+  "welcomeSystem": {
+    "message": "Setează sistemul pe aspect întunecat: site-urile cu o temă întunecată proprie trec la ea, iar sobrio le lasă în pace."
+  },
+  "welcomeSettings": {
+    "message": "Deschide setările"
+  },
+  "welcomeFooter": {
+    "message": "Nimic nu părăsește browserul tău. Setările păstrează o copie de rezervă, ca să duci toate acestea în alt browser."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ și $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Fiecare site devine negru, culoare cu culoare. Dacă arată greșit, scrie $DARK$ în switcher ca să oprești modul întunecat acolo, sau $CSS$ ca să scoți foaia de stiluri sobrio de pe acel site. Ambele cuvinte se pot schimba în setări.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "Reîncarcă pagina ca să folosești sobrio aici"
+  },
+  "backupCss": {
+    "message": "CSS-ul tău: $CHARS$ de caractere",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "se încarcă de la $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "Motorul $NAME$ la $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ deschide $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(implicit)"
+  },
+  "backupFailed": {
+    "message": "Nu s-a putut restaura"
+  },
+  "welcomeNoShortcut": {
+    "message": "Butonul din bara de instrumente"
+  },
+  "exceptionsLocal": {
+    "message": "Lasă adresele locale neatinse"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, numele .local și celelalte adrese ale mașinii sau rețelei tale își păstrează aspectul: fără foaie de stiluri, fără mod întunecat."
+  },
+  "localLeftAlone": {
+    "message": "Adresele locale sunt lăsate neatinse: schimbă în setări"
+  }
+}

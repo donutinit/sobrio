@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Một tiện ích có quan điểm riêng về cách web nên trông và trình duyệt nên cảm giác thế nào."
+  },
+  "commandOpen": {
+    "message": "Mở switcher"
+  },
+  "placeholderBookmarks": {
+    "message": "Tìm dấu trang"
+  },
+  "placeholderEngine": {
+    "message": "Tìm trên $ENGINE$",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "Tìm \"$QUERY$\" trên $ENGINE$",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Chưa có dấu trang"
+  },
+  "darkOff": {
+    "message": "Tắt chế độ tối trên $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Bật chế độ tối trên $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Tắt CSS tùy chỉnh trên $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Bật CSS tùy chỉnh trên $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ di chuyển · ↵ mở · ctrl ↵ thẻ mới · tab công cụ tìm · esc đóng"
+  },
+  "openSettings": {
+    "message": "Mở cài đặt"
+  },
+  "darkOnEverywhere": {
+    "message": "Bật chế độ tối ở mọi nơi"
+  },
+  "removesPatterns": {
+    "message": "(gỡ $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Cài đặt"
+  },
+  "styleCorners": {
+    "message": "Không bo góc"
+  },
+  "styleShadows": {
+    "message": "Không bóng đổ"
+  },
+  "styleBlur": {
+    "message": "Không làm mờ"
+  },
+  "styleAnimations": {
+    "message": "Không hoạt ảnh hay chuyển động"
+  },
+  "styleYoutube": {
+    "message": "Trừ trình phát của YouTube"
+  },
+  "styleSmoothScroll": {
+    "message": "Không cuộn mượt"
+  },
+  "styleThinScrollbars": {
+    "message": "Thanh cuộn mỏng"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Nền cuộn cùng trang"
+  },
+  "fromTheme": {
+    "message": "từ giao diện (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Làm tối các trang web"
+  },
+  "darkDetect": {
+    "message": "Giữ nguyên các trang đã tối sẵn"
+  },
+  "darkBrightness": {
+    "message": "Độ sáng"
+  },
+  "darkContrast": {
+    "message": "Độ tương phản"
+  },
+  "darkSepia": {
+    "message": "Sepia"
+  },
+  "darkGrayscale": {
+    "message": "Thang xám"
+  },
+  "darkBackground": {
+    "message": "Nền"
+  },
+  "darkText": {
+    "message": "Chữ"
+  },
+  "darkSelection": {
+    "message": "Vùng chọn"
+  },
+  "auto": {
+    "message": "Tự động"
+  },
+  "exceptionsHelp": {
+    "message": "example.com chỉ áp dụng cho trang đó; *.example.com áp dụng cả các tên miền phụ của nó."
+  },
+  "exceptionsCss": {
+    "message": "Không dùng CSS"
+  },
+  "exceptionsDark": {
+    "message": "Không dùng chế độ tối"
+  },
+  "patternPlaceholder": {
+    "message": "example.com hoặc *.example.com"
+  },
+  "add": {
+    "message": "Thêm"
+  },
+  "remove": {
+    "message": "Xóa"
+  },
+  "invalidPattern": {
+    "message": "Đó không phải là một trang web"
+  },
+  "emptyList": {
+    "message": "Không có"
+  },
+  "switcherBookmarks": {
+    "message": "Dấu trang"
+  },
+  "switcherEngine": {
+    "message": "Công cụ"
+  },
+  "switcherAutoSearch": {
+    "message": "Tìm trên web khi không có dấu trang nào khớp"
+  },
+  "switcherCommands": {
+    "message": "Lệnh trong switcher"
+  },
+  "switcherHints": {
+    "message": "Dòng phím tắt"
+  },
+  "lastPiece": {
+    "message": "Giữ lại dấu trang hoặc ít nhất một công cụ tìm kiếm"
+  },
+  "optionsFooter": {
+    "message": "Thay đổi được lưu tự động và áp dụng ngay cho các thẻ đang mở. Phím tắt được đổi trong about:addons hoặc chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "Thẻ mới"
+  },
+  "newtabStyle": {
+    "message": "Kiểu chữ"
+  },
+  "newtabStyle_editorial": {
+    "message": "Biên tập: Instrument Serif và Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Thụy Sĩ: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Máy: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Sách: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Giao diện: phông từ userContent.css"
+  },
+  "newtabClock": {
+    "message": "Đồng hồ"
+  },
+  "newtabClock_auto": {
+    "message": "Theo ngôn ngữ của trình duyệt"
+  },
+  "newtabClock_24": {
+    "message": "24 giờ"
+  },
+  "newtabClock_12": {
+    "message": "12 giờ"
+  },
+  "newtabDate": {
+    "message": "Hiện ngày"
+  },
+  "newtabTime": {
+    "message": "Hiện giờ"
+  },
+  "newtabSwitcher": {
+    "message": "Hiện switcher"
+  },
+  "newtabLocales": {
+    "message": "Ngôn ngữ cho ngày"
+  },
+  "newtabLocalesHelp": {
+    "message": "Mỗi thẻ mới hiển thị ngày bằng một trong các ngôn ngữ này, ngẫu nhiên."
+  },
+  "localesEmpty": {
+    "message": "Ngôn ngữ của trình duyệt"
+  },
+  "speedEnabled": {
+    "message": "Điều khiển tốc độ video và âm thanh"
+  },
+  "speedGlobal": {
+    "message": "Tốc độ"
+  },
+  "speedStep": {
+    "message": "Bước cho ] và ["
+  },
+  "speedShortcuts": {
+    "message": "Phím tắt: ] nhanh hơn, [ chậm hơn, \\ về 1×"
+  },
+  "speedRules": {
+    "message": "Tốc độ theo từng trang web"
+  },
+  "invalidSpeed": {
+    "message": "Từ 0.25 đến 4"
+  },
+  "speedPageOnly": {
+    "message": "chỉ trang này"
+  },
+  "toastDarkOn": {
+    "message": "Đã bật chế độ tối"
+  },
+  "toastDarkOff": {
+    "message": "Đã tắt chế độ tối"
+  },
+  "toastCssOn": {
+    "message": "Đã bật CSS"
+  },
+  "toastCssOff": {
+    "message": "Đã tắt CSS"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Đã bật chế độ tối ở mọi nơi"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Đã tắt chế độ tối ở mọi nơi"
+  },
+  "toastCopied": {
+    "message": "Đã sao chép liên kết sạch"
+  },
+  "toastCopyFailed": {
+    "message": "Không sao chép được"
+  },
+  "greetingMorning": {
+    "message": "Chào buổi sáng"
+  },
+  "greetingAfternoon": {
+    "message": "Chào buổi chiều"
+  },
+  "greetingEvening": {
+    "message": "Chào buổi tối"
+  },
+  "tab_style": {
+    "message": "Kiểu"
+  },
+  "tab_dark": {
+    "message": "Chế độ tối"
+  },
+  "tab_exceptions": {
+    "message": "Ngoại lệ"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Phím tắt"
+  },
+  "tab_newtab": {
+    "message": "Thẻ mới"
+  },
+  "tab_media": {
+    "message": "Phương tiện"
+  },
+  "tab_stats": {
+    "message": "Thống kê"
+  },
+  "styleHideScrollbars": {
+    "message": "Ẩn thanh cuộn"
+  },
+  "styleUnderlineLinks": {
+    "message": "Gạch chân liên kết"
+  },
+  "styleSelectableText": {
+    "message": "Cho phép chọn mọi văn bản"
+  },
+  "styleNoUppercase": {
+    "message": "Không ép CHỮ HOA"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Hình ảnh và video thang xám"
+  },
+  "styleFocusRing": {
+    "message": "Viền rõ ràng quanh phần tử đang có tiêu điểm"
+  },
+  "styleCustom": {
+    "message": "CSS của bạn"
+  },
+  "styleCustomHelp": {
+    "message": "Được thêm sau tất cả những gì ở trên, trong một trang kiểu riêng, trên mọi trang web có bật CSS; @import phải nằm ở đầu. ta tắt nó cùng với các mục khác. Dùng !important để ghi đè trang web. Trang web có thể đọc được, cũng như mọi kiểu trên trang của họ."
+  },
+  "switcherPrecision": {
+    "message": "Độ chính xác khi tìm"
+  },
+  "precision_strict": {
+    "message": "Chặt: từng từ đúng như đã gõ"
+  },
+  "precision_normal": {
+    "message": "Bình thường"
+  },
+  "precision_loose": {
+    "message": "Lỏng: các chữ cái theo thứ tự, ở bất kỳ đâu"
+  },
+  "switcherMemory": {
+    "message": "Ghi nhớ những gì bạn mở và xếp lên cao hơn"
+  },
+  "switcherDefaultEngine": {
+    "message": "Công cụ mặc định"
+  },
+  "customEngines": {
+    "message": "Công cụ của bạn"
+  },
+  "customEnginesHelp": {
+    "message": "%s trong địa chỉ sẽ được thay bằng những gì bạn gõ."
+  },
+  "engineName": {
+    "message": "Tên"
+  },
+  "invalidEngine": {
+    "message": "Một tên và một địa chỉ http(s) có %s"
+  },
+  "shortcutsHelp": {
+    "message": "Nhấn các phím trên nút, chọn chúng làm gì rồi thêm vào. Phím phải có Ctrl, Alt hoặc Meta, hoặc một phím chức năng. Alt với một chữ cái có thể trùng với trình duyệt (Alt+D chuyển đến thanh địa chỉ): Ctrl+Shift hoặc Alt+Shift an toàn hơn."
+  },
+  "shortcutRecord": {
+    "message": "Ghi phím"
+  },
+  "shortcutPress": {
+    "message": "Nhấn các phím…"
+  },
+  "invalidShortcut": {
+    "message": "Hãy ghi một tổ hợp có Ctrl, Alt hoặc Meta, hoặc một phím chức năng"
+  },
+  "duplicateShortcut": {
+    "message": "Những phím này đã dùng cho việc khác"
+  },
+  "invalidShortcutParam": {
+    "message": "Hành động đó cần một giá trị hợp lệ"
+  },
+  "action_switcher": {
+    "message": "Mở switcher"
+  },
+  "action_search": {
+    "message": "Tìm trên"
+  },
+  "action_searchSelection": {
+    "message": "Tìm phần đã chọn trên"
+  },
+  "action_toggleDark": {
+    "message": "Chế độ tối trên trang này"
+  },
+  "action_toggleCss": {
+    "message": "CSS trên trang này"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Chế độ tối ở mọi nơi"
+  },
+  "action_openUrl": {
+    "message": "Mở một địa chỉ"
+  },
+  "action_openUrlNewTab": {
+    "message": "Mở một địa chỉ trong thẻ mới"
+  },
+  "action_speed": {
+    "message": "Tốc độ phương tiện"
+  },
+  "action_copyCleanUrl": {
+    "message": "Sao chép liên kết không theo dõi"
+  },
+  "action_settings": {
+    "message": "Mở cài đặt"
+  },
+  "statsHelp": {
+    "message": "Mỗi dấu trang được mở từ switcher. Trọng số tăng theo số lần mở và giảm theo thời gian; chính trọng số này đưa một trang lên cao trong kết quả tìm kiếm."
+  },
+  "statsPage": {
+    "message": "Trang"
+  },
+  "statsOpens": {
+    "message": "Lượt mở"
+  },
+  "statsWeight": {
+    "message": "Trọng số"
+  },
+  "statsLast": {
+    "message": "Lần cuối"
+  },
+  "statsReset": {
+    "message": "Đặt lại"
+  },
+  "statsResetAll": {
+    "message": "Đặt lại tất cả"
+  },
+  "statsResetConfirm": {
+    "message": "Nhấn lần nữa để đặt lại"
+  },
+  "statsEmpty": {
+    "message": "Chưa có gì"
+  },
+  "newtabLayout": {
+    "message": "Bố cục"
+  },
+  "layout_clasico": {
+    "message": "Cổ điển"
+  },
+  "layout_hora": {
+    "message": "Chỉ giờ"
+  },
+  "layout_linea": {
+    "message": "Một dòng"
+  },
+  "layout_apilado": {
+    "message": "Xếp chồng"
+  },
+  "layout_esquina": {
+    "message": "Góc"
+  },
+  "layout_analogico": {
+    "message": "Kim"
+  },
+  "newtabStyle_custom": {
+    "message": "Phông của bạn"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Phông của giờ"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Độ đậm của giờ"
+  },
+  "newtabCustomDateFont": {
+    "message": "Phông của ngày"
+  },
+  "fontPlaceholder": {
+    "message": "Một phông được cài đặt ở đây"
+  },
+  "newtabGreeting": {
+    "message": "Lời chào"
+  },
+  "newtabName": {
+    "message": "Tên của bạn"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Không bắt buộc"
+  },
+  "newtabFocusPage": {
+    "message": "Lấy tiêu điểm khỏi thanh địa chỉ"
+  },
+  "newtabFocusPageHint": {
+    "message": "Thẻ được thay bằng một thẻ mới ở cùng vị trí, nên thanh địa chỉ hiển thị địa chỉ của trang thay vì để trống."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Tạm dừng video và âm thanh tự phát"
+  },
+  "toastSpeedOff": {
+    "message": "Tốc độ phương tiện đang tắt trong cài đặt"
+  },
+  "exceptionsAnimations": {
+    "message": "Giữ hoạt ảnh riêng"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "Phần CSS còn lại của sobrio vẫn áp dụng, nhưng hoạt ảnh và chuyển động không bị cắt. ChatGPT cần điều này: nếu không có chúng, khung hiển thị của nó sẽ trôi khi đang viết."
+  },
+  "switcherCommandsHint": {
+    "message": "Mỗi lệnh là một từ gồm chữ cái hoặc số, khác với các lệnh còn lại."
+  },
+  "commandName_dark": {
+    "message": "Chế độ tối trên trang này"
+  },
+  "commandName_css": {
+    "message": "Kiểu CSS trên trang này"
+  },
+  "commandName_settings": {
+    "message": "Mở cài đặt"
+  },
+  "backupLabel": {
+    "message": "Sao lưu"
+  },
+  "backupExport": {
+    "message": "Xuất"
+  },
+  "backupImport": {
+    "message": "Nhập…"
+  },
+  "backupConfirm": {
+    "message": "Thay toàn bộ bằng bản sao lưu này"
+  },
+  "backupExported": {
+    "message": "Đã lưu vào thư mục tải xuống"
+  },
+  "backupInvalid": {
+    "message": "Tệp đó không phải là bản sao lưu của sobrio"
+  },
+  "backupImported": {
+    "message": "Đã khôi phục bản sao lưu"
+  },
+  "welcomeOpen": {
+    "message": "Hướng dẫn bắt đầu"
+  },
+  "backupSummary": {
+    "message": "Phím tắt: $SHORTCUTS$ · ngoại lệ: $EXCEPTIONS$ · trang đã ghi nhớ: $PAGES$. Nó thay thế những gì đang có ở đây.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "Chào mừng bạn đến với sobrio."
+  },
+  "welcomeLead": {
+    "message": "Web đen trắng, yên tĩnh hơn, và chỉ cách một phím tắt. Năm điều đáng biết."
+  },
+  "welcomeSwitcher": {
+    "message": "Mở switcher trên bất kỳ trang nào: gõ để tìm trong dấu trang, Tab để chuyển giữa các công cụ tìm kiếm, Enter để mở, Ctrl+Enter để mở trong thẻ mới. Nút trên thanh công cụ cũng mở nó."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Thẻ mới của bạn"
+  },
+  "welcomeNewtab": {
+    "message": "Trình duyệt có thể hỏi bạn có giữ thẻ mới mà sobrio đặt không: hãy giữ lại. Thẻ này lấy tiêu điểm khỏi thanh địa chỉ, để bạn gõ vào switcher ngay."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Phím tắt riêng của bạn"
+  },
+  "welcomeShortcuts": {
+    "message": "Ghi bất kỳ tổ hợp phím nào trong cài đặt để mở một địa chỉ, tìm phần đã chọn, đặt tốc độ phương tiện hoặc sao chép liên kết không theo dõi."
+  },
+  "welcomeSystemTitle": {
+    "message": "Hệ thống tối"
+  },
+  "welcomeSystem": {
+    "message": "Đặt hệ thống sang giao diện tối: các trang có giao diện tối riêng sẽ chuyển sang, và sobrio để yên cho chúng."
+  },
+  "welcomeSettings": {
+    "message": "Mở cài đặt"
+  },
+  "welcomeFooter": {
+    "message": "Không có gì rời khỏi trình duyệt của bạn. Cài đặt có một bản sao lưu, để mang tất cả sang trình duyệt khác."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ và $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Mỗi trang đều chuyển sang màu đen, từng màu một. Nếu một trang trông sai, gõ $DARK$ trong switcher để tắt chế độ tối ở đó, hoặc $CSS$ để bỏ kiểu CSS của sobrio trên trang đó. Có thể đổi cả hai từ trong cài đặt.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "Tải lại trang này để dùng sobrio ở đây"
+  },
+  "backupCss": {
+    "message": "CSS của bạn: $CHARS$ ký tự",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "đang tải từ $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "Công cụ $NAME$ tại $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ mở $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(mặc định)"
+  },
+  "backupFailed": {
+    "message": "Không khôi phục được"
+  },
+  "welcomeNoShortcut": {
+    "message": "Nút trên thanh công cụ"
+  },
+  "exceptionsLocal": {
+    "message": "Để yên các địa chỉ cục bộ"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, các tên .local và các địa chỉ khác của máy hoặc mạng của bạn giữ nguyên diện mạo riêng: không có kiểu CSS, không có chế độ tối."
+  },
+  "localLeftAlone": {
+    "message": "Các địa chỉ cục bộ được để yên: thay đổi trong cài đặt"
+  }
+}

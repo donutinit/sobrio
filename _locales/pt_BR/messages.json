@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Uma extensão com opinião sobre como a web deve parecer e como um navegador deve se sentir."
+  },
+  "commandOpen": {
+    "message": "Abrir o switcher"
+  },
+  "placeholderBookmarks": {
+    "message": "Buscar favoritos"
+  },
+  "placeholderEngine": {
+    "message": "Pesquisar em $ENGINE$",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "Pesquisar \"$QUERY$\" em $ENGINE$",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Nenhum favorito"
+  },
+  "darkOff": {
+    "message": "Desligar o modo escuro em $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Ligar o modo escuro em $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Desligar o CSS personalizado em $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Ligar o CSS personalizado em $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ mover · ↵ abrir · ctrl ↵ nova aba · tab mecanismos · esc fechar"
+  },
+  "openSettings": {
+    "message": "Abrir configurações"
+  },
+  "darkOnEverywhere": {
+    "message": "Ligar o modo escuro em todos os sites"
+  },
+  "removesPatterns": {
+    "message": "(remove $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Configurações"
+  },
+  "styleCorners": {
+    "message": "Sem cantos arredondados"
+  },
+  "styleShadows": {
+    "message": "Sem sombras"
+  },
+  "styleBlur": {
+    "message": "Sem desfoque"
+  },
+  "styleAnimations": {
+    "message": "Sem animações nem transições"
+  },
+  "styleYoutube": {
+    "message": "Exceto no player do YouTube"
+  },
+  "styleSmoothScroll": {
+    "message": "Sem rolagem suave"
+  },
+  "styleThinScrollbars": {
+    "message": "Barras de rolagem finas"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Fundos que rolam com a página"
+  },
+  "fromTheme": {
+    "message": "do tema (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Escurecer os sites"
+  },
+  "darkDetect": {
+    "message": "Deixar em paz os sites que já são escuros"
+  },
+  "darkBrightness": {
+    "message": "Brilho"
+  },
+  "darkContrast": {
+    "message": "Contraste"
+  },
+  "darkSepia": {
+    "message": "Sépia"
+  },
+  "darkGrayscale": {
+    "message": "Escala de cinza"
+  },
+  "darkBackground": {
+    "message": "Fundo"
+  },
+  "darkText": {
+    "message": "Texto"
+  },
+  "darkSelection": {
+    "message": "Seleção"
+  },
+  "auto": {
+    "message": "Automático"
+  },
+  "exceptionsHelp": {
+    "message": "example.com vale só para esse site; *.example.com também vale para os subdomínios dele."
+  },
+  "exceptionsCss": {
+    "message": "Sem a folha de estilo"
+  },
+  "exceptionsDark": {
+    "message": "Sem modo escuro"
+  },
+  "patternPlaceholder": {
+    "message": "example.com ou *.example.com"
+  },
+  "add": {
+    "message": "Adicionar"
+  },
+  "remove": {
+    "message": "Remover"
+  },
+  "invalidPattern": {
+    "message": "Isso não é um site"
+  },
+  "emptyList": {
+    "message": "Nenhum"
+  },
+  "switcherBookmarks": {
+    "message": "Favoritos"
+  },
+  "switcherEngine": {
+    "message": "Mecanismo"
+  },
+  "switcherAutoSearch": {
+    "message": "Pesquisar na web quando nenhum favorito corresponder"
+  },
+  "switcherCommands": {
+    "message": "Comandos no switcher"
+  },
+  "switcherHints": {
+    "message": "Linha de atalhos"
+  },
+  "lastPiece": {
+    "message": "Mantenha os favoritos ou pelo menos um mecanismo"
+  },
+  "optionsFooter": {
+    "message": "As alterações são salvas sozinhas e aplicadas na hora nas abas abertas. O atalho é alterado em about:addons ou em chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "Nova aba"
+  },
+  "newtabStyle": {
+    "message": "Tipografia"
+  },
+  "newtabStyle_editorial": {
+    "message": "Editorial: Instrument Serif e Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Suíço: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Máquina: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Livro: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Tema: a fonte de userContent.css"
+  },
+  "newtabClock": {
+    "message": "Relógio"
+  },
+  "newtabClock_auto": {
+    "message": "Como o idioma do navegador"
+  },
+  "newtabClock_24": {
+    "message": "24 horas"
+  },
+  "newtabClock_12": {
+    "message": "12 horas"
+  },
+  "newtabDate": {
+    "message": "Mostrar a data"
+  },
+  "newtabTime": {
+    "message": "Mostrar a hora"
+  },
+  "newtabSwitcher": {
+    "message": "Mostrar o switcher"
+  },
+  "newtabLocales": {
+    "message": "Idiomas da data"
+  },
+  "newtabLocalesHelp": {
+    "message": "Cada nova aba mostra a data em um destes idiomas, escolhido ao acaso."
+  },
+  "localesEmpty": {
+    "message": "O idioma do navegador"
+  },
+  "speedEnabled": {
+    "message": "Controlar a velocidade de vídeo e áudio"
+  },
+  "speedGlobal": {
+    "message": "Velocidade"
+  },
+  "speedStep": {
+    "message": "Passo de ] e ["
+  },
+  "speedShortcuts": {
+    "message": "Atalhos: ] mais rápido, [ mais lento, \\ volta a 1×"
+  },
+  "speedRules": {
+    "message": "Velocidade por site"
+  },
+  "invalidSpeed": {
+    "message": "Entre 0,25 e 4"
+  },
+  "speedPageOnly": {
+    "message": "só esta página"
+  },
+  "toastDarkOn": {
+    "message": "Modo escuro ligado"
+  },
+  "toastDarkOff": {
+    "message": "Modo escuro desligado"
+  },
+  "toastCssOn": {
+    "message": "Folha de estilo ligada"
+  },
+  "toastCssOff": {
+    "message": "Folha de estilo desligada"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Modo escuro ligado em todos os sites"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Modo escuro desligado em todos os sites"
+  },
+  "toastCopied": {
+    "message": "Link limpo copiado"
+  },
+  "toastCopyFailed": {
+    "message": "Não foi possível copiar"
+  },
+  "greetingMorning": {
+    "message": "Bom dia"
+  },
+  "greetingAfternoon": {
+    "message": "Boa tarde"
+  },
+  "greetingEvening": {
+    "message": "Boa noite"
+  },
+  "tab_style": {
+    "message": "Estilo"
+  },
+  "tab_dark": {
+    "message": "Modo escuro"
+  },
+  "tab_exceptions": {
+    "message": "Exceções"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Atalhos"
+  },
+  "tab_newtab": {
+    "message": "Nova aba"
+  },
+  "tab_media": {
+    "message": "Mídia"
+  },
+  "tab_stats": {
+    "message": "Estatísticas"
+  },
+  "styleHideScrollbars": {
+    "message": "Esconder as barras de rolagem"
+  },
+  "styleUnderlineLinks": {
+    "message": "Sublinhar os links"
+  },
+  "styleSelectableText": {
+    "message": "Deixar selecionar qualquer texto"
+  },
+  "styleNoUppercase": {
+    "message": "Sem MAIÚSCULAS forçadas"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Imagens e vídeos em escala de cinza"
+  },
+  "styleFocusRing": {
+    "message": "Um contorno visível no elemento em foco"
+  },
+  "styleCustom": {
+    "message": "Seu CSS"
+  },
+  "styleCustomHelp": {
+    "message": "Entra depois de tudo acima, em uma folha própria, em cada site onde o CSS está ligado; um @import vai para o topo. ta desliga tudo junto com o resto. Use !important para ganhar do site. Os sites podem ler isso, como podem ler qualquer estilo da sua página."
+  },
+  "switcherPrecision": {
+    "message": "Precisão da pesquisa"
+  },
+  "precision_strict": {
+    "message": "Estrita: cada palavra como digitada"
+  },
+  "precision_normal": {
+    "message": "Normal"
+  },
+  "precision_loose": {
+    "message": "Flexível: letras em ordem, em qualquer lugar"
+  },
+  "switcherMemory": {
+    "message": "Lembrar o que eu abro e colocar mais alto na pesquisa"
+  },
+  "switcherDefaultEngine": {
+    "message": "Mecanismo padrão"
+  },
+  "customEngines": {
+    "message": "Seus mecanismos"
+  },
+  "customEnginesHelp": {
+    "message": "%s no endereço é trocado pelo que você digitar."
+  },
+  "engineName": {
+    "message": "Nome"
+  },
+  "invalidEngine": {
+    "message": "Um nome e um endereço http(s) com %s"
+  },
+  "shortcutsHelp": {
+    "message": "Pressione as teclas no botão, escolha o que elas fazem e adicione. Elas precisam de Ctrl, Alt ou Meta, ou de uma tecla de função. Alt com uma letra pode colidir com o navegador (Alt+D vai para a barra de endereços): Ctrl+Shift ou Alt+Shift são mais seguros."
+  },
+  "shortcutRecord": {
+    "message": "Gravar teclas"
+  },
+  "shortcutPress": {
+    "message": "Pressione as teclas…"
+  },
+  "invalidShortcut": {
+    "message": "Grave uma combinação com Ctrl, Alt ou Meta, ou uma tecla de função"
+  },
+  "duplicateShortcut": {
+    "message": "Essas teclas já fazem alguma coisa"
+  },
+  "invalidShortcutParam": {
+    "message": "Essa ação precisa de um valor válido"
+  },
+  "action_switcher": {
+    "message": "Abrir o switcher"
+  },
+  "action_search": {
+    "message": "Pesquisar em"
+  },
+  "action_searchSelection": {
+    "message": "Pesquisar a seleção em"
+  },
+  "action_toggleDark": {
+    "message": "Modo escuro neste site"
+  },
+  "action_toggleCss": {
+    "message": "CSS neste site"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Modo escuro em todos os sites"
+  },
+  "action_openUrl": {
+    "message": "Abrir um endereço"
+  },
+  "action_openUrlNewTab": {
+    "message": "Abrir um endereço em nova aba"
+  },
+  "action_speed": {
+    "message": "Velocidade de mídia"
+  },
+  "action_copyCleanUrl": {
+    "message": "Copiar o link sem rastreamento"
+  },
+  "action_settings": {
+    "message": "Abrir as configurações"
+  },
+  "statsHelp": {
+    "message": "Cada favorito aberto pelo switcher. O peso cresce com as aberturas e diminui com o tempo; é ele que sobe uma página na pesquisa."
+  },
+  "statsPage": {
+    "message": "Página"
+  },
+  "statsOpens": {
+    "message": "Aberturas"
+  },
+  "statsWeight": {
+    "message": "Peso"
+  },
+  "statsLast": {
+    "message": "Última"
+  },
+  "statsReset": {
+    "message": "Zerar"
+  },
+  "statsResetAll": {
+    "message": "Zerar tudo"
+  },
+  "statsResetConfirm": {
+    "message": "Clique de novo para zerar"
+  },
+  "statsEmpty": {
+    "message": "Nada ainda"
+  },
+  "newtabLayout": {
+    "message": "Layout"
+  },
+  "layout_clasico": {
+    "message": "Clássico"
+  },
+  "layout_hora": {
+    "message": "Só a hora"
+  },
+  "layout_linea": {
+    "message": "Em uma linha"
+  },
+  "layout_apilado": {
+    "message": "Empilhado"
+  },
+  "layout_esquina": {
+    "message": "Canto"
+  },
+  "layout_analogico": {
+    "message": "Analógico"
+  },
+  "newtabStyle_custom": {
+    "message": "Minhas fontes"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Fonte da hora"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Peso da hora"
+  },
+  "newtabCustomDateFont": {
+    "message": "Fonte da data"
+  },
+  "fontPlaceholder": {
+    "message": "Uma fonte instalada aqui"
+  },
+  "newtabGreeting": {
+    "message": "Saudação"
+  },
+  "newtabName": {
+    "message": "Seu nome"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Opcional"
+  },
+  "newtabFocusPage": {
+    "message": "Tirar o foco da barra de endereços"
+  },
+  "newtabFocusPageHint": {
+    "message": "A aba é trocada por uma nova no mesmo lugar, então a barra de endereços mostra o endereço dela em vez de ficar vazia."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Pausar vídeo e áudio que começam sozinhos"
+  },
+  "toastSpeedOff": {
+    "message": "A velocidade de mídia está desligada nas configurações"
+  },
+  "exceptionsAnimations": {
+    "message": "Com as próprias animações"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "O resto do CSS do sobrio se aplica, mas as animações e transições não são cortadas. O ChatGPT precisa disso: sem elas, a tela se desloca enquanto ele escreve."
+  },
+  "switcherCommandsHint": {
+    "message": "Cada um, uma palavra de letras ou números, diferente das outras."
+  },
+  "commandName_dark": {
+    "message": "Modo escuro neste site"
+  },
+  "commandName_css": {
+    "message": "Folha de estilo neste site"
+  },
+  "commandName_settings": {
+    "message": "Abrir as configurações"
+  },
+  "backupLabel": {
+    "message": "Backup"
+  },
+  "backupExport": {
+    "message": "Exportar"
+  },
+  "backupImport": {
+    "message": "Importar…"
+  },
+  "backupConfirm": {
+    "message": "Substituir tudo por este backup"
+  },
+  "backupExported": {
+    "message": "Salvo nos seus downloads"
+  },
+  "backupInvalid": {
+    "message": "Este arquivo não é um backup do sobrio"
+  },
+  "backupImported": {
+    "message": "Backup restaurado"
+  },
+  "welcomeOpen": {
+    "message": "Guia de boas-vindas"
+  },
+  "backupSummary": {
+    "message": "Atalhos: $SHORTCUTS$ · exceções: $EXCEPTIONS$ · páginas lembradas: $PAGES$. Substitui o que existe agora.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "Bem-vindo ao sobrio."
+  },
+  "welcomeLead": {
+    "message": "A web em preto e branco, mais calma e a um atalho de distância. Cinco coisas que vale a pena saber."
+  },
+  "welcomeSwitcher": {
+    "message": "Abre o switcher em qualquer página: digite para buscar nos favoritos, Tab percorre os mecanismos de pesquisa, Enter abre e Ctrl+Enter abre em nova aba. O botão da barra de ferramentas também o abre."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Sua nova aba"
+  },
+  "welcomeNewtab": {
+    "message": "Seu navegador pode perguntar se você quer manter a nova aba que o sobrio define: mantenha. Ela tira o foco da barra de endereços, para você digitar no switcher de imediato."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Seus próprios atalhos"
+  },
+  "welcomeShortcuts": {
+    "message": "Grave qualquer combinação nas configurações para abrir um endereço, pesquisar a seleção, definir a velocidade da mídia ou copiar um link sem rastreamento."
+  },
+  "welcomeSystemTitle": {
+    "message": "Um sistema escuro"
+  },
+  "welcomeSystem": {
+    "message": "Coloque seu sistema na aparência escura: os sites com tema escuro próprio passam a usá-lo, e o sobrio os deixa em paz."
+  },
+  "welcomeSettings": {
+    "message": "Abrir as configurações"
+  },
+  "welcomeFooter": {
+    "message": "Nada sai do seu navegador. As configurações têm um backup, para levar tudo isso para outro navegador."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ e $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Cada site fica preto, cor por cor. Se algum parecer errado, digite $DARK$ no switcher para desligar o modo escuro ali, ou $CSS$ para tirar a folha de estilo do sobrio desse site. As duas palavras podem ser trocadas nas configurações.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "Recarregue esta página para usar o sobrio aqui"
+  },
+  "backupCss": {
+    "message": "Seu CSS: $CHARS$ caracteres",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "carrega de $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "Mecanismo $NAME$ em $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ abre $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(o padrão)"
+  },
+  "backupFailed": {
+    "message": "Não foi possível restaurar"
+  },
+  "welcomeNoShortcut": {
+    "message": "O botão da barra de ferramentas"
+  },
+  "exceptionsLocal": {
+    "message": "Deixar os endereços locais em paz"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, os nomes .local e os outros endereços da sua máquina ou rede mantêm a aparência própria: sem folha de estilo, sem modo escuro."
+  },
+  "localLeftAlone": {
+    "message": "Os endereços locais são deixados em paz: altere isso nas configurações"
+  }
+}

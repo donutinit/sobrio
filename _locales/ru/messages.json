@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Расширение с собственным взглядом на то, как должна выглядеть сеть и как должен ощущаться браузер."
+  },
+  "commandOpen": {
+    "message": "Открыть switcher"
+  },
+  "placeholderBookmarks": {
+    "message": "Искать в закладках"
+  },
+  "placeholderEngine": {
+    "message": "Искать в $ENGINE$",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "Искать «$QUERY$» в $ENGINE$",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Нет закладок"
+  },
+  "darkOff": {
+    "message": "Выключить тёмную тему на $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Включить тёмную тему на $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Выключить CSS на $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Включить CSS на $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ перемещение · ↵ открыть · ctrl ↵ новая вкладка · tab поисковики · esc закрыть"
+  },
+  "openSettings": {
+    "message": "Открыть настройки"
+  },
+  "darkOnEverywhere": {
+    "message": "Включить тёмную тему везде"
+  },
+  "removesPatterns": {
+    "message": "(убирает $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Настройки"
+  },
+  "styleCorners": {
+    "message": "Без скруглённых углов"
+  },
+  "styleShadows": {
+    "message": "Без теней"
+  },
+  "styleBlur": {
+    "message": "Без размытия"
+  },
+  "styleAnimations": {
+    "message": "Без анимаций и переходов"
+  },
+  "styleYoutube": {
+    "message": "Кроме плеера YouTube"
+  },
+  "styleSmoothScroll": {
+    "message": "Без плавной прокрутки"
+  },
+  "styleThinScrollbars": {
+    "message": "Тонкие полосы прокрутки"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Фоны прокручиваются вместе со страницей"
+  },
+  "fromTheme": {
+    "message": "из темы (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Затемнять сайты"
+  },
+  "darkDetect": {
+    "message": "Не трогать сайты, которые уже тёмные"
+  },
+  "darkBrightness": {
+    "message": "Яркость"
+  },
+  "darkContrast": {
+    "message": "Контраст"
+  },
+  "darkSepia": {
+    "message": "Сепия"
+  },
+  "darkGrayscale": {
+    "message": "Оттенки серого"
+  },
+  "darkBackground": {
+    "message": "Фон"
+  },
+  "darkText": {
+    "message": "Текст"
+  },
+  "darkSelection": {
+    "message": "Выделение"
+  },
+  "auto": {
+    "message": "Авто"
+  },
+  "exceptionsHelp": {
+    "message": "example.com относится только к этому сайту; *.example.com включает и его поддомены."
+  },
+  "exceptionsCss": {
+    "message": "Без CSS"
+  },
+  "exceptionsDark": {
+    "message": "Без тёмной темы"
+  },
+  "patternPlaceholder": {
+    "message": "example.com или *.example.com"
+  },
+  "add": {
+    "message": "Добавить"
+  },
+  "remove": {
+    "message": "Удалить"
+  },
+  "invalidPattern": {
+    "message": "Это не сайт"
+  },
+  "emptyList": {
+    "message": "Нет"
+  },
+  "switcherBookmarks": {
+    "message": "Закладки"
+  },
+  "switcherEngine": {
+    "message": "Поисковик"
+  },
+  "switcherAutoSearch": {
+    "message": "Искать в сети, если ни одна закладка не подходит"
+  },
+  "switcherCommands": {
+    "message": "Команды в switcher"
+  },
+  "switcherHints": {
+    "message": "Строка подсказок"
+  },
+  "lastPiece": {
+    "message": "Оставьте закладки или хотя бы один поисковик"
+  },
+  "optionsFooter": {
+    "message": "Изменения сохраняются сами и сразу применяются к открытым вкладкам. Сочетание клавиш меняется в about:addons или chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "Новая вкладка"
+  },
+  "newtabStyle": {
+    "message": "Типографика"
+  },
+  "newtabStyle_editorial": {
+    "message": "Редакционный: Instrument Serif и Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Швейцарский: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Машинописный: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Книжный: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Тема: шрифт из userContent.css"
+  },
+  "newtabClock": {
+    "message": "Часы"
+  },
+  "newtabClock_auto": {
+    "message": "Как язык браузера"
+  },
+  "newtabClock_24": {
+    "message": "24 часа"
+  },
+  "newtabClock_12": {
+    "message": "12 часов"
+  },
+  "newtabDate": {
+    "message": "Показывать дату"
+  },
+  "newtabTime": {
+    "message": "Показывать время"
+  },
+  "newtabSwitcher": {
+    "message": "Показывать switcher"
+  },
+  "newtabLocales": {
+    "message": "Языки для даты"
+  },
+  "newtabLocalesHelp": {
+    "message": "Каждая новая вкладка называет дату на одном из этих языков, наугад."
+  },
+  "localesEmpty": {
+    "message": "Язык браузера"
+  },
+  "speedEnabled": {
+    "message": "Управлять скоростью видео и аудио"
+  },
+  "speedGlobal": {
+    "message": "Скорость"
+  },
+  "speedStep": {
+    "message": "Шаг для ] и ["
+  },
+  "speedShortcuts": {
+    "message": "Сочетания: ] быстрее, [ медленнее, \\ вернуть 1×"
+  },
+  "speedRules": {
+    "message": "Скорость для каждого сайта"
+  },
+  "invalidSpeed": {
+    "message": "От 0.25 до 4"
+  },
+  "speedPageOnly": {
+    "message": "только эта страница"
+  },
+  "toastDarkOn": {
+    "message": "Тёмная тема включена"
+  },
+  "toastDarkOff": {
+    "message": "Тёмная тема выключена"
+  },
+  "toastCssOn": {
+    "message": "Таблица стилей включена"
+  },
+  "toastCssOff": {
+    "message": "Таблица стилей выключена"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Тёмная тема включена везде"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Тёмная тема выключена везде"
+  },
+  "toastCopied": {
+    "message": "Чистая ссылка скопирована"
+  },
+  "toastCopyFailed": {
+    "message": "Не удалось скопировать"
+  },
+  "greetingMorning": {
+    "message": "Доброе утро"
+  },
+  "greetingAfternoon": {
+    "message": "Добрый день"
+  },
+  "greetingEvening": {
+    "message": "Добрый вечер"
+  },
+  "tab_style": {
+    "message": "Стиль"
+  },
+  "tab_dark": {
+    "message": "Тёмная тема"
+  },
+  "tab_exceptions": {
+    "message": "Исключения"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Сочетания клавиш"
+  },
+  "tab_newtab": {
+    "message": "Новая вкладка"
+  },
+  "tab_media": {
+    "message": "Медиа"
+  },
+  "tab_stats": {
+    "message": "Статистика"
+  },
+  "styleHideScrollbars": {
+    "message": "Скрыть полосы прокрутки"
+  },
+  "styleUnderlineLinks": {
+    "message": "Подчёркивать ссылки"
+  },
+  "styleSelectableText": {
+    "message": "Выделять любой текст"
+  },
+  "styleNoUppercase": {
+    "message": "Без принудительных ПРОПИСНЫХ"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Изображения и видео в оттенках серого"
+  },
+  "styleFocusRing": {
+    "message": "Видимая рамка у элемента в фокусе"
+  },
+  "styleCustom": {
+    "message": "Ваш CSS"
+  },
+  "styleCustomHelp": {
+    "message": "Добавляется после всего выше, в отдельном листе, на каждом сайте, где включён CSS; @import ставится в самое начало. ta выключает его вместе с остальным. Используйте !important, чтобы перебить сайт. Сайты могут его прочитать, как любой стиль на своей странице."
+  },
+  "switcherPrecision": {
+    "message": "Точность поиска"
+  },
+  "precision_strict": {
+    "message": "Строгая: каждое слово как написано"
+  },
+  "precision_normal": {
+    "message": "Обычная"
+  },
+  "precision_loose": {
+    "message": "Свободная: буквы по порядку, где угодно"
+  },
+  "switcherMemory": {
+    "message": "Запоминать открытое и поднимать его в поиске"
+  },
+  "switcherDefaultEngine": {
+    "message": "Поисковик по умолчанию"
+  },
+  "customEngines": {
+    "message": "Ваши поисковики"
+  },
+  "customEnginesHelp": {
+    "message": "%s в адресе заменяется на то, что вы вводите."
+  },
+  "engineName": {
+    "message": "Название"
+  },
+  "invalidEngine": {
+    "message": "Название и адрес http(s) с %s"
+  },
+  "shortcutsHelp": {
+    "message": "Нажмите клавиши на кнопке, выберите, что они делают, и добавьте. Нужны Ctrl, Alt или Meta, либо функциональная клавиша. Alt с буквой может конфликтовать с браузером (Alt+D открывает адресную строку): Ctrl+Shift или Alt+Shift безопаснее."
+  },
+  "shortcutRecord": {
+    "message": "Записать клавиши"
+  },
+  "shortcutPress": {
+    "message": "Нажмите клавиши…"
+  },
+  "invalidShortcut": {
+    "message": "Запишите сочетание с Ctrl, Alt или Meta, либо функциональную клавишу"
+  },
+  "duplicateShortcut": {
+    "message": "Эти клавиши уже что-то делают"
+  },
+  "invalidShortcutParam": {
+    "message": "Для этого действия нужно правильное значение"
+  },
+  "action_switcher": {
+    "message": "Открыть switcher"
+  },
+  "action_search": {
+    "message": "Искать в"
+  },
+  "action_searchSelection": {
+    "message": "Искать выделенное в"
+  },
+  "action_toggleDark": {
+    "message": "Тёмная тема на этом сайте"
+  },
+  "action_toggleCss": {
+    "message": "CSS на этом сайте"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Тёмная тема везде"
+  },
+  "action_openUrl": {
+    "message": "Открыть адрес"
+  },
+  "action_openUrlNewTab": {
+    "message": "Открыть адрес в новой вкладке"
+  },
+  "action_speed": {
+    "message": "Скорость медиа"
+  },
+  "action_copyCleanUrl": {
+    "message": "Скопировать ссылку без отслеживания"
+  },
+  "action_settings": {
+    "message": "Открыть настройки"
+  },
+  "statsHelp": {
+    "message": "Каждая закладка, открытая из switcher. Вес растёт с числом открытий и угасает со временем; именно он поднимает страницу в поиске."
+  },
+  "statsPage": {
+    "message": "Страница"
+  },
+  "statsOpens": {
+    "message": "Открытий"
+  },
+  "statsWeight": {
+    "message": "Вес"
+  },
+  "statsLast": {
+    "message": "Последнее"
+  },
+  "statsReset": {
+    "message": "Сбросить"
+  },
+  "statsResetAll": {
+    "message": "Сбросить всё"
+  },
+  "statsResetConfirm": {
+    "message": "Нажмите ещё раз, чтобы сбросить"
+  },
+  "statsEmpty": {
+    "message": "Пока пусто"
+  },
+  "newtabLayout": {
+    "message": "Макет"
+  },
+  "layout_clasico": {
+    "message": "Классический"
+  },
+  "layout_hora": {
+    "message": "Только время"
+  },
+  "layout_linea": {
+    "message": "В одну строку"
+  },
+  "layout_apilado": {
+    "message": "Стопкой"
+  },
+  "layout_esquina": {
+    "message": "Угловой"
+  },
+  "layout_analogico": {
+    "message": "Аналоговый"
+  },
+  "newtabStyle_custom": {
+    "message": "Мои шрифты"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Шрифт времени"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Толщина времени"
+  },
+  "newtabCustomDateFont": {
+    "message": "Шрифт даты"
+  },
+  "fontPlaceholder": {
+    "message": "Шрифт, установленный здесь"
+  },
+  "newtabGreeting": {
+    "message": "Приветствие"
+  },
+  "newtabName": {
+    "message": "Ваше имя"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Необязательно"
+  },
+  "newtabFocusPage": {
+    "message": "Убрать фокус из адресной строки"
+  },
+  "newtabFocusPageHint": {
+    "message": "Вкладка заменяется новой на том же месте, поэтому адресная строка показывает адрес страницы, а не остаётся пустой."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Ставить на паузу видео и аудио, которые начинаются сами"
+  },
+  "toastSpeedOff": {
+    "message": "Скорость медиа выключена в настройках"
+  },
+  "exceptionsAnimations": {
+    "message": "С их анимациями"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "Остальной CSS sobrio применяется, но анимации и переходы не отключаются. ChatGPT это нужно: без них его вид сползает, пока он пишет."
+  },
+  "switcherCommandsHint": {
+    "message": "Каждая команда состоит из одного слова из букв или цифр и отличается от остальных."
+  },
+  "commandName_dark": {
+    "message": "Тёмная тема на этом сайте"
+  },
+  "commandName_css": {
+    "message": "Таблица стилей на этом сайте"
+  },
+  "commandName_settings": {
+    "message": "Открыть настройки"
+  },
+  "backupLabel": {
+    "message": "Резервная копия"
+  },
+  "backupExport": {
+    "message": "Экспорт"
+  },
+  "backupImport": {
+    "message": "Импорт…"
+  },
+  "backupConfirm": {
+    "message": "Заменить всё этой копией"
+  },
+  "backupExported": {
+    "message": "Сохранено в загрузки"
+  },
+  "backupInvalid": {
+    "message": "Это не резервная копия sobrio"
+  },
+  "backupImported": {
+    "message": "Резервная копия восстановлена"
+  },
+  "welcomeOpen": {
+    "message": "Приветственный гид"
+  },
+  "backupSummary": {
+    "message": "Сочетания: $SHORTCUTS$ · исключения: $EXCEPTIONS$ · запомненные страницы: $PAGES$. Заменяет то, что есть сейчас.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "Добро пожаловать в sobrio."
+  },
+  "welcomeLead": {
+    "message": "Сеть в чёрно-белом, спокойнее и в одном сочетании клавиш. Пять вещей, которые стоит знать."
+  },
+  "welcomeSwitcher": {
+    "message": "Открывает switcher на любой странице: вводите текст, чтобы искать в закладках, Tab переходит между поисковиками, Enter открывает, Ctrl+Enter открывает в новой вкладке. Кнопка на панели инструментов тоже открывает switcher."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Ваша новая вкладка"
+  },
+  "welcomeNewtab": {
+    "message": "Браузер может спросить, оставить ли новую вкладку, которую задаёт sobrio: оставьте. Она убирает фокус из адресной строки, так что можно сразу печатать в switcher."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Свои сочетания клавиш"
+  },
+  "welcomeShortcuts": {
+    "message": "Запишите любое сочетание в настройках, чтобы открыть адрес, искать выделенное, задать скорость медиа или скопировать ссылку без отслеживания."
+  },
+  "welcomeSystemTitle": {
+    "message": "Тёмная система"
+  },
+  "welcomeSystem": {
+    "message": "Включите тёмное оформление системы: сайты с собственной тёмной темой переключатся на неё, а sobrio их не тронет."
+  },
+  "welcomeSettings": {
+    "message": "Открыть настройки"
+  },
+  "welcomeFooter": {
+    "message": "Ничего не покидает ваш браузер. В настройках есть резервная копия, чтобы перенести всё это в другой браузер."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ и $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Каждый сайт становится чёрным, цвет за цветом. Если какой-то выглядит неправильно, введите $DARK$ в switcher, чтобы выключить там тёмную тему, или $CSS$, чтобы убрать с этого сайта таблицу стилей sobrio. Оба слова можно изменить в настройках.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "Перезагрузите эту страницу, чтобы использовать sobrio здесь"
+  },
+  "backupCss": {
+    "message": "Ваш CSS: $CHARS$ символов",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "загружается с $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "Поисковик $NAME$ на $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ открывает $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(по умолчанию)"
+  },
+  "backupFailed": {
+    "message": "Не удалось восстановить"
+  },
+  "welcomeNoShortcut": {
+    "message": "Кнопка на панели инструментов"
+  },
+  "exceptionsLocal": {
+    "message": "Не трогать локальные адреса"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, имена .local и другие адреса вашей машины или сети сохраняют свой вид: без таблицы стилей и без тёмной темы."
+  },
+  "localLeftAlone": {
+    "message": "Локальные адреса не трогаются: измените это в настройках"
+  }
+}

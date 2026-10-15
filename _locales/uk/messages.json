@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Розширення з власною думкою про те, як має виглядати веб і як має відчуватися браузер."
+  },
+  "commandOpen": {
+    "message": "Відкрити switcher"
+  },
+  "placeholderBookmarks": {
+    "message": "Шукати закладки"
+  },
+  "placeholderEngine": {
+    "message": "Шукати у $ENGINE$",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "Шукати «$QUERY$» у $ENGINE$",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Немає закладок"
+  },
+  "darkOff": {
+    "message": "Вимкнути темний режим на $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Увімкнути темний режим на $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Вимкнути власний CSS на $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Увімкнути власний CSS на $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ рух · ↵ відкрити · ctrl ↵ нова вкладка · tab пошукові системи · esc закрити"
+  },
+  "openSettings": {
+    "message": "Відкрити налаштування"
+  },
+  "darkOnEverywhere": {
+    "message": "Увімкнути темний режим скрізь"
+  },
+  "removesPatterns": {
+    "message": "(прибирає $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Налаштування"
+  },
+  "styleCorners": {
+    "message": "Без заокруглених кутів"
+  },
+  "styleShadows": {
+    "message": "Без тіней"
+  },
+  "styleBlur": {
+    "message": "Без розмиття"
+  },
+  "styleAnimations": {
+    "message": "Без анімацій і переходів"
+  },
+  "styleYoutube": {
+    "message": "Крім відеоплеєра YouTube"
+  },
+  "styleSmoothScroll": {
+    "message": "Без плавного прокручування"
+  },
+  "styleThinScrollbars": {
+    "message": "Тонкі смуги прокручування"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Фони прокручуються разом зі сторінкою"
+  },
+  "fromTheme": {
+    "message": "з теми (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Затемнювати сайти"
+  },
+  "darkDetect": {
+    "message": "Не чіпати сайти, які вже темні"
+  },
+  "darkBrightness": {
+    "message": "Яскравість"
+  },
+  "darkContrast": {
+    "message": "Контраст"
+  },
+  "darkSepia": {
+    "message": "Сепія"
+  },
+  "darkGrayscale": {
+    "message": "Відтінки сірого"
+  },
+  "darkBackground": {
+    "message": "Фон"
+  },
+  "darkText": {
+    "message": "Текст"
+  },
+  "darkSelection": {
+    "message": "Виділення"
+  },
+  "auto": {
+    "message": "Авто"
+  },
+  "exceptionsHelp": {
+    "message": "example.com стосується лише цього сайту; *.example.com охоплює також його піддомени."
+  },
+  "exceptionsCss": {
+    "message": "Без CSS"
+  },
+  "exceptionsDark": {
+    "message": "Без темного режиму"
+  },
+  "patternPlaceholder": {
+    "message": "example.com або *.example.com"
+  },
+  "add": {
+    "message": "Додати"
+  },
+  "remove": {
+    "message": "Видалити"
+  },
+  "invalidPattern": {
+    "message": "Це не сайт"
+  },
+  "emptyList": {
+    "message": "Немає"
+  },
+  "switcherBookmarks": {
+    "message": "Закладки"
+  },
+  "switcherEngine": {
+    "message": "Пошукова система"
+  },
+  "switcherAutoSearch": {
+    "message": "Шукати в мережі, якщо жодна закладка не підходить"
+  },
+  "switcherCommands": {
+    "message": "Команди в switcher"
+  },
+  "switcherHints": {
+    "message": "Рядок підказок"
+  },
+  "lastPiece": {
+    "message": "Залиште закладки або принаймні одну пошукову систему"
+  },
+  "optionsFooter": {
+    "message": "Зміни зберігаються самі й одразу застосовуються до відкритих вкладок. Комбінацію клавіш змінюють в about:addons або chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "Нова вкладка"
+  },
+  "newtabStyle": {
+    "message": "Типографіка"
+  },
+  "newtabStyle_editorial": {
+    "message": "Editorial: Instrument Serif та Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Swiss: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Машинопис: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Книжкова: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Тема: шрифт з userContent.css"
+  },
+  "newtabClock": {
+    "message": "Годинник"
+  },
+  "newtabClock_auto": {
+    "message": "Як мова браузера"
+  },
+  "newtabClock_24": {
+    "message": "24 години"
+  },
+  "newtabClock_12": {
+    "message": "12 годин"
+  },
+  "newtabDate": {
+    "message": "Показувати дату"
+  },
+  "newtabTime": {
+    "message": "Показувати час"
+  },
+  "newtabSwitcher": {
+    "message": "Показувати switcher"
+  },
+  "newtabLocales": {
+    "message": "Мови для дати"
+  },
+  "newtabLocalesHelp": {
+    "message": "Кожна нова вкладка називає дату однією з цих мов, навмання."
+  },
+  "localesEmpty": {
+    "message": "Мова браузера"
+  },
+  "speedEnabled": {
+    "message": "Керувати швидкістю відео й аудіо"
+  },
+  "speedGlobal": {
+    "message": "Швидкість"
+  },
+  "speedStep": {
+    "message": "Крок для ] і ["
+  },
+  "speedShortcuts": {
+    "message": "Комбінації: ] швидше, [ повільніше, \\ назад до 1×"
+  },
+  "speedRules": {
+    "message": "Швидкість для сайтів"
+  },
+  "invalidSpeed": {
+    "message": "Від 0.25 до 4"
+  },
+  "speedPageOnly": {
+    "message": "лише ця сторінка"
+  },
+  "toastDarkOn": {
+    "message": "Темний режим увімкнено"
+  },
+  "toastDarkOff": {
+    "message": "Темний режим вимкнено"
+  },
+  "toastCssOn": {
+    "message": "CSS увімкнено"
+  },
+  "toastCssOff": {
+    "message": "CSS вимкнено"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Темний режим увімкнено скрізь"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Темний режим вимкнено скрізь"
+  },
+  "toastCopied": {
+    "message": "Чисте посилання скопійовано"
+  },
+  "toastCopyFailed": {
+    "message": "Не вдалося скопіювати"
+  },
+  "greetingMorning": {
+    "message": "Доброго ранку"
+  },
+  "greetingAfternoon": {
+    "message": "Доброго дня"
+  },
+  "greetingEvening": {
+    "message": "Доброго вечора"
+  },
+  "tab_style": {
+    "message": "Стиль"
+  },
+  "tab_dark": {
+    "message": "Темний режим"
+  },
+  "tab_exceptions": {
+    "message": "Винятки"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Комбінації клавіш"
+  },
+  "tab_newtab": {
+    "message": "Нова вкладка"
+  },
+  "tab_media": {
+    "message": "Медіа"
+  },
+  "tab_stats": {
+    "message": "Статистика"
+  },
+  "styleHideScrollbars": {
+    "message": "Приховати смуги прокручування"
+  },
+  "styleUnderlineLinks": {
+    "message": "Підкреслити посилання"
+  },
+  "styleSelectableText": {
+    "message": "Можна виділяти будь-який текст"
+  },
+  "styleNoUppercase": {
+    "message": "Без примусових ВЕЛИКИХ ЛІТЕР"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Зображення й відео у відтінках сірого"
+  },
+  "styleFocusRing": {
+    "message": "Видима рамка навколо елемента з фокусом"
+  },
+  "styleCustom": {
+    "message": "Ваш CSS"
+  },
+  "styleCustomHelp": {
+    "message": "Додається після всього вище, в окремому аркуші, на кожному сайті, де ввімкнено CSS; @import ставте на самий початок. ta вимикає його разом із рештою. Використовуйте !important, щоб перебити сайт. Сайти можуть його читати, як і будь-який стиль на своїй сторінці."
+  },
+  "switcherPrecision": {
+    "message": "Точність пошуку"
+  },
+  "precision_strict": {
+    "message": "Сувора: кожне слово як введено"
+  },
+  "precision_normal": {
+    "message": "Звичайна"
+  },
+  "precision_loose": {
+    "message": "Вільна: літери в порядку, будь-де"
+  },
+  "switcherMemory": {
+    "message": "Запам'ятовувати відкрите і піднімати його в пошуку"
+  },
+  "switcherDefaultEngine": {
+    "message": "Типова пошукова система"
+  },
+  "customEngines": {
+    "message": "Ваші пошукові системи"
+  },
+  "customEnginesHelp": {
+    "message": "%s в адресі замінюється на те, що ви введете."
+  },
+  "engineName": {
+    "message": "Назва"
+  },
+  "invalidEngine": {
+    "message": "Назва й адреса http(s) з %s"
+  },
+  "shortcutsHelp": {
+    "message": "Натисніть клавіші на кнопці, виберіть, що вони роблять, і додайте їх. Вони мають містити Ctrl, Alt або Meta, або функціональну клавішу. Alt з літерою може конфліктувати з браузером (Alt+D переходить до адресного рядка): Ctrl+Shift або Alt+Shift безпечніші."
+  },
+  "shortcutRecord": {
+    "message": "Записати клавіші"
+  },
+  "shortcutPress": {
+    "message": "Натисніть клавіші…"
+  },
+  "invalidShortcut": {
+    "message": "Запишіть комбінацію з Ctrl, Alt або Meta, або функціональну клавішу"
+  },
+  "duplicateShortcut": {
+    "message": "Ці клавіші вже щось роблять"
+  },
+  "invalidShortcutParam": {
+    "message": "Ця дія потребує правильного значення"
+  },
+  "action_switcher": {
+    "message": "Відкрити switcher"
+  },
+  "action_search": {
+    "message": "Шукати в"
+  },
+  "action_searchSelection": {
+    "message": "Шукати виділене в"
+  },
+  "action_toggleDark": {
+    "message": "Темний режим на цьому сайті"
+  },
+  "action_toggleCss": {
+    "message": "CSS на цьому сайті"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Темний режим скрізь"
+  },
+  "action_openUrl": {
+    "message": "Відкрити адресу"
+  },
+  "action_openUrlNewTab": {
+    "message": "Відкрити адресу в новій вкладці"
+  },
+  "action_speed": {
+    "message": "Швидкість медіа"
+  },
+  "action_copyCleanUrl": {
+    "message": "Копіювати посилання без відстеження"
+  },
+  "action_settings": {
+    "message": "Відкрити налаштування"
+  },
+  "statsHelp": {
+    "message": "Кожна закладка, відкрита з switcher. Вага зростає з відкриттями й спадає з часом; саме вона піднімає сторінку в пошуку."
+  },
+  "statsPage": {
+    "message": "Сторінка"
+  },
+  "statsOpens": {
+    "message": "Відкриття"
+  },
+  "statsWeight": {
+    "message": "Вага"
+  },
+  "statsLast": {
+    "message": "Останнє"
+  },
+  "statsReset": {
+    "message": "Скинути"
+  },
+  "statsResetAll": {
+    "message": "Скинути все"
+  },
+  "statsResetConfirm": {
+    "message": "Натисніть ще раз, щоб скинути"
+  },
+  "statsEmpty": {
+    "message": "Поки нічого"
+  },
+  "newtabLayout": {
+    "message": "Макет"
+  },
+  "layout_clasico": {
+    "message": "Класичний"
+  },
+  "layout_hora": {
+    "message": "Лише час"
+  },
+  "layout_linea": {
+    "message": "В один рядок"
+  },
+  "layout_apilado": {
+    "message": "Складений"
+  },
+  "layout_esquina": {
+    "message": "Кутовий"
+  },
+  "layout_analogico": {
+    "message": "Аналоговий"
+  },
+  "newtabStyle_custom": {
+    "message": "Мої шрифти"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Шрифт часу"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Товщина часу"
+  },
+  "newtabCustomDateFont": {
+    "message": "Шрифт дати"
+  },
+  "fontPlaceholder": {
+    "message": "Шрифт, встановлений тут"
+  },
+  "newtabGreeting": {
+    "message": "Привітання"
+  },
+  "newtabName": {
+    "message": "Ваше ім'я"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Необов'язково"
+  },
+  "newtabFocusPage": {
+    "message": "Зняти фокус з адресного рядка"
+  },
+  "newtabFocusPageHint": {
+    "message": "Вкладку замінюють новою на тому самому місці, тож адресний рядок показує її адресу, а не порожній."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Призупиняти відео й аудіо, що відтворюються самі"
+  },
+  "toastSpeedOff": {
+    "message": "Швидкість медіа вимкнена в налаштуваннях"
+  },
+  "exceptionsAnimations": {
+    "message": "Зі своїми анімаціями"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "Решта CSS sobrio застосовується, але анімації й переходи не вирізаються. ChatGPT це потрібно: без них його вигляд зсувається, поки він пише."
+  },
+  "switcherCommandsHint": {
+    "message": "Кожна команда: одне слово з літер або цифр, відмінне від інших."
+  },
+  "commandName_dark": {
+    "message": "Темний режим на цьому сайті"
+  },
+  "commandName_css": {
+    "message": "Аркуш стилів на цьому сайті"
+  },
+  "commandName_settings": {
+    "message": "Відкрити налаштування"
+  },
+  "backupLabel": {
+    "message": "Резервна копія"
+  },
+  "backupExport": {
+    "message": "Експортувати"
+  },
+  "backupImport": {
+    "message": "Імпортувати…"
+  },
+  "backupConfirm": {
+    "message": "Замінити все цією резервною копією"
+  },
+  "backupExported": {
+    "message": "Збережено в завантаження"
+  },
+  "backupInvalid": {
+    "message": "Цей файл не є резервною копією sobrio"
+  },
+  "backupImported": {
+    "message": "Резервну копію відновлено"
+  },
+  "welcomeOpen": {
+    "message": "Вітальний посібник"
+  },
+  "backupSummary": {
+    "message": "Комбінації: $SHORTCUTS$ · винятки: $EXCEPTIONS$ · запам'ятані сторінки: $PAGES$. Замінює те, що є зараз.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "Ласкаво просимо до sobrio."
+  },
+  "welcomeLead": {
+    "message": "Веб у чорно-білому, спокійніший і за одну комбінацію клавіш. П'ять речей, які варто знати."
+  },
+  "welcomeSwitcher": {
+    "message": "Відкриває switcher на будь-якій сторінці: введіть текст, щоб шукати в закладках, Tab перемикає пошукові системи, Enter відкриває, а Ctrl+Enter відкриває в новій вкладці. Кнопка на панелі інструментів теж його відкриває."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Ваша нова вкладка"
+  },
+  "welcomeNewtab": {
+    "message": "Браузер може запитати, чи зберегти нову вкладку, яку встановлює sobrio: збережіть її. Вона знімає фокус з адресного рядка, тож ви можете одразу писати в switcher."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Ваші власні комбінації"
+  },
+  "welcomeShortcuts": {
+    "message": "Запишіть будь-яку комбінацію в налаштуваннях, щоб відкрити адресу, шукати виділене, задати швидкість медіа або копіювати посилання без відстеження."
+  },
+  "welcomeSystemTitle": {
+    "message": "Темна система"
+  },
+  "welcomeSystem": {
+    "message": "Увімкніть у системі темний вигляд: сайти з власною темною темою перемикаються на неї, а sobrio їх не чіпає."
+  },
+  "welcomeSettings": {
+    "message": "Відкрити налаштування"
+  },
+  "welcomeFooter": {
+    "message": "Ніщо не виходить з вашого браузера. Налаштування мають резервну копію, щоб перенести все це в інший браузер."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ і $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Кожен сайт стає чорним, колір за кольором. Якщо якийсь виглядає неправильно, введіть $DARK$ у switcher, щоб вимкнути там темний режим, або $CSS$, щоб прибрати аркуш стилів sobrio з цього сайту. Обидва слова можна змінити в налаштуваннях.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "Перезавантажте цю сторінку, щоб використовувати sobrio тут"
+  },
+  "backupCss": {
+    "message": "Ваш CSS: $CHARS$ символів",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "завантажує з $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "Пошукова система $NAME$ на $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ відкриває $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(типова)"
+  },
+  "backupFailed": {
+    "message": "Не вдалося відновити"
+  },
+  "welcomeNoShortcut": {
+    "message": "Кнопка на панелі інструментів"
+  },
+  "exceptionsLocal": {
+    "message": "Не чіпати локальні адреси"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, назви .local та інші адреси вашого комп'ютера або мережі зберігають свій вигляд: без аркуша стилів і без темного режиму."
+  },
+  "localLeftAlone": {
+    "message": "Локальні адреси не чіпаються: змінити це можна в налаштуваннях"
+  }
+}

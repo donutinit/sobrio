@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "一款有主見的擴充功能：網頁該是什麼模樣，瀏覽器該給人什麼感覺。"
+  },
+  "commandOpen": {
+    "message": "開啟 switcher"
+  },
+  "placeholderBookmarks": {
+    "message": "搜尋書籤"
+  },
+  "placeholderEngine": {
+    "message": "在 $ENGINE$ 搜尋",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "在 $ENGINE$ 搜尋「$QUERY$」",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "沒有書籤"
+  },
+  "darkOff": {
+    "message": "在 $HOST$ 關閉深色模式",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "在 $HOST$ 開啟深色模式",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "在 $HOST$ 關閉自訂 CSS",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "在 $HOST$ 開啟自訂 CSS",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ 移動 · ↵ 開啟 · ctrl ↵ 新分頁 · tab 搜尋引擎 · esc 關閉"
+  },
+  "openSettings": {
+    "message": "開啟設定"
+  },
+  "darkOnEverywhere": {
+    "message": "在所有網站開啟深色模式"
+  },
+  "removesPatterns": {
+    "message": "（移除 $PATTERNS$）",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "設定"
+  },
+  "styleCorners": {
+    "message": "沒有圓角"
+  },
+  "styleShadows": {
+    "message": "沒有陰影"
+  },
+  "styleBlur": {
+    "message": "沒有模糊"
+  },
+  "styleAnimations": {
+    "message": "沒有動畫或轉場效果"
+  },
+  "styleYoutube": {
+    "message": "YouTube 播放器除外"
+  },
+  "styleSmoothScroll": {
+    "message": "沒有平滑捲動"
+  },
+  "styleThinScrollbars": {
+    "message": "細捲軸"
+  },
+  "styleFixedBackgrounds": {
+    "message": "背景隨頁面捲動"
+  },
+  "fromTheme": {
+    "message": "來自主題（userContent.css）"
+  },
+  "darkEnabled": {
+    "message": "讓網站變暗"
+  },
+  "darkDetect": {
+    "message": "保留本來就是深色的網站"
+  },
+  "darkBrightness": {
+    "message": "亮度"
+  },
+  "darkContrast": {
+    "message": "對比"
+  },
+  "darkSepia": {
+    "message": "棕褐色"
+  },
+  "darkGrayscale": {
+    "message": "灰階"
+  },
+  "darkBackground": {
+    "message": "背景"
+  },
+  "darkText": {
+    "message": "文字"
+  },
+  "darkSelection": {
+    "message": "選取範圍"
+  },
+  "auto": {
+    "message": "自動"
+  },
+  "exceptionsHelp": {
+    "message": "example.com 只代表該網站；*.example.com 也涵蓋其子網域。"
+  },
+  "exceptionsCss": {
+    "message": "不套用樣式表"
+  },
+  "exceptionsDark": {
+    "message": "不套用深色模式"
+  },
+  "patternPlaceholder": {
+    "message": "example.com 或 *.example.com"
+  },
+  "add": {
+    "message": "新增"
+  },
+  "remove": {
+    "message": "移除"
+  },
+  "invalidPattern": {
+    "message": "這不是網站"
+  },
+  "emptyList": {
+    "message": "無"
+  },
+  "switcherBookmarks": {
+    "message": "書籤"
+  },
+  "switcherEngine": {
+    "message": "搜尋引擎"
+  },
+  "switcherAutoSearch": {
+    "message": "沒有書籤符合時，在網路上搜尋"
+  },
+  "switcherCommands": {
+    "message": "switcher 中的指令"
+  },
+  "switcherHints": {
+    "message": "快速鍵提示列"
+  },
+  "lastPiece": {
+    "message": "至少保留書籤或一個搜尋引擎"
+  },
+  "optionsFooter": {
+    "message": "變更會自動儲存，並立即套用到已開啟的分頁。快速鍵請在 about:addons 或 chrome://extensions/shortcuts 中變更。"
+  },
+  "newTab": {
+    "message": "新分頁"
+  },
+  "newtabStyle": {
+    "message": "字體排版"
+  },
+  "newtabStyle_editorial": {
+    "message": "編輯風：Instrument Serif 與 Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "瑞士風：Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "打字機風：IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "書本風：EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "主題：userContent.css 的字型"
+  },
+  "newtabClock": {
+    "message": "時鐘"
+  },
+  "newtabClock_auto": {
+    "message": "依瀏覽器語言"
+  },
+  "newtabClock_24": {
+    "message": "24 小時制"
+  },
+  "newtabClock_12": {
+    "message": "12 小時制"
+  },
+  "newtabDate": {
+    "message": "顯示日期"
+  },
+  "newtabTime": {
+    "message": "顯示時間"
+  },
+  "newtabSwitcher": {
+    "message": "顯示 switcher"
+  },
+  "newtabLocales": {
+    "message": "日期的語言"
+  },
+  "newtabLocalesHelp": {
+    "message": "每個新分頁會隨機以其中一種語言顯示日期。"
+  },
+  "localesEmpty": {
+    "message": "瀏覽器的語言"
+  },
+  "speedEnabled": {
+    "message": "控制影片與音訊的播放速度"
+  },
+  "speedGlobal": {
+    "message": "速度"
+  },
+  "speedStep": {
+    "message": "] 與 [ 的增減幅度"
+  },
+  "speedShortcuts": {
+    "message": "快速鍵：] 加快、[ 減慢、\\ 恢復為 1×"
+  },
+  "speedRules": {
+    "message": "各網站的播放速度"
+  },
+  "invalidSpeed": {
+    "message": "介於 0.25 到 4 之間"
+  },
+  "speedPageOnly": {
+    "message": "僅此頁面"
+  },
+  "toastDarkOn": {
+    "message": "已開啟深色模式"
+  },
+  "toastDarkOff": {
+    "message": "已關閉深色模式"
+  },
+  "toastCssOn": {
+    "message": "已開啟樣式表"
+  },
+  "toastCssOff": {
+    "message": "已關閉樣式表"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "已在所有網站開啟深色模式"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "已在所有網站關閉深色模式"
+  },
+  "toastCopied": {
+    "message": "已複製乾淨的連結"
+  },
+  "toastCopyFailed": {
+    "message": "無法複製"
+  },
+  "greetingMorning": {
+    "message": "早安"
+  },
+  "greetingAfternoon": {
+    "message": "午安"
+  },
+  "greetingEvening": {
+    "message": "晚安"
+  },
+  "tab_style": {
+    "message": "樣式"
+  },
+  "tab_dark": {
+    "message": "深色模式"
+  },
+  "tab_exceptions": {
+    "message": "例外"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "快速鍵"
+  },
+  "tab_newtab": {
+    "message": "新分頁"
+  },
+  "tab_media": {
+    "message": "媒體"
+  },
+  "tab_stats": {
+    "message": "統計"
+  },
+  "styleHideScrollbars": {
+    "message": "隱藏捲軸"
+  },
+  "styleUnderlineLinks": {
+    "message": "連結加底線"
+  },
+  "styleSelectableText": {
+    "message": "任何文字都可以選取"
+  },
+  "styleNoUppercase": {
+    "message": "不強制大寫"
+  },
+  "styleGrayscaleMedia": {
+    "message": "圖片與影片改為灰階"
+  },
+  "styleFocusRing": {
+    "message": "焦點元素顯示明顯的外框"
+  },
+  "styleCustom": {
+    "message": "你的 CSS"
+  },
+  "styleCustomHelp": {
+    "message": "加在上面所有設定之後，放在獨立的樣式表中，套用於 CSS 開啟的每個網站；@import 須放在最上方。ta 會和其他設定一起關閉它。使用 !important 以壓過網站的樣式。網站和其他樣式一樣，可以讀取它。"
+  },
+  "switcherPrecision": {
+    "message": "搜尋精確度"
+  },
+  "precision_strict": {
+    "message": "嚴格：每個字照原樣比對"
+  },
+  "precision_normal": {
+    "message": "一般"
+  },
+  "precision_loose": {
+    "message": "寬鬆：字母順序相符即可，位置不拘"
+  },
+  "switcherMemory": {
+    "message": "記住我開啟過的項目，並排在前面"
+  },
+  "switcherDefaultEngine": {
+    "message": "預設搜尋引擎"
+  },
+  "customEngines": {
+    "message": "你的搜尋引擎"
+  },
+  "customEnginesHelp": {
+    "message": "網址中的 %s 會被替換為你輸入的內容。"
+  },
+  "engineName": {
+    "message": "名稱"
+  },
+  "invalidEngine": {
+    "message": "需要名稱與含有 %s 的 http(s) 網址"
+  },
+  "shortcutsHelp": {
+    "message": "在按鈕上按下按鍵，選擇它們的功能，然後新增。快速鍵需包含 Ctrl、Alt 或 Meta，或是功能鍵。Alt 搭配字母可能與瀏覽器衝突（Alt+D 會跳到網址列），Ctrl+Shift 或 Alt+Shift 比較安全。"
+  },
+  "shortcutRecord": {
+    "message": "錄製按鍵"
+  },
+  "shortcutPress": {
+    "message": "請按下按鍵…"
+  },
+  "invalidShortcut": {
+    "message": "請錄製包含 Ctrl、Alt 或 Meta 的組合，或功能鍵"
+  },
+  "duplicateShortcut": {
+    "message": "這些按鍵已有其他功能"
+  },
+  "invalidShortcutParam": {
+    "message": "此動作需要有效的值"
+  },
+  "action_switcher": {
+    "message": "開啟 switcher"
+  },
+  "action_search": {
+    "message": "在以下引擎搜尋"
+  },
+  "action_searchSelection": {
+    "message": "在以下引擎搜尋選取的文字"
+  },
+  "action_toggleDark": {
+    "message": "此網站的深色模式"
+  },
+  "action_toggleCss": {
+    "message": "此網站的 CSS"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "所有網站的深色模式"
+  },
+  "action_openUrl": {
+    "message": "開啟網址"
+  },
+  "action_openUrlNewTab": {
+    "message": "在新分頁開啟網址"
+  },
+  "action_speed": {
+    "message": "媒體播放速度"
+  },
+  "action_copyCleanUrl": {
+    "message": "複製不含追蹤參數的連結"
+  },
+  "action_settings": {
+    "message": "開啟設定"
+  },
+  "statsHelp": {
+    "message": "每個從 switcher 開啟的書籤。權重會隨開啟次數增加、隨時間消退；它會影響頁面在搜尋中的排序。"
+  },
+  "statsPage": {
+    "message": "頁面"
+  },
+  "statsOpens": {
+    "message": "開啟次數"
+  },
+  "statsWeight": {
+    "message": "權重"
+  },
+  "statsLast": {
+    "message": "最後"
+  },
+  "statsReset": {
+    "message": "重設"
+  },
+  "statsResetAll": {
+    "message": "全部重設"
+  },
+  "statsResetConfirm": {
+    "message": "再按一次以重設"
+  },
+  "statsEmpty": {
+    "message": "目前沒有紀錄"
+  },
+  "newtabLayout": {
+    "message": "版面"
+  },
+  "layout_clasico": {
+    "message": "經典"
+  },
+  "layout_hora": {
+    "message": "只顯示時間"
+  },
+  "layout_linea": {
+    "message": "一行"
+  },
+  "layout_apilado": {
+    "message": "堆疊"
+  },
+  "layout_esquina": {
+    "message": "角落"
+  },
+  "layout_analogico": {
+    "message": "類比"
+  },
+  "newtabStyle_custom": {
+    "message": "我的字型"
+  },
+  "newtabCustomTimeFont": {
+    "message": "時間的字型"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "時間的粗細"
+  },
+  "newtabCustomDateFont": {
+    "message": "日期的字型"
+  },
+  "fontPlaceholder": {
+    "message": "安裝在這台電腦上的字型"
+  },
+  "newtabGreeting": {
+    "message": "問候語"
+  },
+  "newtabName": {
+    "message": "你的名字"
+  },
+  "newtabNamePlaceholder": {
+    "message": "選填"
+  },
+  "newtabFocusPage": {
+    "message": "將焦點從網址列移開"
+  },
+  "newtabFocusPageHint": {
+    "message": "分頁會在相同位置換成新的分頁，讓網址列顯示該頁的網址，而不是空白。"
+  },
+  "mediaPauseAutoplay": {
+    "message": "暫停自行播放的影片與音訊"
+  },
+  "toastSpeedOff": {
+    "message": "設定中已關閉媒體播放速度"
+  },
+  "exceptionsAnimations": {
+    "message": "保留其動畫"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "sobrio 的其餘 CSS 仍會套用，但不會截斷動畫與轉場效果。ChatGPT 需要這樣：沒有動畫時，它在輸出文字時畫面會自己飄移。"
+  },
+  "switcherCommandsHint": {
+    "message": "每個指令都是一個由字母或數字組成的單字，且彼此不同。"
+  },
+  "commandName_dark": {
+    "message": "此網站的深色模式"
+  },
+  "commandName_css": {
+    "message": "此網站的樣式表"
+  },
+  "commandName_settings": {
+    "message": "開啟設定"
+  },
+  "backupLabel": {
+    "message": "備份"
+  },
+  "backupExport": {
+    "message": "匯出"
+  },
+  "backupImport": {
+    "message": "匯入…"
+  },
+  "backupConfirm": {
+    "message": "以此備份取代全部內容"
+  },
+  "backupExported": {
+    "message": "已儲存至下載項目"
+  },
+  "backupInvalid": {
+    "message": "這個檔案不是 sobrio 的備份"
+  },
+  "backupImported": {
+    "message": "已還原備份"
+  },
+  "welcomeOpen": {
+    "message": "歡迎指南"
+  },
+  "backupSummary": {
+    "message": "快速鍵：$SHORTCUTS$ · 例外：$EXCEPTIONS$ · 記住的頁面：$PAGES$。會取代目前的內容。",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "歡迎使用 sobrio。"
+  },
+  "welcomeLead": {
+    "message": "黑白的網頁，更安靜，而且只要一個快速鍵就能開啟。以下五件事值得你知道。"
+  },
+  "welcomeSwitcher": {
+    "message": "在任何頁面開啟 switcher：輸入文字即可搜尋書籤，按 Tab 切換搜尋引擎，按 Enter 開啟，按 Ctrl+Enter 在新分頁開啟。工具列按鈕也能開啟它。"
+  },
+  "welcomeNewtabTitle": {
+    "message": "你的新分頁"
+  },
+  "welcomeNewtab": {
+    "message": "瀏覽器可能會詢問是否保留 sobrio 設定的新分頁：請保留。它會把焦點從網址列移開，讓你可以立即在 switcher 中輸入。"
+  },
+  "welcomeShortcutsTitle": {
+    "message": "你自己的快速鍵"
+  },
+  "welcomeShortcuts": {
+    "message": "在設定中錄製任何組合，即可開啟網址、搜尋選取的文字、設定媒體播放速度，或複製不含追蹤參數的連結。"
+  },
+  "welcomeSystemTitle": {
+    "message": "深色系統"
+  },
+  "welcomeSystem": {
+    "message": "將系統設為深色外觀：自帶深色主題的網站會切換過去，sobrio 則不會干預。"
+  },
+  "welcomeSettings": {
+    "message": "開啟設定"
+  },
+  "welcomeFooter": {
+    "message": "資料不會離開你的瀏覽器。設定會保存一份備份，讓你能把這一切帶到另一個瀏覽器。"
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ 與 $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "每個網站都會變成黑色，逐色轉換。如果某個網站看起來不對，請在 switcher 中輸入 $DARK$ 以關閉該網站的深色模式，或輸入 $CSS$ 移除該網站上的 sobrio 樣式表。這兩個詞都可以在設定中更改。",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "重新載入此頁面以在此使用 sobrio"
+  },
+  "backupCss": {
+    "message": "你的 CSS：$CHARS$ 個字元",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "從 $HOSTS$ 載入",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "搜尋引擎 $NAME$ 位於 $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ 開啟 $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "（預設值）"
+  },
+  "backupFailed": {
+    "message": "無法還原"
+  },
+  "welcomeNoShortcut": {
+    "message": "工具列按鈕"
+  },
+  "exceptionsLocal": {
+    "message": "不處理本機網址"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost、127.0.0.1、192.168.x、.local 名稱，以及你電腦或網路上的其他位址，會保持原貌：不套用樣式表，也不套用深色模式。"
+  },
+  "localLeftAlone": {
+    "message": "本機網址不會被處理：請在設定中變更"
+  }
+}

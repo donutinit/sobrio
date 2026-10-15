@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Ett tillägg med åsikter om hur webben bör se ut och hur en webbläsare bör kännas."
+  },
+  "commandOpen": {
+    "message": "Öppna switcher"
+  },
+  "placeholderBookmarks": {
+    "message": "Sök bokmärken"
+  },
+  "placeholderEngine": {
+    "message": "Sök på $ENGINE$",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "Sök efter \"$QUERY$\" på $ENGINE$",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Inga bokmärken"
+  },
+  "darkOff": {
+    "message": "Stäng av mörkt läge på $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Slå på mörkt läge på $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Stäng av egen CSS på $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Slå på egen CSS på $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ flytta · ↵ öppna · ctrl ↵ ny flik · tab sökmotorer · esc stäng"
+  },
+  "openSettings": {
+    "message": "Öppna inställningar"
+  },
+  "darkOnEverywhere": {
+    "message": "Slå på mörkt läge överallt"
+  },
+  "removesPatterns": {
+    "message": "(tar bort $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Inställningar"
+  },
+  "styleCorners": {
+    "message": "Inga rundade hörn"
+  },
+  "styleShadows": {
+    "message": "Inga skuggor"
+  },
+  "styleBlur": {
+    "message": "Ingen oskärpa"
+  },
+  "styleAnimations": {
+    "message": "Inga animationer eller övergångar"
+  },
+  "styleYoutube": {
+    "message": "Utom i YouTubes spelare"
+  },
+  "styleSmoothScroll": {
+    "message": "Ingen mjuk scrollning"
+  },
+  "styleThinScrollbars": {
+    "message": "Smala rullningslister"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Bakgrunder rullar med sidan"
+  },
+  "fromTheme": {
+    "message": "från temat (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Gör webbplatser mörka"
+  },
+  "darkDetect": {
+    "message": "Lämna webbplatser som redan är mörka"
+  },
+  "darkBrightness": {
+    "message": "Ljusstyrka"
+  },
+  "darkContrast": {
+    "message": "Kontrast"
+  },
+  "darkSepia": {
+    "message": "Sepia"
+  },
+  "darkGrayscale": {
+    "message": "Gråskala"
+  },
+  "darkBackground": {
+    "message": "Bakgrund"
+  },
+  "darkText": {
+    "message": "Text"
+  },
+  "darkSelection": {
+    "message": "Markering"
+  },
+  "auto": {
+    "message": "Auto"
+  },
+  "exceptionsHelp": {
+    "message": "example.com gäller bara den webbplatsen; *.example.com gäller även dess underdomäner."
+  },
+  "exceptionsCss": {
+    "message": "Utan stilmallen"
+  },
+  "exceptionsDark": {
+    "message": "Utan mörkt läge"
+  },
+  "patternPlaceholder": {
+    "message": "example.com eller *.example.com"
+  },
+  "add": {
+    "message": "Lägg till"
+  },
+  "remove": {
+    "message": "Ta bort"
+  },
+  "invalidPattern": {
+    "message": "Det är inte en webbplats"
+  },
+  "emptyList": {
+    "message": "Inga"
+  },
+  "switcherBookmarks": {
+    "message": "Bokmärken"
+  },
+  "switcherEngine": {
+    "message": "Sökmotor"
+  },
+  "switcherAutoSearch": {
+    "message": "Sök på webben när inget bokmärke matchar"
+  },
+  "switcherCommands": {
+    "message": "Kommandon i switcher"
+  },
+  "switcherHints": {
+    "message": "Genvägsrad"
+  },
+  "lastPiece": {
+    "message": "Behåll bokmärken eller minst en sökmotor"
+  },
+  "optionsFooter": {
+    "message": "Ändringar sparas automatiskt och tillämpas direkt på öppna flikar. Genvägen ändras i about:addons eller chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "Ny flik"
+  },
+  "newtabStyle": {
+    "message": "Typografi"
+  },
+  "newtabStyle_editorial": {
+    "message": "Redaktionell: Instrument Serif och Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Schweizisk: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Maskin: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Bok: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Tema: typsnittet från userContent.css"
+  },
+  "newtabClock": {
+    "message": "Klocka"
+  },
+  "newtabClock_auto": {
+    "message": "Som webbläsarens språk"
+  },
+  "newtabClock_24": {
+    "message": "24 timmar"
+  },
+  "newtabClock_12": {
+    "message": "12 timmar"
+  },
+  "newtabDate": {
+    "message": "Visa datumet"
+  },
+  "newtabTime": {
+    "message": "Visa klockslaget"
+  },
+  "newtabSwitcher": {
+    "message": "Visa switcher"
+  },
+  "newtabLocales": {
+    "message": "Språk för datumet"
+  },
+  "newtabLocalesHelp": {
+    "message": "Varje ny flik visar datumet på ett av dessa språk, slumpvis."
+  },
+  "localesEmpty": {
+    "message": "Webbläsarens språk"
+  },
+  "speedEnabled": {
+    "message": "Styr hastigheten för video och ljud"
+  },
+  "speedGlobal": {
+    "message": "Hastighet"
+  },
+  "speedStep": {
+    "message": "Steg för ] och ["
+  },
+  "speedShortcuts": {
+    "message": "Genvägar: ] snabbare, [ långsammare, \\ tillbaka till 1×"
+  },
+  "speedRules": {
+    "message": "Hastighet per webbplats"
+  },
+  "invalidSpeed": {
+    "message": "Mellan 0,25 och 4"
+  },
+  "speedPageOnly": {
+    "message": "bara den här sidan"
+  },
+  "toastDarkOn": {
+    "message": "Mörkt läge på"
+  },
+  "toastDarkOff": {
+    "message": "Mörkt läge av"
+  },
+  "toastCssOn": {
+    "message": "Stilmall på"
+  },
+  "toastCssOff": {
+    "message": "Stilmall av"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Mörkt läge överallt på"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Mörkt läge överallt av"
+  },
+  "toastCopied": {
+    "message": "Ren länk kopierad"
+  },
+  "toastCopyFailed": {
+    "message": "Kunde inte kopiera"
+  },
+  "greetingMorning": {
+    "message": "God morgon"
+  },
+  "greetingAfternoon": {
+    "message": "God eftermiddag"
+  },
+  "greetingEvening": {
+    "message": "God kväll"
+  },
+  "tab_style": {
+    "message": "Stil"
+  },
+  "tab_dark": {
+    "message": "Mörkt läge"
+  },
+  "tab_exceptions": {
+    "message": "Undantag"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Genvägar"
+  },
+  "tab_newtab": {
+    "message": "Ny flik"
+  },
+  "tab_media": {
+    "message": "Media"
+  },
+  "tab_stats": {
+    "message": "Statistik"
+  },
+  "styleHideScrollbars": {
+    "message": "Dölj rullningslister"
+  },
+  "styleUnderlineLinks": {
+    "message": "Understrykta länkar"
+  },
+  "styleSelectableText": {
+    "message": "Låt all text markeras"
+  },
+  "styleNoUppercase": {
+    "message": "Inga påtvingade VERSALER"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Bilder och video i gråskala"
+  },
+  "styleFocusRing": {
+    "message": "En synlig ram runt elementet i fokus"
+  },
+  "styleCustom": {
+    "message": "Din CSS"
+  },
+  "styleCustomHelp": {
+    "message": "Läggs till efter allt ovan, i en egen stilmall, på varje webbplats där CSS är på. En @import hör överst. ta stänger av den tillsammans med resten. Använd !important för att gå före webbplatsen. Webbplatser kan läsa den, precis som de kan läsa alla stilar på sin sida."
+  },
+  "switcherPrecision": {
+    "message": "Sökprecision"
+  },
+  "precision_strict": {
+    "message": "Strikt: varje ord som det skrivs"
+  },
+  "precision_normal": {
+    "message": "Normal"
+  },
+  "precision_loose": {
+    "message": "Lös: bokstäverna i ordning, var som helst"
+  },
+  "switcherMemory": {
+    "message": "Kom ihåg vad jag öppnar och rangordna det högre"
+  },
+  "switcherDefaultEngine": {
+    "message": "Standardsökmotor"
+  },
+  "customEngines": {
+    "message": "Dina sökmotorer"
+  },
+  "customEnginesHelp": {
+    "message": "%s i adressen ersätts av det du skriver."
+  },
+  "engineName": {
+    "message": "Namn"
+  },
+  "invalidEngine": {
+    "message": "Ett namn och en http(s)-adress med %s"
+  },
+  "shortcutsHelp": {
+    "message": "Tryck på tangenterna i knappen, välj vad de gör och lägg till dem. De behöver Ctrl, Alt eller Meta, eller en funktionstangent. Alt med en bokstav kan krocka med webbläsaren (Alt+D går till adressfältet): Ctrl+Shift eller Alt+Shift är säkrare."
+  },
+  "shortcutRecord": {
+    "message": "Spela in tangenter"
+  },
+  "shortcutPress": {
+    "message": "Tryck på tangenterna…"
+  },
+  "invalidShortcut": {
+    "message": "Spela in en kombination med Ctrl, Alt eller Meta, eller en funktionstangent"
+  },
+  "duplicateShortcut": {
+    "message": "De tangenterna gör redan något"
+  },
+  "invalidShortcutParam": {
+    "message": "Åtgärden behöver ett giltigt värde"
+  },
+  "action_switcher": {
+    "message": "Öppna switcher"
+  },
+  "action_search": {
+    "message": "Sök i"
+  },
+  "action_searchSelection": {
+    "message": "Sök markeringen i"
+  },
+  "action_toggleDark": {
+    "message": "Mörkt läge på den här webbplatsen"
+  },
+  "action_toggleCss": {
+    "message": "CSS på den här webbplatsen"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Mörkt läge överallt"
+  },
+  "action_openUrl": {
+    "message": "Öppna en adress"
+  },
+  "action_openUrlNewTab": {
+    "message": "Öppna en adress i en ny flik"
+  },
+  "action_speed": {
+    "message": "Mediehastighet"
+  },
+  "action_copyCleanUrl": {
+    "message": "Kopiera länken utan spårning"
+  },
+  "action_settings": {
+    "message": "Öppna inställningarna"
+  },
+  "statsHelp": {
+    "message": "Varje bokmärke som öppnas från switcher. Vikten växer med antalet öppningar och bleknar med tiden; det är den som lyfter en sida i sökningen."
+  },
+  "statsPage": {
+    "message": "Sida"
+  },
+  "statsOpens": {
+    "message": "Öppningar"
+  },
+  "statsWeight": {
+    "message": "Vikt"
+  },
+  "statsLast": {
+    "message": "Senast"
+  },
+  "statsReset": {
+    "message": "Nollställ"
+  },
+  "statsResetAll": {
+    "message": "Nollställ allt"
+  },
+  "statsResetConfirm": {
+    "message": "Klicka igen för att nollställa"
+  },
+  "statsEmpty": {
+    "message": "Inget ännu"
+  },
+  "newtabLayout": {
+    "message": "Layout"
+  },
+  "layout_clasico": {
+    "message": "Klassisk"
+  },
+  "layout_hora": {
+    "message": "Bara klockslaget"
+  },
+  "layout_linea": {
+    "message": "En rad"
+  },
+  "layout_apilado": {
+    "message": "Staplad"
+  },
+  "layout_esquina": {
+    "message": "Hörn"
+  },
+  "layout_analogico": {
+    "message": "Analog"
+  },
+  "newtabStyle_custom": {
+    "message": "Mina typsnitt"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Typsnitt för klockslaget"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Tjocklek på klockslaget"
+  },
+  "newtabCustomDateFont": {
+    "message": "Typsnitt för datumet"
+  },
+  "fontPlaceholder": {
+    "message": "Ett typsnitt installerat här"
+  },
+  "newtabGreeting": {
+    "message": "Hälsning"
+  },
+  "newtabName": {
+    "message": "Ditt namn"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Valfritt"
+  },
+  "newtabFocusPage": {
+    "message": "Flytta fokus från adressfältet"
+  },
+  "newtabFocusPageHint": {
+    "message": "Fliken ersätts av en ny på samma plats, så att adressfältet visar dess adress i stället för att stå tomt."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Pausa video och ljud som startar av sig själva"
+  },
+  "toastSpeedOff": {
+    "message": "Mediehastighet är av i inställningarna"
+  },
+  "exceptionsAnimations": {
+    "message": "Med egna animationer"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "Resten av sobrios CSS gäller, men animationer och övergångar klipps inte. ChatGPT behöver det: utan dem glider vyn medan den skriver."
+  },
+  "switcherCommandsHint": {
+    "message": "Varje kommando är ett enda ord med bokstäver eller siffror, och inget är likt ett annat."
+  },
+  "commandName_dark": {
+    "message": "Mörkt läge på den här webbplatsen"
+  },
+  "commandName_css": {
+    "message": "Stilmall på den här webbplatsen"
+  },
+  "commandName_settings": {
+    "message": "Öppna inställningarna"
+  },
+  "backupLabel": {
+    "message": "Säkerhetskopia"
+  },
+  "backupExport": {
+    "message": "Exportera"
+  },
+  "backupImport": {
+    "message": "Importera…"
+  },
+  "backupConfirm": {
+    "message": "Ersätt allt med den här säkerhetskopian"
+  },
+  "backupExported": {
+    "message": "Sparad i dina hämtade filer"
+  },
+  "backupInvalid": {
+    "message": "Filen är ingen säkerhetskopia från sobrio"
+  },
+  "backupImported": {
+    "message": "Säkerhetskopian återställd"
+  },
+  "welcomeOpen": {
+    "message": "Välkomstguiden"
+  },
+  "backupSummary": {
+    "message": "Genvägar: $SHORTCUTS$ · undantag: $EXCEPTIONS$ · ihågkomna sidor: $PAGES$. Den ersätter det som finns här nu.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "Välkommen till sobrio."
+  },
+  "welcomeLead": {
+    "message": "Webben i svartvitt, lugnare och ett tangenttryck bort. Fem saker värda att veta."
+  },
+  "welcomeSwitcher": {
+    "message": "Öppnar switcher på vilken sida som helst: skriv för att söka bland dina bokmärken, Tab för att gå mellan sökmotorer, Enter för att öppna, Ctrl+Enter för en ny flik. Verktygsfältsknappen öppnar den också."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Din nya flik"
+  },
+  "welcomeNewtab": {
+    "message": "Webbläsaren kan fråga om du vill behålla den nya flik som sobrio använder: behåll den. Den tar fokus från adressfältet, så att du kan skriva i switcher direkt."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Egna genvägar"
+  },
+  "welcomeShortcuts": {
+    "message": "Spela in valfri tangentkombination i inställningarna för att öppna en adress, söka i markeringen, ställa in mediehastigheten eller kopiera en länk utan spårning."
+  },
+  "welcomeSystemTitle": {
+    "message": "Ett mörkt system"
+  },
+  "welcomeSystem": {
+    "message": "Ställ in systemet på ett mörkt utseende: webbplatser med ett eget mörkt tema byter till det, och sobrio lämnar dem ifred."
+  },
+  "welcomeSettings": {
+    "message": "Öppna inställningarna"
+  },
+  "welcomeFooter": {
+    "message": "Inget lämnar din webbläsare. Inställningarna har en säkerhetskopia, så att du kan ta med allt detta till en annan webbläsare."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ och $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Varje webbplats blir svart, färg för färg. Om någon ser fel ut skriver du $DARK$ i switcher för att stänga av mörkt läge där, eller $CSS$ för att ta bort sobrios stilmall på den webbplatsen. Båda orden kan ändras i inställningarna.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "Ladda om sidan för att använda sobrio här"
+  },
+  "backupCss": {
+    "message": "Din CSS: $CHARS$ tecken",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "laddar från $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "Sökmotor $NAME$ på $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ öppnar $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(standard)"
+  },
+  "backupFailed": {
+    "message": "Kunde inte återställa den"
+  },
+  "welcomeNoShortcut": {
+    "message": "Verktygsfältsknappen"
+  },
+  "exceptionsLocal": {
+    "message": "Lämna lokala adresser ifred"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, .local-namn och de andra adresserna på din dator eller ditt nätverk behåller sitt eget utseende: ingen stilmall, inget mörkt läge."
+  },
+  "localLeftAlone": {
+    "message": "Lokala adresser lämnas ifred: ändra det i inställningarna"
+  }
+}

@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "Rozšíření s názorem na to, jak má web vypadat a jak má prohlížeč působit."
+  },
+  "commandOpen": {
+    "message": "Otevřít switcher"
+  },
+  "placeholderBookmarks": {
+    "message": "Hledat v záložkách"
+  },
+  "placeholderEngine": {
+    "message": "Hledat přes $ENGINE$",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "Hledat \"$QUERY$\" přes $ENGINE$",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "Žádné záložky"
+  },
+  "darkOff": {
+    "message": "Vypnout tmavý režim na webu $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "Zapnout tmavý režim na webu $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "Vypnout vlastní CSS na webu $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "Zapnout vlastní CSS na webu $HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ pohyb · ↵ otevřít · ctrl ↵ nová karta · tab vyhledávače · esc zavřít"
+  },
+  "openSettings": {
+    "message": "Otevřít nastavení"
+  },
+  "darkOnEverywhere": {
+    "message": "Zapnout tmavý režim všude"
+  },
+  "removesPatterns": {
+    "message": "(odstraní $PATTERNS$)",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Nastavení"
+  },
+  "styleCorners": {
+    "message": "Bez zaoblených rohů"
+  },
+  "styleShadows": {
+    "message": "Bez stínů"
+  },
+  "styleBlur": {
+    "message": "Bez rozostření"
+  },
+  "styleAnimations": {
+    "message": "Bez animací a přechodů"
+  },
+  "styleYoutube": {
+    "message": "Kromě přehrávače YouTube"
+  },
+  "styleSmoothScroll": {
+    "message": "Bez plynulého posouvání"
+  },
+  "styleThinScrollbars": {
+    "message": "Tenké posuvníky"
+  },
+  "styleFixedBackgrounds": {
+    "message": "Pozadí se posouvá se stránkou"
+  },
+  "fromTheme": {
+    "message": "z motivu (userContent.css)"
+  },
+  "darkEnabled": {
+    "message": "Ztmavit weby"
+  },
+  "darkDetect": {
+    "message": "Nechat weby, které už jsou tmavé"
+  },
+  "darkBrightness": {
+    "message": "Jas"
+  },
+  "darkContrast": {
+    "message": "Kontrast"
+  },
+  "darkSepia": {
+    "message": "Sépie"
+  },
+  "darkGrayscale": {
+    "message": "Stupně šedi"
+  },
+  "darkBackground": {
+    "message": "Pozadí"
+  },
+  "darkText": {
+    "message": "Text"
+  },
+  "darkSelection": {
+    "message": "Výběr"
+  },
+  "auto": {
+    "message": "Automaticky"
+  },
+  "exceptionsHelp": {
+    "message": "example.com platí jen pro ten web; *.example.com platí i pro jeho subdomény."
+  },
+  "exceptionsCss": {
+    "message": "Bez stylů"
+  },
+  "exceptionsDark": {
+    "message": "Bez tmavého režimu"
+  },
+  "patternPlaceholder": {
+    "message": "example.com nebo *.example.com"
+  },
+  "add": {
+    "message": "Přidat"
+  },
+  "remove": {
+    "message": "Odebrat"
+  },
+  "invalidPattern": {
+    "message": "To není web"
+  },
+  "emptyList": {
+    "message": "Žádné"
+  },
+  "switcherBookmarks": {
+    "message": "Záložky"
+  },
+  "switcherEngine": {
+    "message": "Vyhledávač"
+  },
+  "switcherAutoSearch": {
+    "message": "Hledat na webu, když žádná záložka neodpovídá"
+  },
+  "switcherCommands": {
+    "message": "Příkazy v switcheru"
+  },
+  "switcherHints": {
+    "message": "Řádek se zkratkami"
+  },
+  "lastPiece": {
+    "message": "Ponechat záložky nebo alespoň jeden vyhledávač"
+  },
+  "optionsFooter": {
+    "message": "Změny se ukládají samy a hned se projeví v otevřených kartách. Zkratku změníte v about:addons nebo chrome://extensions/shortcuts."
+  },
+  "newTab": {
+    "message": "Nová karta"
+  },
+  "newtabStyle": {
+    "message": "Typografie"
+  },
+  "newtabStyle_editorial": {
+    "message": "Editorial: Instrument Serif a Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "Švýcarský styl: Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "Strojový: IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "Kniha: EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "Motiv: písmo z userContent.css"
+  },
+  "newtabClock": {
+    "message": "Hodiny"
+  },
+  "newtabClock_auto": {
+    "message": "Podle jazyka prohlížeče"
+  },
+  "newtabClock_24": {
+    "message": "24 hodin"
+  },
+  "newtabClock_12": {
+    "message": "12 hodin"
+  },
+  "newtabDate": {
+    "message": "Zobrazit datum"
+  },
+  "newtabTime": {
+    "message": "Zobrazit čas"
+  },
+  "newtabSwitcher": {
+    "message": "Zobrazit switcher"
+  },
+  "newtabLocales": {
+    "message": "Jazyky pro datum"
+  },
+  "newtabLocalesHelp": {
+    "message": "Každá nová karta řekne datum v jednom z těchto jazyků, náhodně."
+  },
+  "localesEmpty": {
+    "message": "Jazyk prohlížeče"
+  },
+  "speedEnabled": {
+    "message": "Ovládat rychlost videa a zvuku"
+  },
+  "speedGlobal": {
+    "message": "Rychlost"
+  },
+  "speedStep": {
+    "message": "Krok pro ] a ["
+  },
+  "speedShortcuts": {
+    "message": "Zkratky: ] rychleji, [ pomaleji, \\ zpět na 1×"
+  },
+  "speedRules": {
+    "message": "Rychlost podle webu"
+  },
+  "invalidSpeed": {
+    "message": "Mezi 0,25 a 4"
+  },
+  "speedPageOnly": {
+    "message": "jen tato stránka"
+  },
+  "toastDarkOn": {
+    "message": "Tmavý režim zapnut"
+  },
+  "toastDarkOff": {
+    "message": "Tmavý režim vypnut"
+  },
+  "toastCssOn": {
+    "message": "Styl zapnut"
+  },
+  "toastCssOff": {
+    "message": "Styl vypnut"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "Tmavý režim zapnut všude"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "Tmavý režim vypnut všude"
+  },
+  "toastCopied": {
+    "message": "Čistý odkaz zkopírován"
+  },
+  "toastCopyFailed": {
+    "message": "Nepodařilo se zkopírovat"
+  },
+  "greetingMorning": {
+    "message": "Dobré ráno"
+  },
+  "greetingAfternoon": {
+    "message": "Dobré odpoledne"
+  },
+  "greetingEvening": {
+    "message": "Dobrý večer"
+  },
+  "tab_style": {
+    "message": "Styl"
+  },
+  "tab_dark": {
+    "message": "Tmavý režim"
+  },
+  "tab_exceptions": {
+    "message": "Výjimky"
+  },
+  "tab_switcher": {
+    "message": "Switcher"
+  },
+  "tab_shortcuts": {
+    "message": "Zkratky"
+  },
+  "tab_newtab": {
+    "message": "Nová karta"
+  },
+  "tab_media": {
+    "message": "Média"
+  },
+  "tab_stats": {
+    "message": "Statistiky"
+  },
+  "styleHideScrollbars": {
+    "message": "Skrýt posuvníky"
+  },
+  "styleUnderlineLinks": {
+    "message": "Podtrhnout odkazy"
+  },
+  "styleSelectableText": {
+    "message": "Označit lze jakýkoli text"
+  },
+  "styleNoUppercase": {
+    "message": "Bez vynucených velkých písmen"
+  },
+  "styleGrayscaleMedia": {
+    "message": "Obrázky a video ve stupních šedi"
+  },
+  "styleFocusRing": {
+    "message": "Viditelný rámeček na zaměřeném prvku"
+  },
+  "styleCustom": {
+    "message": "Vlastní CSS"
+  },
+  "styleCustomHelp": {
+    "message": "Přidáno za všechno výše, v samostatném listu, na každém webu, kde je CSS zapnuté; @import patří úplně nahoru. ta to vypne spolu s ostatním. Pro přebití stylů webu použijte !important. Weby mohou číst, stejně jako čtou jakýkoli styl na své stránce."
+  },
+  "switcherPrecision": {
+    "message": "Přesnost hledání"
+  },
+  "precision_strict": {
+    "message": "Přísná: každé slovo přesně, jak je napsáno"
+  },
+  "precision_normal": {
+    "message": "Normální"
+  },
+  "precision_loose": {
+    "message": "Volná: písmena za sebou, kdekoli"
+  },
+  "switcherMemory": {
+    "message": "Pamatovat si, co otevírám, a řadit to výš"
+  },
+  "switcherDefaultEngine": {
+    "message": "Výchozí vyhledávač"
+  },
+  "customEngines": {
+    "message": "Vlastní vyhledávače"
+  },
+  "customEnginesHelp": {
+    "message": "%s v adrese se nahradí tím, co napíšete."
+  },
+  "engineName": {
+    "message": "Název"
+  },
+  "invalidEngine": {
+    "message": "Název a adresa http(s) s %s"
+  },
+  "shortcutsHelp": {
+    "message": "Stiskněte klávesy na tlačítku, vyberte, co mají dělat, a přidejte je. Musí obsahovat Ctrl, Alt nebo Meta, nebo funkční klávesu. Alt s písmenem může kolidovat s prohlížečem (Alt+D vede do adresního řádku): bezpečnější jsou Ctrl+Shift nebo Alt+Shift."
+  },
+  "shortcutRecord": {
+    "message": "Nahrát klávesy"
+  },
+  "shortcutPress": {
+    "message": "Stiskněte klávesy…"
+  },
+  "invalidShortcut": {
+    "message": "Nahrajte kombinaci s Ctrl, Alt nebo Meta, nebo s funkční klávesou"
+  },
+  "duplicateShortcut": {
+    "message": "Tyto klávesy už něco dělají"
+  },
+  "invalidShortcutParam": {
+    "message": "Tato akce potřebuje platnou hodnotu"
+  },
+  "action_switcher": {
+    "message": "Otevřít switcher"
+  },
+  "action_search": {
+    "message": "Hledat přes"
+  },
+  "action_searchSelection": {
+    "message": "Hledat výběr přes"
+  },
+  "action_toggleDark": {
+    "message": "Tmavý režim na tomto webu"
+  },
+  "action_toggleCss": {
+    "message": "CSS na tomto webu"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "Tmavý režim všude"
+  },
+  "action_openUrl": {
+    "message": "Otevřít adresu"
+  },
+  "action_openUrlNewTab": {
+    "message": "Otevřít adresu v nové kartě"
+  },
+  "action_speed": {
+    "message": "Rychlost médií"
+  },
+  "action_copyCleanUrl": {
+    "message": "Zkopírovat odkaz bez sledování"
+  },
+  "action_settings": {
+    "message": "Otevřít nastavení"
+  },
+  "statsHelp": {
+    "message": "Každá záložka otevřená ze switcheru. Váha roste s otevřeními a s časem slábne; podle ní stránka ve hledání stoupá."
+  },
+  "statsPage": {
+    "message": "Stránka"
+  },
+  "statsOpens": {
+    "message": "Otevření"
+  },
+  "statsWeight": {
+    "message": "Váha"
+  },
+  "statsLast": {
+    "message": "Naposledy"
+  },
+  "statsReset": {
+    "message": "Vynulovat"
+  },
+  "statsResetAll": {
+    "message": "Vynulovat vše"
+  },
+  "statsResetConfirm": {
+    "message": "Klikněte znovu pro vynulování"
+  },
+  "statsEmpty": {
+    "message": "Zatím nic"
+  },
+  "newtabLayout": {
+    "message": "Rozložení"
+  },
+  "layout_clasico": {
+    "message": "Klasické"
+  },
+  "layout_hora": {
+    "message": "Jen čas"
+  },
+  "layout_linea": {
+    "message": "Jedna řádka"
+  },
+  "layout_apilado": {
+    "message": "Pod sebou"
+  },
+  "layout_esquina": {
+    "message": "V rohu"
+  },
+  "layout_analogico": {
+    "message": "Analogové"
+  },
+  "newtabStyle_custom": {
+    "message": "Vlastní písma"
+  },
+  "newtabCustomTimeFont": {
+    "message": "Písmo času"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "Tloušťka času"
+  },
+  "newtabCustomDateFont": {
+    "message": "Písmo data"
+  },
+  "fontPlaceholder": {
+    "message": "Písmo nainstalované zde"
+  },
+  "newtabGreeting": {
+    "message": "Pozdrav"
+  },
+  "newtabName": {
+    "message": "Vaše jméno"
+  },
+  "newtabNamePlaceholder": {
+    "message": "Nepovinné"
+  },
+  "newtabFocusPage": {
+    "message": "Převzít zaměření z adresního řádku"
+  },
+  "newtabFocusPageHint": {
+    "message": "Karta se nahradí novou na stejném místě, takže adresní řádek ukáže její adresu místo prázdna."
+  },
+  "mediaPauseAutoplay": {
+    "message": "Pozastavit video a zvuk, které se spouštějí samy"
+  },
+  "toastSpeedOff": {
+    "message": "Rychlost médií je v nastavení vypnutá"
+  },
+  "exceptionsAnimations": {
+    "message": "S vlastními animacemi"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "Zbytek CSS sobrio platí, ale animace a přechody se neřežou. ChatGPT je potřebuje: bez nich se jeho zobrazení při psaní posouvá."
+  },
+  "switcherCommandsHint": {
+    "message": "Každý je jedno slovo z písmen nebo číslic, a každý je jiný."
+  },
+  "commandName_dark": {
+    "message": "Tmavý režim na tomto webu"
+  },
+  "commandName_css": {
+    "message": "Styl na tomto webu"
+  },
+  "commandName_settings": {
+    "message": "Otevřít nastavení"
+  },
+  "backupLabel": {
+    "message": "Záloha"
+  },
+  "backupExport": {
+    "message": "Exportovat"
+  },
+  "backupImport": {
+    "message": "Importovat…"
+  },
+  "backupConfirm": {
+    "message": "Nahradit vše touto zálohou"
+  },
+  "backupExported": {
+    "message": "Uloženo do stažených souborů"
+  },
+  "backupInvalid": {
+    "message": "Tento soubor není záloha sobrio"
+  },
+  "backupImported": {
+    "message": "Záloha obnovena"
+  },
+  "welcomeOpen": {
+    "message": "Uvítací průvodce"
+  },
+  "backupSummary": {
+    "message": "Zkratky: $SHORTCUTS$ · výjimky: $EXCEPTIONS$ · zapamatované stránky: $PAGES$. Nahradí to, co tu je teď.",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "Vítejte v sobrio."
+  },
+  "welcomeLead": {
+    "message": "Web v černobílém, klidnější a na dosah klávesy. Pět věcí, které stojí za to vědět."
+  },
+  "welcomeSwitcher": {
+    "message": "Otevře switcher na libovolné stránce: pište pro hledání v záložkách, Tab přechází mezi vyhledávači, Enter otevírá, Ctrl+Enter otevírá v nové kartě. Tlačítko na panelu nástrojů ho otevře také."
+  },
+  "welcomeNewtabTitle": {
+    "message": "Vaše nová karta"
+  },
+  "welcomeNewtab": {
+    "message": "Prohlížeč se může zeptat, zda si ponechat novou kartu, kterou sobrio nastavuje: ponechte ji. Převezme zaměření z adresního řádku, takže můžete hned psát do switcheru."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Vlastní zkratky"
+  },
+  "welcomeShortcuts": {
+    "message": "V nastavení nahrajte libovolnou kombinaci a vyberte, zda má otevřít adresu, hledat výběr, nastavit rychlost médií nebo zkopírovat odkaz bez sledování."
+  },
+  "welcomeSystemTitle": {
+    "message": "Tmavý systém"
+  },
+  "welcomeSystem": {
+    "message": "Nastavte systém na tmavý vzhled: weby s vlastním tmavým motivem na něj přejdou a sobrio je nechá být."
+  },
+  "welcomeSettings": {
+    "message": "Otevřít nastavení"
+  },
+  "welcomeFooter": {
+    "message": "Nic neopouští váš prohlížeč. Nastavení si drží zálohu, abyste vše mohli přenést do jiného prohlížeče."
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ a $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "Každý web se zčerná, barvu po barvě. Pokud něco vypadá špatně, napište do switcheru $DARK$ a tmavý režim na tom webu se vypne, nebo $CSS$ a sobrio přestane na tom webu používat svůj styl. Obě slova lze změnit v nastavení.",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "Pro použití sobrio zde obnovte stránku"
+  },
+  "backupCss": {
+    "message": "Vlastní CSS: $CHARS$ znaků",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "načítá z $HOSTS$",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "Vyhledávač $NAME$ na webu $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ otevírá $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "(výchozí)"
+  },
+  "backupFailed": {
+    "message": "Nepodařilo se obnovit"
+  },
+  "welcomeNoShortcut": {
+    "message": "Tlačítko na panelu nástrojů"
+  },
+  "exceptionsLocal": {
+    "message": "Místní adresy nechat být"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost, 127.0.0.1, 192.168.x, názvy .local a další adresy vašeho počítače nebo sítě si zachovají svůj vzhled: bez stylu a bez tmavého režimu."
+  },
+  "localLeftAlone": {
+    "message": "Místní adresy zůstávají nedotčené: změníte to v nastavení"
+  }
+}

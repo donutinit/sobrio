@@ -1,0 +1,678 @@
+{
+  "name": {
+    "message": "sobrio"
+  },
+  "description": {
+    "message": "一个有主见的扩展：网页该是什么样子，浏览器该是什么感觉。"
+  },
+  "commandOpen": {
+    "message": "打开 switcher"
+  },
+  "placeholderBookmarks": {
+    "message": "搜索书签"
+  },
+  "placeholderEngine": {
+    "message": "在 $ENGINE$ 上搜索",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchOn": {
+    "message": "在 $ENGINE$ 上搜索“$QUERY$”",
+    "placeholders": {
+      "query": {
+        "content": "$1"
+      },
+      "engine": {
+        "content": "$2"
+      }
+    }
+  },
+  "noBookmarks": {
+    "message": "没有书签"
+  },
+  "darkOff": {
+    "message": "在 $HOST$ 上关闭深色模式",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "darkOn": {
+    "message": "在 $HOST$ 上开启深色模式",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOff": {
+    "message": "在 $HOST$ 上关闭自定义 CSS",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "cssOn": {
+    "message": "在 $HOST$ 上开启自定义 CSS",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "hints": {
+    "message": "↑↓ 移动 · ↵ 打开 · ctrl ↵ 新标签页 · tab 搜索引擎 · esc 关闭"
+  },
+  "openSettings": {
+    "message": "打开设置"
+  },
+  "darkOnEverywhere": {
+    "message": "所有网站都开启深色模式"
+  },
+  "removesPatterns": {
+    "message": "（移除 $PATTERNS$）",
+    "placeholders": {
+      "patterns": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "设置"
+  },
+  "styleCorners": {
+    "message": "没有圆角"
+  },
+  "styleShadows": {
+    "message": "没有阴影"
+  },
+  "styleBlur": {
+    "message": "没有模糊"
+  },
+  "styleAnimations": {
+    "message": "没有动画和过渡效果"
+  },
+  "styleYoutube": {
+    "message": "YouTube 播放器除外"
+  },
+  "styleSmoothScroll": {
+    "message": "没有平滑滚动"
+  },
+  "styleThinScrollbars": {
+    "message": "细滚动条"
+  },
+  "styleFixedBackgrounds": {
+    "message": "背景随页面滚动"
+  },
+  "fromTheme": {
+    "message": "来自主题（userContent.css）"
+  },
+  "darkEnabled": {
+    "message": "让网站变为深色"
+  },
+  "darkDetect": {
+    "message": "保留已经是深色的网站"
+  },
+  "darkBrightness": {
+    "message": "亮度"
+  },
+  "darkContrast": {
+    "message": "对比度"
+  },
+  "darkSepia": {
+    "message": "褐色调"
+  },
+  "darkGrayscale": {
+    "message": "灰度"
+  },
+  "darkBackground": {
+    "message": "背景"
+  },
+  "darkText": {
+    "message": "文字"
+  },
+  "darkSelection": {
+    "message": "选中区域"
+  },
+  "auto": {
+    "message": "自动"
+  },
+  "exceptionsHelp": {
+    "message": "example.com 只作用于该网站；*.example.com 同时包括它的子域名。"
+  },
+  "exceptionsCss": {
+    "message": "不使用样式表"
+  },
+  "exceptionsDark": {
+    "message": "不使用深色模式"
+  },
+  "patternPlaceholder": {
+    "message": "example.com 或 *.example.com"
+  },
+  "add": {
+    "message": "添加"
+  },
+  "remove": {
+    "message": "移除"
+  },
+  "invalidPattern": {
+    "message": "这不是一个网站"
+  },
+  "emptyList": {
+    "message": "无"
+  },
+  "switcherBookmarks": {
+    "message": "书签"
+  },
+  "switcherEngine": {
+    "message": "搜索引擎"
+  },
+  "switcherAutoSearch": {
+    "message": "没有匹配的书签时搜索网页"
+  },
+  "switcherCommands": {
+    "message": "switcher 中的命令"
+  },
+  "switcherHints": {
+    "message": "快捷键提示行"
+  },
+  "lastPiece": {
+    "message": "至少保留书签或一个搜索引擎"
+  },
+  "optionsFooter": {
+    "message": "更改会自动保存，并立即应用到已打开的标签页。快捷键请在 about:addons 或 chrome://extensions/shortcuts 中修改。"
+  },
+  "newTab": {
+    "message": "新标签页"
+  },
+  "newtabStyle": {
+    "message": "字体排版"
+  },
+  "newtabStyle_editorial": {
+    "message": "社论：Instrument Serif 与 Inter"
+  },
+  "newtabStyle_suizo": {
+    "message": "瑞士风格：Inter"
+  },
+  "newtabStyle_maquina": {
+    "message": "机器风格：IBM Plex Mono"
+  },
+  "newtabStyle_libro": {
+    "message": "书籍风格：EB Garamond"
+  },
+  "newtabStyle_tema": {
+    "message": "主题：userContent.css 中的字体"
+  },
+  "newtabClock": {
+    "message": "时钟"
+  },
+  "newtabClock_auto": {
+    "message": "跟随浏览器语言"
+  },
+  "newtabClock_24": {
+    "message": "24 小时制"
+  },
+  "newtabClock_12": {
+    "message": "12 小时制"
+  },
+  "newtabDate": {
+    "message": "显示日期"
+  },
+  "newtabTime": {
+    "message": "显示时间"
+  },
+  "newtabSwitcher": {
+    "message": "显示 switcher"
+  },
+  "newtabLocales": {
+    "message": "日期的语言"
+  },
+  "newtabLocalesHelp": {
+    "message": "每个新标签页都会随机用其中一种语言显示日期。"
+  },
+  "localesEmpty": {
+    "message": "浏览器的语言"
+  },
+  "speedEnabled": {
+    "message": "控制视频和音频的播放速度"
+  },
+  "speedGlobal": {
+    "message": "速度"
+  },
+  "speedStep": {
+    "message": "] 和 [ 的步长"
+  },
+  "speedShortcuts": {
+    "message": "快捷键：] 加速，[ 减速，\\ 恢复为 1×"
+  },
+  "speedRules": {
+    "message": "每个网站的速度"
+  },
+  "invalidSpeed": {
+    "message": "在 0.25 到 4 之间"
+  },
+  "speedPageOnly": {
+    "message": "仅此页面"
+  },
+  "toastDarkOn": {
+    "message": "已开启深色模式"
+  },
+  "toastDarkOff": {
+    "message": "已关闭深色模式"
+  },
+  "toastCssOn": {
+    "message": "已开启样式表"
+  },
+  "toastCssOff": {
+    "message": "已关闭样式表"
+  },
+  "toastDarkEverywhereOn": {
+    "message": "所有网站已开启深色模式"
+  },
+  "toastDarkEverywhereOff": {
+    "message": "所有网站已关闭深色模式"
+  },
+  "toastCopied": {
+    "message": "已复制干净的链接"
+  },
+  "toastCopyFailed": {
+    "message": "无法复制"
+  },
+  "greetingMorning": {
+    "message": "早上好"
+  },
+  "greetingAfternoon": {
+    "message": "下午好"
+  },
+  "greetingEvening": {
+    "message": "晚上好"
+  },
+  "tab_style": {
+    "message": "样式"
+  },
+  "tab_dark": {
+    "message": "深色模式"
+  },
+  "tab_exceptions": {
+    "message": "例外"
+  },
+  "tab_switcher": {
+    "message": "switcher"
+  },
+  "tab_shortcuts": {
+    "message": "快捷键"
+  },
+  "tab_newtab": {
+    "message": "新标签页"
+  },
+  "tab_media": {
+    "message": "媒体"
+  },
+  "tab_stats": {
+    "message": "统计"
+  },
+  "styleHideScrollbars": {
+    "message": "隐藏滚动条"
+  },
+  "styleUnderlineLinks": {
+    "message": "链接加下划线"
+  },
+  "styleSelectableText": {
+    "message": "允许选择任何文字"
+  },
+  "styleNoUppercase": {
+    "message": "不强制大写"
+  },
+  "styleGrayscaleMedia": {
+    "message": "图片和视频使用灰度"
+  },
+  "styleFocusRing": {
+    "message": "获得焦点的元素显示可见的边框"
+  },
+  "styleCustom": {
+    "message": "你的 CSS"
+  },
+  "styleCustomHelp": {
+    "message": "添加在以上所有样式之后，放在独立的样式表中，应用于启用 CSS 的每个网站；@import 必须放在最前面。ta 会与其他样式一起关闭它。使用 !important 可以覆盖网站的样式。网站同样可以读取它，就像读取页面上的任何样式一样。"
+  },
+  "switcherPrecision": {
+    "message": "搜索精度"
+  },
+  "precision_strict": {
+    "message": "严格：逐个词按输入匹配"
+  },
+  "precision_normal": {
+    "message": "普通"
+  },
+  "precision_loose": {
+    "message": "宽松：字母按顺序出现在任意位置即可"
+  },
+  "switcherMemory": {
+    "message": "记住我打开过的内容并提高其排名"
+  },
+  "switcherDefaultEngine": {
+    "message": "默认搜索引擎"
+  },
+  "customEngines": {
+    "message": "你的搜索引擎"
+  },
+  "customEnginesHelp": {
+    "message": "地址中的 %s 会被替换为你输入的内容。"
+  },
+  "engineName": {
+    "message": "名称"
+  },
+  "invalidEngine": {
+    "message": "需要一个名称和一个包含 %s 的 http(s) 地址"
+  },
+  "shortcutsHelp": {
+    "message": "按下按钮上的按键，选择它们的作用，然后添加。快捷键需要包含 Ctrl、Alt 或 Meta，或者一个功能键。Alt 加字母可能与浏览器冲突（Alt+D 会跳到地址栏）：Ctrl+Shift 或 Alt+Shift 更安全。"
+  },
+  "shortcutRecord": {
+    "message": "录制按键"
+  },
+  "shortcutPress": {
+    "message": "请按下按键…"
+  },
+  "invalidShortcut": {
+    "message": "请录制包含 Ctrl、Alt 或 Meta 的组合，或一个功能键"
+  },
+  "duplicateShortcut": {
+    "message": "这些按键已经有其他作用"
+  },
+  "invalidShortcutParam": {
+    "message": "该操作需要有效的值"
+  },
+  "action_switcher": {
+    "message": "打开 switcher"
+  },
+  "action_search": {
+    "message": "在以下搜索引擎中搜索"
+  },
+  "action_searchSelection": {
+    "message": "在以下搜索引擎中搜索选中内容"
+  },
+  "action_toggleDark": {
+    "message": "此网站的深色模式"
+  },
+  "action_toggleCss": {
+    "message": "此网站的 CSS"
+  },
+  "action_toggleDarkEverywhere": {
+    "message": "所有网站的深色模式"
+  },
+  "action_openUrl": {
+    "message": "打开一个地址"
+  },
+  "action_openUrlNewTab": {
+    "message": "在新标签页中打开一个地址"
+  },
+  "action_speed": {
+    "message": "媒体速度"
+  },
+  "action_copyCleanUrl": {
+    "message": "复制不含追踪参数的链接"
+  },
+  "action_settings": {
+    "message": "打开设置"
+  },
+  "statsHelp": {
+    "message": "每次从 switcher 打开的书签。权重会随打开次数增加，并随时间衰减；它决定页面在搜索中的排名。"
+  },
+  "statsPage": {
+    "message": "页面"
+  },
+  "statsOpens": {
+    "message": "打开次数"
+  },
+  "statsWeight": {
+    "message": "权重"
+  },
+  "statsLast": {
+    "message": "最近"
+  },
+  "statsReset": {
+    "message": "重置"
+  },
+  "statsResetAll": {
+    "message": "全部重置"
+  },
+  "statsResetConfirm": {
+    "message": "再点一次以重置"
+  },
+  "statsEmpty": {
+    "message": "还没有内容"
+  },
+  "newtabLayout": {
+    "message": "布局"
+  },
+  "layout_clasico": {
+    "message": "经典"
+  },
+  "layout_hora": {
+    "message": "只显示时间"
+  },
+  "layout_linea": {
+    "message": "单行"
+  },
+  "layout_apilado": {
+    "message": "堆叠"
+  },
+  "layout_esquina": {
+    "message": "角落"
+  },
+  "layout_analogico": {
+    "message": "模拟"
+  },
+  "newtabStyle_custom": {
+    "message": "我的字体"
+  },
+  "newtabCustomTimeFont": {
+    "message": "时间的字体"
+  },
+  "newtabCustomTimeWeight": {
+    "message": "时间的字重"
+  },
+  "newtabCustomDateFont": {
+    "message": "日期的字体"
+  },
+  "fontPlaceholder": {
+    "message": "已安装在此设备上的字体"
+  },
+  "newtabGreeting": {
+    "message": "问候语"
+  },
+  "newtabName": {
+    "message": "你的名字"
+  },
+  "newtabNamePlaceholder": {
+    "message": "可选"
+  },
+  "newtabFocusPage": {
+    "message": "将焦点从地址栏移开"
+  },
+  "newtabFocusPageHint": {
+    "message": "标签页会在原位置被替换为一个新标签页，因此地址栏会显示该页面的地址，而不是空白。"
+  },
+  "mediaPauseAutoplay": {
+    "message": "暂停自动播放的视频和音频"
+  },
+  "toastSpeedOff": {
+    "message": "设置中已关闭媒体速度"
+  },
+  "exceptionsAnimations": {
+    "message": "保留它们自己的动画"
+  },
+  "exceptionsAnimationsHelp": {
+    "message": "sobrio 的其余 CSS 仍然生效，但动画和过渡效果不会被剪除。ChatGPT 需要这样：否则它在输出文字时画面会漂移。"
+  },
+  "switcherCommandsHint": {
+    "message": "每个命令都是一个由字母或数字组成的单词，且彼此不同。"
+  },
+  "commandName_dark": {
+    "message": "此网站的深色模式"
+  },
+  "commandName_css": {
+    "message": "此网站的样式表"
+  },
+  "commandName_settings": {
+    "message": "打开设置"
+  },
+  "backupLabel": {
+    "message": "备份"
+  },
+  "backupExport": {
+    "message": "导出"
+  },
+  "backupImport": {
+    "message": "导入…"
+  },
+  "backupConfirm": {
+    "message": "用此备份替换全部内容"
+  },
+  "backupExported": {
+    "message": "已保存到下载文件夹"
+  },
+  "backupInvalid": {
+    "message": "这不是 sobrio 的备份文件"
+  },
+  "backupImported": {
+    "message": "备份已恢复"
+  },
+  "welcomeOpen": {
+    "message": "欢迎指南"
+  },
+  "backupSummary": {
+    "message": "快捷键：$SHORTCUTS$ · 例外：$EXCEPTIONS$ · 记住的页面：$PAGES$。它会替换当前的内容。",
+    "placeholders": {
+      "shortcuts": {
+        "content": "$1"
+      },
+      "exceptions": {
+        "content": "$2"
+      },
+      "pages": {
+        "content": "$3"
+      }
+    }
+  },
+  "welcomeTitle": {
+    "message": "欢迎使用 sobrio。"
+  },
+  "welcomeLead": {
+    "message": "黑白的网页，更安静，触手可及。以下五点值得了解。"
+  },
+  "welcomeSwitcher": {
+    "message": "在任意页面打开 switcher：输入即可搜索书签，按 Tab 在搜索引擎之间切换，按 Enter 打开，按 Ctrl+Enter 在新标签页中打开。工具栏按钮也可以打开它。"
+  },
+  "welcomeNewtabTitle": {
+    "message": "你的新标签页"
+  },
+  "welcomeNewtab": {
+    "message": "浏览器可能会询问是否保留 sobrio 设置的新标签页：请保留。它会把焦点从地址栏移开，因此你可以直接在 switcher 中输入。"
+  },
+  "welcomeShortcutsTitle": {
+    "message": "你自己的快捷键"
+  },
+  "welcomeShortcuts": {
+    "message": "在设置中录制任意组合键，即可打开一个地址、搜索选中内容、设置媒体速度，或复制不含追踪参数的链接。"
+  },
+  "welcomeSystemTitle": {
+    "message": "深色系统"
+  },
+  "welcomeSystem": {
+    "message": "将系统设为深色外观：自带深色主题的网站会切换过去，sobrio 则不作干预。"
+  },
+  "welcomeSettings": {
+    "message": "打开设置"
+  },
+  "welcomeFooter": {
+    "message": "内容不会离开你的浏览器。设置会保存一份备份，方便把这些带到另一个浏览器。"
+  },
+  "welcomeCommandsTitle": {
+    "message": "$DARK$ 和 $CSS$",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "welcomeCommands": {
+    "message": "每个网站都会变为黑色，并逐色调整。如果某个网站显示不正确，可在 switcher 中输入 $DARK$ 以在该网站关闭深色模式，或输入 $CSS$ 以在该网站去掉 sobrio 的样式表。这两个词都可以在设置中修改。",
+    "placeholders": {
+      "dark": {
+        "content": "$1"
+      },
+      "css": {
+        "content": "$2"
+      }
+    }
+  },
+  "shortcutReload": {
+    "message": "重新加载此页面以在此处使用 sobrio"
+  },
+  "backupCss": {
+    "message": "你的 CSS：$CHARS$ 个字符",
+    "placeholders": {
+      "chars": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupLoadsFrom": {
+    "message": "正在从 $HOSTS$ 加载",
+    "placeholders": {
+      "hosts": {
+        "content": "$1"
+      }
+    }
+  },
+  "backupEngine": {
+    "message": "搜索引擎 $NAME$ 位于 $HOST$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupAddress": {
+    "message": "$KEYS$ 打开 $HOST$",
+    "placeholders": {
+      "keys": {
+        "content": "$1"
+      },
+      "host": {
+        "content": "$2"
+      }
+    }
+  },
+  "backupDefault": {
+    "message": "（默认）"
+  },
+  "backupFailed": {
+    "message": "无法恢复"
+  },
+  "welcomeNoShortcut": {
+    "message": "工具栏按钮"
+  },
+  "exceptionsLocal": {
+    "message": "不处理本地地址"
+  },
+  "exceptionsLocalHint": {
+    "message": "localhost、127.0.0.1、192.168.x、.local 名称以及你的设备或网络的其他地址保持原样：没有样式表，没有深色模式。"
+  },
+  "localLeftAlone": {
+    "message": "本地地址不做处理：可在设置中更改"
+  }
+}
