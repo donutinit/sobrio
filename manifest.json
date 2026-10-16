@@ -19,6 +19,14 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
+      "js": ["proxy.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": ["<all_urls>"],
       "js": ["boot.js", "settings.js", "style.js", "darkreader.js", "detector.js", "page.js", "toast.js", "speed.js", "shortcuts.js"],
       "run_at": "document_start",
       "all_frames": true,

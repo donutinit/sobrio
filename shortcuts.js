@@ -10,13 +10,21 @@
   const onPage = top && !location.protocol.endsWith('-extension:') && Boolean(location.hostname);
   let settings = mergeSettings(undefined);
 
-  const load = (raw) => {
-    settings = mergeSettings(raw);
-  };
-  chrome.storage.local.get('settings').then((stored) => load(stored.settings), () => {});
-  chrome.storage.onChanged.addListener((changes, area) => {
-    if (area === 'local' && changes.settings) load(changes.settings.newValue);
-  });
+  // In a page, page.js reads the settings for every content script of the frame; the new tab has no
+  // page.js and reads them itself.
+  if (sobrio.onSettings) {
+    sobrio.onSettings((merged) => {
+      settings = merged;
+    });
+  } else {
+    const load = (raw) => {
+      settings = mergeSettings(raw);
+    };
+    chrome.storage.local.get('settings').then((stored) => load(stored.settings), () => {});
+    chrome.storage.onChanged.addListener((changes, area) => {
+      if (area === 'local' && changes.settings) load(changes.settings.newValue);
+    });
+  }
 
   // The actions about the site in the address bar: from an iframe, the top frame runs them.
   const SITE_ACTIONS = new Set(['toggleDark', 'toggleCss', 'copyCleanUrl']);

@@ -136,7 +136,8 @@
     const out = {};
     for (const [key, fallback] of Object.entries(defaults)) {
       if (isObject(fallback)) out[key] = mergeLevel(fallback, valid[key], from[key]);
-      else out[key] = valid[key](from[key]) ? from[key] : structuredClone(fallback);
+      // Defaults are booleans, numbers, strings or lists of them: a list is copied, the rest is kept.
+      else out[key] = valid[key](from[key]) ? from[key] : Array.isArray(fallback) ? [...fallback] : fallback;
     }
     return out;
   }
@@ -300,7 +301,9 @@
   // default): what runs there is the person's own work, to be seen as it is.
   function siteState(stored, host) {
     const animOff = Array.isArray(stored?.animOff) ? stored.animOff : DEFAULT_ANIM_OFF;
-    const local = mergeSettings(stored?.settings).exceptions.local && isLocalHost(host);
+    // settings.exceptions.local as mergeSettings would read it, without merging everything else.
+    const keepLocal = stored?.settings?.exceptions?.local;
+    const local = (typeof keepLocal === 'boolean' ? keepLocal : DEFAULTS.exceptions.local) && isLocalHost(host);
     return {
       dark: !local && matchingPatterns(stored?.darkOff, host).length === 0,
       css: !local && matchingPatterns(stored?.cssOff, host).length === 0,

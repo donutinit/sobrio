@@ -121,9 +121,8 @@
     sobrio.toast?.(`${Number(value.toFixed(2))}×`, pageOnly ? t('speedPageOnly') : '', 900);
   }
 
-  function update(stored) {
+  function update(settings) {
     const wasOn = speed.enabled;
-    const settings = mergeSettings(stored?.settings);
     speed = settings.speed;
     pauseAutoplay = settings.media.pauseAutoplay;
     // Autoplay can start before storage answers.
@@ -136,8 +135,6 @@
     applyAll();
   }
 
-  chrome.storage.local.get('settings').then(update, () => update(undefined));
-  chrome.storage.onChanged.addListener((changes, area) => {
-    if (area === 'local' && changes.settings) update({ settings: changes.settings.newValue });
-  });
+  // page.js reads the settings for every content script of the frame.
+  sobrio.onSettings(update);
 })();

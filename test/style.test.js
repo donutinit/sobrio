@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { buildCss, customCss } = require('../style.js');
+const { buildCss, customCss, youtubeHost } = require('../style.js');
 const { DEFAULTS } = require('../settings.js');
 
 const ALL_OFF = Object.fromEntries(Object.keys(DEFAULTS.css).map((key) => [key, false]));
@@ -9,7 +9,7 @@ const ALL_ON = { ...ALL_OFF, ...Object.fromEntries(V01.map((key) => [key, true])
 const only = (key, extra = {}) => ({ ...ALL_OFF, [key]: true, ...extra });
 
 test('the v0.1 switches together are the v0.1 stylesheet', () => {
-  const css = buildCss(ALL_ON, null);
+  const css = buildCss(ALL_ON, null, 'www.youtube.com');
   for (const piece of [
     'scroll-behavior: auto !important',
     'border-radius: 0 !important',
@@ -21,8 +21,6 @@ test('the v0.1 switches together are the v0.1 stylesheet', () => {
     '*:not(#movie_player, #movie_player *)::after',
     'animation-duration: .01ms !important',
     'animation-iteration-count: 1 !important',
-    'transition-duration: .01ms !important',
-    'transition-delay: 0s !important',
     'scrollbar-width: thin !important',
   ]) {
     assert.ok(css.includes(piece), piece);
@@ -37,6 +35,10 @@ test('the defaults: no scrollbars, underlined links, selectable text, no forced 
   for (const piece of ['scrollbar-width: thin', 'grayscale', ':focus-visible']) assert.ok(!css.includes(piece), piece);
 });
 
+test('transitions are left to page.js: a duration on every element makes every change a transition', () => {
+  assert.ok(!buildCss({ ...ALL_ON, animations: true }, null).includes('transition'));
+});
+
 test('all off is empty', () => {
   assert.equal(buildCss(ALL_OFF, null), '');
 });
@@ -46,7 +48,7 @@ test('each switch brings only its own rules', () => {
     corners: ['border-radius'],
     shadows: ['box-shadow', 'text-shadow'],
     blur: ['backdrop-filter'],
-    animations: ['animation-duration', 'transition-duration'],
+    animations: ['animation-duration', 'animation-iteration-count'],
     smoothScroll: ['scroll-behavior'],
     thinScrollbars: ['scrollbar-width'],
     fixedBackgrounds: ['background-attachment'],
@@ -59,9 +61,22 @@ test('each switch brings only its own rules', () => {
 });
 
 test('animations without the YouTube exception cover every element', () => {
-  const css = buildCss(only('animations'), null);
+  const css = buildCss(only('animations'), null, 'www.youtube.com');
   assert.ok(!css.includes('movie_player'));
-  assert.ok(buildCss(only('animations', { youtubePlayer: true }), null).includes('#movie_player'));
+  assert.ok(buildCss(only('animations', { youtubePlayer: true }), null, 'www.youtube.com').includes('#movie_player'));
+});
+
+test("the YouTube exception goes in only on YouTube and its embeds: elsewhere it only slows restyles", () => {
+  const css = (host) => buildCss(only('animations', { youtubePlayer: true }), null, host);
+  for (const host of ['www.youtube.com', 'youtube.com', 'm.youtube.com', 'music.youtube.com', 'www.youtube-nocookie.com']) {
+    assert.ok(css(host).includes('#movie_player'), host);
+  }
+  for (const host of ['github.com', 'notyoutube.com', 'youtube.com.evil.test', '', undefined]) {
+    assert.ok(!css(host).includes('#movie_player'), String(host));
+    assert.ok(css(host).includes('*::after'), String(host));
+  }
+  assert.equal(youtubeHost('www.youtube.com'), true);
+  assert.equal(youtubeHost('example.com'), false);
 });
 
 test('the YouTube exception alone adds nothing', () => {

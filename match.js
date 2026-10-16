@@ -14,9 +14,13 @@
   const WEIGHTS = { title: 3, folder: 2, url: 1 };
   const SKIPPED_SCHEMES = /^(javascript|place|data):/i;
 
-  // One folded char per original char, so match positions index the original text.
-  const fold = (text) => Array.from(text, (c) => c.normalize('NFD')[0].toLowerCase()).join('');
-  const isWordChar = (c) => /[\p{L}\p{N}]/u.test(c);
+  // One folded char per original char (code point), so match positions index the original text.
+  // ASCII only needs lower case; the rest goes char by char, and a lower-cased char never grows.
+  const NON_ASCII = /[^\x00-\x7f]/gu;
+  const fold = (text) => text.replace(NON_ASCII, (c) => c.normalize('NFD')[0].toLowerCase()).toLowerCase();
+  const WORD_CHAR = /[\p{L}\p{N}]/u;
+  // Fields are folded, so ASCII letters are lower case already.
+  const isWordChar = (c) => (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || (c > '\x7f' && WORD_CHAR.test(c));
 
   function shortUrl(url) {
     return url.replace(/^[a-z][a-z0-9+.-]*:\/\//i, '').replace(/^www\./i, '');
@@ -88,12 +92,15 @@
     return { score, positions };
   }
 
+  const FIELDS = ['title', 'folder', 'url'];
+
+  // Most bookmarks miss on every keystroke, so nothing is built for one until all its words match.
   function scoreBookmark(fields, words, precision) {
     let total = 0;
-    const hits = { title: [], folder: [], url: [] };
+    const bests = [];
     for (const word of words) {
       let best = null;
-      for (const name of ['title', 'folder', 'url']) {
+      for (const name of FIELDS) {
         const m = matchWord(fields[name], word, precision);
         if (m && (!best || m.score * WEIGHTS[name] > best.score)) {
           best = { name, score: m.score * WEIGHTS[name], positions: m.positions };
@@ -101,22 +108,32 @@
       }
       if (!best) return null;
       total += best.score;
-      hits[best.name].push(...best.positions);
+      bests.push(best);
     }
+    const hits = { title: [], folder: [], url: [] };
+    for (const best of bests) hits[best.name].push(...best.positions);
     for (const name in hits) hits[name] = [...new Set(hits[name])].sort((a, b) => a - b);
     return { score: total, hits };
   }
 
   const newestFirst = (a, b) => b.bookmark.dateAdded - a.bookmark.dateAdded;
 
-  // Folding is most of the cost, so each bookmark is folded once, not on every keystroke.
+  // Folding is most of the cost, so each bookmark is folded once, not on every keystroke, and kept
+  // by id for the next time the switcher opens on the same page (the list comes anew each time).
   const folded = new WeakMap();
+  const foldedById = new Map();
   function foldedFields(bookmark) {
     let fields = folded.get(bookmark);
-    if (!fields) {
-      fields = { title: fold(bookmark.title), folder: fold(bookmark.folder), url: fold(shortUrl(bookmark.url)) };
-      folded.set(bookmark, fields);
+    if (fields) return fields;
+    const { id, title, folder, url } = bookmark;
+    const kept = id === undefined ? null : foldedById.get(id);
+    if (kept && kept.title === title && kept.folder === folder && kept.url === url) {
+      fields = kept.fields;
+    } else {
+      fields = { title: fold(title), folder: fold(folder), url: fold(shortUrl(url)) };
+      if (id !== undefined) foldedById.set(id, { title, folder, url, fields });
     }
+    folded.set(bookmark, fields);
     return fields;
   }
 

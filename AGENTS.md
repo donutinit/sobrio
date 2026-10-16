@@ -14,7 +14,8 @@ en `docs/superpowers/specs/`: `2026-10-14-sobrio-design.md` (v0.1), `-v0.2-desig
 node --test                                         # tests: lo mismo que CI
 python3 -I tools/cdp.py . <url>... --eval '<js>'    # Chromium headless (instalado en lizeth)
 python3 -I tools/marionette.py . <url>... --eval '<js>'  # LibreWolf headless (en la máquina de Diego)
-python3 -I tools/vendor-darkreader.py <versión>     # actualizar Dark Reader
+python3 -I tools/perf.py . <url>...                 # CPU de la página con sobrio y sin él (Chromium)
+python3 -I tools/vendor-darkreader.py <versión>     # actualizar Dark Reader (y proxy.js)
 python3 -I tools/vendor-fonts.py                    # actualizar las fuentes de la nueva pestaña
 python3 -I tools/make-icons.py                      # redibujar icons/ desde la retícula del isotipo
 scripts/pack.sh                                     # dist/sobrio-<versión>.zip y .xpi
@@ -36,7 +37,11 @@ FILE` (un `userContent.css` para el perfil), `--late-install` (la pestaña ya ab
 la ventana: `gBrowser`, `gURLBar`, `BrowserCommands.openTab()`). Las páginas de prueba se sirven
 con `python3 -I -m http.server` desde una carpeta fuera del repo, y se abren como
 `http://sobrio.test:<puerto>/`: las dos herramientas resuelven `sobrio.test` a esta máquina, con un
-nombre que no es local (`127.0.0.1` y `localhost` quedan fuera de sobrio por defecto).
+nombre que no es local (`127.0.0.1` y `localhost` quedan fuera de sobrio por defecto). En lizeth
+`marionette.py` corre con un Firefox oficial: `--binary ~/.cache/sobrio-firefox/firefox/firefox`.
+
+sobrio tiene que ser rápido: un cambio a lo que corre en las páginas se mide con `tools/perf.py`
+(carga y reposo) en sitios pesados (GitHub, YouTube) contra la versión anterior.
 
 ## Idiomas
 
@@ -85,14 +90,21 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   primero y comandos en inglés (v0.3), y desde 0.3.2 todos los interruptores de estilo menos
   escala de grises y contorno de foco, y `focusPage`. Guardar en ajustes escribe el objeto
   entero, así que un default nuevo no le llega a quien ya guardó: hay que avisarlo. `stats` vive aparte en
-  `storage.local` (`{[url]: {count, last, title}}`, máximo 2,000). `cssOff`, `darkOff` y
+  `storage.local` (`{[url]: {count, last, title}}`, máximo 2,000), igual que `ownDark`: los hosts
+  que el detector vio con tema oscuro propio (máximo 500, el más reciente primero). `page.js` lo lee
+  al arrancar y ahí no enciende Dark Reader; su negro provisional queda hasta la primera mirada,
+  que lo confirma o enciende Dark Reader en el mismo turno. `cssOff`, `darkOff` y
   `animOff` son listas de patrones; `animOff` sin guardar vale `DEFAULT_ANIM_OFF`
   (`['chatgpt.com']`).
 - Atajos, velocidad, aviso y pausa del autoplay solo actúan con eventos `isTrusted`: una página
   no debe poder disparar acciones de la extensión.
-- `darkreader.js`, `fonts/` y `fonts.css` no se editan: se regeneran con `tools/vendor-*.py`, que
-  verifican el sha512 del registro. Al actualizar Dark Reader, repetir las pruebas de navegador
-  de "Cosas que ya mordieron".
+- `darkreader.js`, `proxy.js`, `fonts/` y `fonts.css` no se editan: se regeneran con
+  `tools/vendor-*.py`, que verifican el sha512 del registro (`proxy.js` es el `injectProxy` de
+  `darkreader.js`; `vendor-darkreader.py --proxy-only` lo rehace). Al actualizar Dark Reader,
+  repetir las pruebas de navegador de "Cosas que ya mordieron".
+- `page.js` lee `storage` una vez por frame: `speed.js` y `shortcuts.js` reciben los ajustes ya
+  combinados con `sobrio.onSettings` (la nueva pestaña no tiene `page.js` y `shortcuts.js` los lee
+  solo).
 - Los content scripts mandan mensajes con `sobrio.send`, nunca con
   `chrome.runtime.sendMessage`: `darkreader.js` parcha `sendMessage` y su versión no devuelve la
   respuesta. `boot.js` guarda la original antes.
@@ -105,7 +117,9 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   `guard.canInject` decide antes de intentar inyectar.
 - El switcher vive en un shadow root cerrado. Lo que necesita entra por `files` de
   `executeScript` (`settings.js`, `stats.js`, `match.js`, `icons.js`, `switcher-css.js`,
-  `switcher.js`); su CSS es un string. Sus colores son variables `--s-*`.
+  `switcher.js`) la primera vez en cada página; después se abre con una sola llamada a
+  `sobrio.toggleSwitcher`, y `match.js` guarda por id los marcadores ya normalizados. Su CSS es
+  un string. Sus colores son variables `--s-*`.
 - El gancho de tema son variables `--sobrio-*` en `userContent.css` dentro de
   `@-moz-document url-prefix("moz-extension://")`. Solo el background de Firefox (y la página de
   ajustes) las lee; `storeThemeHook` escribe `theme` solo si cambió. En dot, la plantilla
@@ -114,18 +128,38 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
 ## Cosas que ya mordieron
 
 - Chrome siempre bloquea el script inline con el que Dark Reader instala su proxy de CSSOM (CSP
-  del mundo aislado) y deja un error de CSP por frame en la consola. Es esperado: el motor tiene
-  respaldo y oscurece igual reglas de `insertRule`, `adoptedStyleSheets` y shadow DOM (probado
-  con y sin el proxy).
+  del mundo aislado), y Firefox donde la página prohíbe scripts inline. Sin proxy, Dark Reader
+  revisa cada hoja de la página en cada cuadro mientras esté abierta (CPU en reposo y cuadros sin
+  parar). Por eso `proxy.js` corre como content script en el mundo de la página (`"world":
+  "MAIN"`) y entra después de cada `__darkreader__cleanUp` si el script inline no corrió. El
+  error de CSP por frame en la consola de Chrome sigue siendo esperado.
 - Un segundo `DarkReader.enable` con el motor activo se toma por "otra instancia" y no cambia
   nada: para cambiar el tema, `disable` y `enable` en el mismo turno.
-- El CSS de Diego da `transition-duration` a todos los elementos, así que `getComputedStyle`
-  devuelve el color inicial de cualquier transición. El detector pone `transition: none`
-  mientras mide y fuerza un reflow antes de quitarlo. En headless, una transición pendiente no
-  avanza sin cuadros: mide después de dos `requestAnimationFrame`.
-- El detector apaga también la hoja adoptada `#__darkreader__adoptedOverride`, corre en cuanto
-  hay contenido, en `DOMContentLoaded` si ya lo hay o en `load`, y `page.js` lo repite en `load`.
-  El fondo negro provisional se quita antes de medir.
+- Una `transition-duration` en todos los elementos hace de cada cambio de cada propiedad una
+  transición (`transition-property` empieza en `all`): cada recálculo de estilos tardaba el doble
+  y GitHub gastaba CPU sin parar en reposo. El CSS solo acorta animaciones; `page.js` termina las
+  transiciones de la página en `transitionrun` (siguen llegando `transitionend`), con una pasada
+  por cuadro de `document.getAnimations()`: en Chromium `element.getAnimations()` cuesta lo mismo
+  que el del documento (~100 ms con miles de transiciones), así que una llamada por evento congela
+  la página.
+- El detector marca lo que lee con `data-sobrio-still` (una regla fija le quita las transiciones)
+  y fuerza un reflow antes de desmarcar. En headless, una transición pendiente no avanza sin
+  cuadros: mide después de dos `requestAnimationFrame`.
+- El detector apaga las hojas de Dark Reader del documento y de los shadow roots que muestrea
+  (`:host`), incluida la adoptada `#__darkreader__adoptedOverride`. Corre en cuanto hay contenido,
+  en `DOMContentLoaded` si ya lo hay o en `load`; `page.js` lo repite en `load` si cambiaron las
+  hojas de la página (`styleSignature`), cuando `<html>` o `<body>` cambian de tema
+  (`themeChanged`) y cuando cambia el modo claro u oscuro del sistema. El veredicto se revierte:
+  una página que vuelve a ser clara recupera Dark Reader. El fondo negro provisional se quita
+  antes de medir.
+- Los colores calculados llegan como `oklch()` (Tailwind 4), `lab()`, `color(srgb …)`
+  (`color-mix`) o `color(display-p3 …)`: `parseColor` los convierte a sRGB. Sin eso, un sitio
+  oscuro moderno quedaba con Dark Reader encima. El negro puro (X, temas OLED) es un tema oscuro
+  como cualquiera.
+- Un frame sin área (`innerWidth` o `innerHeight` menor que 2: trackers, anuncios ocultos) no
+  enciende Dark Reader ni el detector hasta su `resize`, que llega antes de que se pinte.
+- La excepción del reproductor de YouTube (`:not(#movie_player *)`) solo entra en hosts de
+  YouTube: en cualquier otro sitio hace cada recálculo 6 a 9 % más lento sin servir de nada.
 - Firefox no muestra en `document.styleSheets` del mundo de la página las hojas que inserta una
   extensión: las pruebas del detector desde la página solo valen en Chromium.
 - Velocidad: un `ratechange` dentro de 1.5 s después de `emptied`/`loadstart` es el sitio

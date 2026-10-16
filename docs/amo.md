@@ -106,8 +106,8 @@ Código y documentación: https://github.com/donutinit/sobrio
 ## Notes for reviewers
 
 ```
-sobrio has no build step: every file in the package is the source as written, except two
-third-party pieces, both unmodified:
+sobrio has no build step: every file in the package is the source as written, except these
+third-party pieces:
 
 1. darkreader.js is the "darkreader" npm package, version 4.9.133, file package/darkreader.js,
    not minified.
@@ -117,7 +117,15 @@ third-party pieces, both unmodified:
    tools/vendor-darkreader.py in the repository downloads it and checks that integrity.
    License: MIT (THIRD_PARTY_NOTICES.md).
 
-2. fonts/*.woff2 and fonts.css are Instrument Serif, Inter, IBM Plex Mono and EB Garamond from
+2. proxy.js is darkreader.js's own injectProxy function, copied unchanged but for indentation by
+   tools/vendor-darkreader.py (test/proxy.test.js checks it matches), run as a content script in
+   the page's world ("world": "MAIN"). Dark Reader normally inserts it as an inline <script>,
+   which the page's CSP may block; without it Dark Reader polls every stylesheet on every frame.
+   It only wraps the CSSOM methods Dark Reader needs to hear about and talks to the content
+   script through DOM events. It goes in after Dark Reader starts on a page and only if Dark
+   Reader's own inline copy did not run.
+
+3. fonts/*.woff2 and fonts.css are Instrument Serif, Inter, IBM Plex Mono and EB Garamond from
    Fontsource, unchanged, under the SIL Open Font License (licenses in fonts/).
 
 Permissions:
@@ -125,7 +133,8 @@ Permissions:
 - scripting: the switcher is injected into the current tab only when the person opens it
   (Ctrl+Space or a shortcut).
 - bookmarks: the switcher searches the person's bookmarks.
-- storage: settings, per-site exceptions and the switcher's memory, all in storage.local.
+- storage: settings, per-site exceptions, the switcher's memory and the hosts last seen with a
+  dark theme of their own (so dark mode does not start there), all in storage.local.
 
 Network: the background fetches a cross-origin stylesheet or image when Dark Reader asks for it
 (to darken it), only over http(s), without cookies, only text/css or image/*, at most 5 MB, and a

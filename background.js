@@ -46,7 +46,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true;
 });
 
-// Never sends cookies and never hands back anything but CSS or images, capped in size.
+// Never sends cookies and never hands back anything but CSS or images, capped in size. CSS goes
+// back as text (Chrome sends messages as JSON, so bytes would cost a base64 round trip), images as
+// base64.
 async function fetchForDarkReader(url) {
   if (!guard.fetchAllowed(url)) return { ok: false, error: 'url not allowed' };
   const response = await fetch(url, { credentials: 'omit' });
@@ -71,6 +73,7 @@ async function fetchForDarkReader(url) {
     chunks.push(read.value);
   }
   const body = await new Blob(chunks).arrayBuffer();
+  if (guard.isCss(type)) return { ok: true, status: response.status, type, text: new TextDecoder().decode(body) };
   return { ok: true, status: response.status, type, base64: guard.toBase64(body) };
 }
 
@@ -159,19 +162,23 @@ function openSwitcher(tab) {
   injectSwitcher(tab.id).catch(openPopup);
 }
 
-// mode: an engine id to open the switcher on, for search shortcuts.
+// mode: an engine id to open the switcher on, for search shortcuts. Where the switcher was
+// opened before, its code is still there: it opens in one call, without loading its six files
+// again and with the bookmarks folded last time.
 async function injectSwitcher(tabId, mode) {
   const target = { tabId };
-  if (mode) {
-    await chrome.scripting.executeScript({
-      target,
-      func: (m) => {
-        globalThis.sobrio = globalThis.sobrio || {};
-        globalThis.sobrio.pendingMode = m;
-      },
-      args: [mode],
-    });
-  }
+  const [{ result: opened } = {}] = await chrome.scripting.executeScript({
+    target,
+    func: (m) => {
+      const sobrio = (globalThis.sobrio = globalThis.sobrio || {});
+      sobrio.pendingMode = m;
+      if (!sobrio.toggleSwitcher) return false;
+      sobrio.toggleSwitcher();
+      return true;
+    },
+    args: [mode ?? null],
+  });
+  if (opened) return;
   await chrome.scripting.executeScript({ target, files: ['settings.js', 'stats.js', 'match.js', 'icons.js', 'switcher-css.js', 'switcher.js'] });
 }
 

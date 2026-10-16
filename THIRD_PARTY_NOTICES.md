@@ -3,6 +3,8 @@
 ## Dark Reader
 
 - `darkreader.js` is the `darkreader` npm package, version 4.9.133, unchanged.
+- `proxy.js` is Dark Reader's `injectProxy` function, copied from `darkreader.js` by
+  `tools/vendor-darkreader.py`.
 - `detector.js` is a simplified port of Dark Reader's `src/inject/detector.ts`.
 
 Source: https://github.com/darkreader/darkreader

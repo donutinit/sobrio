@@ -11,13 +11,16 @@
     }
   }
 
+  const mimeType = (contentType) => (contentType ?? '').split(';')[0].trim().toLowerCase();
+  const isCss = (contentType) => mimeType(contentType) === 'text/css';
+
   function responseAllowed(contentType, size) {
-    const type = (contentType ?? '').split(';')[0].trim().toLowerCase();
-    return (type === 'text/css' || type.startsWith('image/')) && size <= MAX_BYTES;
+    return (isCss(contentType) || mimeType(contentType).startsWith('image/')) && size <= MAX_BYTES;
   }
 
   function toBase64(buffer) {
     const bytes = new Uint8Array(buffer);
+    if (bytes.toBase64) return bytes.toBase64();
     let binary = '';
     for (let i = 0; i < bytes.length; i += 0x8000) {
       binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
@@ -103,7 +106,7 @@
     return reason === 'install' && installType !== 'development';
   }
 
-  const api = { MAX_BYTES, fetchAllowed, responseAllowed, toBase64, canInject, redirectAllowed, isOwnNewtab, shouldWelcome };
+  const api = { MAX_BYTES, fetchAllowed, responseAllowed, isCss, toBase64, canInject, redirectAllowed, isOwnNewtab, shouldWelcome };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.guard = api;
   if (typeof module === 'object') module.exports = api;
