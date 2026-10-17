@@ -74,33 +74,54 @@
     box.addEventListener('mousedown', (e) => e.target !== input && e.preventDefault());
 
     const { mergeSettings, siteState, matchingPatterns } = sobrio.settings;
+    // What the last open on this page got: the overlay opens again with it, complete in its first
+    // frame, and the fresh answers replace it a few milliseconds later.
+    const cache = (sobrio.switcherCache ??= {});
     let settings = mergeSettings(undefined);
     let stored = {};
     let stats = {}; // the switcher's memory: storage.local.stats
-    let bookmarks = [];
+    let bookmarks = cache.bookmarks ?? [];
     // Until the list arrives nothing jumps to an engine, and an early Enter waits for it:
     // a quick "gh" + Enter means the bookmark, not a web search.
-    let loaded = false;
+    let loaded = Boolean(cache.bookmarks);
     let pendingEnter = null;
     let state = startMode ? { mode: startMode, manual: true } : { mode: 'bookmarks', manual: false };
     let rows = [];
     let selected = 0;
 
-    send({ sobrio: 'bookmarks' })
-      .catch(() => [])
-      .then((answer) => {
-        bookmarks = Array.isArray(answer) ? answer : [];
-        loaded = true;
-        update();
-        if (pendingEnter) activate(selected, pendingEnter.newTab);
-      });
-    chrome.storage.local.get(['settings', 'theme', 'darkOff', 'cssOff', 'stats']).then((answer) => {
+    // The first overlay on a page stays transparent (it already takes the keys) until the list and
+    // the settings arrive, at most 150 ms: it never paints empty or in the default colors first.
+    let waiting = layout === 'overlay' && !(cache.bookmarks && cache.stored) ? 2 : 0;
+    const arrived = () => --waiting === 0 && frame.style.removeProperty('opacity');
+    if (waiting) {
+      frame.style.opacity = '0';
+      setTimeout(() => frame.style.removeProperty('opacity'), 150);
+    }
+
+    function useStored(answer) {
       stored = answer;
       stats = answer.stats && typeof answer.stats === 'object' ? answer.stats : {};
       settings = mergeSettings(answer.settings);
       for (const [name, value] of Object.entries(themeVariables(answer.theme))) frame.style.setProperty(name, value);
       if (popup && answer.theme?.background) document.documentElement.style.background = answer.theme.background;
+    }
+    if (cache.stored) useStored(cache.stored);
+
+    send({ sobrio: 'bookmarks' })
+      .catch(() => [])
+      .then((answer) => {
+        bookmarks = Array.isArray(answer) ? answer : [];
+        cache.bookmarks = bookmarks;
+        loaded = true;
+        update();
+        arrived();
+        if (pendingEnter) activate(selected, pendingEnter.newTab);
+      });
+    chrome.storage.local.get(['settings', 'theme', 'darkOff', 'cssOff', 'stats']).then((answer) => {
+      cache.stored = answer;
+      useStored(answer);
       update();
+      arrived();
     });
 
     // record: the title to remember the page under (bookmarks only; searches are not counted).
@@ -214,7 +235,7 @@
           return item;
         }),
       );
-      if (!rows.length && !engine) list.append(el('li', 'empty', t('noBookmarks')));
+      if (!rows.length && !engine && loaded) list.append(el('li', 'empty', t('noBookmarks')));
       select(selected);
     }
 

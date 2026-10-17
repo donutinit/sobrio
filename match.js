@@ -12,6 +12,9 @@
   const MAX_RESULTS = 50;
   const RECENT = 20;
   const WEIGHTS = { title: 3, folder: 2, url: 1 };
+  // A title that is the query itself is a name given to be typed (g, yt, pi): it comes first,
+  // over the switcher's memory (stats.js gives at most 40) and over newer bookmarks.
+  const EXACT_TITLE = 100;
   const SKIPPED_SCHEMES = /^(javascript|place|data):/i;
 
   // One folded char per original char (code point), so match positions index the original text.
@@ -146,10 +149,14 @@
         .sort((a, b) => b.score - a.score || newestFirst(a, b))
         .slice(0, RECENT);
     }
+    const phrase = words.join(' ');
     const results = [];
     for (const bookmark of list) {
-      const scored = scoreBookmark(foldedFields(bookmark), words, precision);
-      if (scored) results.push({ bookmark, ...scored, score: scored.score + boost(bookmark) });
+      const fields = foldedFields(bookmark);
+      const scored = scoreBookmark(fields, words, precision);
+      if (!scored) continue;
+      const exact = fields.title.trim().split(/\s+/).join(' ') === phrase ? EXACT_TITLE : 0;
+      results.push({ bookmark, ...scored, score: scored.score + exact + boost(bookmark) });
     }
     return results.sort((a, b) => b.score - a.score || newestFirst(a, b)).slice(0, limit);
   }

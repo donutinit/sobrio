@@ -82,6 +82,15 @@ test('tie goes to newest', () => {
   assert.equal(r[0].bookmark.dateAdded, 2);
 });
 
+test('a title that is the whole query comes first, over newer ones and the memory', () => {
+  const g = bm('g', 'https://chatgpt.com/', '', 1);
+  const git = bm('git', 'https://github.com/', '', 2);
+  const gmail = bm('gmail', 'https://mail.google.com/', '', 3);
+  const boost = (b) => (b === gmail ? 40 : 0);
+  assert.equal(searchBookmarks([g, git, gmail], 'g', 50, 'normal', boost)[0].bookmark, g);
+  assert.equal(searchBookmarks([bm('Rust  Book'), bm('Rust Book notes', undefined, '', 9)], ' rust book ')[0].bookmark.title, 'Rust  Book');
+});
+
 test('no match returns []', () => {
   assert.deepEqual(searchBookmarks([bm('Rust', 'https://a.dev/')], 'zzz'), []);
 });
