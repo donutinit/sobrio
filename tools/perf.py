@@ -5,7 +5,8 @@
 
 For each URL, a fresh profile loads the page with the extension and with an empty one, waits
 --wait seconds and reads the renderer's counters (CPU time of its main thread): the load, then
---idle seconds of the page sitting still. Prints the medians as JSON, one line per URL and side.
+--idle seconds of the page sitting still. --second measures the second visit instead (the page
+loaded once before in the same profile), where what sobrio remembers about a site takes effect. Prints the medians as JSON, one line per URL and side.
 Reuses the DevTools pipe of tools/cdp.py, so only the stdlib is used.
 """
 import argparse
@@ -30,7 +31,7 @@ def counters(pipe, session):
     return {name: values.get(name, 0) * 1000 for name in COUNTERS}
 
 
-def measure(ext_dir, url, binary, wait, idle):
+def measure(ext_dir, url, binary, wait, idle, second=False):
     profile = tempfile.mkdtemp(prefix='sobrio-perf-')
     pipe = cdp.Pipe(binary, profile, ['--host-resolver-rules=MAP sobrio.test 127.0.0.1'])
     try:
@@ -38,6 +39,11 @@ def measure(ext_dir, url, binary, wait, idle):
         time.sleep(1)
         target = pipe.call('Target.createTarget', {'url': 'about:blank'})['targetId']
         session = pipe.call('Target.attachToTarget', {'targetId': target, 'flatten': True})['sessionId']
+        if second:
+            pipe.call('Page.navigate', {'url': url}, session)
+            time.sleep(wait)
+            pipe.call('Page.navigate', {'url': 'about:blank'}, session)
+            time.sleep(1)
         pipe.call('Performance.enable', {'timeDomain': 'threadTicks'}, session)
         start = counters(pipe, session)
         pipe.call('Page.navigate', {'url': url}, session)
@@ -61,6 +67,7 @@ def main():
     ap.add_argument('--runs', type=int, default=3)
     ap.add_argument('--wait', type=float, default=8, help='seconds for the load')
     ap.add_argument('--idle', type=float, default=5, help='seconds of the page sitting still')
+    ap.add_argument('--second', action='store_true', help='measure the second visit of each page')
     ap.add_argument('--binary', default=shutil.which('chromium-browser') or shutil.which('chromium'))
     args = ap.parse_args()
     empty = tempfile.mkdtemp(prefix='sobrio-empty-')
@@ -69,7 +76,7 @@ def main():
     try:
         for url in args.urls:
             for side, ext in (('without', empty), ('sobrio', args.ext_dir)):
-                runs = [measure(ext, url, args.binary, args.wait, args.idle) for _ in range(args.runs)]
+                runs = [measure(ext, url, args.binary, args.wait, args.idle, args.second) for _ in range(args.runs)]
                 medians = {key: round(statistics.median(run[key] for run in runs)) for key in runs[0]}
                 print(json.dumps({'url': url, 'side': side, 'ms': medians}))
     finally:

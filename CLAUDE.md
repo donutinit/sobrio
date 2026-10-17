@@ -15,6 +15,7 @@ node --test                                         # tests: lo mismo que CI
 python3 -I tools/cdp.py . <url>... --eval '<js>'    # Chromium headless (instalado en lizeth)
 python3 -I tools/marionette.py . <url>... --eval '<js>'  # LibreWolf headless (en la máquina de Diego)
 python3 -I tools/perf.py . <url>...                 # CPU de la página con sobrio y sin él (Chromium)
+python3 -I tools/ffperf.py . <url>...               # lo mismo en Firefox (todos los hilos, 1a y 2a visita)
 python3 -I tools/vendor-darkreader.py <versión>     # actualizar Dark Reader (y proxy.js)
 python3 -I tools/vendor-fonts.py                    # actualizar las fuentes de la nueva pestaña
 python3 -I tools/make-icons.py                      # redibujar icons/ desde la retícula del isotipo
@@ -41,7 +42,9 @@ nombre que no es local (`127.0.0.1` y `localhost` quedan fuera de sobrio por def
 `marionette.py` corre con un Firefox oficial: `--binary ~/.cache/sobrio-firefox/firefox/firefox`.
 
 sobrio tiene que ser rápido: un cambio a lo que corre en las páginas se mide con `tools/perf.py`
-(carga y reposo) en sitios pesados (GitHub, YouTube) contra la versión anterior.
+(carga y reposo, `--second` para la segunda visita) y `tools/ffperf.py` en sitios pesados (GitHub,
+YouTube, Wikipedia) contra la versión anterior (`git archive HEAD` en una carpeta aparte). En
+Firefox, `ffperf.py` necesita `--binary ~/.cache/sobrio-firefox/firefox/firefox` en lizeth.
 
 ## Idiomas
 
@@ -93,7 +96,11 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   `storage.local` (`{[url]: {count, last, title}}`, máximo 2,000), igual que `ownDark`: los hosts
   que el detector vio con tema oscuro propio (máximo 500, el más reciente primero). `page.js` lo lee
   al arrancar y ahí no enciende Dark Reader; su negro provisional queda hasta la primera mirada,
-  que lo confirma o enciende Dark Reader en el mismo turno. `cssOff`, `darkOff` y
+  que lo confirma o enciende Dark Reader en el mismo turno. `seenLight` es lo contrario: los hosts
+  que vio claros, con el esquema del sistema y la hora (`{[host]: {scheme, at}}`, máximo 500).
+  Durante un día y con el mismo esquema, `page.js` no hace las miradas de la carga (en Wikipedia
+  costaban medio segundo), salvo que la página diga que es oscura (clase o meta); un cambio de
+  tema en vivo sí la tiene. `cssOff`, `darkOff` y
   `animOff` son listas de patrones; `animOff` sin guardar vale `DEFAULT_ANIM_OFF`
   (`['chatgpt.com']`).
 - Atajos, velocidad, aviso y pausa del autoplay solo actúan con eventos `isTrusted`: una página
@@ -195,11 +202,35 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   chorros o de golpe y no sirve para medir.
 - Alt+letra choca con atajos del navegador (Alt+D va a la barra de direcciones) y Marionette no
   aplica Alt en Firefox: en pruebas, Ctrl+Shift.
+- Dark Reader decide si una variable CSS es un color con la primera definición que lee. YouTube
+  declara sus variables de tema como `initial` en `:root` antes de darles color, y su barra
+  quedaba blanca: en el mundo de la extensión (`boot.js`), una variable de `:root` o `html` con una
+  palabra global (`initial`, `inherit`, `unset`, `revert`) se lee vacía y Dark Reader la salta.
+- Dark Reader reconstruye una regla en su lugar (`deleteRule(i)` y luego `insertRule(texto, i)`)
+  cada vez que aprende el tipo de otra variable que declara. Las reglas de tema de GitHub
+  declaran cientos y se parseaban cientos de veces: 1.7 s de CPU en la carga. `boot.js` le deja
+  un marcador vacío y pone el texto final al terminar la tarea, una vez. Sus índices no cambian.
+- Dark Reader invierte una imagen clara y opaca (una foto chica salía en negativo) y esconde una
+  grande. `page.js` mira cada imagen que Dark Reader lee, las de otros sitios por
+  `fetchThroughBackground` y las del mismo por el `fetch` de su mundo (Dark Reader las baja él
+  mismo), y a una foto le pasa un cuadro gris que deja como está. Las grandes siguen siendo
+  suyas: esconder una clara mantiene legible el texto encima. Dark Reader no pide por CORS
+  imágenes `http`, con puerto, de IP o de `.test`: eso se prueba con imágenes del mismo sitio.
+- Dark Reader no toca `<img>` ni `<video>`. `page.js` oscurece las grandes con texto encima que no
+  está en una caja propia (el inicio de sesión de Meta) e invierte las chicas oscuras sobre fondo
+  transparente (el logotipo de Wikipedia), cada una al entrar en pantalla. El texto encima de una
+  foto puede venir dibujado en la foto (las tarjetas de Amazon): eso no se toca. El `load` de una
+  imagen no llega a `window`, se escucha en `document`.
+- El switcher: la primera vez en una página espera la lista y los ajustes (transparente, ya
+  tomando teclas, máximo 150 ms) para no pintarse vacío ni con los colores por defecto; después
+  abre con lo de la vez anterior (`sobrio.switcherCache`). Los bookmarks de Diego son alias
+  (`g`, `yt`, `pi`): un título igual a la búsqueda va primero, sobre la memoria y los más nuevos.
 - Pruebas de navegador que conviene repetir: Wikipedia queda negra; GitHub con `--dark` usa su
   tema propio y sin él queda negro; `td`/`ta` y los ajustes cambian en vivo; el switcher en
   GitHub no deja pasar la `s` al sitio; la nueva pestaña con cada estilo y diseño; velocidad con
   un `<audio>` local; el autoplay con una página con `<audio autoplay>` y `--autoplay`; grabar un
-  atajo en los ajustes con teclas reales; el flash con una página de CSS blanco.
+  atajo en los ajustes con teclas reales; el flash con una página de CSS blanco; YouTube con la
+  barra de arriba negra; el logotipo de Wikipedia visible.
 
 ## Publicar
 

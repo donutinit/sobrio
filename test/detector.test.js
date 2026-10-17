@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { parseColor, lightness, schemeFromMeta, isDarkFromSamples, darkReaderSheets, themeChanged } = require('../detector.js');
+const { parseColor, lightness, schemeFromMeta, isDarkFromSamples, darkReaderSheets, themeChanged, seenLight, withSeenLight, isPhoto, isDarkIcon } = require('../detector.js');
 
 const WHITE = 'rgb(255, 255, 255)';
 const DARK = 'rgb(30, 30, 30)';
@@ -162,4 +162,56 @@ test("themeChanged ignores Dark Reader's and the detector's own attributes", () 
   assert.equal(themeChanged([{ name: 'data-darkreader-mode', oldValue: null, value: 'dynamic' }]), false);
   assert.equal(themeChanged([{ name: 'data-darkreader-scheme', oldValue: null, value: 'dark' }]), false);
   assert.equal(themeChanged([{ name: 'data-sobrio-still', oldValue: null, value: '' }]), false);
+});
+
+const DAY = 24 * 3600 * 1000;
+
+test('seenLight: a host seen light today under the same scheme', () => {
+  const seen = { 'a.com': { scheme: 'light', at: 1000 } };
+  assert.equal(seenLight(seen, 'a.com', 'light', 1000 + DAY - 1), true);
+  assert.equal(seenLight(seen, 'a.com', 'light', 1000 + DAY), false, 'a day later it is looked at again');
+  assert.equal(seenLight(seen, 'a.com', 'dark', 2000), false, 'the system turned dark since');
+  assert.equal(seenLight(seen, 'b.com', 'light', 2000), false);
+  assert.equal(seenLight(seen, 'a.com', 'light', 500), false, 'a date from the future');
+  assert.equal(seenLight(undefined, 'a.com', 'light', 2000), false);
+  assert.equal(seenLight('junk', 'a.com', 'light', 2000), false);
+});
+
+test('withSeenLight adds and refreshes light hosts, drops dark ones and keeps the newest', () => {
+  const seen = { 'a.com': { scheme: 'light', at: 1 }, 'b.com': { scheme: 'dark', at: 2 }, bad: null };
+  assert.deepEqual(withSeenLight(seen, 'c.com', true, 'light', 3), {
+    'c.com': { scheme: 'light', at: 3 }, 'b.com': { scheme: 'dark', at: 2 }, 'a.com': { scheme: 'light', at: 1 },
+  });
+  assert.deepEqual(withSeenLight(seen, 'a.com', true, 'dark', 5)['a.com'], { scheme: 'dark', at: 5 });
+  assert.deepEqual(Object.keys(withSeenLight(seen, 'a.com', false, 'light', 5)), ['b.com']);
+  assert.deepEqual(Object.keys(withSeenLight(seen, 'c.com', true, 'light', 3, 2)), ['c.com', 'b.com']);
+  assert.deepEqual(withSeenLight(undefined, 'c.com', true, 'light', 3), { 'c.com': { scheme: 'light', at: 3 } });
+});
+
+// RGBA pixels from [r, g, b, a] quadruples.
+const pixels = (...colors) => new Uint8ClampedArray(colors.flat());
+const many = (count, color) => Array.from({ length: count }, () => color);
+
+test('isPhoto: a light opaque image with dark parts or color is a photo', () => {
+  assert.equal(isPhoto(pixels(...many(8, [240, 238, 235, 255]), [40, 40, 40, 255], [60, 50, 40, 255])), true);
+  assert.equal(isPhoto(pixels(...many(9, [250, 200, 210, 255]), [190, 225, 250, 255])), true, 'pastel color');
+});
+
+test('isPhoto: textures, gradients and solids stay with Dark Reader', () => {
+  assert.equal(isPhoto(pixels(...many(10, [255, 255, 255, 255]))), false, 'solid');
+  assert.equal(isPhoto(pixels([230, 230, 230, 255], [245, 245, 245, 255], [238, 238, 238, 255], [250, 250, 250, 255])), false, 'light gray noise');
+});
+
+test('isPhoto: icons with clear pixels, dark images and nothing at all are not photos', () => {
+  assert.equal(isPhoto(pixels(...many(5, [0, 0, 0, 0]), ...many(5, [250, 250, 250, 255]))), false, 'transparent');
+  assert.equal(isPhoto(pixels(...many(8, [30, 30, 30, 255]), [250, 250, 250, 255], [200, 100, 50, 255])), false, 'dark');
+  assert.equal(isPhoto(new Uint8ClampedArray(0)), false);
+});
+
+test('isDarkIcon: dark marks on a clear background, as Dark Reader inverts them', () => {
+  assert.equal(isDarkIcon(pixels(...many(6, [0, 0, 0, 0]), ...many(4, [20, 20, 20, 255]))), true);
+  assert.equal(isDarkIcon(pixels(...many(6, [0, 0, 0, 0]), ...many(4, [240, 240, 240, 255]))), false, 'light icon');
+  assert.equal(isDarkIcon(pixels(...many(10, [20, 20, 20, 255]))), false, 'no clear background');
+  assert.equal(isDarkIcon(pixels(...many(10, [0, 0, 0, 0]))), false, 'nothing drawn');
+  assert.equal(isDarkIcon(pixels(...many(6, [0, 0, 0, 0]), [20, 20, 20, 255], [250, 190, 0, 255], [66, 133, 244, 255], [52, 168, 83, 255])), false, 'colored logo');
 });

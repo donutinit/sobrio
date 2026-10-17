@@ -309,9 +309,70 @@
     onState();
   }
 
+  // Dark Reader turns a light, opaque image into its negative, which suits a light texture or a
+  // gradient and not a photo: a product shot came out in inverted colors. A photo is opaque, mostly
+  // light (what Dark Reader would invert) and not flat: its lightness spans a wide range, or it has
+  // color. data: RGBA pixels, scaled down to at most 32 × 32 as Dark Reader reads them, with its
+  // thresholds (lightness over 0.7 is light, alpha under 5 % is clear).
+  function isPhoto(data) {
+    let opaque = 0;
+    let light = 0;
+    let min = 1;
+    let max = 0;
+    let saturation = 0;
+    for (let i = 0; i < data.length; i += 4) {
+      if (data[i + 3] < 255 * 0.05) continue;
+      opaque++;
+      const [r, g, b] = [data[i], data[i + 1], data[i + 2]];
+      const lightness = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+      if (lightness > 0.7) light++;
+      min = Math.min(min, lightness);
+      max = Math.max(max, lightness);
+      saturation += (Math.max(r, g, b) - Math.min(r, g, b)) / 255;
+    }
+    const pixels = data.length / 4;
+    if (!pixels || opaque / pixels < 0.9 || light / opaque < 0.7) return false;
+    return max - min >= 0.3 || saturation / opaque >= 0.15;
+  }
+
+  // A dark icon on a clear background: what Dark Reader inverts when it is a CSS background (at
+  // least 10 % clear pixels, 70 % of the rest darker than 0.4). Same data as isPhoto.
+  function isDarkIcon(data) {
+    let opaque = 0;
+    let dark = 0;
+    for (let i = 0; i < data.length; i += 4) {
+      if (data[i + 3] < 255 * 0.05) continue;
+      opaque++;
+      if ((0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2]) / 255 < 0.4) dark++;
+    }
+    const pixels = data.length / 4;
+    return opaque > 0 && (pixels - opaque) / pixels >= 0.1 && dark / opaque >= 0.7;
+  }
+
+  // The hosts last seen light (storage.local.seenLight: {[host]: {scheme, at}}), with the system's
+  // color scheme then and when. An entry is good for a day and under the same scheme: a site that
+  // follows the system turns dark with it.
+  const SEEN_LIGHT_FOR = 24 * 3600 * 1000;
+  const SEEN_LIGHT_MAX = 500;
+
+  function seenLight(seen, host, scheme, now) {
+    const entry = seen && typeof seen === 'object' ? seen[host] : null;
+    return Boolean(entry) && entry.scheme === scheme && now - entry.at >= 0 && now - entry.at < SEEN_LIGHT_FOR;
+  }
+
+  // The list after a look: a light verdict adds or refreshes the host, a dark one takes it out.
+  // At most 500 hosts, the oldest leave first.
+  function withSeenLight(seen, host, light, scheme, now, max = SEEN_LIGHT_MAX) {
+    const entries = Object.entries(seen && typeof seen === 'object' ? seen : {}).filter(
+      ([name, entry]) => name !== host && entry && typeof entry.at === 'number' && typeof entry.scheme === 'string',
+    );
+    if (light) entries.push([host, { scheme, at: now }]);
+    return Object.fromEntries(entries.sort(([, a], [, b]) => b.at - a.at).slice(0, max));
+  }
+
   const api = {
     parseColor, lightness, schemeFromMeta, isDarkFromSamples, darkReaderSheets, detectDark, whenReady,
-    styleSignature, themeChanged,
+    styleSignature, themeChanged, hintFromPage, seenLight, withSeenLight, isPhoto, isDarkIcon,
   };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.detector = api;
