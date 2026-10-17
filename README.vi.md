@@ -79,7 +79,7 @@ Ba lệnh, gõ trong switcher. Chúng cũng hoạt động từ nút trên thanh
 
 ![Sáu bố cục của thẻ mới: cổ điển, chỉ giờ, một dòng, xếp chồng, góc và đồng hồ kim tối giản.](docs/screens/layouts.png)
 
-Ngày và giờ, được sắp đặt cẩn thận, với switcher ở bên dưới. Sáu bố cục: cổ điển, chỉ giờ, một dòng, xếp chồng (giờ trên phút), góc và đồng hồ kim tối giản. Bốn kiểu chữ: Biên tập (Instrument Serif và Inter), Thụy Sĩ (Inter), Máy (IBM Plex Mono) và Sách (EB Garamond), hoặc các phông của riêng bạn đã cài trên máy. Một lời chào tùy chọn kèm tên bạn. Đưa vào một danh sách ngôn ngữ, và mỗi thẻ mới sẽ hiển thị ngày bằng một trong số đó, ngẫu nhiên.
+Ngày và giờ, được sắp đặt cẩn thận, với switcher ở bên dưới. Sáu bố cục: cổ điển, chỉ giờ, một dòng, xếp chồng (giờ trên phút), góc và đồng hồ kim tối giản. Bốn kiểu chữ: Biên tập (Instrument Serif và Inter), Thụy Sĩ (Inter), Máy (IBM Plex Mono) và Sách (EB Garamond), hoặc các phông của riêng bạn đã cài trên máy. Một lời chào tùy chọn kèm tên bạn. Đưa vào một danh sách ngôn ngữ, và mỗi thẻ mới sẽ hiển thị ngày bằng một trong số đó, ngẫu nhiên. Trong Firefox và LibreWolf, thẻ mới cũng là trang chủ: trình duyệt mở ra nó khi khởi động, và mỗi cửa sổ mới cũng vậy.
 
 Trình duyệt giữ tiêu điểm ở thanh địa chỉ trên thẻ mới, và không tiện ích nào có thể lấy nó khỏi đó. Để bạn gõ vào switcher ngay, thẻ được thay bằng một thẻ mới ở cùng vị trí, bắt đầu với trang đã có tiêu điểm; khi đó thanh địa chỉ hiển thị địa chỉ của trang thay vì để trống. Trong thẻ container của Firefox, nó giữ nguyên như cũ. Tắt *Lấy tiêu điểm khỏi thanh địa chỉ* để giữ cách làm của trình duyệt.
 
@@ -150,7 +150,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-Để phát hành, tăng phiên bản trong `manifest.json`, commit, rồi đẩy một tag `v<version>`. Quy trình phát hành sẽ kiểm thử, đóng gói và xuất bản một bản phát hành GitHub kèm tệp zip và xpi, và gửi tệp zip lên addons.mozilla.org khi biến kho `AMO_PUBLISH` là `true` (cùng các secret `AMO_JWT_ISSUER` và `AMO_JWT_SECRET`).
+Để phát hành, tăng phiên bản trong `manifest.json`, commit, rồi đẩy một tag `v<version>`. Quy trình phát hành sẽ kiểm thử, đóng gói và xuất bản một bản phát hành GitHub kèm tệp zip và xpi, và gửi tệp xpi lên addons.mozilla.org khi biến kho `AMO_PUBLISH` là `true` (cùng các secret `AMO_JWT_ISSUER` và `AMO_JWT_SECRET`).
 
 Thương hiệu (biểu tượng, hai màu, kiểu chữ và các biểu tượng nhỏ) nằm trong [docs/brand](docs/brand/README.md).
 

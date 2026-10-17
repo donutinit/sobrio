@@ -80,7 +80,7 @@ Dark Reader 的動態引擎會把每個網站變成黑色（`#000`），逐色�
 
 ![新分頁的六種版面：經典、只顯示時間、一行、堆疊、角落與類比。](docs/screens/layouts.png)
 
-日期與時間經過精心排版，switcher 位於其下方。共有六種版面：經典、只顯示時間、一行、堆疊（小時在上、分鐘在下）、角落，以及極簡的類比時鐘。四種字體風格：編輯風（Instrument Serif 與 Inter）、瑞士風（Inter）、打字機風（IBM Plex Mono）與書本風（EB Garamond），或是安裝在這台電腦上的你自己的字型。可以加上含你名字的問候語。你也可以提供一份語言清單，之後每個新分頁會隨機以其中一種語言顯示日期。
+日期與時間經過精心排版，switcher 位於其下方。共有六種版面：經典、只顯示時間、一行、堆疊（小時在上、分鐘在下）、角落，以及極簡的類比時鐘。四種字體風格：編輯風（Instrument Serif 與 Inter）、瑞士風（Inter）、打字機風（IBM Plex Mono）與書本風（EB Garamond），或是安裝在這台電腦上的你自己的字型。可以加上含你名字的問候語。你也可以提供一份語言清單，之後每個新分頁會隨機以其中一種語言顯示日期。在 Firefox 與 LibreWolf 中，新分頁也是首頁：瀏覽器啟動時會開在它上面，每個新視窗也是如此。
 
 瀏覽器會在新分頁上保留網址列的焦點，而擴充功能無法從那裡取走。為了讓你能立即在 switcher 中輸入，分頁會在同一位置換成一個新的分頁，新分頁一開始就具有焦點；此時網址列會顯示該頁面的網址，而不是保持空白。在 Firefox 的容器分頁中，行為保持不變。若要保留瀏覽器原本的做法，請關閉 *將焦點從網址列移開*。
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-若要發布，請在 `manifest.json` 中提高版本號、提交變更，然後推送標籤 `v<version>`。發布工作流程會測試、打包，並發布含 zip 與 xpi 的 GitHub 版本；當儲存庫變數 `AMO_PUBLISH` 為 `true`（並設定機密 `AMO_JWT_ISSUER` 與 `AMO_JWT_SECRET`）時，還會把 zip 送到 addons.mozilla.org。
+若要發布，請在 `manifest.json` 中提高版本號、提交變更，然後推送標籤 `v<version>`。發布工作流程會測試、打包，並發布含 zip 與 xpi 的 GitHub 版本；當儲存庫變數 `AMO_PUBLISH` 為 `true`（並設定機密 `AMO_JWT_ISSUER` 與 `AMO_JWT_SECRET`）時，還會把 xpi 送到 addons.mozilla.org。
 
 品牌（標誌圖形、兩種顏色、字體與圖示）位於 [docs/brand](docs/brand/README.md)。
 

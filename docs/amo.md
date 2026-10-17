@@ -1,12 +1,13 @@
 # addons.mozilla.org
 
 What goes in the AMO listing and in the notes for reviewers. The package is
-`dist/sobrio-<version>.zip` from `scripts/pack.sh`; AMO takes the zip as is.
+`dist/sobrio-<version>.xpi` from `scripts/pack.sh` (the zip plus the home page, which only
+Firefox takes); AMO takes the xpi as is.
 
 ## Updates
 
 The first version and the listing were submitted by hand. Later versions go out with a tag: the
-release workflow runs `scripts/publish-amo.py`, which uploads the zip, waits for AMO's validation
+release workflow runs `scripts/publish-amo.py`, which uploads the xpi, waits for AMO's validation
 and creates the version with the release notes and the block under "Notes for reviewers" below.
 It needs, once:
 
@@ -144,6 +145,11 @@ CSS box (an @import or url() of their choosing), loaded by the page like any sty
 
 On install, management.getSelf() (no permission needed) tells a real install from an unpacked or
 temporary one; only a real install opens the local welcome page (welcome.html) once.
+
+The new tab page (chrome_url_overrides.newtab) is also the home page
+(chrome_settings_overrides.homepage), so Firefox opens it on start and in new windows. That key is
+the only difference between this manifest.json and the repository's: scripts/pack.sh adds it to
+the Firefox package, because Chrome on Windows and macOS rejects a home page that is not http(s).
 
 Shortcuts pressed inside an iframe that concern the site (dark mode or the stylesheet on it,
 copying its link) are passed through the background to the tab's top frame with tabs.sendMessage

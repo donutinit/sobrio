@@ -80,7 +80,7 @@ Trois commandes, tapées dans le switcher. Elles marchent aussi depuis le bouton
 
 ![Les six mises en page du nouvel onglet : classique, juste l'heure, sur une ligne, empilée, coin et analogique.](docs/screens/layouts.png)
 
-La date et l'heure, soigneusement composées, et le switcher en dessous. Six mises en page : classique, juste l'heure, sur une ligne, empilée (heures au-dessus des minutes), coin, et une horloge analogique minimale. Quatre styles typographiques : Éditorial (Instrument Serif et Inter), Suisse (Inter), Machine (IBM Plex Mono) et Livre (EB Garamond), ou vos propres polices installées sur la machine. Une salutation facultative avec votre nom. Donnez-lui une liste de langues, et chaque nouvel onglet affiche la date dans l'une d'elles, au hasard.
+La date et l'heure, soigneusement composées, et le switcher en dessous. Six mises en page : classique, juste l'heure, sur une ligne, empilée (heures au-dessus des minutes), coin, et une horloge analogique minimale. Quatre styles typographiques : Éditorial (Instrument Serif et Inter), Suisse (Inter), Machine (IBM Plex Mono) et Livre (EB Garamond), ou vos propres polices installées sur la machine. Une salutation facultative avec votre nom. Donnez-lui une liste de langues, et chaque nouvel onglet affiche la date dans l'une d'elles, au hasard. Dans Firefox et LibreWolf, le nouvel onglet est aussi la page d'accueil : le navigateur démarre dessus, et chaque nouvelle fenêtre aussi.
 
 Les navigateurs gardent le focus dans la barre d'adresse sur un nouvel onglet, et aucune extension ne peut l'en retirer. Pour que vous puissiez écrire dans le switcher tout de suite, l'onglet est remplacé par un nouveau au même endroit, qui démarre avec le focus sur la page ; la barre d'adresse affiche alors l'adresse de la page au lieu de rester vide. Dans un onglet conteneur Firefox, il reste tel quel. Désactivez *Retirer le focus de la barre d'adresse* pour garder la façon de faire du navigateur.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-Pour publier une version, augmentez le numéro dans `manifest.json`, faites un commit et poussez un tag `v<version>`. Le workflow de publication teste, empaquette et publie une version GitHub avec le zip et le xpi, et envoie le zip à addons.mozilla.org quand la variable de dépôt `AMO_PUBLISH` vaut `true` (avec les secrets `AMO_JWT_ISSUER` et `AMO_JWT_SECRET`).
+Pour publier une version, augmentez le numéro dans `manifest.json`, faites un commit et poussez un tag `v<version>`. Le workflow de publication teste, empaquette et publie une version GitHub avec le zip et le xpi, et envoie le xpi à addons.mozilla.org quand la variable de dépôt `AMO_PUBLISH` vaut `true` (avec les secrets `AMO_JWT_ISSUER` et `AMO_JWT_SECRET`).
 
 La marque (l'isotype, les deux couleurs, la typographie et les icônes) se trouve dans [docs/brand](docs/brand/README.md).
 

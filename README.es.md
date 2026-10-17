@@ -80,7 +80,7 @@ Tres comandos, escritos en el switcher. También funcionan desde el botón de la
 
 ![Los seis diseños de la nueva pestaña: clásico, solo la hora, en una línea, apilado, esquina y analógico.](docs/screens/layouts.png)
 
-La fecha y la hora, con cuidado, y el switcher debajo. Seis diseños: clásico, solo la hora, en una línea, apilado (horas sobre minutos), esquina y un reloj analógico minimalista. Cuatro tipografías: Editorial (Instrument Serif e Inter), Suizo (Inter), Máquina (IBM Plex Mono) y Libro (EB Garamond), o las fuentes que tengas instaladas en la computadora. Un saludo opcional con tu nombre. Dale una lista de idiomas y cada nueva pestaña dice la fecha en uno de ellos, al azar.
+La fecha y la hora, con cuidado, y el switcher debajo. Seis diseños: clásico, solo la hora, en una línea, apilado (horas sobre minutos), esquina y un reloj analógico minimalista. Cuatro tipografías: Editorial (Instrument Serif e Inter), Suizo (Inter), Máquina (IBM Plex Mono) y Libro (EB Garamond), o las fuentes que tengas instaladas en la computadora. Un saludo opcional con tu nombre. Dale una lista de idiomas y cada nueva pestaña dice la fecha en uno de ellos, al azar. En Firefox y LibreWolf la nueva pestaña también es la página de inicio: el navegador arranca en ella, y también cada ventana nueva.
 
 Los navegadores mantienen el foco en la barra de direcciones en una pestaña nueva, y ninguna extensión puede quitárselo desde ahí. Para que puedas escribir en el switcher de inmediato, la pestaña se cambia por una nueva en el mismo lugar, que empieza con la página enfocada; la barra de direcciones entonces muestra la dirección de la página en vez de quedar vacía. En una pestaña de contenedor de Firefox se queda como está. Apaga *Quitarle el foco a la barra de direcciones* si prefieres la forma del navegador.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-Para publicar, sube la versión en `manifest.json`, haz commit y empuja una etiqueta `v<version>`. El flujo de trabajo de publicación prueba, empaqueta y publica una release en GitHub con el zip y el xpi, y envía el zip a addons.mozilla.org cuando la variable del repositorio `AMO_PUBLISH` es `true` (con los secretos `AMO_JWT_ISSUER` y `AMO_JWT_SECRET`).
+Para publicar, sube la versión en `manifest.json`, haz commit y empuja una etiqueta `v<version>`. El flujo de trabajo de publicación prueba, empaqueta y publica una release en GitHub con el zip y el xpi, y envía el xpi a addons.mozilla.org cuando la variable del repositorio `AMO_PUBLISH` es `true` (con los secretos `AMO_JWT_ISSUER` y `AMO_JWT_SECRET`).
 
 La marca (el isotipo, los dos colores, la tipografía y los íconos) está en [docs/brand](docs/brand/README.md).
 

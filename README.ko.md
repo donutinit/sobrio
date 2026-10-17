@@ -80,7 +80,7 @@ switcher에 입력하는 명령은 세 가지입니다. 도구 모음 버튼에�
 
 ![새 탭의 여섯 가지 배치: 클래식, 시간만, 한 줄, 쌓기, 모서리, 아날로그.](docs/screens/layouts.png)
 
-날짜와 시간을 정갈하게 보여 주고, 그 아래에 switcher가 있습니다. 배치는 여섯 가지입니다. 클래식, 시간만, 한 줄, 쌓기(시간 위에 분), 모서리, 단순한 아날로그 시계입니다. 서체는 네 가지입니다. Editorial(Instrument Serif와 Inter), Swiss(Inter), Machine(IBM Plex Mono), Book(EB Garamond)입니다. 이 기기에 설치한 글꼴을 쓸 수도 있습니다. 이름을 넣은 인사말을 선택할 수 있고, 언어 목록을 주면 새 탭마다 그중 하나의 언어로, 무작위로 날짜를 보여 줍니다.
+날짜와 시간을 정갈하게 보여 주고, 그 아래에 switcher가 있습니다. 배치는 여섯 가지입니다. 클래식, 시간만, 한 줄, 쌓기(시간 위에 분), 모서리, 단순한 아날로그 시계입니다. 서체는 네 가지입니다. Editorial(Instrument Serif와 Inter), Swiss(Inter), Machine(IBM Plex Mono), Book(EB Garamond)입니다. 이 기기에 설치한 글꼴을 쓸 수도 있습니다. 이름을 넣은 인사말을 선택할 수 있고, 언어 목록을 주면 새 탭마다 그중 하나의 언어로, 무작위로 날짜를 보여 줍니다. Firefox와 LibreWolf에서 새 탭은 홈페이지이기도 합니다. 브라우저는 이 탭으로 시작하며, 새 창마다 이 탭이 열립니다.
 
 브라우저는 새 탭에서 포커스를 주소창에 둡니다. 확장 기능은 거기서 포커스를 가져올 수 없습니다. 그래서 switcher에 바로 입력할 수 있도록, 탭을 같은 자리의 새 탭으로 바꿉니다. 새 탭은 포커스가 페이지에 있는 상태로 시작하며, 주소창은 빈칸 대신 페이지 주소를 보여 줍니다. Firefox 컨테이너 탭에서는 그대로 둡니다. 브라우저의 방식을 유지하려면 *주소창에서 포커스 빼앗기*를 끄세요.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-릴리스하려면 `manifest.json`의 버전을 올리고, 커밋한 다음 `v<version>` 태그를 푸시하세요. 릴리스 워크플로는 테스트하고 패키징한 뒤 zip과 xpi가 담긴 GitHub 릴리스를 만듭니다. 저장소 변수 `AMO_PUBLISH`가 `true`이면(시크릿 `AMO_JWT_ISSUER`와 `AMO_JWT_SECRET`과 함께) zip을 addons.mozilla.org로 보냅니다.
+릴리스하려면 `manifest.json`의 버전을 올리고, 커밋한 다음 `v<version>` 태그를 푸시하세요. 릴리스 워크플로는 테스트하고 패키징한 뒤 zip과 xpi가 담긴 GitHub 릴리스를 만듭니다. 저장소 변수 `AMO_PUBLISH`가 `true`이면(시크릿 `AMO_JWT_ISSUER`와 `AMO_JWT_SECRET`과 함께) xpi를 addons.mozilla.org로 보냅니다.
 
 브랜드(아이소타입, 두 가지 색, 서체, 아이콘)는 [docs/brand](docs/brand/README.md)에 있습니다.
 

@@ -80,7 +80,7 @@ Tiga perintah, diketik di switcher. Perintah ini juga bekerja dari tombol di bil
 
 ![Enam tata letak tab baru: klasik, hanya waktu, satu baris, bertumpuk, pojok dan analog.](docs/screens/layouts.png)
 
-Tanggal dan waktu, ditata dengan cermat, dengan switcher di bawahnya. Enam tata letak: klasik, hanya waktu, satu baris, bertumpuk (jam di atas, menit di bawah), pojok, dan jam analog yang minimal. Empat gaya tipografi: Editorial (Instrument Serif dan Inter), Swiss (Inter), Machine (IBM Plex Mono) dan Book (EB Garamond), atau fon buatanmu sendiri yang terpasang di mesin. Sapaan opsional dengan namamu. Beri daftar bahasa dan setiap tab baru menampilkan tanggal dalam salah satunya, secara acak.
+Tanggal dan waktu, ditata dengan cermat, dengan switcher di bawahnya. Enam tata letak: klasik, hanya waktu, satu baris, bertumpuk (jam di atas, menit di bawah), pojok, dan jam analog yang minimal. Empat gaya tipografi: Editorial (Instrument Serif dan Inter), Swiss (Inter), Machine (IBM Plex Mono) dan Book (EB Garamond), atau fon buatanmu sendiri yang terpasang di mesin. Sapaan opsional dengan namamu. Beri daftar bahasa dan setiap tab baru menampilkan tanggal dalam salah satunya, secara acak. Di Firefox dan LibreWolf, tab baru juga menjadi laman beranda: peramban dibuka dengan tab itu, begitu juga setiap jendela baru.
 
 Peramban menyimpan fokus di bilah alamat pada tab baru, dan ekstensi tidak bisa mengambilnya dari sana. Agar kamu bisa langsung mengetik di switcher, tab itu diganti dengan tab baru di tempat yang sama, yang dimulai dengan halaman terfokus; bilah alamat kemudian menampilkan alamat halaman, bukan kosong. Di tab kontainer Firefox, tab tetap seperti biasa. Matikan *Pindahkan fokus dari bilah alamat* untuk mempertahankan cara peramban.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-Untuk merilis, naikkan versi di `manifest.json`, commit, lalu dorong tag `v<version>`. Alur rilis menguji, mengemas dan menerbitkan rilis GitHub dengan zip dan xpi, serta mengirim zip ke addons.mozilla.org jika variabel repositori `AMO_PUBLISH` bernilai `true` (dengan secret `AMO_JWT_ISSUER` dan `AMO_JWT_SECRET`).
+Untuk merilis, naikkan versi di `manifest.json`, commit, lalu dorong tag `v<version>`. Alur rilis menguji, mengemas dan menerbitkan rilis GitHub dengan zip dan xpi, serta mengirim xpi ke addons.mozilla.org jika variabel repositori `AMO_PUBLISH` bernilai `true` (dengan secret `AMO_JWT_ISSUER` dan `AMO_JWT_SECRET`).
 
 Brand (isotype, dua warna, tipografi dan ikon) ada di [docs/brand](docs/brand/README.md).
 

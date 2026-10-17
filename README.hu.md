@@ -80,7 +80,7 @@ Három parancs, amelyeket a switcher-be írsz. Az eszköztár gombjából is mű
 
 ![Az új lap hat elrendezése: klasszikus, csak az idő, egy sorban, egymás alatt, sarok és analóg.](docs/screens/layouts.png)
 
-A dátum és az idő, gondosan megformázva, alatta a switcher. Hat elrendezés: klasszikus, csak az idő, egy sorban, egymás alatt (az órák a percek fölött), sarok és egy minimális analóg óra. Négy tipográfiai stílus: Szerkesztőségi (Instrument Serif és Inter), Svájci (Inter), Gépies (IBM Plex Mono) és Könyves (EB Garamond), vagy a géped rendszerében telepített saját betűtípusok. Egy opcionális köszöntés a neveddel. Adj meg egy nyelvlistát, és minden új lap a dátumot véletlenszerűen valamelyik nyelven mondja.
+A dátum és az idő, gondosan megformázva, alatta a switcher. Hat elrendezés: klasszikus, csak az idő, egy sorban, egymás alatt (az órák a percek fölött), sarok és egy minimális analóg óra. Négy tipográfiai stílus: Szerkesztőségi (Instrument Serif és Inter), Svájci (Inter), Gépies (IBM Plex Mono) és Könyves (EB Garamond), vagy a géped rendszerében telepített saját betűtípusok. Egy opcionális köszöntés a neveddel. Adj meg egy nyelvlistát, és minden új lap a dátumot véletlenszerűen valamelyik nyelven mondja. A Firefoxban és a LibreWolfban az új lap a kezdőlap is: a böngésző ezzel indul, és minden új ablak is ezzel nyílik.
 
 A böngészők új lapon a címsorban tartják a fókuszt, és egy kiterjesztés nem veheti el onnan. Hogy azonnal a switcher-be írhass, a lap helyére ugyanott egy új lap kerül, amely az oldalra fókuszálva indul; így a címsor az oldal címét mutatja, és nem marad üres. Firefox-konténerlapon ez nem történik meg, ott minden marad a régi. Ha a böngésző módját szeretnéd megtartani, kapcsold ki a *Vedd el a fókuszt a címsortól* beállítást.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # az ikonok újrarajzolása az izo
 scripts/pack.sh                               # dist/sobrio-<version>.zip és .xpi
 ```
 
-Kiadáshoz növeld a verziót a `manifest.json` fájlban, commitolj, és tolj egy `v<version>` címkét. A kiadási munkafolyamat tesztel, becsomagol és közzétesz egy GitHub-kiadást a zip és az xpi fájllal, és feltölti a zip fájlt az addons.mozilla.org oldalra, ha az `AMO_PUBLISH` tárolóváltozó értéke `true` (az `AMO_JWT_ISSUER` és `AMO_JWT_SECRET` titkokkal).
+Kiadáshoz növeld a verziót a `manifest.json` fájlban, commitolj, és tolj egy `v<version>` címkét. A kiadási munkafolyamat tesztel, becsomagol és közzétesz egy GitHub-kiadást a zip és az xpi fájllal, és feltölti az xpi fájlt az addons.mozilla.org oldalra, ha az `AMO_PUBLISH` tárolóváltozó értéke `true` (az `AMO_JWT_ISSUER` és `AMO_JWT_SECRET` titkokkal).
 
 A márka (az izotípus, a két szín, a betűk és az ikonok) a [docs/brand](docs/brand/README.md) mappában van.
 

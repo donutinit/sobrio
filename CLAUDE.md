@@ -18,8 +18,8 @@ python3 -I tools/perf.py . <url>...                 # CPU de la página con sobr
 python3 -I tools/vendor-darkreader.py <versión>     # actualizar Dark Reader (y proxy.js)
 python3 -I tools/vendor-fonts.py                    # actualizar las fuentes de la nueva pestaña
 python3 -I tools/make-icons.py                      # redibujar icons/ desde la retícula del isotipo
-scripts/pack.sh                                     # dist/sobrio-<versión>.zip y .xpi
-scripts/publish-amo.py dist/sobrio-<versión>.zip    # mandarla a addons.mozilla.org (lo usa CI)
+scripts/pack.sh                                     # dist/sobrio-<versión>.zip y .xpi (con página de inicio)
+scripts/publish-amo.py dist/sobrio-<versión>.xpi    # mandarla a addons.mozilla.org (lo usa CI)
 ```
 
 Las dos herramientas cargan la extensión en un perfil temporal. Una URL `ext:options.html` abre
@@ -177,6 +177,13 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
 - Chrome llama `chrome://newtab/` a la pestaña donde está la nueva pestaña de sobrio: para saber
   si un mensaje viene de ella, `sender.url`, no `tab.url`.
 - Un `<svg>` no tiene la propiedad `hidden` de HTML: se oculta con `toggleAttribute('hidden')`.
+- Firefox abre al arrancar y en cada ventana nueva la página de inicio (`about:home`), no la nueva
+  pestaña. El .xpi de `pack.sh` agrega `chrome_settings_overrides.homepage`; `manifest.json` no la
+  lleva porque Chrome en Windows y macOS no carga una extensión con una página de inicio que no sea
+  http(s) (en Linux ignora la clave), y Chrome carga el zip o esta carpeta. Se prueba con
+  `marionette.py dist/sobrio-<versión>.xpi` (temporal: el Firefox oficial no instala sin firma).
+  Como el botón de inicio lleva a la nueva pestaña dentro de una pestaña con historial, `takeFocus`
+  no la reemplaza si `history.length > 1`: se perdería ese historial.
 - El foco real de la nueva pestaña no se puede medir: en headless y en Xvfb sin gestor de
   ventanas Firefox no enfoca nada, ni la barra. Se prueba la mecánica (la pestaña se reemplaza)
   con `marionette.py --chrome-eval` y el foco a mano.
@@ -198,7 +205,7 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
 
 Subir la versión en `manifest.json`, commit en main y un tag `v<versión>` empujado. El workflow
 `release` revisa que el tag coincida, corre los tests, arma el paquete y crea el release de GitHub
-con el zip y el xpi. Si la variable del repo `AMO_PUBLISH` vale `true`, además lo manda a
+con el zip y el xpi. Si la variable del repo `AMO_PUBLISH` vale `true`, además manda el xpi a
 addons.mozilla.org con los secretos `AMO_JWT_ISSUER` y `AMO_JWT_SECRET`, con las notas del release
 y las notas para revisores de `docs/amo.md`. Correrlo a mano (Actions › Release › Run workflow)
 solo valida el paquete y las llaves contra AMO, sin mandar nada. Cada versión que llega a AMO

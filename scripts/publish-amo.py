@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Send a sobrio package to addons.mozilla.org (AMO) as a new listed version.
 
-    AMO_JWT_ISSUER=… AMO_JWT_SECRET=… python3 -I scripts/publish-amo.py dist/sobrio-<version>.zip --notes notes.md
+    AMO_JWT_ISSUER=… AMO_JWT_SECRET=… python3 -I scripts/publish-amo.py dist/sobrio-<version>.xpi --notes notes.md
     … --validate-only    # upload it and wait for AMO's validation; no version is created
 
 The keys come from https://addons.mozilla.org/developers/addon/api/key/. The notes for reviewers
@@ -72,7 +72,7 @@ def reviewer_notes():
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('package', help='dist/sobrio-<version>.zip')
+    ap.add_argument('package', help='dist/sobrio-<version>.xpi')
     ap.add_argument('--notes', help='release notes, a text file')
     ap.add_argument('--validate-only', action='store_true', help='stop after the validation')
     ap.add_argument('--wait', type=int, default=900, help='seconds to wait for the validation')

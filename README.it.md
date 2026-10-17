@@ -80,7 +80,7 @@ Tre comandi, scritti nello switcher. Funzionano anche dal pulsante nella barra d
 
 ![I sei layout della nuova scheda: classico, solo l'ora, su una riga, impilato, angolo e analogico.](docs/screens/layouts.png)
 
-La data e l'ora, composte con cura, e lo switcher sotto. Sei layout: classico, solo l'ora, su una riga, impilato (ore sopra minuti), angolo e un orologio analogico essenziale. Quattro stili tipografici: Editoriale (Instrument Serif e Inter), Svizzera (Inter), Macchina (IBM Plex Mono) e Libro (EB Garamond), oppure i font tuoi, installati sulla macchina. Un saluto facoltativo con il tuo nome. Dai un elenco di lingue e ogni nuova scheda mostra la data in una di esse, a caso.
+La data e l'ora, composte con cura, e lo switcher sotto. Sei layout: classico, solo l'ora, su una riga, impilato (ore sopra minuti), angolo e un orologio analogico essenziale. Quattro stili tipografici: Editoriale (Instrument Serif e Inter), Svizzera (Inter), Macchina (IBM Plex Mono) e Libro (EB Garamond), oppure i font tuoi, installati sulla macchina. Un saluto facoltativo con il tuo nome. Dai un elenco di lingue e ogni nuova scheda mostra la data in una di esse, a caso. In Firefox e LibreWolf la nuova scheda è anche la pagina iniziale: il browser si apre su di essa, e così ogni nuova finestra.
 
 I browser mantengono il fuoco nella barra degli indirizzi su una nuova scheda, e nessuna estensione può toglierglielo da lì. Perché tu possa scrivere subito nello switcher, la scheda viene sostituita da una nuova nello stesso punto, che parte con la pagina a fuoco; la barra degli indirizzi mostra poi l'indirizzo della pagina invece di restare vuota. In una scheda contenitore di Firefox resta com'è. Disattiva *Togli il fuoco dalla barra degli indirizzi* per mantenere il comportamento del browser.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # ridisegna le icone dalla griglia
 scripts/pack.sh                               # dist/sobrio-<version>.zip e .xpi
 ```
 
-Per rilasciare, aggiorna la versione in `manifest.json`, fai il commit e invia un tag `v<version>`. Il flusso di rilascio esegue i test, crea il pacchetto e pubblica una release su GitHub con lo zip e lo xpi, e invia lo zip ad addons.mozilla.org quando la variabile del repository `AMO_PUBLISH` è `true` (con i segreti `AMO_JWT_ISSUER` e `AMO_JWT_SECRET`).
+Per rilasciare, aggiorna la versione in `manifest.json`, fai il commit e invia un tag `v<version>`. Il flusso di rilascio esegue i test, crea il pacchetto e pubblica una release su GitHub con lo zip e lo xpi, e invia lo xpi ad addons.mozilla.org quando la variabile del repository `AMO_PUBLISH` è `true` (con i segreti `AMO_JWT_ISSUER` e `AMO_JWT_SECRET`).
 
 Il marchio (l'isotipo, i due colori, i caratteri e le icone) è in [docs/brand](docs/brand/README.md).
 

@@ -89,6 +89,7 @@
   // group. The address bar then shows this page's address instead of staying empty.
   async function takeFocus() {
     if (!settings.newtab.focusPage || new URLSearchParams(location.search).has('focus')) return;
+    if (history.length > 1) return; // reached from another page (the home button): keep its history
     const tab = await chrome.tabs.getCurrent();
     if (!tab?.active) return; // in the background there is no focus to take
     // Opening a tab in a Firefox container needs the cookies permission: a container tab keeps

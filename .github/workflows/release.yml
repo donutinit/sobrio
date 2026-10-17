@@ -66,7 +66,7 @@ jobs:
           AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
           AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
           VERSION: ${{ steps.version.outputs.version }}
-        run: python3 -I scripts/publish-amo.py "dist/sobrio-$VERSION.zip" --validate-only
+        run: python3 -I scripts/publish-amo.py "dist/sobrio-$VERSION.xpi" --validate-only
 
       - name: Send to addons.mozilla.org
         if: github.ref_type == 'tag' && vars.AMO_PUBLISH == 'true'
@@ -74,4 +74,4 @@ jobs:
           AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
           AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
           VERSION: ${{ steps.version.outputs.version }}
-        run: python3 -I scripts/publish-amo.py "dist/sobrio-$VERSION.zip" --notes notes.md
+        run: python3 -I scripts/publish-amo.py "dist/sobrio-$VERSION.xpi" --notes notes.md

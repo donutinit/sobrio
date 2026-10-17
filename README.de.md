@@ -80,7 +80,7 @@ Drei Befehle, die du im Switcher tippst. Sie funktionieren auch über den Button
 
 ![Die sechs Layouts des neuen Tabs: klassisch, nur die Uhrzeit, eine Zeile, gestapelt, Ecke und analog.](docs/screens/layouts.png)
 
-Das Datum und die Uhrzeit, sorgfältig gesetzt, darunter der Switcher. Sechs Layouts: klassisch, nur die Uhrzeit, eine Zeile, gestapelt (Stunden über Minuten), Ecke und eine minimale Analoguhr. Vier Typografien: Editorial (Instrument Serif und Inter), Swiss (Inter), Machine (IBM Plex Mono) und Book (EB Garamond), oder Schriften deiner Wahl, die auf dem Rechner installiert sind. Ein optionaler Gruß mit deinem Namen. Gib eine Liste von Sprachen an, und jeder neue Tab nennt das Datum in einer davon, zufällig gewählt.
+Das Datum und die Uhrzeit, sorgfältig gesetzt, darunter der Switcher. Sechs Layouts: klassisch, nur die Uhrzeit, eine Zeile, gestapelt (Stunden über Minuten), Ecke und eine minimale Analoguhr. Vier Typografien: Editorial (Instrument Serif und Inter), Swiss (Inter), Machine (IBM Plex Mono) und Book (EB Garamond), oder Schriften deiner Wahl, die auf dem Rechner installiert sind. Ein optionaler Gruß mit deinem Namen. Gib eine Liste von Sprachen an, und jeder neue Tab nennt das Datum in einer davon, zufällig gewählt. In Firefox und LibreWolf ist der neue Tab auch die Startseite: Der Browser startet damit, und jedes neue Fenster auch.
 
 Browser lassen den Fokus in einem neuen Tab in der Adressleiste, und keine Erweiterung kann ihn von dort nehmen. Damit du sofort im Switcher tippen kannst, wird der Tab an derselben Stelle durch einen neuen ersetzt, der mit dem Fokus auf der Seite beginnt; die Adressleiste zeigt dann die Adresse der Seite statt leer zu bleiben. In einem Container-Tab von Firefox bleibt alles, wie es ist. Schalte *Den Fokus aus der Adressleiste nehmen* aus, um das Verhalten des Browsers zu behalten.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # die Icons aus dem Raster der Bil
 scripts/pack.sh                               # dist/sobrio-<version>.zip und .xpi
 ```
 
-Zum Veröffentlichen erhöhst du die Version in `manifest.json`, committest und pushst einen Tag `v<version>`. Der Release-Workflow testet, packt und veröffentlicht ein GitHub-Release mit ZIP und XPI und schickt das ZIP an addons.mozilla.org, wenn die Repository-Variable `AMO_PUBLISH` auf `true` steht (mit den Secrets `AMO_JWT_ISSUER` und `AMO_JWT_SECRET`).
+Zum Veröffentlichen erhöhst du die Version in `manifest.json`, committest und pushst einen Tag `v<version>`. Der Release-Workflow testet, packt und veröffentlicht ein GitHub-Release mit ZIP und XPI und schickt das XPI an addons.mozilla.org, wenn die Repository-Variable `AMO_PUBLISH` auf `true` steht (mit den Secrets `AMO_JWT_ISSUER` und `AMO_JWT_SECRET`).
 
 Die Marke (die Bildmarke, die zwei Farben, die Schrift und die Icons) steht in [docs/brand](docs/brand/README.md).
 

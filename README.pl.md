@@ -80,7 +80,7 @@ Trzy polecenia, wpisywane w switcherze. Działają też z przycisku na pasku nar
 
 ![Sześć układów nowej karty: klasyczny, sama godzina, w jednej linii, piętrowy, w rogu i analogowy.](docs/screens/layouts.png)
 
-Data i godzina, starannie zestawione, a pod nimi switcher. Sześć układów: klasyczny, sama godzina, w jednej linii, piętrowy (godziny nad minutami), w rogu i minimalistyczny zegar analogowy. Cztery style typograficzne: Redakcyjna (Instrument Serif i Inter), Szwajcarska (Inter), Maszyna (IBM Plex Mono) i Książka (EB Garamond), albo czcionki własne, zainstalowane na tym komputerze. Opcjonalne powitanie z twoim imieniem. Podaj listę języków, a każda nowa karta poda datę w jednym z nich, losowo.
+Data i godzina, starannie zestawione, a pod nimi switcher. Sześć układów: klasyczny, sama godzina, w jednej linii, piętrowy (godziny nad minutami), w rogu i minimalistyczny zegar analogowy. Cztery style typograficzne: Redakcyjna (Instrument Serif i Inter), Szwajcarska (Inter), Maszyna (IBM Plex Mono) i Książka (EB Garamond), albo czcionki własne, zainstalowane na tym komputerze. Opcjonalne powitanie z twoim imieniem. Podaj listę języków, a każda nowa karta poda datę w jednym z nich, losowo. W Firefox i LibreWolf nowa karta jest też stroną startową: przeglądarka otwiera się na niej, tak samo jak każde nowe okno.
 
 Przeglądarki zostawiają fokus na pasku adresu w nowej karcie i żadne rozszerzenie nie może go stamtąd zabrać. Żeby od razu móc pisać w switcherze, karta zostaje zastąpiona nową w tym samym miejscu, która startuje z ustawionym fokusem; pasek adresu pokazuje wtedy adres strony zamiast być pusty. W karcie kontenera Firefox zostaje tak, jak jest. Wyłącz *Odbierz fokus z paska adresu*, by zachować sposób działania przeglądarki.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-Żeby wydać nową wersję, podbij numer w `manifest.json`, zatwierdź zmiany i wypchnij tag `v<wersja>`. Workflow wydania testuje, pakuje i publikuje wydanie na GitHubie z plikami zip i xpi, a wysyła zip na addons.mozilla.org, gdy zmienna repozytorium `AMO_PUBLISH` ma wartość `true` (z sekretami `AMO_JWT_ISSUER` i `AMO_JWT_SECRET`).
+Żeby wydać nową wersję, podbij numer w `manifest.json`, zatwierdź zmiany i wypchnij tag `v<wersja>`. Workflow wydania testuje, pakuje i publikuje wydanie na GitHubie z plikami zip i xpi, a wysyła xpi na addons.mozilla.org, gdy zmienna repozytorium `AMO_PUBLISH` ma wartość `true` (z sekretami `AMO_JWT_ISSUER` i `AMO_JWT_SECRET`).
 
 Marka (izotyp, dwa kolory, typografia i ikony) znajduje się w [docs/brand](docs/brand/README.md).
 

@@ -80,7 +80,7 @@ Trei comenzi, scrise în switcher. Funcționează și din butonul din bara de in
 
 ![Cele șase aspecte ale filei noi: clasic, doar ora, pe o linie, stivuit, colț și analogic.](docs/screens/layouts.png)
 
-Data și ora, compuse cu grijă, iar sub ele switcher-ul. Șase aspecte: clasic, doar ora, pe o linie, stivuit (ore deasupra minutelor), colț și un ceas analogic minimal. Patru stiluri tipografice: Editorial (Instrument Serif și Inter), Elvețian (Inter), Mașină (IBM Plex Mono) și Carte (EB Garamond), sau fonturi proprii, instalate pe calculator. Un salut opțional cu numele tău. Dacă îi dai o listă de limbi, fiecare filă nouă spune data într-una dintre ele, aleasă la întâmplare.
+Data și ora, compuse cu grijă, iar sub ele switcher-ul. Șase aspecte: clasic, doar ora, pe o linie, stivuit (ore deasupra minutelor), colț și un ceas analogic minimal. Patru stiluri tipografice: Editorial (Instrument Serif și Inter), Elvețian (Inter), Mașină (IBM Plex Mono) și Carte (EB Garamond), sau fonturi proprii, instalate pe calculator. Un salut opțional cu numele tău. Dacă îi dai o listă de limbi, fiecare filă nouă spune data într-una dintre ele, aleasă la întâmplare. În Firefox și LibreWolf, fila nouă este și pagina de pornire: browserul pornește pe ea, și la fiecare fereastră nouă.
 
 Browserele păstrează focusul în bara de adrese pe o filă nouă, iar nicio extensie nu îl poate lua de acolo. Ca să poți scrie imediat în switcher, fila este înlocuită cu una nouă în același loc, care pornește cu pagina în focus; bara de adrese arată apoi adresa paginii în loc să rămână goală. Într-o filă de container Firefox rămâne cum este. Oprește *Scoate focusul din bara de adrese* ca să păstrezi felul browserului.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redesenează iconițele din gril
 scripts/pack.sh                               # dist/sobrio-<version>.zip și .xpi
 ```
 
-Pentru o lansare, crește versiunea din `manifest.json`, fă commit și trimite un tag `v<version>`. Fluxul de lansare testează, împachetează și publică o lansare GitHub cu arhiva zip și xpi-ul, și trimite arhiva zip pe addons.mozilla.org când variabila de depozit `AMO_PUBLISH` este `true` (cu secretele `AMO_JWT_ISSUER` și `AMO_JWT_SECRET`).
+Pentru o lansare, crește versiunea din `manifest.json`, fă commit și trimite un tag `v<version>`. Fluxul de lansare testează, împachetează și publică o lansare GitHub cu arhiva zip și xpi-ul, și trimite xpi-ul pe addons.mozilla.org când variabila de depozit `AMO_PUBLISH` este `true` (cu secretele `AMO_JWT_ISSUER` și `AMO_JWT_SECRET`).
 
 Brandul (isotipul, cele două culori, tipografia și iconițele) se află în [docs/brand](docs/brand/README.md).
 

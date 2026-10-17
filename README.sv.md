@@ -80,7 +80,7 @@ Tre kommandon, skrivna i switcher. De fungerar även från verktygsfältsknappen
 
 ![De sex layouterna för den nya fliken: klassisk, bara klockslaget, en rad, staplad, hörn och analog.](docs/screens/layouts.png)
 
-Datumet och klockslaget, väl komponerade, och switcher under dem. Sex layouter: klassisk, bara klockslaget, en rad, staplad (timmar över minuter), hörn och en minimal analog klocka. Fyra typografiska stilar: Redaktionell (Instrument Serif och Inter), Schweizisk (Inter), Maskin (IBM Plex Mono) och Bok (EB Garamond), eller typsnitt du själv installerat på datorn. En valfri hälsning med ditt namn. Ge den en lista med språk, så visar varje ny flik datumet på ett av dem, slumpvis.
+Datumet och klockslaget, väl komponerade, och switcher under dem. Sex layouter: klassisk, bara klockslaget, en rad, staplad (timmar över minuter), hörn och en minimal analog klocka. Fyra typografiska stilar: Redaktionell (Instrument Serif och Inter), Schweizisk (Inter), Maskin (IBM Plex Mono) och Bok (EB Garamond), eller typsnitt du själv installerat på datorn. En valfri hälsning med ditt namn. Ge den en lista med språk, så visar varje ny flik datumet på ett av dem, slumpvis. I Firefox och LibreWolf är den nya fliken också startsidan: webbläsaren öppnas på den, och det gör varje nytt fönster också.
 
 Webbläsare behåller fokus i adressfältet på en ny flik, och inget tillägg kan flytta det därifrån. För att du ska kunna skriva i switcher direkt ersätts fliken av en ny på samma plats, som börjar med sidan i fokus; adressfältet visar då sidans adress i stället för att stå tomt. I en containerflik i Firefox förblir den som den är. Stäng av *Flytta fokus från adressfältet* för att behålla webbläsarens sätt.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # rita om ikonerna från isotypens
 scripts/pack.sh                               # dist/sobrio-<version>.zip och .xpi
 ```
 
-För att släppa en version, höj versionen i `manifest.json`, committa och skicka en tagg `v<version>`. Release-arbetsflödet testar, paketerar och publicerar en GitHub-release med zip- och xpi-filen, och skickar zip-filen till addons.mozilla.org när repositoryvariabeln `AMO_PUBLISH` är `true` (med hemligheterna `AMO_JWT_ISSUER` och `AMO_JWT_SECRET`).
+För att släppa en version, höj versionen i `manifest.json`, committa och skicka en tagg `v<version>`. Release-arbetsflödet testar, paketerar och publicerar en GitHub-release med zip- och xpi-filen, och skickar xpi-filen till addons.mozilla.org när repositoryvariabeln `AMO_PUBLISH` är `true` (med hemligheterna `AMO_JWT_ISSUER` och `AMO_JWT_SECRET`).
 
 Varumärket (isotypen, de två färgerna, typsnitten och ikonerna) finns i [docs/brand](docs/brand/README.md).
 

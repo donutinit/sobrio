@@ -80,7 +80,7 @@ Tři příkazy, napsané do switcheru. Fungují i z tlačítka na panelu nástro
 
 ![Šest rozložení nové karty: klasické, jen čas, jedna řádka, pod sebou, v rohu a analogové.](docs/screens/layouts.png)
 
-Datum a čas, pečlivě sestavené, a switcher pod nimi. Šest rozložení: klasické, jen čas, jedna řádka, pod sebou (hodiny nad minutami), v rohu a minimalistické analogové hodiny. Čtyři typografické styly: Editorial (Instrument Serif a Inter), Swiss (Inter), Machine (IBM Plex Mono) a Book (EB Garamond), nebo vlastní písma nainstalovaná v počítači. Volitelný pozdrav s vaším jménem. Když zadáte seznam jazyků, každá nová karta řekne datum v jednom z nich, náhodně.
+Datum a čas, pečlivě sestavené, a switcher pod nimi. Šest rozložení: klasické, jen čas, jedna řádka, pod sebou (hodiny nad minutami), v rohu a minimalistické analogové hodiny. Čtyři typografické styly: Editorial (Instrument Serif a Inter), Swiss (Inter), Machine (IBM Plex Mono) a Book (EB Garamond), nebo vlastní písma nainstalovaná v počítači. Volitelný pozdrav s vaším jménem. Když zadáte seznam jazyků, každá nová karta řekne datum v jednom z nich, náhodně. V Firefoxu a LibreWolfu je nová karta také domovskou stránkou: prohlížeč se na ní spustí a každé nové okno také.
 
 Prohlížeče drží zaměření v adresním řádku na nové kartě a žádné rozšíření ho odtud nemůže převzít. Aby bylo možné hned psát do switcheru, karta se nahradí novou na stejném místě, která začíná se zaměřenou stránkou; adresní řádek pak ukáže adresu stránky místo prázdna. V kartě kontejneru Firefoxu zůstává, jak je. Chcete-li zachovat způsob prohlížeče, vypněte *Převzít zaměření z adresního řádku*.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-Pro vydání zvyšte verzi v `manifest.json`, potvrďte změny a odešlete tag `v<version>`. Workflow vydání otestuje a zabalí projekt, zveřejní GitHub release se zipem a xpi a pošle zip na addons.mozilla.org, pokud je proměnná repozitáře `AMO_PUBLISH` nastavena na `true` (se secrety `AMO_JWT_ISSUER` a `AMO_JWT_SECRET`).
+Pro vydání zvyšte verzi v `manifest.json`, potvrďte změny a odešlete tag `v<version>`. Workflow vydání otestuje a zabalí projekt, zveřejní GitHub release se zipem a xpi a pošle xpi na addons.mozilla.org, pokud je proměnná repozitáře `AMO_PUBLISH` nastavena na `true` (se secrety `AMO_JWT_ISSUER` a `AMO_JWT_SECRET`).
 
 Značka (izotyp, dvě barvy, písmo a ikony) je v [docs/brand](docs/brand/README.md).
 

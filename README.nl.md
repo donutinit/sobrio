@@ -80,7 +80,7 @@ Drie opdrachten, getypt in de switcher. Ze werken ook vanaf de knop in de werkba
 
 ![De zes indelingen van het nieuwe tabblad: klassiek, alleen de tijd, één regel, gestapeld, hoek en analoog.](docs/screens/layouts.png)
 
-De datum en de tijd, zorgvuldig gezet, en daaronder de switcher. Zes indelingen: klassiek, alleen de tijd, één regel, gestapeld (uren boven minuten), hoek en een minimale analoge klok. Vier typografische stijlen: Redactioneel (Instrument Serif en Inter), Zwitsers (Inter), Machine (IBM Plex Mono) en Boek (EB Garamond), of lettertypen van jezelf die op de computer zijn geïnstalleerd. Een optionele begroeting met je naam. Geef een lijst met talen op, en elk nieuw tabblad zegt de datum willekeurig in een van die talen.
+De datum en de tijd, zorgvuldig gezet, en daaronder de switcher. Zes indelingen: klassiek, alleen de tijd, één regel, gestapeld (uren boven minuten), hoek en een minimale analoge klok. Vier typografische stijlen: Redactioneel (Instrument Serif en Inter), Zwitsers (Inter), Machine (IBM Plex Mono) en Boek (EB Garamond), of lettertypen van jezelf die op de computer zijn geïnstalleerd. Een optionele begroeting met je naam. Geef een lijst met talen op, en elk nieuw tabblad zegt de datum willekeurig in een van die talen. In Firefox en LibreWolf is het nieuwe tabblad ook de startpagina: de browser opent erop, en elk nieuw venster ook.
 
 Browsers houden de focus op een nieuw tabblad in de adresbalk, en een extensie kan die daar niet overnemen. Zodat je meteen in de switcher kunt typen, wordt het tabblad vervangen door een nieuw op dezelfde plek, dat begint met de focus op de pagina; de adresbalk toont dan het adres van de pagina in plaats van leeg te blijven. In een Firefox-containertabblad blijft het zoals het is. Zet *De focus uit de adresbalk halen* uit om de manier van de browser te houden.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-Om uit te brengen, verhoog je de versie in `manifest.json`, commit je en push je een tag `v<versie>`. De release-workflow test en verpakt alles en publiceert een GitHub-release met het zip- en het xpi-bestand, en stuurt het zip naar addons.mozilla.org als de repositoryvariabele `AMO_PUBLISH` op `true` staat (met de geheimen `AMO_JWT_ISSUER` en `AMO_JWT_SECRET`).
+Om uit te brengen, verhoog je de versie in `manifest.json`, commit je en push je een tag `v<versie>`. De release-workflow test en verpakt alles en publiceert een GitHub-release met het zip- en het xpi-bestand, en stuurt het xpi naar addons.mozilla.org als de repositoryvariabele `AMO_PUBLISH` op `true` staat (met de geheimen `AMO_JWT_ISSUER` en `AMO_JWT_SECRET`).
 
 Het merk (het isotype, de twee kleuren, het lettertype en de iconen) staat in [docs/brand](docs/brand/README.md).
 

@@ -80,7 +80,7 @@ Switcher'a yazılan üç komut. Araç çubuğu düğmesinden de çalışırlar, 
 
 ![Yeni sekmenin altı düzeni: klasik, yalnızca saat, tek satır, üst üste, köşe ve analog.](docs/screens/layouts.png)
 
-Tarih ve saat, özenle düzenlenmiş; altlarında switcher. Altı düzen: klasik, yalnızca saat, tek satır, üst üste (saat ve dakika alt alta), köşe ve sade bir analog saat. Dört tipografik stil: Editoryal (Instrument Serif ve Inter), İsviçre (Inter), Makine (IBM Plex Mono) ve Kitap (EB Garamond), ya da makineye kurulu kendi yazı tipleriniz. İsteğe bağlı bir selamlama, adınızla. Bir dil listesi verirseniz her yeni sekme tarihi bunlardan birinde, rastgele söyler.
+Tarih ve saat, özenle düzenlenmiş; altlarında switcher. Altı düzen: klasik, yalnızca saat, tek satır, üst üste (saat ve dakika alt alta), köşe ve sade bir analog saat. Dört tipografik stil: Editoryal (Instrument Serif ve Inter), İsviçre (Inter), Makine (IBM Plex Mono) ve Kitap (EB Garamond), ya da makineye kurulu kendi yazı tipleriniz. İsteğe bağlı bir selamlama, adınızla. Bir dil listesi verirseniz her yeni sekme tarihi bunlardan birinde, rastgele söyler. Firefox ve LibreWolf'ta yeni sekme aynı zamanda başlangıç sayfasıdır: tarayıcı onunla açılır, her yeni pencere de onunla açılır.
 
 Tarayıcılar yeni bir sekmede odağı adres çubuğunda tutar ve hiçbir eklenti onu oradan alamaz. Switcher'a hemen yazabilmeniz için sekme, aynı yerde odaklanmış yeni bir sekmeyle değiştirilir; adres çubuğu da boş kalmak yerine sayfanın adresini gösterir. Firefox kapsayıcı sekmesinde bu olduğu gibi kalır. Tarayıcının kendi yolunu tercih ediyorsanız *Odağı adres çubuğundan al* seçeneğini kapatın.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-Sürümü çıkarmak için `manifest.json` içindeki sürümü artırın, commit yapın ve `v<version>` etiketini gönderin. Yayın iş akışı testleri çalıştırır, paketler ve bir GitHub sürümü yayımlar (zip ve xpi ile). Depo değişkeni `AMO_PUBLISH` `true` ise zip dosyasını addons.mozilla.org'a gönderir (`AMO_JWT_ISSUER` ve `AMO_JWT_SECRET` gizli anahtarlarıyla).
+Sürümü çıkarmak için `manifest.json` içindeki sürümü artırın, commit yapın ve `v<version>` etiketini gönderin. Yayın iş akışı testleri çalıştırır, paketler ve bir GitHub sürümü yayımlar (zip ve xpi ile). Depo değişkeni `AMO_PUBLISH` `true` ise xpi dosyasını addons.mozilla.org'a gönderir (`AMO_JWT_ISSUER` ve `AMO_JWT_SECRET` gizli anahtarlarıyla).
 
 Marka (izotip, iki renk, yazı tipi ve simgeler) [docs/brand](docs/brand/README.md) içinde.
 

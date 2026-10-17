@@ -80,7 +80,7 @@ Three commands, typed in the switcher. They work from the toolbar button too, on
 
 ![The six layouts of the new tab: classic, just the time, one line, stacked, corner and analog.](docs/screens/layouts.png)
 
-The date and the time, set with care, and the switcher under them. Six layouts: classic, just the time, one line, stacked (hours over minutes), corner and a minimal analog clock. Four typographic styles: Editorial (Instrument Serif and Inter), Swiss (Inter), Machine (IBM Plex Mono) and Book (EB Garamond), or fonts of your own installed on the machine. An optional greeting with your name. Give it a list of languages and every new tab says the date in one of them, at random.
+The date and the time, set with care, and the switcher under them. Six layouts: classic, just the time, one line, stacked (hours over minutes), corner and a minimal analog clock. Four typographic styles: Editorial (Instrument Serif and Inter), Swiss (Inter), Machine (IBM Plex Mono) and Book (EB Garamond), or fonts of your own installed on the machine. An optional greeting with your name. Give it a list of languages and every new tab says the date in one of them, at random. In Firefox and LibreWolf the new tab is also the home page: the browser starts on it, and so does every new window.
 
 Browsers keep the focus in the address bar on a new tab, and no extension can take it from there. So that you can type into the switcher right away, the tab is replaced by a new one in the same place, which starts with the page focused; the address bar then shows the page's address instead of staying empty. In a Firefox container tab it stays as it is. Turn off *Take the focus from the address bar* to keep the browser's way.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-To release, bump the version in `manifest.json`, commit, and push a tag `v<version>`. The release workflow tests, packs and publishes a GitHub release with the zip and the xpi, and sends the zip to addons.mozilla.org when the repository variable `AMO_PUBLISH` is `true` (with the secrets `AMO_JWT_ISSUER` and `AMO_JWT_SECRET`).
+To release, bump the version in `manifest.json`, commit, and push a tag `v<version>`. The release workflow tests, packs and publishes a GitHub release with the zip and the xpi, and sends the xpi to addons.mozilla.org when the repository variable `AMO_PUBLISH` is `true` (with the secrets `AMO_JWT_ISSUER` and `AMO_JWT_SECRET`).
 
 The brand (the isotype, the two colors, the type and the icons) is in [docs/brand](docs/brand/README.md).
 

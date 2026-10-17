@@ -80,7 +80,7 @@ Três comandos, digitados no switcher. Eles também funcionam pelo botão da bar
 
 ![Os seis layouts da nova aba: clássico, só a hora, em uma linha, empilhado, canto e analógico.](docs/screens/layouts.png)
 
-A data e a hora, bem compostas, e o switcher embaixo. Seis layouts: clássico, só a hora, em uma linha, empilhado (horas sobre minutos), canto e um relógio analógico minimalista. Quatro estilos tipográficos: Editorial (Instrument Serif e Inter), Suíço (Inter), Máquina (IBM Plex Mono) e Livro (EB Garamond), ou fontes próprias instaladas na máquina. Uma saudação opcional com o seu nome. Dê uma lista de idiomas e cada nova aba mostra a data em um deles, ao acaso.
+A data e a hora, bem compostas, e o switcher embaixo. Seis layouts: clássico, só a hora, em uma linha, empilhado (horas sobre minutos), canto e um relógio analógico minimalista. Quatro estilos tipográficos: Editorial (Instrument Serif e Inter), Suíço (Inter), Máquina (IBM Plex Mono) e Livro (EB Garamond), ou fontes próprias instaladas na máquina. Uma saudação opcional com o seu nome. Dê uma lista de idiomas e cada nova aba mostra a data em um deles, ao acaso. No Firefox e no LibreWolf, a nova aba também é a página inicial: o navegador abre nela, e assim toda janela nova.
 
 Os navegadores mantêm o foco na barra de endereços em uma nova aba, e nenhuma extensão consegue tirá-lo de lá. Para que você possa digitar no switcher de imediato, a aba é trocada por uma nova no mesmo lugar, que começa com a página em foco; a barra de endereços então mostra o endereço da página em vez de ficar vazia. Em uma aba de contêiner do Firefox, ela continua como está. Desligue *Tirar o foco da barra de endereços* para manter o jeito do navegador.
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redesenha os ícones a partir da
 scripts/pack.sh                               # dist/sobrio-<version>.zip e .xpi
 ```
 
-Para lançar uma versão, aumente a versão em `manifest.json`, faça o commit e envie uma tag `v<version>`. O workflow de lançamento testa, empacota e publica uma versão no GitHub com o zip e o xpi, e envia o zip ao addons.mozilla.org quando a variável do repositório `AMO_PUBLISH` for `true` (com os segredos `AMO_JWT_ISSUER` e `AMO_JWT_SECRET`).
+Para lançar uma versão, aumente a versão em `manifest.json`, faça o commit e envie uma tag `v<version>`. O workflow de lançamento testa, empacota e publica uma versão no GitHub com o zip e o xpi, e envia o xpi ao addons.mozilla.org quando a variável do repositório `AMO_PUBLISH` for `true` (com os segredos `AMO_JWT_ISSUER` e `AMO_JWT_SECRET`).
 
 A identidade visual (o isótipo, as duas cores, a tipografia e os ícones) está em [docs/brand](docs/brand/README.md).
 

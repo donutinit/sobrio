@@ -80,7 +80,7 @@ Dark Reader 的动态引擎会逐色把每个网站变为黑色（`#000`）。�
 
 ![新标签页的六种布局：经典、只显示时间、单行、堆叠、角落和模拟。](docs/screens/layouts.png)
 
-日期和时间经过精心排版，switcher 位于其下方。六种布局：经典、只显示时间、单行、堆叠（小时在上，分钟在下）、角落，以及极简的模拟时钟。四种字体风格：社论（Instrument Serif 与 Inter）、瑞士风格（Inter）、机器风格（IBM Plex Mono）和书籍风格（EB Garamond），也可以使用安装在你设备上的字体。可选的问候语会带上你的名字。给它一个语言列表，每个新标签页都会随机用其中一种语言显示日期。
+日期和时间经过精心排版，switcher 位于其下方。六种布局：经典、只显示时间、单行、堆叠（小时在上，分钟在下）、角落，以及极简的模拟时钟。四种字体风格：社论（Instrument Serif 与 Inter）、瑞士风格（Inter）、机器风格（IBM Plex Mono）和书籍风格（EB Garamond），也可以使用安装在你设备上的字体。可选的问候语会带上你的名字。给它一个语言列表，每个新标签页都会随机用其中一种语言显示日期。在 Firefox 和 LibreWolf 中，新标签页也是主页：浏览器启动时打开它，每个新窗口也是如此。
 
 浏览器会把新标签页的焦点保留在地址栏中，扩展无法从那里将其移开。为了让你可以立即在 switcher 中输入，标签页会在原位置被替换为一个新标签页，新标签页一开始就获得焦点；此时地址栏会显示该页面的地址，而不是保持空白。在 Firefox 容器标签页中则保持原样。如果你想保留浏览器的方式，请关闭 *将焦点从地址栏移开*。
 
@@ -151,7 +151,7 @@ python3 -I tools/make-icons.py                # redraw the icons from the isotyp
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi
 ```
 
-要发布新版本，请在 `manifest.json` 中提升版本号，提交，并推送标签 `v<version>`。发布工作流会测试、打包，并发布包含 zip 和 xpi 的 GitHub 发布版本；当仓库变量 `AMO_PUBLISH` 为 `true` 时（并配置了密钥 `AMO_JWT_ISSUER` 和 `AMO_JWT_SECRET`），还会将 zip 发送至 addons.mozilla.org。
+要发布新版本，请在 `manifest.json` 中提升版本号，提交，并推送标签 `v<version>`。发布工作流会测试、打包，并发布包含 zip 和 xpi 的 GitHub 发布版本；当仓库变量 `AMO_PUBLISH` 为 `true` 时（并配置了密钥 `AMO_JWT_ISSUER` 和 `AMO_JWT_SECRET`），还会将 xpi 发送至 addons.mozilla.org。
 
 品牌标识（图形标志、两种颜色、字体和图标）位于 [docs/brand](docs/brand/README.md)。
 
