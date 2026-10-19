@@ -168,8 +168,9 @@ def main():
 
     profile = tempfile.mkdtemp(prefix='sobrio-chromium-')
     # sobrio.test is the fixtures' server on this machine under a name that is not local
-    # (sobrio leaves local addresses alone by default).
-    flags = ['--host-resolver-rules=MAP sobrio.test 127.0.0.1'] + (['--force-dark-mode'] if args.dark else []) \
+    # (sobrio leaves local addresses alone by default); frame.sobrio.test, the same server as
+    # another site, for iframes.
+    flags = ['--host-resolver-rules=MAP sobrio.test 127.0.0.1, MAP frame.sobrio.test 127.0.0.1'] + (['--force-dark-mode'] if args.dark else []) \
         + (['--autoplay-policy=no-user-gesture-required'] if args.autoplay else []) \
         + ([f'--lang={args.lang}', f'--accept-lang={args.lang}'] if args.lang else [])
     cdp = Pipe(args.binary, profile, flags)

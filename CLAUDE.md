@@ -38,8 +38,12 @@ FILE` (un `userContent.css` para el perfil), `--late-install` (la pestaña ya ab
 la ventana: `gBrowser`, `gURLBar`, `BrowserCommands.openTab()`). Las páginas de prueba se sirven
 con `python3 -I -m http.server` desde una carpeta fuera del repo, y se abren como
 `http://sobrio.test:<puerto>/`: las dos herramientas resuelven `sobrio.test` a esta máquina, con un
-nombre que no es local (`127.0.0.1` y `localhost` quedan fuera de sobrio por defecto). En lizeth
+nombre que no es local (`127.0.0.1` y `localhost` quedan fuera de sobrio por defecto), y
+`frame.sobrio.test` al mismo servidor como otro sitio, para iframes. En lizeth
 `marionette.py` corre con un Firefox oficial: `--binary ~/.cache/sobrio-firefox/firefox/firefox`.
+Para sitios que bloquean navegadores automatizados (claude.ai) está Camoufox en
+`~/.cache/sobrio-camoufox/venv` (`from camoufox.sync_api import Camoufox`, `addons=[carpeta]`).
+Sus `page.frames` no siempre listan los iframes de otro sitio: se revisan con capturas.
 
 sobrio tiene que ser rápido: un cambio a lo que corre en las páginas se mide con `tools/perf.py`
 (carga y reposo, `--second` para la segunda visita) y `tools/ffperf.py` en sitios pesados (GitHub,
@@ -165,6 +169,12 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   como cualquiera.
 - Un frame sin área (`innerWidth` o `innerHeight` menor que 2: trackers, anuncios ocultos) no
   enciende Dark Reader ni el detector hasta su `resize`, que llega antes de que se pinte.
+- Cada frame sigue las excepciones de su propio host y las del sitio de la barra de direcciones
+  (`siteState(stored, host, top)`): td o ta apagados en un sitio lo apagan también en sus iframes
+  (el artifact de claude.ai vive en `claudeusercontent.com` y salía negro). `page.js` saca el sitio
+  de `location.ancestorOrigins` (Chromium y Firefox 158 la tienen); sin ella, o con el origen
+  escondido (`"null"`, por la política de referrer), se lo pregunta al background (`top-host`), que
+  lo lee de la pestaña.
 - La excepción del reproductor de YouTube (`:not(#movie_player *)`) solo entra en hosts de
   YouTube: en cualquier otro sitio hace cada recálculo 6 a 9 % más lento sin servir de nada.
 - Firefox no muestra en `document.styleSheets` del mundo de la página las hojas que inserta una

@@ -3,6 +3,10 @@
 (() => {
   const root = document.documentElement;
   const hostname = location.hostname;
+  // The site in the address bar: a frame follows its exceptions too (settings.siteState).
+  // Undefined while unknown: a browser without ancestorOrigins, or a referrer policy that hides
+  // the top as "null". Then the background tells, from the tab.
+  let topHost = window === window.top ? hostname : ancestorHost();
   const { detector, buildCss, customCss, youtubeHost } = sobrio;
   const { DEFAULTS, mergeSettings, siteState, darkTheme, isLocalHost } = sobrio.settings;
   const KEYS = ['darkOff', 'cssOff', 'animOff', 'settings', 'theme'];
@@ -15,7 +19,7 @@
 
   // Both go in before storage answers, with the defaults: the usual case waits for nothing. A local
   // address is left alone by default, so there neither goes in (no black blink on a dev server).
-  const leftAlone = DEFAULTS.exceptions.local && isLocalHost(hostname);
+  const leftAlone = DEFAULTS.exceptions.local && (isLocalHost(hostname) || isLocalHost(topHost));
   const css = leftAlone ? Object.assign(document.createElement('style'), { id: 'sobrio-css' }) : addStyle('sobrio-css', buildCss(DEFAULTS.css, null, hostname));
   // The person's CSS (settings.css.custom), right after sobrio's; in once storage answers.
   const custom = document.createElement('style');
@@ -45,10 +49,25 @@
   // Dark Reader reads the page's own images (same site) with fetch in this world.
   const ownFetch = globalThis.fetch;
   globalThis.fetch = async (...args) => photoStandIn(await ownFetch(...args));
-  chrome.storage.local.get([...KEYS, OWN_DARK, SEEN_LIGHT]).then(apply, () => apply(undefined));
+  const topAnswer = topHost ?? sobrio.send({ sobrio: 'top-host' }).catch(() => '');
+  Promise.all([chrome.storage.local.get([...KEYS, OWN_DARK, SEEN_LIGHT]), topAnswer]).then(([stored, host]) => {
+    topHost = typeof host === 'string' ? host : '';
+    apply(stored);
+  }, () => apply(undefined));
   chrome.storage.onChanged.addListener((changes, area) => {
     if (area === 'local' && KEYS.some((key) => changes[key])) chrome.storage.local.get(KEYS).then(apply);
   });
+
+  function ancestorHost() {
+    const origins = location.ancestorOrigins;
+    const origin = origins?.[origins.length - 1];
+    if (!origin || origin === 'null') return undefined;
+    try {
+      return new URL(origin).hostname;
+    } catch {
+      return undefined;
+    }
+  }
 
   function addStyle(id, text) {
     const style = document.createElement('style');
@@ -62,7 +81,7 @@
     const settings = mergeSettings(stored?.settings);
     for (const listener of settingsListeners) listener(settings);
     const theme = stored?.theme ?? null;
-    const state = siteState(stored, hostname);
+    const state = siteState(stored, hostname, topHost);
     // On a site that keeps its animations, the rest of the stylesheet still applies.
     const switches = state.animations ? settings.css : { ...settings.css, animations: false };
     const text = state.css ? buildCss(switches, theme, hostname) : '';

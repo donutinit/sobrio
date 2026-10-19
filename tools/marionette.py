@@ -121,8 +121,9 @@ def main():
         'xpinstall.signatures.required': False,
         'datareporting.policy.dataSubmissionEnabled': False,
         # sobrio.test is the fixtures' server on this machine under a name that is not local
-        # (sobrio leaves local addresses alone by default).
-        'network.dns.localDomains': 'sobrio.test',
+        # (sobrio leaves local addresses alone by default); frame.sobrio.test, the same server as
+        # another site, for iframes.
+        'network.dns.localDomains': 'sobrio.test,frame.sobrio.test',
     }
     if args.user_content:
         os.makedirs(os.path.join(profile, 'chrome'))

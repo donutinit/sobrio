@@ -114,6 +114,21 @@ test('siteState with patterns', () => {
   assert.deepEqual(siteState(stored, 'ycombinator.com'), { dark: true, css: true, animations: true, local: false });
 });
 
+test('siteState in a frame: the site in the address bar turned off turns it off too', () => {
+  const stored = { darkOff: ['claude.ai'], cssOff: ['*.youtube.com'], animOff: [] };
+  const artifact = siteState(stored, 'www.claudeusercontent.com', 'claude.ai');
+  assert.deepEqual(artifact, { dark: false, css: true, animations: true, local: false });
+  // Its own host still counts: a video from a site turned off stays off inside another one.
+  assert.deepEqual(siteState(stored, 'www.youtube.com', 'blog.example'), { dark: true, css: false, animations: true, local: false });
+  assert.deepEqual(siteState(stored, 'cdn.example', 'blog.example'), { dark: true, css: true, animations: true, local: false });
+  // A blank frame has no host of its own: only the site's.
+  assert.deepEqual(siteState(stored, '', 'claude.ai'), { dark: false, css: true, animations: true, local: false });
+  // Inside a local page, left alone like the page.
+  assert.deepEqual(siteState(stored, 'www.youtube.com', 'localhost'), { dark: false, css: false, animations: true, local: true });
+  // No site in the address bar (a file, a browser page): its own host only.
+  assert.deepEqual(siteState(stored, 'claude.ai', ''), { dark: false, css: true, animations: true, local: false });
+});
+
 test('siteState with nothing stored means everything on', () => {
   assert.deepEqual(siteState(undefined, 'a.com'), { dark: true, css: true, animations: true, local: false });
   assert.deepEqual(siteState({ darkOff: 'junk', cssOff: [null, 3], animOff: [null] }, 'a.com'), { dark: true, css: true, animations: true, local: false });

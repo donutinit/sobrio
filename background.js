@@ -19,6 +19,8 @@ const handlers = {
     return true;
   },
   settings: () => chrome.runtime.openOptionsPage().then(() => true),
+  // A frame that cannot see the site in the address bar (page.js): the tab's.
+  'top-host': async (message, sender) => match.siteHost(sender.tab?.url),
   // sender.url is the page that asked: sobrio's new tab even where Chrome calls the tab
   // chrome://newtab/.
   shortcut: (message, sender) => runShortcut(message, sender.tab, sender.url),

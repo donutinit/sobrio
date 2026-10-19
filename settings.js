@@ -299,15 +299,19 @@
 
   // local: an address of this machine or the local network, left alone (exceptions.local, on by
   // default): what runs there is the person's own work, to be seen as it is.
-  function siteState(stored, host) {
+  // top: the site in the address bar, for a frame inside it. Its exceptions count too, so a site
+  // turned off is off in everything it shows (a claude.ai artifact, a video from another site).
+  function siteState(stored, host, top = host) {
+    const hosts = top && top !== host ? [host, top] : [host];
+    const off = (list) => hosts.some((h) => matchingPatterns(list, h).length > 0);
     const animOff = Array.isArray(stored?.animOff) ? stored.animOff : DEFAULT_ANIM_OFF;
     // settings.exceptions.local as mergeSettings would read it, without merging everything else.
     const keepLocal = stored?.settings?.exceptions?.local;
-    const local = (typeof keepLocal === 'boolean' ? keepLocal : DEFAULTS.exceptions.local) && isLocalHost(host);
+    const local = (typeof keepLocal === 'boolean' ? keepLocal : DEFAULTS.exceptions.local) && hosts.some(isLocalHost);
     return {
-      dark: !local && matchingPatterns(stored?.darkOff, host).length === 0,
-      css: !local && matchingPatterns(stored?.cssOff, host).length === 0,
-      animations: matchingPatterns(animOff, host).length === 0,
+      dark: !local && !off(stored?.darkOff),
+      css: !local && !off(stored?.cssOff),
+      animations: !off(animOff),
       local,
     };
   }
