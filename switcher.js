@@ -103,9 +103,26 @@
       stats = answer.stats && typeof answer.stats === 'object' ? answer.stats : {};
       settings = mergeSettings(answer.settings);
       for (const [name, value] of Object.entries(themeVariables(answer.theme))) frame.style.setProperty(name, value);
+      roundBox(answer.theme);
       if (popup && answer.theme?.background) document.documentElement.style.background = answer.theme.background;
     }
     if (cache.stored) useStored(cache.stored);
+
+    // Round corners when the theme asks for them (settings.roundCorners): the box drawn as an image
+    // in the theme's curve, the radius of a window, with the colors just set. The popup's box has no
+    // border: the browser draws that window.
+    function roundBox(theme) {
+      const corners = layout === 'popup' ? null : sobrio.settings.roundCorners(theme);
+      frame.classList.toggle('round', Boolean(corners));
+      if (!corners) {
+        frame.style.removeProperty('--s-round');
+        return;
+      }
+      const style = getComputedStyle(frame);
+      const color = (name) => style.getPropertyValue(name).trim();
+      const fill = layout === 'inline' ? '' : color('--s-bg');
+      frame.style.setProperty('--s-round', sobrio.settings.squircleBorder(corners.radius, corners.power, { fill, stroke: color('--s-border') }));
+    }
 
     send({ sobrio: 'bookmarks' })
       .catch(() => [])

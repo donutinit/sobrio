@@ -119,6 +119,9 @@ I Firefox och LibreWolf läser sobrio dessa variabler från `userContent.css` (m
     --sobrio-border: #4a5470;
     --sobrio-accent: #f5a9cf;       /* markeringsstapeln och de matchade bokstäverna */
     --sobrio-corners: square;       /* square eller round: går före brytaren för hörn */
+    --sobrio-radius: 10px;          /* round: sobrios egna switcher, annars square */
+    --sobrio-radius-small: 6px;     /* round: fälten och knapparna på sidorna */
+    --sobrio-corner-power: 6;       /* deras kurva: 2 en cirkel, 4 en squircle (Hyprlands rounding_power) */
     --sobrio-font: "SF Pro Text";   /* valfritt: ett typsnitt installerat på den här datorn */
   }
 }

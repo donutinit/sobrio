@@ -366,9 +366,75 @@
     }
     const corners = (get('--sobrio-corners') ?? '').trim();
     if (corners === 'square' || corners === 'round') theme.corners = corners;
+    // Round corners: a radius for the switcher, one for fields and buttons, and their curve.
+    const px = (name) => {
+      const match = /^(\d+(?:\.\d+)?)(px)?$/.exec((get(name) ?? '').trim());
+      return match && Number(match[1]) <= 40 ? Number(match[1]) : null;
+    };
+    const radius = px('--sobrio-radius');
+    if (radius !== null) theme.radius = radius;
+    const radiusSmall = px('--sobrio-radius-small');
+    if (radiusSmall !== null) theme.radiusSmall = radiusSmall;
+    const power = Number((get('--sobrio-corner-power') ?? '').trim() || NaN);
+    if (power >= 1 && power <= 20) theme.cornerPower = power;
     const font = (get('--sobrio-font') ?? '').trim();
     if (font && !/[;{}<>\\]/.test(font)) theme.font = font;
     return Object.keys(theme).length ? theme : null;
+  }
+
+  // sobrio's own pages and switcher are square, unless the theme hook asks for round corners and
+  // gives a radius. Then they follow the theme's curve, a superellipse |x|^n + |y|^n = 1 as
+  // Hyprland draws its windows (n is its rounding_power: 2 a circle, 4 a squircle, 6 dot's).
+  // Firefox does not draw corner-shape yet, so the corners are drawn as images (squircleBorder).
+  function roundCorners(theme) {
+    if (theme?.corners !== 'round' || !(theme.radius > 0)) return null;
+    return { radius: theme.radius, small: theme.radiusSmall ?? theme.radius, power: theme.cornerPower ?? 2 };
+  }
+
+  // One corner of radius r and power n: points from the left edge (0, r) to the top edge (r, 0),
+  // measured from the corner.
+  function squircleCorner(r, n, steps = 16) {
+    return Array.from({ length: steps + 1 }, (_, i) => {
+      const angle = (i / steps) * (Math.PI / 2);
+      // Exact at the ends: cos(π/2) is not quite 0 in floating point.
+      const cos = i === steps ? 0 : Math.cos(angle);
+      const sin = i === 0 ? 0 : Math.sin(angle);
+      return [r - r * cos ** (2 / n), r - r * sin ** (2 / n)];
+    });
+  }
+
+  // The four corners clockwise from the top left, each point as [x, y, fromRight, fromBottom].
+  function squircleOutline(r, n) {
+    const corner = squircleCorner(r, n);
+    return [
+      ...corner.map(([x, y]) => [x, y, false, false]),
+      ...corner.map(([x, y]) => [y, x, true, false]),
+      ...corner.map(([x, y]) => [x, y, true, true]),
+      ...corner.map(([x, y]) => [y, x, false, true]),
+    ];
+  }
+
+  const round3 = (v) => Math.round(v * 1000) / 1000;
+
+  // A box with those corners, for border-image: the corners stay as drawn and the edges stretch,
+  // so it fits a box of any size and draws its fill and its 1px stroke along the curve. fill and
+  // stroke are CSS colors; empty draws none.
+  function squircleBorder(r, n, { fill = '', stroke = '' } = {}) {
+    const slice = Math.ceil(r) + 1;
+    const size = slice * 2 + 1;
+    const inset = stroke ? 0.5 : 0;
+    const points = squircleOutline(Math.max(0, r - inset), n).map(([x, y, right, bottom]) =>
+      `${round3(right ? size - inset - x : inset + x)} ${round3(bottom ? size - inset - y : inset + y)}`);
+    const paint = `fill="${fill || 'none'}"${stroke ? ` stroke="${stroke}" stroke-width="1"` : ''}`;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">` +
+      `<path d="M${points.join('L')}Z" ${paint}/></svg>`;
+    return `url("data:image/svg+xml,${encodeURIComponent(svg)}") ${slice} fill / ${slice}px`;
+  }
+
+  // The same outline as a clip-path, for a box whose own background must follow it.
+  function squircleClip(r, n) {
+    const at = (v, far) => (far ? `calc(100% - ${round3(v)}px)` : `${round3(v)}px`);
+    return `polygon(${squircleOutline(r, n).map(([x, y, right, bottom]) => `${at(x, right)} ${at(y, bottom)}`).join(', ')})`;
   }
 
   // Saves what the hook gives (null when userContent.css has none), only when it changed:
@@ -496,7 +562,7 @@
 
   const api = {
     DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, PAUSE_MINUTES, PAUSE_MAX, pauseLeft, isCommandWord, mergeSettings, makeBackup, readBackup, backupDetails, hostMatches, normalizePattern, matchingPatterns, siteState, isLocalHost,
-    parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
+    parseThemeHook, storeThemeHook, roundCorners, squircleCorner, squircleBorder, squircleClip, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
     normalizeKeys, isValidShortcutKeys, cleanUrl, toggledPatterns, snapSpeed,
   };
   globalThis.sobrio = globalThis.sobrio || {};

@@ -1,6 +1,6 @@
 // The settings page. Every change saves itself, and every open tab applies it live.
 (() => {
-  const { mergeSettings, normalizePattern, storeThemeHook, DEFAULT_ANIM_OFF, isCommandWord, makeBackup, readBackup, backupDetails, ACTIONS, normalizeKeys, isValidShortcutKeys } = sobrio.settings;
+  const { mergeSettings, normalizePattern, storeThemeHook, DEFAULT_ANIM_OFF, isCommandWord, makeBackup, readBackup, backupDetails, ACTIONS, normalizeKeys, isValidShortcutKeys, roundCorners, squircleBorder, squircleClip } = sobrio.settings;
   const { ENGINES, allEngines, shortUrl } = sobrio.match;
   const { weightOf } = sobrio.stats;
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions) || key;
@@ -765,10 +765,48 @@
       '--accent': theme?.accent,
       '--font': theme?.font && `${theme.font}, system-ui, sans-serif`,
     };
+    setVariables(vars);
+    setVariables(cornerVariables());
+  }
+
+  function setVariables(vars) {
     for (const [name, value] of Object.entries(vars)) {
       if (value) document.documentElement.style.setProperty(name, value);
       else document.documentElement.style.removeProperty(name);
     }
+  }
+
+  // Round corners when the theme asks for them, in the curve it gives (settings.roundCorners):
+  // each one an image in the colors already painted, one per state. Square, all removed.
+  const CORNER_NAMES = ['--r-small', '--sq-line', '--sq-line-soft', '--sq-accent', '--sq-on', '--sq-knob', '--sq-knob-on',
+    '--sq-thumb', '--sq-clip', '--sq-clip-inner'];
+  let probe = null;
+  function cornerVariables() {
+    const corners = roundCorners(theme);
+    document.documentElement.classList.toggle('round', Boolean(corners));
+    if (!corners) return Object.fromEntries(CORNER_NAMES.map((name) => [name, undefined]));
+    // The page's own colors, resolved (--line is a color-mix): an image cannot read a variable.
+    probe ??= document.documentElement.appendChild(el('span', { hidden: true }));
+    const color = (name) => {
+      probe.style.color = `var(${name})`;
+      return getComputedStyle(probe).color;
+    };
+    const { small: r, power: n } = corners;
+    const line = color('--line-strong');
+    const accent = color('--accent');
+    return {
+      '--r-small': `${r}px`,
+      '--sq-line': squircleBorder(r, n, { stroke: line }),
+      '--sq-line-soft': squircleBorder(r, n, { stroke: color('--line') }),
+      '--sq-accent': squircleBorder(r, n, { stroke: accent }),
+      '--sq-on': squircleBorder(r, n, { fill: accent, stroke: accent }),
+      // The switch's knob sits 3px inside it, so its corners are 3px tighter.
+      '--sq-knob': squircleBorder(Math.max(1, r - 3), n, { fill: color('--muted') }),
+      '--sq-knob-on': squircleBorder(Math.max(1, r - 3), n, { fill: color('--bg') }),
+      '--sq-thumb': squircleBorder(Math.max(1, r / 2), n, { fill: color('--text') }),
+      '--sq-clip': squircleClip(r, n),
+      '--sq-clip-inner': squircleClip(Math.max(1, r - 1), n),
+    };
   }
 
   function apply(stored) {

@@ -120,3 +120,11 @@ button:focus-visible {
   color: var(--muted);
   font-size: 13px;
 }
+
+/* Round corners, only when the userContent.css theme asks for them: welcome.js sets the round class
+   and the button's fill as an image in the theme's curve. border-radius only shapes the focus ring. */
+.round button {
+  border-image: var(--sq-fill);
+  border-radius: var(--r-small);
+  background: transparent;
+}

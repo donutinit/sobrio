@@ -23,6 +23,10 @@ const {
   pauseLeft,
   PAUSE_MINUTES,
   PAUSE_MAX,
+  roundCorners,
+  squircleCorner,
+  squircleBorder,
+  squircleClip,
 } = require('../settings.js');
 
 test('nothing stored gives the defaults, as a copy', () => {
@@ -170,6 +174,58 @@ test('parseThemeHook ignores invalid values one by one', () => {
     '--sobrio-font': 'x; } body { display: none',
   }));
   assert.deepEqual(theme, { text: '#edf1ff' });
+});
+
+test('parseThemeHook reads the radii and the curve of round corners', () => {
+  const theme = parseThemeHook(hook({
+    '--sobrio-corners': ' round ', '--sobrio-radius': ' 10px', '--sobrio-radius-small': '6', '--sobrio-corner-power': ' 6 ',
+  }));
+  assert.deepEqual(theme, { corners: 'round', radius: 10, radiusSmall: 6, cornerPower: 6 });
+  for (const [name, value] of [['--sobrio-radius', '10em'], ['--sobrio-radius', '-2px'], ['--sobrio-radius', '41px'],
+    ['--sobrio-radius-small', 'calc(1px)'], ['--sobrio-corner-power', '0'], ['--sobrio-corner-power', 'squircle'], ['--sobrio-corner-power', '21']]) {
+    assert.equal(parseThemeHook(hook({ '--sobrio-corners': 'round', [name]: value })).radius, undefined, value);
+    assert.deepEqual(Object.keys(parseThemeHook(hook({ '--sobrio-corners': 'round', [name]: value }))), ['corners'], `${name}: ${value}`);
+  }
+});
+
+test('roundCorners: only a round theme with a radius rounds sobrio', () => {
+  assert.deepEqual(roundCorners({ corners: 'round', radius: 10, radiusSmall: 6, cornerPower: 6 }), { radius: 10, small: 6, power: 6 });
+  // Without a small radius or a curve: the radius and a circle.
+  assert.deepEqual(roundCorners({ corners: 'round', radius: 8 }), { radius: 8, small: 8, power: 2 });
+  for (const theme of [null, {}, { corners: 'square', radius: 10 }, { corners: 'round' }, { corners: 'round', radius: 0 }]) {
+    assert.equal(roundCorners(theme), null, JSON.stringify(theme));
+  }
+});
+
+test('squircleCorner runs along a superellipse from the left edge to the top edge', () => {
+  const points = squircleCorner(10, 6);
+  assert.deepEqual(points[0], [0, 10]);
+  assert.deepEqual(points.at(-1), [10, 0]);
+  for (const [x, y] of points) assert.ok(Math.abs(((10 - x) / 10) ** 6 + ((10 - y) / 10) ** 6 - 1) < 1e-9);
+  // Hyprland's power 6 hugs the corner much closer than a circle of the same radius.
+  const middle = (n) => squircleCorner(10, n, 2)[1][0];
+  assert.ok(Math.abs(middle(2) - 2.929) < 0.001);
+  assert.ok(Math.abs(middle(6) - 1.091) < 0.001);
+});
+
+test('squircleBorder: an SVG that border-image slices at the radius, with its fill and stroke', () => {
+  const value = squircleBorder(6, 6, { stroke: '#4a5470' });
+  const match = /^url\("data:image\/svg\+xml,(.+)"\) 7 fill \/ 7px$/.exec(value);
+  assert.ok(match, value);
+  const svg = decodeURIComponent(match[1]);
+  assert.match(svg, /width="15" height="15"/);
+  assert.match(svg, /fill="none" stroke="#4a5470" stroke-width="1"/);
+  // The stroke sits half a pixel in, so it stays inside the box.
+  assert.match(svg, /d="M0\.5 6L/);
+  assert.match(decodeURIComponent(/,(.+)"\)/.exec(squircleBorder(10, 6, { fill: 'rgb(1, 2, 3)' }))[1]), /fill="rgb\(1, 2, 3\)"\/>/);
+});
+
+test('squircleClip: the outline as a polygon that fits any box', () => {
+  const clip = squircleClip(6, 6);
+  assert.match(clip, /^polygon\(0px 6px, /);
+  assert.match(clip, /calc\(100% - 6px\) 0px/);
+  assert.match(clip, /calc\(100% - 0px\) calc\(100% - 6px\)/);
+  assert.equal(clip.split(',').length, 68);
 });
 
 test('parseThemeHook without any variable is null', () => {

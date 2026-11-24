@@ -142,6 +142,14 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   como el gris de su misma luz (`darkTheme`): Dark Reader le pone a todo texto gris de la página el
   tono y la saturación de ese color con menos luz, y el `#edf1ff` del tema travesti dejaba lila el
   texto de Wikipedia (`#b6c6ff`).
+- Las páginas de sobrio y su switcher son cuadrados, salvo que el gancho diga `--sobrio-corners:
+  round` con un radio: entonces siguen la curva del tema (`roundCorners`), la superelipse de
+  `rounding_power` de Hyprland, con `--sobrio-radius` (el switcher), `--sobrio-radius-small` (campos
+  y botones) y `--sobrio-corner-power`, que dot genera desde `bin/theme`. Firefox 158 acepta
+  `corner-shape` con `layout.css.corner-shape.enabled`, pero la dibuja como círculo: cada borde es
+  una imagen SVG en `border-image` (`squircleBorder`, con los colores ya resueltos de la página y
+  una por estado) y `border-radius` solo da forma al anillo de foco. Lo que muestra su propio fondo
+  (la muestra de color) se recorta con `squircleClip`.
 
 ## Cosas que ya mordieron
 

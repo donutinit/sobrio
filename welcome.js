@@ -1,7 +1,7 @@
 // The welcome guide: opened once on install (background.js) and from the settings. Five things
 // to know, with the command words the person chose.
 (() => {
-  const { mergeSettings } = sobrio.settings;
+  const { mergeSettings, roundCorners, squircleBorder } = sobrio.settings;
   const { icon, isotype } = sobrio.icons;
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions) || key;
   const main = document.querySelector('main');
@@ -46,6 +46,22 @@
       '--line': theme?.border && `color-mix(in srgb, ${theme.border} 40%, ${theme.background ?? '#000'})`,
       '--font': theme?.font && `${theme.font}, system-ui, sans-serif`,
     };
+    setVariables(vars);
+    // Round corners when the theme asks for them (settings.roundCorners): the button's fill, drawn
+    // in the theme's curve with the text color just painted.
+    const corners = roundCorners(theme);
+    document.documentElement.classList.toggle('round', Boolean(corners));
+    let fill;
+    if (corners) {
+      const probe = document.documentElement.appendChild(el('span', { hidden: true }));
+      probe.style.color = 'var(--text)';
+      fill = squircleBorder(corners.small, corners.power, { fill: getComputedStyle(probe).color });
+      probe.remove();
+    }
+    setVariables({ '--r-small': corners && `${corners.small}px`, '--sq-fill': fill });
+  }
+
+  function setVariables(vars) {
     for (const [name, value] of Object.entries(vars)) {
       if (value) document.documentElement.style.setProperty(name, value);
       else document.documentElement.style.removeProperty(name);

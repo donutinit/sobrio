@@ -119,6 +119,9 @@ Excepțiile se scriu ca `example.com` (doar acel site) sau `*.example.com` (site
     --sobrio-border: #4a5470;
     --sobrio-accent: #f5a9cf;       /* bara de selecție și literele potrivite */
     --sobrio-corners: square;       /* square sau round: înlocuiește comutatorul pentru colțuri */
+    --sobrio-radius: 10px;          /* round: switcher-ul propriu al sobrio, square fără el */
+    --sobrio-radius-small: 6px;     /* round: câmpurile și butoanele paginilor sale */
+    --sobrio-corner-power: 6;       /* curba lor: 2 înseamnă cerc, 4 squircle (rounding_power din Hyprland) */
     --sobrio-font: "SF Pro Text";   /* opțional: un font instalat pe acest calculator */
   }
 }

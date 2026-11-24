@@ -594,3 +594,81 @@ kbd {
   margin-top: 24px;
   font-size: 13px;
 }
+
+/* Round corners, only when the userContent.css theme asks for them: options.js sets the round class
+   and the --sq-* images, each drawn in the theme's curve and the colors of its state. Firefox does
+   not draw corner-shape yet, so the border is an image; border-radius only shapes the focus ring. */
+.round :is(.text, select, button, .snippet, kbd, .color, .switch) {
+  border-image: var(--sq-line);
+  border-radius: var(--r-small);
+}
+
+.round .preset {
+  border-image: var(--sq-line-soft);
+}
+
+/* The slider has no border, but its focus ring follows the same corners as the rest. */
+.round .range {
+  border-radius: var(--r-small);
+}
+
+.round :is(button:hover, .recorder.recording) {
+  border-image: var(--sq-accent);
+}
+
+/* The tabs are buttons with a line on one side, not a box, hovered or not. */
+.round :is(.tab, .tab:hover) {
+  border-image: none;
+  border-radius: 0;
+}
+
+/* A word that cannot be saved keeps its dashed border, the browser's own round one. */
+.round .text.invalid {
+  border-image: none;
+}
+
+.round .patterns button {
+  border-image: none;
+}
+
+.round .patterns button:hover {
+  border-image: var(--sq-line);
+}
+
+.round .switch:checked {
+  border-image: var(--sq-on);
+  background: transparent;
+}
+
+.round .switch::before {
+  border-image: var(--sq-knob);
+  background: transparent;
+}
+
+.round .switch:checked::before {
+  border-image: var(--sq-knob-on);
+}
+
+.round .range::-moz-range-thumb {
+  border-image: var(--sq-thumb);
+  background: transparent;
+}
+
+.round .range::-webkit-slider-thumb {
+  border-image: var(--sq-thumb);
+  background: transparent;
+}
+
+/* A color shown as it is: its own fill, cut to the curve, under the border image. */
+.round .swatch {
+  border-image: var(--sq-line);
+  clip-path: var(--sq-clip);
+}
+
+.round .color::-moz-color-swatch {
+  clip-path: var(--sq-clip-inner);
+}
+
+.round .color::-webkit-color-swatch {
+  clip-path: var(--sq-clip-inner);
+}

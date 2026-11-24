@@ -119,6 +119,9 @@ A Firefoxban és a LibreWolfban a sobrio ezeket a változókat olvassa a `userCo
     --sobrio-border: #4a5470;
     --sobrio-accent: #f5a9cf;       /* a kijelölés sávja és az egyezett betűk */
     --sobrio-corners: square;       /* square vagy round: felülírja a sarkok kapcsolóját */
+    --sobrio-radius: 10px;          /* round: a sobrio switcher-e, egyébként square */
+    --sobrio-radius-small: 6px;     /* round: a sobrio oldalainak mezői és gombjai */
+    --sobrio-corner-power: 6;       /* az ívük: 2 kör, 4 négyzetkör (Hyprland rounding_power-je) */
     --sobrio-font: "SF Pro Text";   /* opcionális: ezen a gépen telepített betűtípus */
   }
 }

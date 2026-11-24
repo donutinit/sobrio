@@ -131,4 +131,9 @@ b {
   max-height: 560px;
   border: 0;
 }
+/* Round corners from the theme: switcher.js draws the box's fill and border as one image. */
+.round .box {
+  border-image: var(--s-round);
+  background: transparent;
+}
 `;
