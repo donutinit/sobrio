@@ -244,6 +244,8 @@
   // - a large one with text drawn over it, not on a box of its own, is dimmed. Dark Reader makes
   //   the text light, so a heading made for a light photo vanished on it (Meta's sign in). Pages
   //   often draw the text after the image: without text, it is looked at once more a moment later.
+  //   A video only when it is a backdrop (muted and looping): over a player, the text is its own
+  //   light interface (an ad's card, captions), and YouTube's video stayed dark after an ad.
   // - a small dark one on a clear background (a logo, an icon) is inverted, as Dark Reader does
   //   with the same image as a CSS background. Wikipedia's wordmark was black on black.
   const DIM = 'data-sobrio-dim';
@@ -269,6 +271,10 @@
   }
 
   function dimUnderText(media, again) {
+    if (media instanceof HTMLVideoElement && !(media.muted && media.loop)) {
+      media.removeAttribute(DIM);
+      return;
+    }
     const rect = media.getBoundingClientRect();
     if (rect.width < 160 || rect.height < 100 || !current || !media.isConnected) return;
     for (const fx of [1 / 6, 1 / 2, 5 / 6]) {

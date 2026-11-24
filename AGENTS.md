@@ -237,7 +237,9 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   está en una caja propia (el inicio de sesión de Meta) e invierte las chicas oscuras sobre fondo
   transparente (el logotipo de Wikipedia), cada una al entrar en pantalla. El texto encima de una
   foto puede venir dibujado en la foto (las tarjetas de Amazon): eso no se toca. El `load` de una
-  imagen no llega a `window`, se escucha en `document`.
+  imagen no llega a `window`, se escucha en `document`. Un `<video>` solo se oscurece si es fondo
+  (silenciado y en loop): sobre un reproductor el texto es su propia interfaz, y en YouTube la
+  tarjeta de un anuncio dejaba oscuro el video (es el mismo `<video>` para el anuncio y el video).
 - El switcher: la primera vez en una página espera la lista y los ajustes (transparente, ya
   tomando teclas, máximo 150 ms) para no pintarse vacío ni con los colores por defecto; después
   abre con lo de la vez anterior (`sobrio.switcherCache`). Los bookmarks de Diego son alias
