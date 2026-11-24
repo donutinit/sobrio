@@ -370,6 +370,15 @@
     return theme;
   }
 
+  // A color as the gray of its same lightness. Dark Reader gives every gray text of a page the hue
+  // and saturation of its text color, at a lower lightness, where a theme's near-white tint turns
+  // into a plain color: #edf1ff made Wikipedia's text lilac (#b6c6ff).
+  function grayOf(hex) {
+    const channels = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+    const level = Math.round((Math.max(...channels) + Math.min(...channels)) / 2);
+    return `#${level.toString(16).padStart(2, '0').repeat(3)}`;
+  }
+
   function darkTheme(dark, theme) {
     return {
       mode: 1,
@@ -378,7 +387,8 @@
       sepia: dark.sepia,
       grayscale: dark.grayscale,
       darkSchemeBackgroundColor: theme?.background ?? dark.background,
-      darkSchemeTextColor: theme?.text ?? dark.text,
+      // The theme's text is made for its own pages; on the web, its lightness only.
+      darkSchemeTextColor: theme?.text ? grayOf(theme.text) : dark.text,
       selectionColor: theme?.selection ?? (dark.selection || 'auto'),
     };
   }

@@ -134,7 +134,10 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
 - El gancho de tema son variables `--sobrio-*` en `userContent.css` dentro de
   `@-moz-document url-prefix("moz-extension://")`. Solo el background de Firefox (y la página de
   ajustes) las lee; `storeThemeHook` escribe `theme` solo si cambió. En dot, la plantilla
-  `theme/templates/librewolf/userContent.css` las genera.
+  `theme/templates/librewolf/userContent.css` las genera. A Dark Reader, `--sobrio-text` le llega
+  como el gris de su misma luz (`darkTheme`): Dark Reader le pone a todo texto gris de la página el
+  tono y la saturación de ese color con menos luz, y el `#edf1ff` del tema travesti dejaba lila el
+  texto de Wikipedia (`#b6c6ff`).
 
 ## Cosas que ya mordieron
 

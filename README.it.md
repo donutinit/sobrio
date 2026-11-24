@@ -112,7 +112,7 @@ In Firefox e LibreWolf, sobrio legge queste variabili da `userContent.css` (con 
 @-moz-document url-prefix("moz-extension://") {
   :root {
     --sobrio-background: #07090f;   /* modalità scura, sfondo dello switcher e della nuova scheda */
-    --sobrio-text: #edf1ff;
+    --sobrio-text: #edf1ff;         /* on websites, its lightness only: text stays gray */
     --sobrio-text-muted: #7c86a0;
     --sobrio-selection: #171d2b;    /* la riga selezionata, e il testo selezionato */
     --sobrio-border: #4a5470;

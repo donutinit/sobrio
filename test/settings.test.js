@@ -181,7 +181,9 @@ test('darkTheme uses the settings, and the theme hook wins for colors', () => {
   });
   const themed = darkTheme(dark, { background: '#07090f', text: '#edf1ff', selection: '#171d2b' });
   assert.equal(themed.darkSchemeBackgroundColor, '#07090f');
-  assert.equal(themed.darkSchemeTextColor, '#edf1ff');
+  // The theme's text reaches pages as a gray of its lightness: its tint turned lilac on Wikipedia.
+  assert.equal(themed.darkSchemeTextColor, '#f6f6f6');
+  assert.equal(darkTheme(dark, { text: '#f6eefc' }).darkSchemeTextColor, '#f5f5f5');
   assert.equal(themed.selectionColor, '#171d2b');
   assert.equal(darkTheme({ ...dark, selection: '#333333' }, { text: '#ffffff' }).selectionColor, '#333333');
 });

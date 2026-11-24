@@ -112,7 +112,7 @@ Excepțiile se scriu ca `example.com` (doar acel site) sau `*.example.com` (site
 @-moz-document url-prefix("moz-extension://") {
   :root {
     --sobrio-background: #07090f;   /* fundalul modului întunecat, al switcher-ului și al filei noi */
-    --sobrio-text: #edf1ff;
+    --sobrio-text: #edf1ff;         /* on websites, its lightness only: text stays gray */
     --sobrio-text-muted: #7c86a0;
     --sobrio-selection: #171d2b;    /* rândul selectat și textul selectat */
     --sobrio-border: #4a5470;
