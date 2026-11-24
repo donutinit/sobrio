@@ -16,6 +16,7 @@ python3 -I tools/cdp.py . <url>... --eval '<js>'    # Chromium headless (instala
 python3 -I tools/marionette.py . <url>... --eval '<js>'  # LibreWolf headless (en la máquina de Diego)
 python3 -I tools/perf.py . <url>...                 # CPU de la página con sobrio y sin él (Chromium)
 python3 -I tools/ffperf.py . <url>...               # lo mismo en Firefox (todos los hilos, 1a y 2a visita)
+python3 -I tools/keylag.py .                        # cuánto tarda Ctrl+Space en una página que sigue cargando (Firefox)
 python3 -I tools/vendor-darkreader.py <versión>     # actualizar Dark Reader (y proxy.js)
 python3 -I tools/vendor-fonts.py                    # actualizar las fuentes de la nueva pestaña
 python3 -I tools/make-icons.py                      # redibujar icons/ desde la retícula del isotipo
@@ -25,10 +26,12 @@ scripts/publish-amo.py dist/sobrio-<versión>.xpi    # mandarla a addons.mozilla
 
 Las dos herramientas cargan la extensión en un perfil temporal. Una URL `ext:options.html` abre
 una página de la extensión. Aceptan `--ext-eval` (antes, dentro de una página de la extensión),
-`--then-ext-eval` y `--keys` (después de cargar: cambiar `storage`, inyectar el switcher, teclas
-reales), `--shots DIR` y `--console TEXTO`. `--keys` solo corre con `--then-ext-eval` (basta
-`"return 1"`) y su resultado sale como `"after"`, no `"eval"`. `cdp.py` también tiene `--dark`,
-`--autoplay` (medios con sonido sin gesto), `--switcher` (lee el shadow root cerrado),
+`--then-ext-eval` y `--keys` (después de cargar: cambiar `storage`, teclas reales), `--switcher`
+(lee el shadow root cerrado), `--shots DIR` y `--console TEXTO`. `--keys` solo corre con
+`--then-ext-eval` (basta `"return 1"`) y su resultado sale como `"after"`, no `"eval"`.
+`--keys Ctrl+Space,yt,Enter` abre el switcher con su atajo en las dos (en Chromium headless la
+tecla llega a la página; en un Chrome de verdad se la queda el navegador). `cdp.py` también tiene
+`--dark`, `--autoplay` (medios con sonido sin gesto),
 `--busy-worker MS`, `--settle S`, `--targets`, `--full`, `--after-ext-eval`, `--sw-eval`,
 `--late-load`, `--clipboard`, y en `--keys` `click@x:y` y `Ctrl+J~` (tecla sostenida, con
 autorepeat). `marionette.py` tiene `--user-content
@@ -48,7 +51,11 @@ Sus `page.frames` no siempre listan los iframes de otro sitio: se revisan con ca
 sobrio tiene que ser rápido: un cambio a lo que corre en las páginas se mide con `tools/perf.py`
 (carga y reposo, `--second` para la segunda visita) y `tools/ffperf.py` en sitios pesados (GitHub,
 YouTube, Wikipedia) contra la versión anterior (`git archive HEAD` en una carpeta aparte). En
-Firefox, `ffperf.py` necesita `--binary ~/.cache/sobrio-firefox/firefox/firefox` en lizeth.
+Firefox, `ffperf.py` necesita `--binary ~/.cache/sobrio-firefox/firefox/firefox` en lizeth, y
+`keylag.py` también. Un cambio al switcher o a cómo se abre se mide con `keylag.py`: sirve una
+página que tarda 3 s en cargar con el hilo ocupado, aprieta Ctrl+Space con teclas de verdad y dice
+cuánto tardó el switcher desde que la página recibió la tecla (`switcher_ms`: 14 ms; 2,374 en la
+0.4.7) y si lo tecleado después llegó a la página.
 
 ## Idiomas
 
@@ -110,16 +117,25 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   (`['chatgpt.com']`). `darkPause` es cuándo termina la pausa de `pd` (ms desde la época): mientras
   dura, `page.js` apaga Dark Reader y la hoja de estilo en todos los sitios y deja un timer para volver a prenderlos. `pd`
   solo son 3 minutos, `pd15` son 15 (de 1 a 999) y `pd` durante una pausa la termina. No va en el
-  respaldo.
+  respaldo. `switcherKey` son las teclas del atajo del navegador que abre el switcher
+  (`"Ctrl+Space"`, como las da `normalizeKeys`; `commandKeys` las convierte): el background las
+  escribe al arrancar y cuando Firefox avisa que cambiaron, y tampoco va en el respaldo.
 - Atajos, velocidad, aviso y pausa del autoplay solo actúan con eventos `isTrusted`: una página
   no debe poder disparar acciones de la extensión.
 - `darkreader.js`, `proxy.js`, `fonts/` y `fonts.css` no se editan: se regeneran con
   `tools/vendor-*.py`, que verifican el sha512 del registro (`proxy.js` es el `injectProxy` de
   `darkreader.js`; `vendor-darkreader.py --proxy-only` lo rehace). Al actualizar Dark Reader,
   repetir las pruebas de navegador de "Cosas que ya mordieron".
+- `darkreader.js` se carga en cada frame pero no corre hasta que hace falta: es un paquete UMD y
+  `boot.js` le pone un `define` de AMD, así que entrega su código en vez de ejecutarlo.
+  `page.js` lo corre (`sobrio.darkReader()`) la primera vez que el modo oscuro se enciende en el
+  frame. Correrlo era la mitad del arranque de sobrio en cada frame (5 a 7 ms de 13) y muchos
+  nunca lo usan: un sitio con tema oscuro propio, uno apagado, un frame sin área.
+  `test/boot.test.js` avisa si una versión nueva deja de pasar por `define`.
 - `page.js` lee `storage` una vez por frame: `speed.js` y `shortcuts.js` reciben los ajustes ya
   combinados con `sobrio.onSettings` (la nueva pestaña no tiene `page.js` y `shortcuts.js` los lee
-  solo).
+  solo). En el frame de arriba deja además lo leído en `sobrio.stored`, que es de donde el
+  switcher saca ajustes, tema y excepciones: abre dibujado sin preguntar nada.
 - Los content scripts mandan mensajes con `sobrio.send`, nunca con
   `chrome.runtime.sendMessage`: `darkreader.js` parcha `sendMessage` y su versión no devuelve la
   respuesta. `boot.js` guarda la original antes.
@@ -130,11 +146,18 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   público. No relajes esos candados: las URLs vienen de las páginas.
 - Firefox solo deja abrir el popup de forma síncrona dentro del handler del atajo. Por eso
   `guard.canInject` decide antes de intentar inyectar.
-- El switcher vive en un shadow root cerrado. Lo que necesita entra por `files` de
-  `executeScript` (`settings.js`, `stats.js`, `match.js`, `icons.js`, `switcher-css.js`,
-  `switcher.js`) la primera vez en cada página; después se abre con una sola llamada a
-  `sobrio.toggleSwitcher`, y `match.js` guarda por id los marcadores ya normalizados. Su CSS es
-  un string. Sus colores son variables `--s-*`.
+- El switcher vive en un shadow root cerrado y está en cada página desde que empieza: `stats.js`,
+  `match.js`, `icons.js`, `switcher-css.js` y `switcher.js` son un content script del frame de
+  arriba (0.45 ms por página). Así `sobrio.toggleSwitcher` lo abre en la misma tarea de la tecla.
+  En Firefox lo abre `shortcuts.js` en el `keydown` del atajo del navegador (`switcherKey`), y con
+  `preventDefault` el navegador ya no corre el comando; en Chrome, y cuando el foco está en la
+  barra de direcciones o en un iframe, lo abre el background con una llamada a `executeScript`
+  con `injectImmediately`. A una pestaña de antes de instalar sobrio le manda los archivos
+  (`pendingOpen`). La primera tecla del atajo (Ctrl) ya pide la lista (`warmSwitcher`), para que
+  esté cuando llega la segunda. La lista y la memoria llegan del background en un mensaje, cada
+  una como texto JSON; el background guarda el de los bookmarks en `storage.session`. `match.js`
+  guarda por id los marcadores ya normalizados. Su CSS es un string. Sus colores son variables
+  `--s-*`.
 - El gancho de tema son variables `--sobrio-*` en `userContent.css` dentro de
   `@-moz-document url-prefix("moz-extension://")`. Solo el background de Firefox (y la página de
   ajustes) las lee; `storeThemeHook` escribe `theme` solo si cambió. En dot, la plantilla
@@ -248,13 +271,53 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   imagen no llega a `window`, se escucha en `document`. Un `<video>` solo se oscurece si es fondo
   (silenciado y en loop): sobre un reproductor el texto es su propia interfaz, y en YouTube la
   tarjeta de un anuncio dejaba oscuro el video (es el mismo `<video>` para el anuncio y el video).
-- El switcher: la primera vez en una página espera la lista y los ajustes (transparente, ya
-  tomando teclas, máximo 150 ms) para no pintarse vacío ni con los colores por defecto; después
-  abre con lo de la vez anterior (`sobrio.switcherCache`). Los bookmarks de Diego son alias
-  (`g`, `yt`, `pi`): un título igual a la búsqueda va primero, sobre la memoria y los más nuevos.
+- El switcher abre dibujado, con los colores del tema, en la tecla misma: no espera nada. La
+  lista llega unos milisegundos después (o ya está, por la tecla Ctrl o por la vez anterior en la
+  página) y hasta entonces no muestra bookmarks, no salta a un motor y un Enter la espera. Solo
+  donde no hay `page.js` (una pestaña de antes de instalar) se queda transparente hasta saber el
+  tema, máximo 150 ms. Los bookmarks de Diego son alias (`g`, `yt`, `pi`): un título igual a la
+  búsqueda va primero, sobre la memoria y los más nuevos.
+- `scripting.executeScript` sin `injectImmediately` espera a `document_idle`: en una página que
+  tardaba 3 s en cargar, el switcher salía 2.4 s después de Ctrl+Space, y lo tecleado mientras
+  tanto se iba a la página (y a sus atajos).
+- Firefox le da cada tecla a la página antes de correr sus propios atajos, también los comandos
+  de una extensión, y si la página hace `preventDefault` el comando no corre. Chrome se queda la
+  tecla de un comando y la página nunca la ve (sí ve el Ctrl solo). Probarlo en Chromium pide
+  teclas del sistema: `Xvfb`, un Chromium con ventana (`--ozone-platform=x11`) y
+  `xdotool key ctrl+space`; las de CDP van directo a la página. Con "Bloquear" en el permiso
+  "Anular atajos de teclado" de un sitio (o `permissions.default.shortcuts` en 2), Firefox
+  tampoco le da la tecla a la página y el switcher abre por el background.
+- En Firefox un mensaje con miles de objetos es lento: la lista de 1,500 bookmarks tardaba 50 ms
+  en llegar a la página y como un solo texto JSON tarda 8. `bookmarks.getTree()` tarda ahí de 60
+  a 90 ms, el background se detiene a los 30 s sin trabajo (despertarlo cuesta unos 45 ms; la
+  preferencia `extensions.background.idle.timeout` lo alarga) y `storage.local` desde un content
+  script tarda unos 20 ms contra 3 desde el background. Por eso el texto de los bookmarks vive en
+  `storage.session` y la memoria viaja en el mismo mensaje. Un background recién despertado
+  contesta con el texto guardado (`checked: false`) y el switcher vuelve a pedir el verificado.
+- Cada tecla en el switcher corre la búsqueda y redibuja la lista en la misma tarea: con 1,500
+  bookmarks eran 21 ms por tecla en Firefox (10 de búsqueda, 11 de dibujar 50 filas). `match.js`
+  puntúa todos sin construir nada y solo arma los que se muestran; `switcher.js` dibuja en la
+  tecla las filas que caben en pantalla y el resto 60 ms después, con un solo listener para toda
+  la lista, y no llama `scrollIntoView` al redibujar (obliga a calcular el layout en el acto).
+  Quedó en 3 a 13 ms.
+- Marionette apaga cosas de Firefox que una persona sí tiene: el retraso de teclas tras navegar
+  (`dom.input_events.security.minNumTicks` 3 y `minTimeElapsedInMS` 100: la página no recibe
+  teclas en los primeros 100 ms y 3 cuadros de cada carga) y el aviso de script lento. Para
+  medir como en un Firefox real hay que devolverlos con `--pref`, más
+  `dom.input_events.security.isUserInputHandlingDelayTest=true` para que alcance a las teclas
+  sintéticas. Medido, ese retraso pesa poco (en Wikipedia la primera tecla llega a los 238 ms de
+  empezar la carga con él y a los 160 sin él): no vale la pena tocarlo.
+- Lo que queda de lento al cargar es de Dark Reader: en un sitio pesado que sí oscurece procesa
+  todas las hojas en una sola tarea (GitHub claro: 1.2 s, 347 ms casando variables y 779
+  reescribiendo 17,600 reglas; YouTube claro: 1 s, con 21,900 reglas en una sola hoja) y mientras
+  tanto la página no atiende ni una tecla (sin sobrio el peor hueco es de 50 ms en GitHub y 380
+  en YouTube). Con el tema oscuro propio del sitio sobrio no añade nada. Desde fuera no se puede
+  partir esa tarea: haría falta ceder el hilo dentro de `darkreader.js`, que no se edita.
 - Pruebas de navegador que conviene repetir: Wikipedia queda negra; GitHub con `--dark` usa su
   tema propio y sin él queda negro; `pz`/`px`, la pausa `pd` y los ajustes cambian en vivo; el switcher en
-  GitHub no deja pasar la `s` al sitio; la nueva pestaña con cada estilo y diseño; velocidad con
+  GitHub no deja pasar la `s` al sitio; Ctrl+Space en una página que sigue cargando (sale al
+  momento y lo tecleado no llega a la página), con el foco dentro de un iframe y en una pestaña
+  de antes de instalar; la nueva pestaña con cada estilo y diseño; velocidad con
   un `<audio>` local; el autoplay con una página con `<audio autoplay>` y `--autoplay`; grabar un
   atajo en los ajustes con teclas reales; el flash con una página de CSS blanco; YouTube con la
   barra de arriba negra; el logotipo de Wikipedia visible.

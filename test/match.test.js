@@ -4,6 +4,7 @@ const {
   ENGINES,
   flattenBookmarks,
   searchBookmarks,
+  prepare,
   modes,
   nextMode,
   autoMode,
@@ -380,4 +381,25 @@ test('siteHost: the host of an http(s) page, else nothing', () => {
   assert.equal(siteHost('file:///home/a.html'), '');
   assert.equal(siteHost(undefined), '');
   assert.equal(siteHost('not a url'), '');
+});
+
+test('prepare: a list made ready ahead gives the same search', () => {
+  const list = [bm('Año Nuevo', 'https://www.example.com/fiesta', 'Ocio'), bm('GitHub', 'https://github.com/'), bm('', 'https://docs.example.org/api')];
+  const before = searchBookmarks(list.map((b) => ({ ...b })), 'ano');
+  prepare(list);
+  const after = searchBookmarks(list, 'ano');
+  assert.deepEqual(after.map((r) => [r.bookmark.url, r.score, r.hits]), before.map((r) => [r.bookmark.url, r.score, r.hits]));
+  assert.equal(after[0].bookmark.title, 'Año Nuevo');
+  prepare([]);
+});
+
+test('searchBookmarks: equal scores keep the newer first, then the order of the list', () => {
+  const list = [bm('Docs one', 'https://a.example/1', '', 5), bm('Docs two', 'https://a.example/2', '', 9), bm('Docs six', 'https://a.example/3', '', 5)];
+  assert.deepEqual(searchBookmarks(list, 'docs').map((r) => r.bookmark.title), ['Docs two', 'Docs one', 'Docs six']);
+  assert.deepEqual(searchBookmarks(list, '').map((r) => r.bookmark.title), ['Docs two', 'Docs one', 'Docs six']);
+});
+
+test('searchBookmarks: hits only where the best field matched, sorted and without repeats', () => {
+  const [result] = searchBookmarks([bm('Rust lang', 'https://www.rust-lang.org/learn', 'Dev')], 'rust lang');
+  assert.deepEqual(result.hits, { title: [0, 1, 2, 3, 5, 6, 7, 8], folder: [], url: [] });
 });

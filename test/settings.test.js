@@ -16,6 +16,7 @@ const {
   classifyRateChange,
   speedKey,
   normalizeKeys,
+  commandKeys,
   isValidShortcutKeys,
   cleanUrl,
   toggledPatterns,
@@ -378,6 +379,28 @@ test('normalizeKeys: modifiers in a fixed order, letters upper case', () => {
   assert.equal(normalizeKeys(ev('ArrowUp', { altKey: true })), 'Alt+ArrowUp');
   assert.equal(normalizeKeys(ev('Control', { ctrlKey: true })), null);
   assert.equal(normalizeKeys(ev('Shift', { shiftKey: true })), null);
+});
+
+test("commandKeys: a browser command's shortcut as normalizeKeys gives its keydown", () => {
+  assert.equal(commandKeys('Ctrl+Space'), 'Ctrl+Space');
+  assert.equal(commandKeys('Ctrl+Space'), normalizeKeys(ev(' ', { ctrlKey: true })));
+  assert.equal(commandKeys('Alt+Shift+K'), normalizeKeys(ev('K', { altKey: true, shiftKey: true })));
+  assert.equal(commandKeys('Shift+Alt+F5'), 'Alt+Shift+F5');
+  assert.equal(commandKeys('Ctrl+Period'), normalizeKeys(ev('.', { ctrlKey: true })));
+  assert.equal(commandKeys('Ctrl+Up'), normalizeKeys(ev('ArrowUp', { ctrlKey: true })));
+  assert.equal(commandKeys('Alt+PageDown'), 'Alt+PageDown');
+});
+
+test('commandKeys: on a Mac, Ctrl is the Command key and MacCtrl the Control key', () => {
+  assert.equal(commandKeys('Ctrl+Space', true), 'Meta+Space');
+  assert.equal(commandKeys('Command+Space', true), 'Meta+Space');
+  assert.equal(commandKeys('MacCtrl+Shift+U', true), 'Ctrl+Shift+U');
+});
+
+test('commandKeys: null without a shortcut or for one no keydown can be told to be', () => {
+  for (const shortcut of ['', undefined, null, 'MediaPlayPause', 'Ctrl+MediaNextTrack', '⌘Space', 'Hyper+K', 'Ctrl+', 'Ctrl+constructor', 'toString+K']) {
+    assert.equal(commandKeys(shortcut), null, String(shortcut));
+  }
 });
 
 test('isValidShortcutKeys: needs Ctrl, Alt or Meta, or a function key', () => {

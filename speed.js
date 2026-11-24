@@ -2,10 +2,10 @@
 // speed or at its site's rule, and ] faster, [ slower, \ back to 1 change it. Also
 // media.pauseAutoplay: sound that starts before the person touched the page is paused.
 (() => {
-  const { mergeSettings, desiredSpeed, stepSpeed, hostMatches, classifyRateChange, speedKey } = sobrio.settings;
+  const { DEFAULTS, desiredSpeed, stepSpeed, hostMatches, classifyRateChange, speedKey } = sobrio.settings;
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions);
   const host = location.hostname;
-  let speed = mergeSettings(undefined).speed;
+  let speed = DEFAULTS.speed; // until page.js has the settings
   let pauseAutoplay = false;
   let target = 1; // what sobrio wants here
   let pageOwn = null; // a speed the page chose itself (its own menu): left alone until navigation

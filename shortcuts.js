@@ -4,17 +4,22 @@
 // bar; everything else runs where the key was pressed (the speed of the player that has the focus).
 (() => {
   const top = window === window.top;
-  const { mergeSettings, normalizeKeys, toggledPatterns, siteState, cleanUrl, isLocalHost } = sobrio.settings;
+  const { DEFAULTS, mergeSettings, normalizeKeys, toggledPatterns, siteState, cleanUrl, isLocalHost } = sobrio.settings;
   const t = (key, ...substitutions) => chrome.i18n.getMessage(key, substitutions);
   const send = (message) => (sobrio.send ?? chrome.runtime.sendMessage.bind(chrome.runtime))(message);
-  const onPage = top && !location.protocol.endsWith('-extension:') && Boolean(location.hostname);
-  let settings = mergeSettings(undefined);
+  const extensionPage = location.protocol.endsWith('-extension:');
+  const onPage = top && !extensionPage && Boolean(location.hostname);
+  let settings = DEFAULTS; // until the settings are read
+  // The keys of the browser's own shortcut for the switcher (Ctrl+Space), as the background keeps
+  // them in storage.local.switcherKey; null while unknown.
+  let switcherKey = null;
 
   // In a page, page.js reads the settings for every content script of the frame; the new tab has no
   // page.js and reads them itself.
   if (sobrio.onSettings) {
-    sobrio.onSettings((merged) => {
+    sobrio.onSettings((merged, stored) => {
       settings = merged;
+      switcherKey = typeof stored?.switcherKey === 'string' ? stored.switcherKey : null;
     });
   } else {
     const load = (raw) => {
@@ -31,12 +36,36 @@
 
   const isEditable = (node) => node?.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(node?.tagName ?? '');
 
+  // The browser's own shortcut for the switcher. Firefox hands a key to the page before running
+  // its shortcuts, so the switcher opens right here, in the keydown: no trip through the background
+  // and back, which on a page still loading took until it was done while the keys typed meanwhile
+  // went to the page. Prevented, the browser does not run the shortcut too. Chrome keeps the key
+  // for itself, and the background opens the switcher there. The modifier comes first (Ctrl, then
+  // Space): it already asks for what the switcher shows.
+  const MODIFIER_NAMES = { Control: 'Ctrl', Alt: 'Alt', Meta: 'Meta', OS: 'Meta' };
+  const overlay = top && !extensionPage;
+
+  function switcherShortcut(e, keys) {
+    if (!overlay || !switcherKey || !sobrio.toggleSwitcher) return;
+    if (!keys) {
+      if (!e.repeat && switcherKey.split('+').includes(MODIFIER_NAMES[e.key])) sobrio.warmSwitcher();
+      return;
+    }
+    if (keys !== switcherKey) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    if (!e.repeat) sobrio.toggleSwitcher();
+  }
+
   addEventListener('keydown', (e) => {
     // isTrusted: a page must not run the person's shortcuts. With the switcher open, keys are its.
-    if (!e.isTrusted || !settings.shortcuts.length || sobrio.switcher) return;
+    if (!e.isTrusted) return;
     const keys = normalizeKeys(e);
-    const shortcut = keys && settings.shortcuts.find((s) => s.keys === keys);
-    if (!shortcut) return;
+    const shortcut = keys && !sobrio.switcher && settings.shortcuts.find((s) => s.keys === keys);
+    if (!shortcut) {
+      switcherShortcut(e, keys);
+      return;
+    }
     // A function key alone stays with a text field; combinations with Ctrl, Alt or Meta do not.
     if (!keys.includes('+') && isEditable(e.composedPath()[0])) return;
     e.preventDefault();
@@ -139,8 +168,12 @@
     } else if (action === 'copyCleanUrl' && onPage) {
       const url = cleanUrl(location.href);
       toast(t((await copy(url)) ? 'toastCopied' : 'toastCopyFailed'), url.length > 60 ? `${url.slice(0, 57)}…` : url, 1600);
+    } else if ((action === 'switcher' || action === 'search') && overlay && sobrio.toggleSwitcher) {
+      // The switcher is in the page already: it opens here, on that engine for a search.
+      if (!sobrio.switcher) sobrio.toggleSwitcher(action === 'search' ? param : undefined);
     } else {
-      // switcher, search, searchSelection, openUrl, openUrlNewTab, settings: the background's.
+      // searchSelection, openUrl, openUrlNewTab, settings, and the switcher from an iframe or on
+      // the new tab: the background's.
       const text = action === 'searchSelection' ? selectionText() : undefined;
       await send({ sobrio: 'shortcut', action, param, text });
     }

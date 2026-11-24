@@ -1,4 +1,5 @@
-// The switcher: an overlay on the page (injected on Ctrl+Space) or the toolbar popup.
+// The switcher: an overlay on the page (Ctrl+Space), the toolbar popup, or the new tab's own.
+// A page has this from its start, as a content script of its top frame, so it opens in the keydown.
 (() => {
   const { match } = sobrio;
   // Everything typing fires and pages could listen to: keys, and the text itself.
@@ -8,6 +9,74 @@
   // boot.js keeps the native sendMessage before darkreader.js patches it. Popups and tabs
   // opened before sobrio was installed have no boot.js, and nothing patched either.
   const send = (message) => (sobrio.send ?? chrome.runtime.sendMessage.bind(chrome.runtime))(message);
+
+  // What the switcher shows. The bookmarks and the memory come from the background in one message,
+  // each as JSON text (a string crosses to a page several times faster than thousands of objects,
+  // and the background reads storage faster than a page does). The settings, the theme and the
+  // exceptions are the ones page.js keeps for the page (sobrio.stored); where there is no page.js
+  // (the popup, the new tab, a tab from before sobrio was installed) they come from storage.
+  // The last answers stay for the next open on this page, which starts complete with them; asked
+  // twice within a moment, the same answers serve both.
+  const STORED = ['settings', 'theme', 'darkOff', 'cssOff', 'darkPause'];
+  const FRESH = 500; // ms an answer counts as new
+  const WARM = 30000; // ms the answers kept are good enough to open with
+  const cache = {}; // lists: { text, bookmarks, stats }, stored, at
+  let asking = null;
+
+  function parse(text) {
+    try {
+      return JSON.parse(text);
+    } catch {
+      return null;
+    }
+  }
+
+  // The same text as last time is the same list: the one here stays, with what match.js keeps
+  // about each of its bookmarks.
+  function take(answer) {
+    const last = cache.lists;
+    // No answer (the background could not be reached): what is here stays, or nothing is listed.
+    if (typeof answer?.bookmarks !== 'string') return last ?? (cache.lists = { text: {}, bookmarks: [], stats: {} });
+    const same = (name) => Boolean(last) && answer[name] === last.text[name];
+    if (same('bookmarks') && same('stats')) return last;
+    const bookmarks = same('bookmarks') ? last.bookmarks : parse(answer.bookmarks);
+    const stats = same('stats') ? last.stats : parse(answer.stats);
+    cache.lists = {
+      text: { bookmarks: answer.bookmarks, stats: answer.stats },
+      bookmarks: Array.isArray(bookmarks) ? bookmarks : [],
+      stats: stats && typeof stats === 'object' ? stats : {},
+    };
+    return cache.lists;
+  }
+
+  function ask() {
+    if (asking) return asking;
+    const first = send({ sobrio: 'bookmarks' }).catch(() => null);
+    const lists = first.then(take);
+    // A background that just started answers with the bookmarks the one before it left, not
+    // checked against the tree yet: the checked ones come behind, and are most often the same.
+    const checked = first.then((answer) => (answer?.checked === false
+      ? send({ sobrio: 'bookmarks', checked: true }).then(take, () => cache.lists)
+      : lists));
+    const stored = sobrio.stored ? null : chrome.storage.local.get(STORED).catch(() => ({})).then((answer) => {
+      cache.stored = answer;
+      return answer;
+    });
+    asking = { lists, checked, stored };
+    Promise.all([checked, stored]).then(() => {
+      cache.at = Date.now();
+      setTimeout(() => {
+        asking = null;
+      }, FRESH);
+    });
+    return asking;
+  }
+
+  // The first key of the shortcut is down (shortcuts.js): what the switcher shows is asked for now,
+  // so it is here when the second key opens it.
+  function warmSwitcher() {
+    if (!sobrio.switcher && !(Date.now() - cache.at < WARM)) ask();
+  }
 
   function el(tag, className, ...children) {
     const node = document.createElement(tag);
@@ -74,39 +143,34 @@
     box.addEventListener('mousedown', (e) => e.target !== input && e.preventDefault());
 
     const { mergeSettings, siteState, matchingPatterns } = sobrio.settings;
-    // What the last open on this page got: the overlay opens again with it, complete in its first
-    // frame, and the fresh answers replace it a few milliseconds later.
-    const cache = (sobrio.switcherCache ??= {});
     let settings = mergeSettings(undefined);
     let stored = {};
-    let stats = {}; // the switcher's memory: storage.local.stats
-    let bookmarks = cache.bookmarks ?? [];
-    // Until the list arrives nothing jumps to an engine, and an early Enter waits for it:
-    // a quick "gh" + Enter means the bookmark, not a web search.
-    let loaded = Boolean(cache.bookmarks);
+    // The bookmarks and the memory (storage.local.stats). Until they arrive no bookmark shows,
+    // nothing jumps to an engine, and an early Enter waits for them: a quick "gh" + Enter means
+    // the bookmark, not a web search.
+    let lists = cache.lists ?? null;
     let pendingEnter = null;
     let state = startMode ? { mode: startMode, manual: true } : { mode: 'bookmarks', manual: false };
     let rows = [];
     let selected = 0;
 
-    // The first overlay on a page stays transparent (it already takes the keys) until the list and
-    // the settings arrive, at most 150 ms: it never paints empty or in the default colors first.
-    let waiting = layout === 'overlay' && !(cache.bookmarks && cache.stored) ? 2 : 0;
-    const arrived = () => --waiting === 0 && frame.style.removeProperty('opacity');
-    if (waiting) {
-      frame.style.opacity = '0';
-      setTimeout(() => frame.style.removeProperty('opacity'), 150);
-    }
-
     function useStored(answer) {
       stored = answer;
-      stats = answer.stats && typeof answer.stats === 'object' ? answer.stats : {};
       settings = mergeSettings(answer.settings);
       for (const [name, value] of Object.entries(themeVariables(answer.theme))) frame.style.setProperty(name, value);
       roundBox(answer.theme);
       if (popup && answer.theme?.background) document.documentElement.style.background = answer.theme.background;
     }
-    if (cache.stored) useStored(cache.stored);
+    // It opens in the keydown itself, drawn with what is here. Without the settings and the theme
+    // (no page.js, and nothing kept from a last open), an overlay stays transparent until storage
+    // answers, at most 150 ms, taking the keys already: it never paints in the default colors first.
+    const known = sobrio.stored ?? cache.stored;
+    const show = () => frame.style.removeProperty('opacity');
+    if (known) useStored(known);
+    else if (layout === 'overlay') {
+      frame.style.opacity = '0';
+      setTimeout(show, 150);
+    }
 
     // Round corners when the theme asks for them (settings.roundCorners): the box drawn as an image
     // in the theme's curve, the radius of a window, with the colors just set. The popup's box has no
@@ -124,22 +188,39 @@
       frame.style.setProperty('--s-round', sobrio.settings.squircleBorder(corners.radius, corners.power, { fill, stroke: color('--s-border') }));
     }
 
-    send({ sobrio: 'bookmarks' })
-      .catch(() => [])
-      .then((answer) => {
-        bookmarks = Array.isArray(answer) ? answer : [];
-        cache.bookmarks = bookmarks;
-        loaded = true;
-        update();
-        arrived();
-        if (pendingEnter) activate(selected, pendingEnter.newTab);
-      });
-    chrome.storage.local.get(['settings', 'theme', 'darkOff', 'cssOff', 'darkPause', 'stats']).then((answer) => {
-      cache.stored = answer;
+    // The answers of a moment ago are the ones it opened with: nothing to draw again.
+    const answers = ask();
+    const useLists = (answer) => {
+      if (answer === lists) return;
+      lists = answer;
+      refresh();
+      getReady();
+    };
+    answers.lists.then(useLists);
+    answers.checked.then(useLists);
+    // While nothing else is going on, the list is made ready for the first search, so the first
+    // letter typed does not pay for it (10 to 20 ms for 1,500 bookmarks).
+    const idle = (run) => (window.requestIdleCallback ? window.requestIdleCallback(run) : setTimeout(run, 50));
+    function getReady() {
+      const { bookmarks } = lists;
+      idle(() => match.prepare(bookmarks));
+    }
+    if (lists) getReady();
+    answers.stored?.then((answer) => {
+      show();
+      if (answer === stored) return;
       useStored(answer);
-      update();
-      arrived();
+      refresh();
     });
+
+    // New answers under an open switcher: the selection stays on its row if it is still there.
+    function refresh() {
+      const key = rows[selected]?.key;
+      update();
+      const same = key === undefined ? -1 : rows.findIndex((row) => row.key === key);
+      if (same > 0) select(same);
+      if (pendingEnter && lists) activate(selected, pendingEnter.newTab);
+    }
 
     // record: the title to remember the page under (bookmarks only; searches are not counted).
     const open = (url, newTab, record) => send({ sobrio: 'open', url, newTab, record });
@@ -150,18 +231,24 @@
       settings.switcher.commands &&
       (kind === 'settings' || kind === 'pause' || ((popup || Boolean(sobrio.send)) && match.commandsAllowed(hostname)));
 
+    // title and sub as functions: a row is drawn when it is about to show (render), and most of
+    // the fifty never are.
     function bookmarkRow({ bookmark, hits }) {
-      const sub = document.createDocumentFragment();
-      if (bookmark.folder) sub.append(highlight(bookmark.folder, hits.folder), ' · ');
-      // The host brighter than the rest, so it reads first.
-      const url = match.shortUrl(bookmark.url);
-      const cut = match.hostLength(url);
-      sub.append(
-        el('span', 'host', highlight(url.slice(0, cut), hits.url.filter((i) => i < cut))),
-        highlight(url.slice(cut), hits.url.filter((i) => i >= cut).map((i) => i - cut)),
-      );
+      const sub = () => {
+        const line = document.createDocumentFragment();
+        if (bookmark.folder) line.append(highlight(bookmark.folder, hits.folder), ' · ');
+        // The host brighter than the rest, so it reads first.
+        const url = match.shortUrl(bookmark.url);
+        const cut = match.hostLength(url);
+        line.append(
+          el('span', 'host', highlight(url.slice(0, cut), hits.url.filter((i) => i < cut))),
+          highlight(url.slice(cut), hits.url.filter((i) => i >= cut).map((i) => i - cut)),
+        );
+        return line;
+      };
       return {
-        title: highlight(match.displayTitle(bookmark), bookmark.title ? hits.title : []),
+        key: `b:${bookmark.id ?? bookmark.url}`,
+        title: () => highlight(match.displayTitle(bookmark), bookmark.title ? hits.title : []),
         sub,
         run: (newTab) => open(bookmark.url, newTab, match.displayTitle(bookmark)),
       };
@@ -228,13 +315,13 @@
       const modes = match.modes(settings.switcher);
       if (state.manual && !modes.includes(state.mode)) state = { mode: modes[0], manual: false };
       const now = Date.now();
-      const boost = settings.switcher.memory ? (b) => sobrio.stats.boostOf(stats[b.url], now) : undefined;
-      const results = settings.switcher.bookmarks
-        ? match.searchBookmarks(bookmarks, query, undefined, settings.switcher.precision, boost)
+      const boost = settings.switcher.memory && lists ? (b) => sobrio.stats.boostOf(lists.stats[b.url], now) : undefined;
+      const results = settings.switcher.bookmarks && lists
+        ? match.searchBookmarks(lists.bookmarks, query, undefined, settings.switcher.precision, boost)
         : [];
       const parsed = match.parseCommand(query, settings.switcher.commandNames);
       const command = parsed && commandAllowed(parsed) ? parsed : null;
-      state = match.autoMode(state, query, !loaded || results.length > 0 || command !== null, modes, settings.switcher.autoSearch);
+      state = match.autoMode(state, query, !lists || results.length > 0 || command !== null, modes, settings.switcher.autoSearch);
       rows = [];
       if (state.mode === 'bookmarks') {
         if (command) rows.push(commandRow(command, query));
@@ -259,29 +346,68 @@
       box.classList.toggle('blank', blank);
       list.hidden = blank;
       if (blank) hints.hidden = true;
-      list.replaceChildren(
-        ...rows.map((row, i) => {
-          const item = el('li', 'row', el('div', 'title', row.title), el('div', 'sub', row.sub));
-          item.addEventListener('mousemove', () => select(i));
-          item.addEventListener('click', (e) => activate(i, e.ctrlKey || e.metaKey || e.altKey));
-          return item;
-        }),
-      );
-      if (!rows.length && !engine && loaded) list.append(el('li', 'empty', t('noBookmarks')));
-      select(selected);
+      clearTimeout(filling);
+      items = rows.slice(0, onScreen()).map(drawRow);
+      list.replaceChildren(...items);
+      if (items.length < rows.length) filling = setTimeout(fill, 60);
+      if (!rows.length && !engine && lists) list.append(el('li', 'empty', t('noBookmarks')));
+      // Back to the top if the list was scrolled. Not scrollIntoView: it lays the page out on the
+      // spot, once for every key, where waiting for the frame does it once.
+      if (scrolled) list.scrollTop = 0;
+      mark(selected);
+    }
+
+    // The rows that fit on screen are drawn in the keystroke; the rest a moment later, or as soon
+    // as the selection goes to one of them. Drawing all fifty took longer than finding them.
+    let items = []; // the <li> of the rows drawn so far, in order
+    let filling = 0;
+    let scrolled = false;
+    let lit = null; // the <li> shown as selected
+    const onScreen = () => Math.ceil((window.innerHeight * 0.7) / 55) + 2;
+    const part = (value) => (typeof value === 'function' ? value() : value);
+    const drawRow = (row) => el('li', 'row', el('div', 'title', part(row.title)), el('div', 'sub', part(row.sub)));
+
+    function fill() {
+      clearTimeout(filling);
+      if (items.length >= rows.length) return;
+      const more = rows.slice(items.length).map(drawRow);
+      items.push(...more);
+      list.append(...more);
+    }
+
+    function mark(i) {
+      selected = i;
+      lit?.classList.remove('selected');
+      lit = items[i] ?? null;
+      lit?.classList.add('selected');
     }
 
     function select(i) {
-      selected = i;
-      [...list.children].forEach((item, j) => item.classList.toggle('selected', j === i && item.classList.contains('row')));
-      list.children[i]?.scrollIntoView({ block: 'nearest' });
+      if (i >= items.length) fill();
+      mark(i);
+      lit?.scrollIntoView({ block: 'nearest' });
     }
 
+    // One listener for the whole list, not two for each row drawn on every key.
+    const rowAt = (target) => items.indexOf(target.closest?.('.row'));
+    list.addEventListener('mousemove', (e) => {
+      const i = rowAt(e.target);
+      if (i !== -1 && i !== selected) select(i);
+    });
+    list.addEventListener('click', (e) => {
+      const i = rowAt(e.target);
+      if (i !== -1) activate(i, e.ctrlKey || e.metaKey || e.altKey);
+    });
+    list.addEventListener('scroll', () => {
+      scrolled = list.scrollTop > 0;
+    }, { passive: true });
+
     async function activate(i, newTab) {
-      if (!loaded && state.mode === 'bookmarks') {
+      if (!lists && state.mode === 'bookmarks') {
         pendingEnter = { newTab };
         return;
       }
+      pendingEnter = null;
       const row = rows[i];
       if (!row) return;
       await row.run(newTab);
@@ -321,13 +447,13 @@
     return { onKey, onInput: update, focus };
   }
 
-  function toggleSwitcher() {
-    const mode = sobrio.pendingMode; // set by the background just before, for a search shortcut
-    sobrio.pendingMode = null;
+  // mode: an engine id to open on, for a search shortcut.
+  function toggleSwitcher(mode) {
     if (sobrio.switcher) {
       sobrio.switcher.close();
       return;
     }
+    if (!document.documentElement) return; // a document with nothing in it yet
     const previous = document.activeElement;
     const host = document.createElement('sobrio-switcher');
     host.style.cssText =
@@ -352,12 +478,25 @@
     };
     document.documentElement.append(host);
     SHIELDED_EVENTS.forEach((type) => addEventListener(type, shield, true));
-    const { onKey, onInput } = mountSwitcher(shadow, { layout: 'overlay', hostname: location.hostname, close, startMode: mode });
+    let onKey;
+    let onInput;
+    try {
+      ({ onKey, onInput } = mountSwitcher(shadow, { layout: 'overlay', hostname: location.hostname, close, startMode: mode }));
+    } catch (error) {
+      close(); // never left half open, taking the keys
+      throw error;
+    }
     sobrio.switcher = { close };
   }
 
   sobrio.mountSwitcher = mountSwitcher;
   sobrio.toggleSwitcher = toggleSwitcher;
-  // Injected into a page by the shortcut: open or close. The popup mounts it itself.
-  if (!location.protocol.endsWith('-extension:')) toggleSwitcher();
+  sobrio.warmSwitcher = warmSwitcher;
+  // A page has all this from its start (a content script of the top frame). A tab from before
+  // sobrio was installed gets it from the background on the shortcut, which is waiting to open.
+  if (sobrio.pendingOpen) {
+    const { mode } = sobrio.pendingOpen;
+    sobrio.pendingOpen = null;
+    toggleSwitcher(mode);
+  }
 })();

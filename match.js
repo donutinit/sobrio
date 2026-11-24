@@ -64,24 +64,33 @@
   // letter appears is tried as a start, so "api" finds "API" and not the "a" of "Payments".
   // precision: 'loose' takes any subsequence; 'normal' (default) only one that spans at most
   // 2 × length + 2 characters; 'strict' only the word as written.
-  function matchWord(field, word, precision = 'normal') {
-    let best = null;
+  // Gives where the best match starts, -1 without one, and leaves its score in matchScore:
+  // every keystroke scores every bookmark, so nothing is built for one until it is to be shown.
+  let matchScore = 0;
+  let matchEnd = 0;
+
+  function matchStart(field, word, precision = 'normal') {
+    let best = -1;
+    let bestScore = 0;
     for (let start = field.indexOf(word[0]); start !== -1; start = field.indexOf(word[0], start + 1)) {
       if (precision === 'strict' && !field.startsWith(word, start)) continue;
-      const m = matchFrom(field, word, start);
-      if (!m) break; // a later start cannot fit what this one could not
-      const span = m.positions[m.positions.length - 1] - m.positions[0] + 1;
-      if (precision === 'normal' && span > word.length * 2 + 2) continue;
-      if (!best || m.score > best.score) best = m;
+      const score = scoreFrom(field, word, start, null);
+      if (score === null) break; // a later start cannot fit what this one could not
+      if (precision === 'normal' && matchEnd - start + 1 > word.length * 2 + 2) continue;
+      if (best === -1 || score > bestScore) {
+        best = start;
+        bestScore = score;
+      }
     }
+    matchScore = bestScore;
     return best;
   }
 
-  // Greedy from start: each next letter takes its first occurrence.
-  function matchFrom(field, word, start) {
+  // Greedy from start: each next letter takes its first occurrence. The score, null when the
+  // word does not fit; the last position goes to matchEnd and each one to positions, if given.
+  function scoreFrom(field, word, start, positions) {
     let score = 0;
     let prev = -1;
-    const positions = [];
     for (const c of word) {
       const i = prev === -1 ? start : field.indexOf(c, prev + 1);
       if (i === -1) return null;
@@ -89,37 +98,38 @@
       if (prev >= 0 && i === prev + 1) score += 5;
       if (i === 0 || !isWordChar(field[i - 1])) score += 3;
       if (prev >= 0) score -= 0.1 * (i - prev - 1);
-      positions.push(i);
+      if (positions) positions.push(i);
       prev = i;
     }
-    return { score, positions };
+    matchEnd = prev;
+    return score;
   }
 
   const FIELDS = ['title', 'folder', 'url'];
 
-  // Most bookmarks miss on every keystroke, so nothing is built for one until all its words match.
-  function scoreBookmark(fields, words, precision) {
+  // The score of a bookmark for the words, null when one of them matches nothing. hits: where
+  // to note the matched positions of each field, for the bookmarks that get shown.
+  function scoreBookmark(fields, words, precision, hits) {
     let total = 0;
-    const bests = [];
     for (const word of words) {
       let best = null;
+      let bestScore = 0;
+      let bestStart = -1;
       for (const name of FIELDS) {
-        const m = matchWord(fields[name], word, precision);
-        if (m && (!best || m.score * WEIGHTS[name] > best.score)) {
-          best = { name, score: m.score * WEIGHTS[name], positions: m.positions };
+        const start = matchStart(fields[name], word, precision);
+        if (start !== -1 && (best === null || matchScore * WEIGHTS[name] > bestScore)) {
+          best = name;
+          bestScore = matchScore * WEIGHTS[name];
+          bestStart = start;
         }
       }
-      if (!best) return null;
-      total += best.score;
-      bests.push(best);
+      if (best === null) return null;
+      total += bestScore;
+      if (hits) scoreFrom(fields[best], word, bestStart, hits[best]);
     }
-    const hits = { title: [], folder: [], url: [] };
-    for (const best of bests) hits[best.name].push(...best.positions);
-    for (const name in hits) hits[name] = [...new Set(hits[name])].sort((a, b) => a - b);
-    return { score: total, hits };
+    if (hits) for (const name in hits) hits[name] = [...new Set(hits[name])].sort((a, b) => a - b);
+    return total;
   }
-
-  const newestFirst = (a, b) => b.bookmark.dateAdded - a.bookmark.dateAdded;
 
   // Folding is most of the cost, so each bookmark is folded once, not on every keystroke, and kept
   // by id for the next time the switcher opens on the same page (the list comes anew each time).
@@ -140,25 +150,37 @@
     return fields;
   }
 
+  // Folds a whole list ahead of the first search, which otherwise pays for it in its keystroke.
+  function prepare(list) {
+    for (const bookmark of list) foldedFields(bookmark);
+  }
+
   // boost(bookmark): extra score from the switcher's memory (stats.js); 0 without it.
+  // Scores first, with nothing built per bookmark; then the best ones in order (the higher score,
+  // then the newer, then the earlier in the list) get their object, and their hits.
   function searchBookmarks(list, query, limit = MAX_RESULTS, precision = 'normal', boost = () => 0) {
     const words = fold(query).split(/\s+/).filter(Boolean);
-    if (!words.length) {
-      return list
-        .map((bookmark) => ({ bookmark, score: boost(bookmark), hits: { title: [], folder: [], url: [] } }))
-        .sort((a, b) => b.score - a.score || newestFirst(a, b))
-        .slice(0, RECENT);
-    }
     const phrase = words.join(' ');
-    const results = [];
-    for (const bookmark of list) {
-      const fields = foldedFields(bookmark);
-      const scored = scoreBookmark(fields, words, precision);
-      if (!scored) continue;
-      const exact = fields.title.trim().split(/\s+/).join(' ') === phrase ? EXACT_TITLE : 0;
-      results.push({ bookmark, ...scored, score: scored.score + exact + boost(bookmark) });
+    const found = [];
+    const scores = [];
+    for (let i = 0; i < list.length; i++) {
+      const bookmark = list[i];
+      let score = 0;
+      if (words.length) {
+        const fields = foldedFields(bookmark);
+        score = scoreBookmark(fields, words, precision, null);
+        if (score === null) continue;
+        if (fields.title.trim().split(/\s+/).join(' ') === phrase) score += EXACT_TITLE;
+      }
+      scores[i] = score + boost(bookmark);
+      found.push(i);
     }
-    return results.sort((a, b) => b.score - a.score || newestFirst(a, b)).slice(0, limit);
+    found.sort((a, b) => scores[b] - scores[a] || list[b].dateAdded - list[a].dateAdded || a - b);
+    return found.slice(0, words.length ? limit : RECENT).map((i) => {
+      const hits = { title: [], folder: [], url: [] };
+      if (words.length) scoreBookmark(foldedFields(list[i]), words, precision, hits);
+      return { bookmark: list[i], score: scores[i], hits };
+    });
   }
 
   // The built-in engines that are on, then the person's own (settings.switcher.customEngines).
@@ -250,6 +272,7 @@
     modes,
     flattenBookmarks,
     searchBookmarks,
+    prepare,
     nextMode,
     autoMode,
     parseCommand,

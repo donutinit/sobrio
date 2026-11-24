@@ -21,7 +21,17 @@ import time
 
 ADDON_ID = 'sobrio@donutinit'
 WEBDRIVER_KEYS = {'Ctrl': '\ue009', 'Shift': '\ue008', 'Alt': '\ue00a', 'Meta': '\ue03d', 'Tab': '\ue004',
-                  'Enter': '\ue007', 'Escape': '\ue00c', 'ArrowUp': '\ue013', 'ArrowDown': '\ue015'}
+                  'Enter': '\ue007', 'Escape': '\ue00c', 'ArrowUp': '\ue013', 'ArrowDown': '\ue015', 'Space': ' '}
+# The overlay lives in a closed shadow root: read with the system principal.
+SWITCHER_STATE = '''
+const root = document.querySelector('sobrio-switcher')?.openOrClosedShadowRoot;
+if (!root) return null;
+const rows = [...root.querySelectorAll('.row')];
+return {mode: root.querySelector('.mode').textContent, value: root.querySelector('.input').value,
+        focused: root.activeElement?.className ?? null, selected: rows.findIndex(r => r.classList.contains('selected')),
+        rows: rows.map(r => r.querySelector('.title').textContent + ' | ' + r.querySelector('.sub').textContent),
+        empty: root.querySelector('.empty')?.textContent ?? null};
+'''
 
 
 def key_actions(tokens):
@@ -99,7 +109,8 @@ def main():
     ap.add_argument('--eval', default='return null')
     ap.add_argument('--ext-eval')
     ap.add_argument('--then-ext-eval', help='after each page: run this in an extension tab, then --eval again')
-    ap.add_argument('--keys', help="after --then-ext-eval, press these: 'rust,Ctrl+j,Tab,Enter'")
+    ap.add_argument('--keys', help="after --then-ext-eval, press these: 'Ctrl+Space,rust,Ctrl+j,Tab,Enter'")
+    ap.add_argument('--switcher', action='store_true', help='print the switcher state (closed shadow root)')
     ap.add_argument('--user-content', help='a userContent.css for the temporary profile')
     ap.add_argument('--late-install', action='store_true',
                     help='load the first url before installing, like a tab already open at install time')
@@ -183,6 +194,9 @@ def main():
                     time.sleep(0.5)
                 after = m.call('WebDriver:ExecuteScript', {'script': wrap(args.eval), 'args': []})
                 print(json.dumps({'url': url, 'after': after}))
+                if args.switcher:
+                    state = m.call('WebDriver:ExecuteScript', {'script': SWITCHER_STATE, 'args': [], 'sandbox': 'system'})
+                    print(json.dumps({'switcher': state}))
                 if args.shots:
                     png = base64.b64decode(m.call('WebDriver:TakeScreenshot', {'full': False}))
                     with open(os.path.join(args.shots, f'firefox-{i}-after.png'), 'wb') as f:

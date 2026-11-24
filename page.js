@@ -9,7 +9,7 @@
   let topHost = window === window.top ? hostname : ancestorHost();
   const { detector, buildCss, customCss, youtubeHost } = sobrio;
   const { DEFAULTS, mergeSettings, siteState, darkTheme, isLocalHost, pauseLeft } = sobrio.settings;
-  const KEYS = ['darkOff', 'cssOff', 'animOff', 'settings', 'theme', 'darkPause'];
+  const KEYS = ['darkOff', 'cssOff', 'animOff', 'settings', 'theme', 'darkPause', 'switcherKey'];
   // The hosts last seen with a dark theme of their own, newest first: read once, at the start.
   const OWN_DARK = 'ownDark';
   const OWN_DARK_MAX = 500;
@@ -43,10 +43,19 @@
   let waitingForArea = false;
   let pauseTimer = 0; // the end of a pause of dark mode and the stylesheet everywhere (pd)
   // speed.js and shortcuts.js take the settings from here: one read of storage per frame, not three.
+  // So does the switcher, from sobrio.stored: it opens drawn, without asking first.
   const settingsListeners = [];
   sobrio.onSettings = (listener) => settingsListeners.push(listener);
 
-  DarkReader.setFetchMethod(fetchThroughBackground);
+  // Dark Reader's code runs the first time dark mode goes on here (boot.js keeps it until then).
+  let reader = null;
+  function darkReader() {
+    if (!reader) {
+      reader = sobrio.darkReader ? sobrio.darkReader() : DarkReader;
+      reader.setFetchMethod(fetchThroughBackground);
+    }
+    return reader;
+  }
   // Dark Reader reads the page's own images (same site) with fetch in this world.
   const ownFetch = globalThis.fetch;
   globalThis.fetch = async (...args) => photoStandIn(await ownFetch(...args));
@@ -80,7 +89,9 @@
 
   function apply(stored) {
     const settings = mergeSettings(stored?.settings);
-    for (const listener of settingsListeners) listener(settings);
+    // For the switcher, which lives in the top frame: what it reads of this, without the lists of hosts.
+    if (stored && window === window.top) sobrio.stored = Object.fromEntries(KEYS.map((key) => [key, stored[key]]));
+    for (const listener of settingsListeners) listener(settings, stored);
     const theme = stored?.theme ?? null;
     // pd: dark mode and the stylesheet off everywhere until storage.local.darkPause, then back on by
     // themselves. Browsers only hold timers back in tabs that are not on screen.
@@ -167,20 +178,20 @@
     try {
       // A second enable while on is taken for another Dark Reader instance and ignored,
       // so a new theme goes through disable first (same task: nothing paints in between).
-      if (current) DarkReader.disable();
-      DarkReader.enable(theme);
+      if (current) darkReader().disable();
+      darkReader().enable(theme);
       current = key;
       lastLook = null;
       watchImages();
     } catch (error) {
       console.error('sobrio: dark mode failed, leaving the page as it was', error);
-      DarkReader.disable();
+      reader?.disable();
       current = null;
     }
   }
 
   function turnOff() {
-    if (current) DarkReader.disable();
+    if (current) darkReader().disable();
     current = null;
   }
 

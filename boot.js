@@ -3,6 +3,24 @@
 globalThis.sobrio = globalThis.sobrio || {};
 sobrio.send = chrome.runtime.sendMessage.bind(chrome.runtime);
 
+// darkreader.js is the npm package as it comes: a bundle that hands its code to an AMD define, where
+// there is one, instead of running it. This one keeps the code and page.js runs it the first time
+// dark mode goes on in the frame (sobrio.darkReader). Many frames never do (a site with a dark theme
+// of its own, one that is turned off, a frame without area), and running it was half of what
+// sobrio costs each frame as it starts: 5 to 7 ms.
+globalThis.define = Object.assign((dependencies, factory) => {
+  delete globalThis.define;
+  let engine = null;
+  sobrio.darkReader = () => {
+    if (!engine) {
+      const exported = {};
+      factory(exported);
+      engine = exported;
+    }
+    return engine;
+  };
+}, { amd: {} });
+
 // Dark Reader takes a CSS variable for a color only if the first value it reads is one. YouTube
 // first resets its theme variables to initial on :root and gives them their colors after, so
 // they stayed light (its top bar white). In this world only (the page never sees it), a CSS-wide

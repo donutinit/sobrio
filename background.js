@@ -10,9 +10,33 @@ if (typeof document !== 'undefined') {
   sobrio.settings.storeThemeHook((name) => style.getPropertyValue(name));
 }
 
+// The keys of the shortcut that opens the switcher, for the pages (storage.local.switcherKey):
+// where the browser hands a key to the page first, shortcuts.js opens the switcher at the keydown,
+// without a trip here. Written only when it changed: every page hears a storage change.
+async function storeSwitcherKey() {
+  const [commands, platform, { switcherKey }] = await Promise.all([
+    chrome.commands.getAll(), chrome.runtime.getPlatformInfo(), chrome.storage.local.get('switcherKey'),
+  ]);
+  const shortcut = commands.find((command) => command.name === 'open-switcher')?.shortcut;
+  const keys = sobrio.settings.commandKeys(shortcut, platform.os === 'mac');
+  if ((switcherKey ?? null) !== keys) await chrome.storage.local.set({ switcherKey: keys });
+}
+storeSwitcherKey().catch((error) => console.warn('sobrio: cannot read the shortcut', error));
+// Firefox tells when the person changes it; Chrome's worker reads it again each time it starts.
+chrome.commands.onChanged?.addListener(() => storeSwitcherKey().catch(() => {}));
+
 const handlers = {
   fetch: (message) => fetchForDarkReader(message.url),
-  bookmarks: () => getBookmarks(),
+  // What the switcher lists, each as JSON text: the bookmarks and its memory. checked: false when
+  // the bookmarks are the ones a background before this one left; asked with checked, the answer
+  // waits for the tree.
+  bookmarks: async (message) => {
+    const { quick, sure } = getBookmarks();
+    const [list, { stats }] = await Promise.all([
+      message.checked ? sure.then((text) => ({ text, checked: true })) : quick, chrome.storage.local.get('stats'),
+    ]);
+    return { bookmarks: list.text, checked: list.checked, stats: JSON.stringify(stats && typeof stats === 'object' ? stats : {}) };
+  },
   open: async (message, sender) => {
     await openUrl(message.url, message.newTab, sender.tab);
     if (typeof message.record === 'string') await remember(message.url, message.record);
@@ -79,17 +103,48 @@ async function fetchForDarkReader(url) {
   return { ok: true, status: response.status, type, base64: guard.toBase64(body) };
 }
 
-// Flattened once and kept until the bookmarks change. A restarted worker rebuilds it.
-let bookmarks = null;
+// The bookmarks, flattened, as one JSON text: a message of thousands of objects takes Firefox
+// 50 ms to hand to a page, one string a tenth of that. Reading the tree is slow there as well (60
+// to 90 ms for 1,500 bookmarks), and its background stops after 30 seconds without work, so the
+// text also stays in storage.session, in memory. A background that starts again answers with that
+// text at once, as not checked: a change may have come while it was stopped. The tree is read
+// behind the answer, and the switcher asks again for the checked text.
+let bookmarks = null; // { quick, sure }, good until the bookmarks change
+let bookmarksRead = 0; // counts the changes, so a tree read before one is not kept
 
-async function getBookmarks() {
-  if (!bookmarks) bookmarks = match.flattenBookmarks(await chrome.bookmarks.getTree());
+function getBookmarks() {
+  if (bookmarks) return bookmarks;
+  const read = bookmarksRead;
+  const sure = chrome.bookmarks.getTree().then((tree) => {
+    const text = JSON.stringify(match.flattenBookmarks(tree));
+    if (read === bookmarksRead) {
+      bookmarks = { quick: checked, sure };
+      chrome.storage.session.set({ bookmarks: text }).catch(() => {});
+    }
+    return text;
+  });
+  const checked = sure.then((text) => ({ text, checked: true }));
+  const kept = chrome.storage.session.get('bookmarks').then(({ bookmarks: text }) => (typeof text === 'string' ? { text, checked: false } : checked), () => checked);
+  // A tree that cannot be read: whoever asked hears of it, and the next one tries again.
+  kept.catch(() => {});
+  checked.catch(() => {
+    if (read === bookmarksRead) bookmarks = null;
+  });
+  bookmarks = { quick: kept, sure };
   return bookmarks;
 }
 
-for (const event of ['onCreated', 'onRemoved', 'onChanged', 'onMoved']) {
-  chrome.bookmarks[event].addListener(() => {
+// A change wakes the background, which forgets the text and reads the tree again once the changes
+// settle (an import brings hundreds), so the next switcher finds the text ready.
+// onImportEnded: Chrome says nothing of each bookmark an import brings, only that it ended.
+let bookmarksSettle = 0;
+for (const event of ['onCreated', 'onRemoved', 'onChanged', 'onMoved', 'onImportEnded']) {
+  chrome.bookmarks[event]?.addListener(() => {
     bookmarks = null;
+    bookmarksRead += 1;
+    chrome.storage.session.remove('bookmarks').catch(() => {});
+    clearTimeout(bookmarksSettle);
+    bookmarksSettle = setTimeout(getBookmarks, 1000);
   });
 }
 
@@ -164,24 +219,33 @@ function openSwitcher(tab) {
   injectSwitcher(tab.id).catch(openPopup);
 }
 
-// mode: an engine id to open the switcher on, for search shortcuts. Where the switcher was
-// opened before, its code is still there: it opens in one call, without loading its six files
-// again and with the bookmarks folded last time.
+// mode: an engine id to open the switcher on, for search shortcuts. A page has the switcher from
+// its start (a content script of the top frame), so one call opens it. A tab from before sobrio
+// was installed has nothing: its files go in once and open it as they arrive (pendingOpen).
+// injectImmediately: now, not when the page is done loading, which is what a call waits for
+// otherwise, however long that takes.
 async function injectSwitcher(tabId, mode) {
   const target = { tabId };
   const [{ result: opened } = {}] = await chrome.scripting.executeScript({
     target,
+    injectImmediately: true,
     func: (m) => {
       const sobrio = (globalThis.sobrio = globalThis.sobrio || {});
-      sobrio.pendingMode = m;
-      if (!sobrio.toggleSwitcher) return false;
-      sobrio.toggleSwitcher();
-      return true;
+      if (sobrio.toggleSwitcher) {
+        sobrio.toggleSwitcher(m ?? undefined);
+        return true;
+      }
+      sobrio.pendingOpen = { mode: m ?? undefined };
+      return false;
     },
     args: [mode ?? null],
   });
   if (opened) return;
-  await chrome.scripting.executeScript({ target, files: ['settings.js', 'stats.js', 'match.js', 'icons.js', 'switcher-css.js', 'switcher.js'] });
+  await chrome.scripting.executeScript({
+    target,
+    injectImmediately: true,
+    files: ['settings.js', 'stats.js', 'match.js', 'icons.js', 'switcher-css.js', 'switcher.js'],
+  });
 }
 
 function openPopup() {

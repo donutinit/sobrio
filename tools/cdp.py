@@ -17,7 +17,7 @@ import sys
 import tempfile
 import time
 
-SPECIAL_KEYS = {'Tab': 9, 'Enter': 13, 'Escape': 27, 'ArrowUp': 38, 'ArrowDown': 40}
+SPECIAL_KEYS = {'Tab': 9, 'Enter': 13, 'Escape': 27, 'ArrowUp': 38, 'ArrowDown': 40, 'Space': 32}
 MODIFIERS = {'Alt': 1, 'Ctrl': 2, 'Meta': 4, 'Shift': 8}
 SWITCHER_STATE = '''function () {
     const rows = [...this.querySelectorAll('.row')];
@@ -29,7 +29,7 @@ SWITCHER_STATE = '''function () {
 
 
 def keys(tokens):
-    """'rust,Ctrl+j,click@640:300' -> [(modifiers, key)]; plain words are typed letter by letter.
+    """'Ctrl+Space,rust,Ctrl+j,click@640:300' -> [(modifiers, key)]; plain words are typed letter by letter.
     A trailing ~ (Ctrl+j~) sends the key as an autorepeat, like a held key."""
     for token in tokens.split(','):
         if len(token) > 1 and token.endswith('~'):
@@ -104,9 +104,11 @@ class Pipe:
         repeat = 'repeat' in mods
         bits = sum(MODIFIERS[m] for m in mods if m != 'repeat')
         if key in SPECIAL_KEYS:
-            event = {'key': key, 'code': key, 'windowsVirtualKeyCode': SPECIAL_KEYS[key]}
+            event = {'key': ' ' if key == 'Space' else key, 'code': key, 'windowsVirtualKeyCode': SPECIAL_KEYS[key]}
             if key == 'Enter' and not bits:
                 event['text'] = '\r'
+            if key == 'Space' and not bits:
+                event['text'] = ' '
         elif bits & ~MODIFIERS['Shift']:
             event = {'key': key, 'code': f'Key{key.upper()}', 'windowsVirtualKeyCode': ord(key.upper())}
         else:

@@ -521,6 +521,25 @@
     return [ctrlKey && 'Ctrl', altKey && 'Alt', shiftKey && 'Shift', metaKey && 'Meta', name].filter(Boolean).join('+');
   }
 
+  // A browser command's shortcut as commands.getAll() gives it ("Ctrl+Space", "Alt+Shift+K",
+  // "MacCtrl+Period") in the form normalizeKeys gives its keydown; null when there is none or no
+  // keydown can be told to be it (a media key). On a Mac, Ctrl there is the Command key.
+  const COMMAND_KEYS = new Map(Object.entries({
+    Space: 'Space', Comma: ',', Period: '.', Up: 'ArrowUp', Down: 'ArrowDown', Left: 'ArrowLeft', Right: 'ArrowRight',
+    Home: 'Home', End: 'End', PageUp: 'PageUp', PageDown: 'PageDown', Insert: 'Insert', Delete: 'Delete',
+  }));
+
+  function commandKeys(shortcut, mac = false) {
+    if (typeof shortcut !== 'string' || !shortcut) return null;
+    const parts = shortcut.split('+');
+    const key = parts.pop();
+    const name = COMMAND_KEYS.get(key) ?? (/^([A-Z0-9]|F([1-9]|1[0-2]))$/.test(key) ? key : null);
+    const modifiers = new Map([['Ctrl', mac ? 'Meta' : 'Ctrl'], ['Command', 'Meta'], ['MacCtrl', 'Ctrl'], ['Alt', 'Alt'], ['Shift', 'Shift']]);
+    const held = parts.map((part) => modifiers.get(part));
+    if (!name || held.includes(undefined)) return null;
+    return [...MODIFIERS.filter((modifier) => held.includes(modifier)), name].join('+');
+  }
+
   // Canonical order, and Ctrl, Alt or Meta unless it is a function key: plain letters belong
   // to typing.
   function isValidShortcutKeys(keys) {
@@ -563,7 +582,7 @@
   const api = {
     DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, PAUSE_MINUTES, PAUSE_MAX, pauseLeft, isCommandWord, mergeSettings, makeBackup, readBackup, backupDetails, hostMatches, normalizePattern, matchingPatterns, siteState, isLocalHost,
     parseThemeHook, storeThemeHook, roundCorners, squircleCorner, squircleBorder, squircleClip, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
-    normalizeKeys, isValidShortcutKeys, cleanUrl, toggledPatterns, snapSpeed,
+    normalizeKeys, commandKeys, isValidShortcutKeys, cleanUrl, toggledPatterns, snapSpeed,
   };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.settings = api;
