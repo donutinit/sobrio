@@ -257,7 +257,12 @@ con el zip y el xpi. Si la variable del repo `AMO_PUBLISH` vale `true`, además 
 addons.mozilla.org con los secretos `AMO_JWT_ISSUER` y `AMO_JWT_SECRET`, con las notas del release
 y las notas para revisores de `docs/amo.md`. Correrlo a mano (Actions › Release › Run workflow)
 solo valida el paquete y las llaves contra AMO, sin mandar nada. Cada versión que llega a AMO
-entra a revisión: no mandar varias seguidas.
+entra a revisión: no mandar varias seguidas. `AMO_PUBLISH` está en `true` desde el 2026-11-24.
+
+- AMO bloquea algunas IPs de los runners de GitHub ("The IP address has been blocked", HTTP 403):
+  "Re-run failed jobs" lo intenta desde otra máquina; el release de GitHub ya creado se queda.
+- AMO rechaza la versión entera si las notas para revisores pasan de 3000 caracteres
+  (`test/amo.test.js` lo revisa). Por eso la 0.4.6 no llegó a AMO y salió la 0.4.7.
 
 ## Commits
 

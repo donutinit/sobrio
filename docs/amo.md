@@ -119,13 +119,11 @@ third-party pieces:
    tools/vendor-darkreader.py in the repository downloads it and checks that integrity.
    License: MIT (THIRD_PARTY_NOTICES.md).
 
-2. proxy.js is darkreader.js's own injectProxy function, copied unchanged but for indentation by
-   tools/vendor-darkreader.py (test/proxy.test.js checks it matches), run as a content script in
-   the page's world ("world": "MAIN"). Dark Reader normally inserts it as an inline <script>,
-   which the page's CSP may block; without it Dark Reader polls every stylesheet on every frame.
-   It only wraps the CSSOM methods Dark Reader needs to hear about and talks to the content
-   script through DOM events. It goes in after Dark Reader starts on a page and only if Dark
-   Reader's own inline copy did not run.
+2. proxy.js is darkreader.js's own injectProxy function, copied by tools/vendor-darkreader.py
+   (test/proxy.test.js checks it matches) and run as a content script in the page's world
+   ("world": "MAIN") where the page's CSP blocked Dark Reader's inline copy; without it Dark
+   Reader polls every stylesheet on every frame. It only wraps the CSSOM methods Dark Reader needs
+   and talks to the content script through DOM events.
 
 3. fonts/*.woff2 and fonts.css are Instrument Serif, Inter, IBM Plex Mono and EB Garamond from
    Fontsource, unchanged, under the SIL Open Font License (licenses in fonts/).
@@ -135,26 +133,25 @@ Permissions:
 - scripting: the switcher is injected into the current tab only when the person opens it
   (Ctrl+Space or a shortcut).
 - bookmarks: the switcher searches the person's bookmarks.
-- storage: settings, per-site exceptions, the switcher's memory and the hosts last seen with a
-  dark theme of their own (so dark mode does not start there), all in storage.local.
+- storage: settings, per-site exceptions, the switcher's memory and the hosts seen with a dark
+  theme of their own, all in storage.local.
 
 Network: the background fetches a cross-origin stylesheet or image when Dark Reader asks for it
 (to darken it), only over http(s), without cookies, only text/css or image/*, at most 5 MB, and a
 redirect may only end on a public https host (guard.js). sobrio itself sends nothing anywhere; no
-analytics, no remote code. The only other requests are the ones the person writes into their own
-CSS box (an @import or url() of their choosing), loaded by the page like any stylesheet.
+analytics, no remote code. The only other requests are an @import or url() the person writes in
+their own CSS box.
 
-On install, management.getSelf() (no permission needed) tells a real install from an unpacked or
-temporary one; only a real install opens the local welcome page (welcome.html) once.
+On a real install (management.getSelf(), no permission needed, tells it from a temporary one)
+sobrio opens its local welcome.html once.
 
 The new tab page (chrome_url_overrides.newtab) is also the home page
-(chrome_settings_overrides.homepage), so Firefox opens it on start and in new windows. That key is
-the only difference between this manifest.json and the repository's: scripts/pack.sh adds it to
-the Firefox package, because Chrome on Windows and macOS rejects a home page that is not http(s).
+(chrome_settings_overrides.homepage), so Firefox opens it on start and in new windows. That key,
+added by scripts/pack.sh for Firefox only, is the only difference from the repository's
+manifest.json.
 
-Shortcuts pressed inside an iframe that concern the site (dark mode or the stylesheet on it,
-copying its link) are passed through the background to the tab's top frame with tabs.sendMessage
-(frameId 0); the top frame looks the shortcut up again in its own settings by its keys.
+Shortcuts pressed inside an iframe that concern the site go to the tab's top frame
+(tabs.sendMessage, frameId 0), which looks them up again in its own settings.
 
 To try it: open any site (it turns black), press Ctrl+Space and type a bookmark's name, type pz,
 px or pd in the switcher, open a new tab, and open the settings from the add-on's preferences.

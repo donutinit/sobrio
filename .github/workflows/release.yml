@@ -51,12 +51,15 @@ jobs:
           fi
           cat notes.md
 
+      # Already there when the job runs again after AMO refused the upload (it blocks some of
+      # GitHub's runner addresses): then it stays as it is and only the upload is tried again.
       - name: GitHub release
         if: github.ref_type == 'tag'
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.version.outputs.version }}
         run: >
+          gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1 ||
           gh release create "$GITHUB_REF_NAME" "dist/sobrio-$VERSION.zip" "dist/sobrio-$VERSION.xpi"
           --title "sobrio $VERSION" --notes-file notes.md --verify-tag
 
