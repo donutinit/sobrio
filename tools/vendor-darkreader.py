@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Vendor a darkreader release into darkreader.js, unchanged, and proxy.js from it.
 
-    python3 -I tools/vendor-darkreader.py 4.9.133
+    python3 -I tools/vendor-darkreader.py 4.9.135
     python3 -I tools/vendor-darkreader.py --proxy-only
 
 Downloads the npm tarball, checks it against the registry's sha512 integrity and copies

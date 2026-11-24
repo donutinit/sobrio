@@ -145,7 +145,7 @@ Firefox 會詢問一次是否保留擴充功能設定的新分頁：請保留。
 node --test                                   # unit tests
 python3 -I tools/marionette.py . <url>...     # headless LibreWolf/Firefox with sobrio loaded
 python3 -I tools/cdp.py . <url>...            # headless Chromium with sobrio loaded
-python3 -I tools/vendor-darkreader.py 4.9.133 # update the bundled Dark Reader
+python3 -I tools/vendor-darkreader.py 4.9.135 # update the bundled Dark Reader
 python3 -I tools/vendor-fonts.py              # update the bundled fonts
 python3 -I tools/make-icons.py                # redraw the icons from the isotype's grid
 scripts/pack.sh                               # dist/sobrio-<version>.zip and .xpi

@@ -145,7 +145,7 @@ Inget byggsteg och inga npm-beroenden.
 node --test                                   # enhetstester
 python3 -I tools/marionette.py . <url>...     # huvudlös LibreWolf/Firefox med sobrio inlästs
 python3 -I tools/cdp.py . <url>...            # huvudlös Chromium med sobrio inläst
-python3 -I tools/vendor-darkreader.py 4.9.133 # uppdatera det medföljande Dark Reader
+python3 -I tools/vendor-darkreader.py 4.9.135 # uppdatera det medföljande Dark Reader
 python3 -I tools/vendor-fonts.py              # uppdatera de medföljande typsnitten
 python3 -I tools/make-icons.py                # rita om ikonerna från isotypens rutnät
 scripts/pack.sh                               # dist/sobrio-<version>.zip och .xpi

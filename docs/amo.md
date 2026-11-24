@@ -110,11 +110,11 @@ Código y documentación: https://github.com/donutinit/sobrio
 sobrio has no build step: every file in the package is the source as written, except these
 third-party pieces:
 
-1. darkreader.js is the "darkreader" npm package, version 4.9.133, file package/darkreader.js,
+1. darkreader.js is the "darkreader" npm package, version 4.9.135, file package/darkreader.js,
    not minified.
-   Tarball: https://registry.npmjs.org/darkreader/-/darkreader-4.9.133.tgz
-   Registry integrity: sha512-d3dRGpVgoBnMXl9qfnTuRvrdtO/9e6puFbsDwxfycTwbRNFI+sNX+093h6qnNo4VosyHHUaIXyunDWvbEudTRQ==
-   sha256 of darkreader.js: 82619e7a0bcabbea15a91488bc74fd0f9ba8f8f2a1cc67527f78166037cce166
+   Tarball: https://registry.npmjs.org/darkreader/-/darkreader-4.9.135.tgz
+   Registry integrity: sha512-h/gmS/KzY8HgmsgOSFh7ssJnsC5ymuhIwZqxksPKCS1K400OUJyjDPZN1L2YIrzX+oezhVUNnCDZPfmPUvdJNA==
+   sha256 of darkreader.js: 6bc5cb7bc3dd4014902a73898cfad95e07474755d64abbfe9e7bac02c2f59937
    tools/vendor-darkreader.py in the repository downloads it and checks that integrity.
    License: MIT (THIRD_PARTY_NOTICES.md).
 

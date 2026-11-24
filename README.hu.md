@@ -145,7 +145,7 @@ Nincs build lépés és nincs npm-függőség.
 node --test                                   # egységtesztek
 python3 -I tools/marionette.py . <url>...     # fejléc nélküli LibreWolf/Firefox a sobrióval
 python3 -I tools/cdp.py . <url>...            # fejléc nélküli Chromium a sobrióval
-python3 -I tools/vendor-darkreader.py 4.9.133 # a csomagolt Dark Reader frissítése
+python3 -I tools/vendor-darkreader.py 4.9.135 # a csomagolt Dark Reader frissítése
 python3 -I tools/vendor-fonts.py              # a csomagolt betűtípusok frissítése
 python3 -I tools/make-icons.py                # az ikonok újrarajzolása az izotípus rácsából
 scripts/pack.sh                               # dist/sobrio-<version>.zip és .xpi

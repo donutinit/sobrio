@@ -145,7 +145,7 @@ Nessun passaggio di compilazione e nessuna dipendenza npm.
 node --test                                   # test unitari
 python3 -I tools/marionette.py . <url>...     # LibreWolf/Firefox senza interfaccia con sobrio caricato
 python3 -I tools/cdp.py . <url>...            # Chromium senza interfaccia con sobrio caricato
-python3 -I tools/vendor-darkreader.py 4.9.133 # aggiorna Dark Reader incluso
+python3 -I tools/vendor-darkreader.py 4.9.135 # aggiorna Dark Reader incluso
 python3 -I tools/vendor-fonts.py              # aggiorna i font inclusi
 python3 -I tools/make-icons.py                # ridisegna le icone dalla griglia dell'isotipo
 scripts/pack.sh                               # dist/sobrio-<version>.zip e .xpi

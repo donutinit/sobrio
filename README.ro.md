@@ -145,7 +145,7 @@ Fără pas de compilare și fără dependențe npm.
 node --test                                   # teste unitare
 python3 -I tools/marionette.py . <url>...     # LibreWolf/Firefox fără interfață, cu sobrio încărcat
 python3 -I tools/cdp.py . <url>...            # Chromium fără interfață, cu sobrio încărcat
-python3 -I tools/vendor-darkreader.py 4.9.133 # actualizează Dark Reader inclus
+python3 -I tools/vendor-darkreader.py 4.9.135 # actualizează Dark Reader inclus
 python3 -I tools/vendor-fonts.py              # actualizează fonturile incluse
 python3 -I tools/make-icons.py                # redesenează iconițele din grila isotipului
 scripts/pack.sh                               # dist/sobrio-<version>.zip și .xpi

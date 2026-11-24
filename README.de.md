@@ -145,7 +145,7 @@ Kein Build-Schritt und keine npm-Abhängigkeiten.
 node --test                                   # Unit-Tests
 python3 -I tools/marionette.py . <url>...     # headless LibreWolf/Firefox mit geladenem sobrio
 python3 -I tools/cdp.py . <url>...            # headless Chromium mit geladenem sobrio
-python3 -I tools/vendor-darkreader.py 4.9.133 # das mitgelieferte Dark Reader aktualisieren
+python3 -I tools/vendor-darkreader.py 4.9.135 # das mitgelieferte Dark Reader aktualisieren
 python3 -I tools/vendor-fonts.py              # die mitgelieferten Schriften aktualisieren
 python3 -I tools/make-icons.py                # die Icons aus dem Raster der Bildmarke neu zeichnen
 scripts/pack.sh                               # dist/sobrio-<version>.zip und .xpi
