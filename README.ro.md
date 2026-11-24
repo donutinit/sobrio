@@ -74,7 +74,7 @@ Patru comenzi, scrise în switcher. Funcționează și din butonul din bara de i
 |---|---|
 | `pz` | modul întunecat pornit sau oprit pentru site-ul curent |
 | `px` | foaia de stiluri pornită sau oprită pentru site-ul curent |
-| `pd` | modul întunecat oprit peste tot timp de 3 minute, apoi revine singur; un număr scris imediat după el stabilește minutele (`pd15`, de la 1 la 999), iar `pd` în timpul unei pauze o încheie |
+| `pd` | modul întunecat și foaia de stiluri oprite peste tot timp de 3 minute, apoi revin singure; un număr scris imediat după el stabilește minutele (`pd15`, de la 1 la 999), iar `pd` în timpul unei pauze o încheie |
 | `settings` | setările (`options` merge și el) |
 
 ### O filă nouă

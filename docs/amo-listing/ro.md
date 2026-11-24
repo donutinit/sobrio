@@ -12,7 +12,7 @@ Un singur stil, peste tot. Fără colțuri rotunjite, umbre, umbre ale textului 
 
 Negru, cu judecată. Motorul dinamic al Dark Reader face fiecare site negru, culoare cu culoare. Site-urile care au deja o temă întunecată proprie o păstrează.
 
-Un switcher. Ctrl+Space deschide o casetă în mijlocul paginii, ca quick switcher-ul din Obsidian. Scrie ca să cauți în marcajele tale; Tab trece prin Google, DuckDuckGo, YouTube, Wikipedia, GitHub și motoarele tale (orice adresă cu %s, ca o instanță SearXNG). Ține minte ce deschizi și îl ridică în rezultate. pz și px comută modul întunecat și foaia de stiluri pe site-ul curent, iar pd pune pauză modului întunecat peste tot timp de 3 minute (pd15 pentru 15).
+Un switcher. Ctrl+Space deschide o casetă în mijlocul paginii, ca quick switcher-ul din Obsidian. Scrie ca să cauți în marcajele tale; Tab trece prin Google, DuckDuckGo, YouTube, Wikipedia, GitHub și motoarele tale (orice adresă cu %s, ca o instanță SearXNG). Ține minte ce deschizi și îl ridică în rezultate. pz și px comută modul întunecat și foaia de stiluri pe site-ul curent, iar pd pune pauză modului întunecat și foii de stiluri peste tot timp de 3 minute (pd15 pentru 15).
 
 O filă nouă cu data și ora compuse cu grijă: șase aspecte, patru stiluri tipografice sau fonturi proprii, un salut opțional, data într-o limbă aleasă la întâmplare din lista ta și switcher-ul sub ea.
 

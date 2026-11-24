@@ -75,7 +75,7 @@
     "message": "Turn on dark mode everywhere"
   },
   "pauseDark": {
-    "message": "Pause dark mode everywhere for $MINUTES$ min",
+    "message": "Pause dark mode and custom CSS everywhere for $MINUTES$ min",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Turn dark mode back on everywhere (paused until $TIME$)",
+    "message": "Turn dark mode and custom CSS back on everywhere (paused until $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Stylesheet on this site"
   },
   "commandName_pause": {
-    "message": "Pause dark mode everywhere"
+    "message": "Pause dark mode and the stylesheet everywhere"
   },
   "commandName_pauseHint": {
     "message": "For 3 minutes; a number right after the word sets the minutes."

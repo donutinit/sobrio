@@ -213,7 +213,7 @@
     return word === 'options' ? 'settings' : null;
   }
 
-  // The minutes pd pauses dark mode for: 3 by itself, or 1 to 999 written right after the word;
+  // The minutes pd pauses dark mode and the stylesheet for: 3 by itself, or 1 to 999 written right after the word;
   // null when the query is not the pause command.
   function pauseMinutes(query, names = DEFAULT_COMMANDS) {
     const word = query.trim().toLowerCase();

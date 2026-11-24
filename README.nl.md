@@ -74,7 +74,7 @@ Vier opdrachten, getypt in de switcher. Ze werken ook vanaf de knop in de werkba
 |---|---|
 | `pz` | donkere modus aan of uit voor de huidige site |
 | `px` | de stijlpagina aan of uit voor de huidige site |
-| `pd` | donkere modus overal uit voor 3 minuten, daarna vanzelf weer aan; een getal direct erna zet de minuten (`pd15`, van 1 tot 999), en `pd` tijdens een pauze stopt die |
+| `pd` | donkere modus en de stijlpagina overal uit voor 3 minuten, daarna vanzelf weer aan; een getal direct erna zet de minuten (`pd15`, van 1 tot 999), en `pd` tijdens een pauze stopt die |
 | `settings` | de instellingen (`options` werkt ook) |
 
 ### Een nieuw tabblad

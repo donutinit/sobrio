@@ -75,7 +75,7 @@
     "message": "Attiva la modalità scura ovunque"
   },
   "pauseDark": {
-    "message": "Sospendi la modalità scura ovunque per $MINUTES$ min",
+    "message": "Sospendi la modalità scura e il CSS personalizzato ovunque per $MINUTES$ min",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Riattiva la modalità scura ovunque (in pausa fino a $TIME$)",
+    "message": "Riattiva la modalità scura e il CSS personalizzato ovunque (in pausa fino a $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Foglio di stile su questo sito"
   },
   "commandName_pause": {
-    "message": "Sospendi la modalità scura ovunque"
+    "message": "Sospendi la modalità scura e il foglio di stile ovunque"
   },
   "commandName_pauseHint": {
     "message": "Per 3 minuti; un numero subito dopo la parola ne imposta i minuti."

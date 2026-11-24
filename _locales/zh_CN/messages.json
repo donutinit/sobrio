@@ -75,7 +75,7 @@
     "message": "所有网站都开启深色模式"
   },
   "pauseDark": {
-    "message": "所有网站暂停深色模式 $MINUTES$ 分钟",
+    "message": "所有网站暂停深色模式和自定义 CSS $MINUTES$ 分钟",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "所有网站恢复深色模式（暂停至 $TIME$）",
+    "message": "所有网站恢复深色模式和自定义 CSS（暂停至 $TIME$）",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "此网站的样式表"
   },
   "commandName_pause": {
-    "message": "暂停所有网站的深色模式"
+    "message": "暂停所有网站的深色模式和样式表"
   },
   "commandName_pauseHint": {
     "message": "暂停 3 分钟；命令后紧跟的数字设置分钟数。"

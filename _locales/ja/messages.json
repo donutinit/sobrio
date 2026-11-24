@@ -75,7 +75,7 @@
     "message": "すべてのサイトでダークモードをオン"
   },
   "pauseDark": {
-    "message": "すべてのサイトのダークモードを$MINUTES$分停止",
+    "message": "すべてのサイトのダークモードと独自CSSを$MINUTES$分停止",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "すべてのサイトでダークモードをオンに戻す（$TIME$まで停止中）",
+    "message": "すべてのサイトでダークモードと独自CSSをオンに戻す（$TIME$まで停止中）",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "このサイトのスタイルシート"
   },
   "commandName_pause": {
-    "message": "すべてのサイトのダークモードを停止"
+    "message": "すべてのサイトのダークモードとスタイルシートを停止"
   },
   "commandName_pauseHint": {
     "message": "3分間。語のすぐ後ろの数字で分数を指定します。"

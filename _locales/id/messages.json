@@ -75,7 +75,7 @@
     "message": "Nyalakan mode gelap di semua situs"
   },
   "pauseDark": {
-    "message": "Jeda mode gelap di semua situs, $MINUTES$ min",
+    "message": "Jeda mode gelap dan CSS kustom di semua situs, $MINUTES$ min",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Nyalakan lagi mode gelap di semua situs (dijeda sampai $TIME$)",
+    "message": "Nyalakan lagi mode gelap dan CSS kustom di semua situs (dijeda sampai $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Stylesheet di situs ini"
   },
   "commandName_pause": {
-    "message": "Jeda mode gelap di semua situs"
+    "message": "Jeda mode gelap dan stylesheet di semua situs"
   },
   "commandName_pauseHint": {
     "message": "Selama 3 menit; angka yang langsung mengikuti kata ini mengatur jumlah menitnya."

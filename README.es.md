@@ -74,7 +74,7 @@ Cuatro comandos, escritos en el switcher. También funcionan desde el botón de 
 |---|---|
 | `pz` | modo oscuro prendido o apagado en el sitio actual |
 | `px` | la hoja de estilo prendida o apagada en el sitio actual |
-| `pd` | modo oscuro apagado en todos lados por 3 minutos, y luego vuelve solo; un número justo después pone los minutos (`pd15`, de 1 a 999), y `pd` durante una pausa la termina |
+| `pd` | modo oscuro y la hoja de estilo apagados en todos lados por 3 minutos, y luego vuelven solos; un número justo después pone los minutos (`pd15`, de 1 a 999), y `pd` durante una pausa la termina |
 | `settings` | los ajustes (`options` también funciona) |
 
 ### Una nueva pestaña

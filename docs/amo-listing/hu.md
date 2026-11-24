@@ -12,7 +12,7 @@ Egy stíluslap mindenhol. Nincsenek lekerekített sarkok, árnyékok, szövegár
 
 Fekete, okosan. A Dark Reader dinamikus motorja minden webhelyet színenként feketére változtat. A saját sötét témával rendelkező webhelyek megtartják azt.
 
-A switcher. A Ctrl+Space az oldal közepén nyit egy dobozt, mint az Obsidian gyorsváltója. Gépelj a könyvjelzőid közötti kereséshez; a Tab a Google, a DuckDuckGo, a YouTube, a Wikipedia, a GitHub és a saját motorjaid között lépeget (bármilyen cím, amelyben %s szerepel, például egy SearXNG-példány). Megjegyzi, amit megnyitsz, és feljebb sorolja a keresésben. A pz és a px be- és kikapcsolja az aktuális webhely sötét módját és stíluslapját, a pd pedig 3 percre szünetelteti a sötét módot mindenhol (a pd15 15 percre).
+A switcher. A Ctrl+Space az oldal közepén nyit egy dobozt, mint az Obsidian gyorsváltója. Gépelj a könyvjelzőid közötti kereséshez; a Tab a Google, a DuckDuckGo, a YouTube, a Wikipedia, a GitHub és a saját motorjaid között lépeget (bármilyen cím, amelyben %s szerepel, például egy SearXNG-példány). Megjegyzi, amit megnyitsz, és feljebb sorolja a keresésben. A pz és a px be- és kikapcsolja az aktuális webhely sötét módját és stíluslapját, a pd pedig 3 percre szünetelteti a sötét módot és a stíluslapot mindenhol (a pd15 15 percre).
 
 Új lap a dátummal és az idővel, gondosan megformázva: hat elrendezés, négy tipográfiai stílus vagy saját betűtípusok, egy opcionális köszöntés, a dátum egy véletlenszerűen választott nyelven a listádról, és alatta a switcher.
 

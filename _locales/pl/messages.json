@@ -75,7 +75,7 @@
     "message": "Włącz tryb ciemny wszędzie"
   },
   "pauseDark": {
-    "message": "Wstrzymaj tryb ciemny wszędzie na $MINUTES$ min",
+    "message": "Wstrzymaj tryb ciemny i własny CSS wszędzie na $MINUTES$ min",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Przywróć tryb ciemny wszędzie (wstrzymany do $TIME$)",
+    "message": "Przywróć tryb ciemny i własny CSS wszędzie (wstrzymany do $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Arkusz stylów w tej witrynie"
   },
   "commandName_pause": {
-    "message": "Wstrzymaj tryb ciemny wszędzie"
+    "message": "Wstrzymaj tryb ciemny i arkusz stylów wszędzie"
   },
   "commandName_pauseHint": {
     "message": "Na 3 minuty; liczba zaraz po słowie ustawia minuty."

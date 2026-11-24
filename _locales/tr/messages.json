@@ -75,7 +75,7 @@
     "message": "Karanlık modu her yerde aç"
   },
   "pauseDark": {
-    "message": "Her yerde karanlık modu $MINUTES$ dk duraklat",
+    "message": "Her yerde karanlık modu ve özel CSS'i $MINUTES$ dk duraklat",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Her yerde karanlık modu yeniden aç ($TIME$'a kadar duraklatıldı)",
+    "message": "Her yerde karanlık modu ve özel CSS'i yeniden aç ($TIME$'a kadar duraklatıldı)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Bu sitede stil sayfası"
   },
   "commandName_pause": {
-    "message": "Her yerde karanlık modu duraklat"
+    "message": "Her yerde karanlık modu ve stil sayfasını duraklat"
   },
   "commandName_pauseHint": {
     "message": "3 dakika boyunca; kelimenin hemen ardından gelen bir sayı dakikayı belirler."

@@ -73,7 +73,7 @@ Bốn lệnh, gõ trong switcher. Chúng cũng hoạt động từ nút trên th
 |---|---|
 | `pz` | bật hoặc tắt chế độ tối cho trang hiện tại |
 | `px` | bật hoặc tắt kiểu CSS cho trang hiện tại |
-| `pd` | tắt chế độ tối ở mọi nơi trong 3 phút, sau đó tự bật lại; số viết ngay sau sẽ đặt số phút (`pd15`, từ 1 đến 999), và `pd` trong lúc tạm dừng sẽ kết thúc nó |
+| `pd` | tắt chế độ tối và kiểu CSS ở mọi nơi trong 3 phút, sau đó tự bật lại; số viết ngay sau sẽ đặt số phút (`pd15`, từ 1 đến 999), và `pd` trong lúc tạm dừng sẽ kết thúc nó |
 | `settings` | cài đặt (`options` cũng được) |
 
 ### Một thẻ mới

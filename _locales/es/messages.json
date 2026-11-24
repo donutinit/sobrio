@@ -75,7 +75,7 @@
     "message": "Prender modo oscuro en todos lados"
   },
   "pauseDark": {
-    "message": "Pausar modo oscuro en todos lados por $MINUTES$ min",
+    "message": "Pausar modo oscuro y CSS en todos lados por $MINUTES$ min",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Prender modo oscuro en todos lados (pausado hasta $TIME$)",
+    "message": "Prender modo oscuro y CSS en todos lados (pausado hasta $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Hoja de estilo en este sitio"
   },
   "commandName_pause": {
-    "message": "Pausar modo oscuro en todos lados"
+    "message": "Pausar modo oscuro y hoja de estilo en todos lados"
   },
   "commandName_pauseHint": {
     "message": "Por 3 minutos; un número justo después de la palabra pone los minutos."

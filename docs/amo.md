@@ -59,7 +59,7 @@ A switcher. Ctrl+Space opens a box in the middle of the page, like Obsidian's qu
 Type to search your bookmarks; Tab moves through Google, DuckDuckGo, YouTube, Wikipedia, GitHub
 and engines of your own (any address with %s, such as a SearXNG instance). It remembers what you
 open and ranks it higher. pz and px toggle dark mode and the stylesheet on the current site, and
-pd pauses dark mode everywhere for 3 minutes (pd15 for 15).
+pd pauses both everywhere for 3 minutes (pd15 for 15).
 
 A new tab with the date and the time set with care: six layouts, four typographic styles or
 fonts of your own, an optional greeting, the date in a language picked at random from your list,
@@ -91,7 +91,7 @@ Un switcher. Ctrl+Space abre una caja en medio de la página, como el quick swit
 Escribe para buscar en tus bookmarks; Tab recorre Google, DuckDuckGo, YouTube, Wikipedia, GitHub
 y tus propios motores (cualquier dirección con %s, como una instancia de SearXNG). Recuerda lo
 que abres y lo sube en la búsqueda. pz y px prenden o apagan el modo oscuro y la hoja de estilo
-en el sitio actual, y pd pausa el modo oscuro en todos lados por 3 minutos (pd15 por 15).
+en el sitio actual, y pd pausa los dos en todos lados por 3 minutos (pd15 por 15).
 
 Una nueva pestaña con la fecha y la hora bien compuestas: seis diseños, cuatro estilos
 tipográficos o tus propias fuentes, un saludo opcional, la fecha en un idioma al azar de tu lista

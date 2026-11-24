@@ -12,7 +12,7 @@ sobrio 只取用 Stylus、Dark Reader、Search Bookmarks History and Tabs、Tabl
 
 智能的黑色。Dark Reader 的动态引擎会逐色把每个网站变为黑色。已经拥有自己深色主题的网站会保留它。
 
-一个 switcher。Ctrl+Space 会在页面中央打开一个框，类似 Obsidian 的快速切换器。输入即可搜索你的书签；Tab 会依次切换 Google、DuckDuckGo、YouTube、Wikipedia、GitHub 以及你自己的搜索引擎（任何包含 %s 的地址，比如 SearXNG 实例）。它会记住你打开过的内容并提高其排名。pz 和 px 可以开启或关闭当前网站的深色模式和样式表，pd 会暂停所有网站的深色模式 3 分钟（pd15 为 15 分钟）。
+一个 switcher。Ctrl+Space 会在页面中央打开一个框，类似 Obsidian 的快速切换器。输入即可搜索你的书签；Tab 会依次切换 Google、DuckDuckGo、YouTube、Wikipedia、GitHub 以及你自己的搜索引擎（任何包含 %s 的地址，比如 SearXNG 实例）。它会记住你打开过的内容并提高其排名。pz 和 px 可以开启或关闭当前网站的深色模式和样式表，pd 会暂停所有网站的深色模式和样式表 3 分钟（pd15 为 15 分钟）。
 
 一个新标签页，日期和时间经过精心排版：六种布局、四种字体风格或你自己的字体，可选的问候语，从你的列表中随机选择语言显示日期，以及位于其下方的 switcher。
 

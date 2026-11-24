@@ -74,7 +74,7 @@ Fyra kommandon, skrivna i switcher. De fungerar även från verktygsfältsknappe
 |---|---|
 | `pz` | mörkt läge på eller av för den aktuella webbplatsen |
 | `px` | stilmallen på eller av för den aktuella webbplatsen |
-| `pd` | mörkt läge av överallt i 3 minuter, sedan på av sig själv; ett tal direkt efter anger minuterna (`pd15`, från 1 till 999), och `pd` under en paus avslutar den |
+| `pd` | mörkt läge och stilmallen av överallt i 3 minuter, sedan på av sig själv; ett tal direkt efter anger minuterna (`pd15`, från 1 till 999), och `pd` under en paus avslutar den |
 | `settings` | inställningarna (`options` fungerar också) |
 
 ### En ny flik

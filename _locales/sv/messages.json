@@ -75,7 +75,7 @@
     "message": "Slå på mörkt läge överallt"
   },
   "pauseDark": {
-    "message": "Pausa mörkt läge överallt i $MINUTES$ min",
+    "message": "Pausa mörkt läge och egen CSS överallt i $MINUTES$ min",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Slå på mörkt läge överallt igen (pausat till $TIME$)",
+    "message": "Slå på mörkt läge och egen CSS överallt igen (pausat till $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Stilmall på den här webbplatsen"
   },
   "commandName_pause": {
-    "message": "Pausa mörkt läge överallt"
+    "message": "Pausa mörkt läge och stilmallen överallt"
   },
   "commandName_pauseHint": {
     "message": "I 3 minuter; ett tal direkt efter ordet anger minuterna."

@@ -74,7 +74,7 @@ Pamatuje si, co z něj otevíráte: záložka, kterou otevíráte často a nedá
 |---|---|
 | `pz` | tmavý režim na tomto webu zapnout nebo vypnout |
 | `px` | styl na tomto webu zapnout nebo vypnout |
-| `pd` | tmavý režim vypnutý všude na 3 minuty, pak se sám zapne; číslo hned za ním nastaví minuty (`pd15`, od 1 do 999), a `pd` během pozastavení ho ukončí |
+| `pd` | tmavý režim a styl vypnuté všude na 3 minuty, pak se samy zapnou; číslo hned za ním nastaví minuty (`pd15`, od 1 do 999), a `pd` během pozastavení ho ukončí |
 | `settings` | nastavení (funguje i `options`) |
 
 ### Nová karta

@@ -74,7 +74,7 @@ Quatro comandos, digitados no switcher. Eles também funcionam pelo botão da ba
 |---|---|
 | `pz` | modo escuro ligado ou desligado no site atual |
 | `px` | a folha de estilo ligada ou desligada no site atual |
-| `pd` | modo escuro desligado em todos os sites por 3 minutos, depois volta sozinho; um número logo depois define os minutos (`pd15`, de 1 a 999), e `pd` durante a pausa a encerra |
+| `pd` | modo escuro e a folha de estilo desligados em todos os sites por 3 minutos, depois voltam sozinhos; um número logo depois define os minutos (`pd15`, de 1 a 999), e `pd` durante a pausa a encerra |
 | `settings` | as configurações (`options` também funciona) |
 
 ### Uma nova aba

@@ -74,7 +74,7 @@ Four commands, typed in the switcher. They work from the toolbar button too, on 
 |---|---|
 | `pz` | dark mode on or off for the current site |
 | `px` | the stylesheet on or off for the current site |
-| `pd` | dark mode off everywhere for 3 minutes, then back on by itself; a number right after it sets the minutes (`pd15`, from 1 to 999), and `pd` during a pause ends it |
+| `pd` | dark mode and the stylesheet off everywhere for 3 minutes, then back on by themselves; a number right after it sets the minutes (`pd15`, from 1 to 999), and `pd` during a pause ends it |
 | `settings` | the settings (`options` works too) |
 
 ### A new tab

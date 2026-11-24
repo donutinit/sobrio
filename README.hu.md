@@ -74,7 +74,7 @@ Négy parancs, amelyeket a switcher-be írsz. Az eszköztár gombjából is műk
 |---|---|
 | `pz` | sötét mód be- vagy kikapcsolása az aktuális webhelyen |
 | `px` | a stíluslap be- vagy kikapcsolása az aktuális webhelyen |
-| `pd` | sötét mód kikapcsolása mindenhol 3 percre, utána magától visszakapcsol; a szó után írt szám adja meg a perceket (`pd15`, 1 és 999 között), a `pd` pedig szüneteltetés közben véget vet neki |
+| `pd` | sötét mód és a stíluslap kikapcsolása mindenhol 3 percre, utána magától visszakapcsol; a szó után írt szám adja meg a perceket (`pd15`, 1 és 999 között), a `pd` pedig szüneteltetés közben véget vet neki |
 | `settings` | a beállítások (az `options` is működik) |
 
 ### Új lap

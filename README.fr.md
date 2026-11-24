@@ -74,7 +74,7 @@ Quatre commandes, tapées dans le switcher. Elles marchent aussi depuis le bouto
 |---|---|
 | `pz` | mode sombre activé ou désactivé pour le site actuel |
 | `px` | la feuille de style activée ou désactivée pour le site actuel |
-| `pd` | mode sombre désactivé partout pendant 3 minutes, puis réactivé tout seul. Un nombre juste après fixe les minutes (`pd15`, de 1 à 999), et `pd` pendant une pause y met fin |
+| `pd` | mode sombre et la feuille de style désactivés partout pendant 3 minutes, puis réactivés tout seul. Un nombre juste après fixe les minutes (`pd15`, de 1 à 999), et `pd` pendant une pause y met fin |
 | `settings` | les paramètres (`options` marche aussi) |
 
 ### Un nouvel onglet

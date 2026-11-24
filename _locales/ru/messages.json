@@ -75,7 +75,7 @@
     "message": "Включить тёмную тему везде"
   },
   "pauseDark": {
-    "message": "Пауза тёмной темы везде на $MINUTES$ мин",
+    "message": "Пауза тёмной темы и CSS везде на $MINUTES$ мин",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Снова включить тёмную тему везде (пауза до $TIME$)",
+    "message": "Снова включить тёмную тему и CSS везде (пауза до $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Таблица стилей на этом сайте"
   },
   "commandName_pause": {
-    "message": "Пауза тёмной темы везде"
+    "message": "Пауза тёмной темы и таблицы стилей везде"
   },
   "commandName_pauseHint": {
     "message": "На 3 минуты; число сразу после слова задаёт минуты."

@@ -12,7 +12,7 @@ Jeden styl, všude. Žádné zaoblené rohy, stíny, stíny textu ani rozostřen
 
 Černě, chytře. Dynamický engine Dark Readeru zčerní každý web, barvu po barvě. Weby s vlastním tmavým motivem si ho ponechají.
 
-Switcher. Ctrl+Space otevře box uprostřed stránky, jako rychlý přepínač v Obsidianu. Pište pro hledání v záložkách; Tab prochází Google, DuckDuckGo, YouTube, Wikipedia, GitHub a vašimi vlastními vyhledávači (libovolná adresa s %s, třeba instance SearXNG). Pamatuje si, co otevíráte, a řadí to výš. pz a px přepínají tmavý režim a styl na aktuálním webu a pd pozastaví tmavý režim všude na 3 minuty (pd15 na 15).
+Switcher. Ctrl+Space otevře box uprostřed stránky, jako rychlý přepínač v Obsidianu. Pište pro hledání v záložkách; Tab prochází Google, DuckDuckGo, YouTube, Wikipedia, GitHub a vašimi vlastními vyhledávači (libovolná adresa s %s, třeba instance SearXNG). Pamatuje si, co otevíráte, a řadí to výš. pz a px přepínají tmavý režim a styl na aktuálním webu a pd pozastaví tmavý režim a styl všude na 3 minuty (pd15 na 15).
 
 Nová karta s datem a časem pečlivě sestavenými: šest rozložení, čtyři typografické styly nebo vlastní písma, volitelný pozdrav, datum v jazyce náhodně vybraném z vašeho seznamu a switcher pod ním.
 

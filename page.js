@@ -41,7 +41,7 @@
   let cutTransitions = !leftAlone && DEFAULTS.css.animations;
   let keepPlayer = DEFAULTS.css.youtubePlayer && youtubeHost(hostname);
   let waitingForArea = false;
-  let pauseTimer = 0; // the end of a pause of dark mode everywhere (pd), when one is on
+  let pauseTimer = 0; // the end of a pause of dark mode and the stylesheet everywhere (pd)
   // speed.js and shortcuts.js take the settings from here: one read of storage per frame, not three.
   const settingsListeners = [];
   sobrio.onSettings = (listener) => settingsListeners.push(listener);
@@ -82,7 +82,13 @@
     const settings = mergeSettings(stored?.settings);
     for (const listener of settingsListeners) listener(settings);
     const theme = stored?.theme ?? null;
+    // pd: dark mode and the stylesheet off everywhere until storage.local.darkPause, then back on by
+    // themselves. Browsers only hold timers back in tabs that are not on screen.
+    const paused = pauseLeft(stored?.darkPause, Date.now());
+    clearTimeout(pauseTimer);
+    if (paused) pauseTimer = setTimeout(() => chrome.storage.local.get(KEYS).then(apply), paused + 50);
     const state = siteState(stored, hostname, topHost);
+    if (paused) state.dark = state.css = false;
     // On a site that keeps its animations, the rest of the stylesheet still applies.
     const switches = state.animations ? settings.css : { ...settings.css, animations: false };
     const text = state.css ? buildCss(switches, theme, hostname) : '';
@@ -109,12 +115,7 @@
     }
     if (stored && OWN_DARK in stored) knownDark = Array.isArray(stored[OWN_DARK]) && stored[OWN_DARK].includes(hostname);
     if (stored && SEEN_LIGHT in stored) knownLight = detector.seenLight(stored[SEEN_LIGHT], hostname, scheme(), Date.now());
-    // pd: dark mode off everywhere until storage.local.darkPause, then back on by itself. Browsers
-    // only hold timers back in tabs that are not on screen.
-    const paused = pauseLeft(stored?.darkPause, Date.now());
-    clearTimeout(pauseTimer);
-    if (paused) pauseTimer = setTimeout(() => chrome.storage.local.get(KEYS).then(apply), paused + 50);
-    const dark = settings.dark.enabled && state.dark && !paused ? darkTheme(settings.dark, theme) : null;
+    const dark = settings.dark.enabled && state.dark ? darkTheme(settings.dark, theme) : null;
     // A site seen with its own dark theme last time starts without Dark Reader, whose work at load
     // is the heaviest part of sobrio. The black stays until the detector's first look confirms it,
     // and if the site turned light, Dark Reader comes in that same task.

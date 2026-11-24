@@ -75,7 +75,7 @@
     "message": "Zapnout tmavý režim všude"
   },
   "pauseDark": {
-    "message": "Pozastavit tmavý režim všude na $MINUTES$ min",
+    "message": "Pozastavit tmavý režim a vlastní CSS všude na $MINUTES$ min",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Zapnout tmavý režim zpět všude (pozastaveno do $TIME$)",
+    "message": "Zapnout tmavý režim a vlastní CSS zpět všude (pozastaveno do $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Styl na tomto webu"
   },
   "commandName_pause": {
-    "message": "Pozastavit tmavý režim všude"
+    "message": "Pozastavit tmavý režim a styl všude"
   },
   "commandName_pauseHint": {
     "message": "Na 3 minuty; číslo hned za slovem nastaví minuty."

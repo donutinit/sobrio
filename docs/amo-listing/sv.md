@@ -12,7 +12,7 @@ En stilmall överallt. Inga rundade hörn, skuggor, textskuggor eller oskärpa. 
 
 Svart, med omdöme. Dark Readers dynamiska motor gör varje webbplats svart, färg för färg. Webbplatser som redan har ett eget mörkt tema behåller det.
 
-En switcher. Ctrl+Space öppnar en ruta mitt på sidan, som Obsidians snabbväxlare. Skriv för att söka bland dina bokmärken; Tab går runt bland Google, DuckDuckGo, YouTube, Wikipedia, GitHub och egna sökmotorer (valfri adress med %s, som en instans av SearXNG). Den kommer ihåg vad du öppnar och rangordnar det högre. pz och px slår på eller av mörkt läge och stilmallen på den aktuella webbplatsen, och pd pausar mörkt läge överallt i 3 minuter (pd15 för 15).
+En switcher. Ctrl+Space öppnar en ruta mitt på sidan, som Obsidians snabbväxlare. Skriv för att söka bland dina bokmärken; Tab går runt bland Google, DuckDuckGo, YouTube, Wikipedia, GitHub och egna sökmotorer (valfri adress med %s, som en instans av SearXNG). Den kommer ihåg vad du öppnar och rangordnar det högre. pz och px slår på eller av mörkt läge och stilmallen på den aktuella webbplatsen, och pd pausar mörkt läge och stilmallen överallt i 3 minuter (pd15 för 15).
 
 En ny flik med datumet och klockslaget, väl komponerade: sex layouter, fyra typografiska stilar eller egna typsnitt, en valfri hälsning, datumet på ett språk som slumpas från din lista, och switcher under det.
 

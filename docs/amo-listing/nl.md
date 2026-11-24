@@ -12,7 +12,7 @@ Eén stijlblad, overal. Geen afgeronde hoeken, schaduwen, tekstschaduwen of verv
 
 Zwart, met verstand. De dynamische motor van Dark Reader maakt elke site zwart, kleur voor kleur. Sites die al een eigen donker thema hebben, behouden dat.
 
-Een switcher. Ctrl+Space opent een vak midden op de pagina, zoals de quick switcher van Obsidian. Typ om je bladwijzers te doorzoeken; Tab loopt door Google, DuckDuckGo, YouTube, Wikipedia, GitHub en je eigen zoekmachines (elk adres met %s, zoals een SearXNG-instantie). Hij onthoudt wat je opent en zet dat hoger in de resultaten. pz en px zetten de donkere modus en de stijlpagina op de huidige site aan of uit, en pd pauzeert de donkere modus overal voor 3 minuten (pd15 voor 15).
+Een switcher. Ctrl+Space opent een vak midden op de pagina, zoals de quick switcher van Obsidian. Typ om je bladwijzers te doorzoeken; Tab loopt door Google, DuckDuckGo, YouTube, Wikipedia, GitHub en je eigen zoekmachines (elk adres met %s, zoals een SearXNG-instantie). Hij onthoudt wat je opent en zet dat hoger in de resultaten. pz en px zetten de donkere modus en de stijlpagina op de huidige site aan of uit, en pd pauzeert de donkere modus en de stijlpagina overal voor 3 minuten (pd15 voor 15).
 
 Een nieuw tabblad met de datum en de tijd, zorgvuldig gezet: zes indelingen, vier typografische stijlen of je eigen lettertypen, een optionele begroeting, de datum in een willekeurige taal uit je lijst, en de switcher eronder.
 

@@ -75,7 +75,7 @@
     "message": "Activer le mode sombre partout"
   },
   "pauseDark": {
-    "message": "Désactiver le mode sombre partout pendant $MINUTES$ min",
+    "message": "Désactiver le mode sombre et le CSS personnalisé partout pendant $MINUTES$ min",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Réactiver le mode sombre partout (en pause jusqu'à $TIME$)",
+    "message": "Réactiver le mode sombre et le CSS personnalisé partout (en pause jusqu'à $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Feuille de style sur ce site"
   },
   "commandName_pause": {
-    "message": "Mettre en pause le mode sombre partout"
+    "message": "Mettre en pause le mode sombre et la feuille de style partout"
   },
   "commandName_pauseHint": {
     "message": "Pendant 3 minutes, un nombre juste après le mot fixe les minutes."

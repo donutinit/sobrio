@@ -179,11 +179,10 @@
       return { title, sub, run: () => toggle(kind) };
     }
 
-    // Dark mode off on every site for a few minutes (pd, pd15), back on by itself: every page
-    // follows storage.local.darkPause. pd alone during a pause ends it.
+    // Dark mode and the stylesheet off on every site for a few minutes (pd, pd15), back on by
+    // themselves: every page follows storage.local.darkPause. pd alone during a pause ends it.
     function pauseRow(query) {
       const sub = query.trim().toLowerCase();
-      if (!settings.dark.enabled) return { title: t('darkOnEverywhere'), sub, run: () => toggle('dark') };
       const minutes = match.pauseMinutes(query, settings.switcher.commandNames);
       const left = sobrio.settings.pauseLeft(stored.darkPause, Date.now());
       if (left && sub === settings.switcher.commandNames.pause) {

@@ -316,7 +316,7 @@
     };
   }
 
-  // pd pauses dark mode everywhere: storage.local.darkPause is when the pause ends (ms since the
+  // pd pauses dark mode and the stylesheet everywhere: storage.local.darkPause is when the pause ends (ms since the
   // epoch). The milliseconds left of it, 0 when there is none; one longer than any pd can ask for
   // (a clock set back) counts as none.
   const PAUSE_MINUTES = 3;

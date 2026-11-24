@@ -74,7 +74,7 @@ Cztery polecenia, wpisywane w switcherze. Działają też z przycisku na pasku n
 |---|---|
 | `pz` | tryb ciemny włączony lub wyłączony dla bieżącej witryny |
 | `px` | arkusz stylów włączony lub wyłączony dla bieżącej witryny |
-| `pd` | tryb ciemny wyłączony we wszystkich witrynach na 3 minuty, potem wraca sam; liczba zaraz po nim ustawia minuty (`pd15`, od 1 do 999), a `pd` w trakcie przerwy ją kończy |
+| `pd` | tryb ciemny i arkusz stylów wyłączone we wszystkich witrynach na 3 minuty, potem wracają same; liczba zaraz po nim ustawia minuty (`pd15`, od 1 do 999), a `pd` w trakcie przerwy ją kończy |
 | `settings` | ustawienia (działa też `options`) |
 
 ### Nowa karta

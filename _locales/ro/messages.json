@@ -75,7 +75,7 @@
     "message": "Activează modul întunecat peste tot"
   },
   "pauseDark": {
-    "message": "Pauză la modul întunecat peste tot, $MINUTES$ min",
+    "message": "Pauză la modul întunecat și CSS-ul propriu peste tot, $MINUTES$ min",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Repornește modul întunecat peste tot (în pauză până la $TIME$)",
+    "message": "Repornește modul întunecat și CSS-ul propriu peste tot (în pauză până la $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Foaia de stiluri pe acest site"
   },
   "commandName_pause": {
-    "message": "Pauză la modul întunecat peste tot"
+    "message": "Pauză la modul întunecat și foaia de stiluri peste tot"
   },
   "commandName_pauseHint": {
     "message": "Timp de 3 minute; un număr scris imediat după cuvânt stabilește minutele."

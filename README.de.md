@@ -74,7 +74,7 @@ Vier Befehle, die du im Switcher tippst. Sie funktionieren auch über den Button
 |---|---|
 | `pz` | Dunkelmodus für die aktuelle Website ein- oder ausschalten |
 | `px` | das Stylesheet für die aktuelle Website ein- oder ausschalten |
-| `pd` | Dunkelmodus überall für 3 Minuten aus, dann schaltet er sich von allein wieder ein; eine Zahl direkt danach legt die Minuten fest (`pd15`, von 1 bis 999), und `pd` während einer Pause beendet sie |
+| `pd` | Dunkelmodus und das Stylesheet überall für 3 Minuten aus, dann schalten sie sich von allein wieder ein; eine Zahl direkt danach legt die Minuten fest (`pd15`, von 1 bis 999), und `pd` während einer Pause beendet sie |
 | `settings` | die Einstellungen (`options` funktioniert auch) |
 
 ### Ein neuer Tab

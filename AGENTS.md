@@ -108,7 +108,7 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   tema en vivo sí la tiene. `cssOff`, `darkOff` y
   `animOff` son listas de patrones; `animOff` sin guardar vale `DEFAULT_ANIM_OFF`
   (`['chatgpt.com']`). `darkPause` es cuándo termina la pausa de `pd` (ms desde la época): mientras
-  dura, `page.js` apaga Dark Reader en todos los sitios y deja un timer para volver a prenderlo. `pd`
+  dura, `page.js` apaga Dark Reader y la hoja de estilo en todos los sitios y deja un timer para volver a prenderlos. `pd`
   solo son 3 minutos, `pd15` son 15 (de 1 a 999) y `pd` durante una pausa la termina. No va en el
   respaldo.
 - Atajos, velocidad, aviso y pausa del autoplay solo actúan con eventos `isTrusted`: una página

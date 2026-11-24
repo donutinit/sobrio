@@ -12,7 +12,7 @@ sobrio는 Stylus, Dark Reader, Search Bookmarks History and Tabs, Tabliss, Globa
 
 똑똑하게 검게. Dark Reader의 동적 엔진이 모든 사이트를 색상별로 검게 바꿉니다. 이미 고유한 어두운 테마가 있는 사이트는 그 테마를 유지합니다.
 
-switcher. Ctrl+Space를 누르면 Obsidian의 빠른 전환기처럼 페이지 가운데에 상자가 열립니다. 입력해서 북마크를 검색하고, Tab으로 Google, DuckDuckGo, YouTube, Wikipedia, GitHub와 직접 추가한 검색 엔진(%s가 들어간 주소라면 무엇이든, 예: SearXNG 인스턴스)을 차례로 바꿉니다. 여기서 연 항목을 기억해 결과에서 위로 올립니다. pz와 px는 현재 사이트의 다크 모드와 스타일시트를 켜고 끕니다. pd는 모든 사이트의 다크 모드를 3분 동안 일시 정지합니다(pd15는 15분).
+switcher. Ctrl+Space를 누르면 Obsidian의 빠른 전환기처럼 페이지 가운데에 상자가 열립니다. 입력해서 북마크를 검색하고, Tab으로 Google, DuckDuckGo, YouTube, Wikipedia, GitHub와 직접 추가한 검색 엔진(%s가 들어간 주소라면 무엇이든, 예: SearXNG 인스턴스)을 차례로 바꿉니다. 여기서 연 항목을 기억해 결과에서 위로 올립니다. pz와 px는 현재 사이트의 다크 모드와 스타일시트를 켜고 끕니다. pd는 모든 사이트의 다크 모드와 스타일시트를 3분 동안 일시 정지합니다(pd15는 15분).
 
 새 탭. 날짜와 시간을 정갈하게 보여 줍니다. 배치 여섯 가지, 서체 네 가지 또는 직접 설치한 글꼴, 선택 사항인 인사말, 목록에서 무작위로 고른 언어로 된 날짜, 그리고 그 아래의 switcher를 제공합니다.
 

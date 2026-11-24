@@ -75,7 +75,7 @@
     "message": "Dunkelmodus überall einschalten"
   },
   "pauseDark": {
-    "message": "Dunkelmodus überall für $MINUTES$ Min. pausieren",
+    "message": "Dunkelmodus und eigenes CSS überall für $MINUTES$ Min. pausieren",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Dunkelmodus überall wieder einschalten (pausiert bis $TIME$)",
+    "message": "Dunkelmodus und eigenes CSS überall wieder einschalten (pausiert bis $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Stylesheet auf dieser Website"
   },
   "commandName_pause": {
-    "message": "Dunkelmodus überall pausieren"
+    "message": "Dunkelmodus und Stylesheet überall pausieren"
   },
   "commandName_pauseHint": {
     "message": "Für 3 Minuten; eine Zahl direkt nach dem Wort legt die Minuten fest."

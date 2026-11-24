@@ -75,7 +75,7 @@
     "message": "모든 사이트에서 다크 모드 켜기"
   },
   "pauseDark": {
-    "message": "모든 사이트의 다크 모드 $MINUTES$분 일시 정지",
+    "message": "모든 사이트의 다크 모드와 사용자 CSS $MINUTES$분 일시 정지",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "모든 사이트에서 다크 모드 다시 켜기 ($TIME$까지 일시 정지)",
+    "message": "모든 사이트에서 다크 모드와 사용자 CSS 다시 켜기 ($TIME$까지 일시 정지)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "이 사이트의 스타일시트"
   },
   "commandName_pause": {
-    "message": "모든 사이트의 다크 모드 일시 정지"
+    "message": "모든 사이트의 다크 모드와 스타일시트 일시 정지"
   },
   "commandName_pauseHint": {
     "message": "3분 동안; 단어 바로 뒤의 숫자가 분을 정합니다."

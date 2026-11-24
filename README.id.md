@@ -74,7 +74,7 @@ Empat perintah, diketik di switcher. Perintah ini juga bekerja dari tombol di bi
 |---|---|
 | `pz` | mode gelap untuk situs saat ini, nyala atau mati |
 | `px` | stylesheet untuk situs saat ini, nyala atau mati |
-| `pd` | mode gelap mati di semua situs selama 3 menit, lalu nyala sendiri; angka yang langsung mengikuti kata ini mengatur menitnya (`pd15`, dari 1 sampai 999), dan `pd` saat jeda mengakhirinya |
+| `pd` | mode gelap dan stylesheet mati di semua situs selama 3 menit, lalu nyala sendiri; angka yang langsung mengikuti kata ini mengatur menitnya (`pd15`, dari 1 sampai 999), dan `pd` saat jeda mengakhirinya |
 | `settings` | pengaturan (`options` juga berfungsi) |
 
 ### Tab baru

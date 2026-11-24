@@ -75,7 +75,7 @@
     "message": "Ligar o modo escuro em todos os sites"
   },
   "pauseDark": {
-    "message": "Pausar o modo escuro em todos os sites por $MINUTES$ min",
+    "message": "Pausar o modo escuro e o CSS personalizado em todos os sites por $MINUTES$ min",
     "placeholders": {
       "minutes": {
         "content": "$1"
@@ -83,7 +83,7 @@
     }
   },
   "pauseEnd": {
-    "message": "Voltar a ligar o modo escuro em todos os sites (pausado até $TIME$)",
+    "message": "Voltar a ligar o modo escuro e o CSS personalizado em todos os sites (pausado até $TIME$)",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -537,7 +537,7 @@
     "message": "Folha de estilo neste site"
   },
   "commandName_pause": {
-    "message": "Pausar o modo escuro em todos os sites"
+    "message": "Pausar o modo escuro e a folha de estilo em todos os sites"
   },
   "commandName_pauseHint": {
     "message": "Por 3 minutos; um número logo depois da palavra define os minutos."

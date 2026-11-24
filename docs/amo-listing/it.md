@@ -12,7 +12,7 @@ Un foglio di stile ovunque. Niente angoli arrotondati, ombre, ombre del testo o 
 
 Nero, con criterio. Il motore dinamico di Dark Reader rende nero ogni sito, colore per colore. I siti che hanno già un tema scuro proprio lo mantengono.
 
-Uno switcher. Ctrl+Space apre un riquadro al centro della pagina, come lo switcher rapido di Obsidian. Scrivi per cercare nei tuoi segnalibri; Tab scorre tra Google, DuckDuckGo, YouTube, Wikipedia, GitHub e i tuoi motori (qualsiasi indirizzo con %s, come un'istanza di SearXNG). Ricorda ciò che apri e lo mette più in alto nei risultati. pz e px attivano o disattivano la modalità scura e il foglio di stile sul sito corrente, e pd sospende la modalità scura ovunque per 3 minuti (pd15 per 15).
+Uno switcher. Ctrl+Space apre un riquadro al centro della pagina, come lo switcher rapido di Obsidian. Scrivi per cercare nei tuoi segnalibri; Tab scorre tra Google, DuckDuckGo, YouTube, Wikipedia, GitHub e i tuoi motori (qualsiasi indirizzo con %s, come un'istanza di SearXNG). Ricorda ciò che apri e lo mette più in alto nei risultati. pz e px attivano o disattivano la modalità scura e il foglio di stile sul sito corrente, e pd sospende la modalità scura e il foglio di stile ovunque per 3 minuti (pd15 per 15).
 
 Una nuova scheda con data e ora composte con cura: sei layout, quattro stili tipografici o font tuoi, un saluto facoltativo, la data in una lingua scelta a caso dal tuo elenco, e lo switcher sotto.
 
