@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Activer le mode sombre partout"
   },
+  "pauseDark": {
+    "message": "Désactiver le mode sombre partout pendant $MINUTES$ min",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Réactiver le mode sombre partout (en pause jusqu'à $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(supprime $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "Votre CSS"
   },
   "styleCustomHelp": {
-    "message": "Ajouté après tout ce qui précède, dans une feuille à part, sur chaque site où le CSS est activé ; un @import va tout en haut. ta le désactive avec le reste. Utilisez !important pour l'emporter sur le site. Les sites peuvent le lire, comme tout style de leur page."
+    "message": "Ajouté après tout ce qui précède, dans une feuille à part, sur chaque site où le CSS est activé ; un @import va tout en haut. px le désactive avec le reste. Utilisez !important pour l'emporter sur le site. Les sites peuvent le lire, comme tout style de leur page."
   },
   "switcherPrecision": {
     "message": "Précision de la recherche"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Feuille de style sur ce site"
+  },
+  "commandName_pause": {
+    "message": "Mettre en pause le mode sombre partout"
+  },
+  "commandName_pauseHint": {
+    "message": "Pendant 3 minutes, un nombre juste après le mot fixe les minutes."
   },
   "commandName_settings": {
     "message": "Ouvrir les paramètres"

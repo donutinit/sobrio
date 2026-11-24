@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Activează modul întunecat peste tot"
   },
+  "pauseDark": {
+    "message": "Pauză la modul întunecat peste tot, $MINUTES$ min",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Repornește modul întunecat peste tot (în pauză până la $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(elimină $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "CSS-ul tău"
   },
   "styleCustomHelp": {
-    "message": "Adăugat după tot ce e mai sus, într-o foaie separată, pe fiecare site unde CSS-ul e activ; un @import merge chiar la început. ta îl oprește împreună cu restul. Folosește !important ca să câștigi în fața site-ului. Site-urile pot citi acest CSS, la fel cum pot citi orice stil din pagina lor."
+    "message": "Adăugat după tot ce e mai sus, într-o foaie separată, pe fiecare site unde CSS-ul e activ; un @import merge chiar la început. px îl oprește împreună cu restul. Folosește !important ca să câștigi în fața site-ului. Site-urile pot citi acest CSS, la fel cum pot citi orice stil din pagina lor."
   },
   "switcherPrecision": {
     "message": "Precizia căutării"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Foaia de stiluri pe acest site"
+  },
+  "commandName_pause": {
+    "message": "Pauză la modul întunecat peste tot"
+  },
+  "commandName_pauseHint": {
+    "message": "Timp de 3 minute; un număr scris imediat după cuvânt stabilește minutele."
   },
   "commandName_settings": {
     "message": "Deschide setările"

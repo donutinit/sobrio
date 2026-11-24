@@ -199,18 +199,33 @@
     return { mode: engine, manual: false };
   }
 
-  const DEFAULT_COMMANDS = { dark: 'td', css: 'ta', settings: 'settings' };
+  const DEFAULT_COMMANDS = { dark: 'pz', css: 'px', pause: 'pd', settings: 'settings' };
+  const PAUSE_MINUTES = 3;
 
   // names: the person's words (settings.switcher.commandNames). "options" also opens the
-  // settings while none of theirs uses it.
+  // settings while none of theirs uses it. The pause word takes minutes after it (pd15).
   function parseCommand(query, names = DEFAULT_COMMANDS) {
     const word = query.trim().toLowerCase();
     if (!word) return null;
     const kind = Object.keys(names).find((key) => names[key] === word);
-    return kind ?? (word === 'options' ? 'settings' : null);
+    if (kind) return kind;
+    if (pauseMinutes(word, names)) return 'pause';
+    return word === 'options' ? 'settings' : null;
   }
 
-  // The site a tab shows, for td and ta from the popup: only http(s) pages have one.
+  // The minutes pd pauses dark mode for: 3 by itself, or 1 to 999 written right after the word;
+  // null when the query is not the pause command.
+  function pauseMinutes(query, names = DEFAULT_COMMANDS) {
+    const word = query.trim().toLowerCase();
+    const name = names.pause;
+    if (!name || !word.startsWith(name)) return null;
+    const digits = word.slice(name.length);
+    if (!digits) return PAUSE_MINUTES;
+    const minutes = /^\d{1,3}$/.test(digits) ? Number(digits) : 0;
+    return minutes >= 1 ? minutes : null;
+  }
+
+  // The site a tab shows, for pz and px from the popup: only http(s) pages have one.
   function siteHost(url) {
     try {
       const parsed = new URL(url);
@@ -238,6 +253,7 @@
     nextMode,
     autoMode,
     parseCommand,
+    pauseMinutes,
     commandsAllowed,
     searchUrl,
     displayTitle,

@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Ligar o modo escuro em todos os sites"
   },
+  "pauseDark": {
+    "message": "Pausar o modo escuro em todos os sites por $MINUTES$ min",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Voltar a ligar o modo escuro em todos os sites (pausado até $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(remove $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "Seu CSS"
   },
   "styleCustomHelp": {
-    "message": "Entra depois de tudo acima, em uma folha própria, em cada site onde o CSS está ligado; um @import vai para o topo. ta desliga tudo junto com o resto. Use !important para ganhar do site. Os sites podem ler isso, como podem ler qualquer estilo da sua página."
+    "message": "Entra depois de tudo acima, em uma folha própria, em cada site onde o CSS está ligado; um @import vai para o topo. px desliga tudo junto com o resto. Use !important para ganhar do site. Os sites podem ler isso, como podem ler qualquer estilo da sua página."
   },
   "switcherPrecision": {
     "message": "Precisão da pesquisa"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Folha de estilo neste site"
+  },
+  "commandName_pause": {
+    "message": "Pausar o modo escuro em todos os sites"
+  },
+  "commandName_pauseHint": {
+    "message": "Por 3 minutos; um número logo depois da palavra define os minutos."
   },
   "commandName_settings": {
     "message": "Abrir as configurações"

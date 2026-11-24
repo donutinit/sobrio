@@ -12,7 +12,7 @@ Uma folha de estilo para todos os sites. Sem cantos arredondados, sombras, sombr
 
 Preto, com critério. O motor dinâmico do Dark Reader deixa cada site preto, cor por cor. Sites que já têm um tema escuro próprio mantêm esse tema.
 
-Um switcher. Ctrl+Space abre uma caixa no meio da página, como o quick switcher do Obsidian. Digite para buscar nos seus favoritos; o quanto a busca tolera erros é uma configuração (estrita, normal ou flexível). Se nada corresponder, Enter pesquisa na web. Tab percorre Google, DuckDuckGo, YouTube, Wikipedia, GitHub e os mecanismos que você criar (qualquer endereço com %s, como uma instância do SearXNG). Ele lembra o que você abre e coloca mais alto na pesquisa. td e ta ligam ou desligam o modo escuro e a folha de estilo no site atual.
+Um switcher. Ctrl+Space abre uma caixa no meio da página, como o quick switcher do Obsidian. Digite para buscar nos seus favoritos; o quanto a busca tolera erros é uma configuração (estrita, normal ou flexível). Se nada corresponder, Enter pesquisa na web. Tab percorre Google, DuckDuckGo, YouTube, Wikipedia, GitHub e os mecanismos que você criar (qualquer endereço com %s, como uma instância do SearXNG). Ele lembra o que você abre e coloca mais alto na pesquisa. pz e px ligam ou desligam o modo escuro e a folha de estilo no site atual, e pd pausa o modo escuro em todos os sites por 3 minutos (pd15 para 15).
 
 Uma nova aba com data e hora bem compostas: seis layouts, quatro estilos tipográficos ou fontes próprias, uma saudação opcional, a data em um idioma escolhido ao acaso da sua lista e o switcher embaixo.
 

@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "すべてのサイトでダークモードをオン"
   },
+  "pauseDark": {
+    "message": "すべてのサイトのダークモードを$MINUTES$分停止",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "すべてのサイトでダークモードをオンに戻す（$TIME$まで停止中）",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "($PATTERNS$ を削除)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "独自のCSS"
   },
   "styleCustomHelp": {
-    "message": "上記すべての後に、独自のシートとして、CSSがオンのすべてのサイトに追加されます。@import は一番上に書きます。ta で他の設定と一緒にオフにできます。サイトより優先するには !important を使います。サイトからも読み取れます。ページのほかのスタイルと同様です。"
+    "message": "上記すべての後に、独自のシートとして、CSSがオンのすべてのサイトに追加されます。@import は一番上に書きます。px で他の設定と一緒にオフにできます。サイトより優先するには !important を使います。サイトからも読み取れます。ページのほかのスタイルと同様です。"
   },
   "switcherPrecision": {
     "message": "検索の精度"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "このサイトのスタイルシート"
+  },
+  "commandName_pause": {
+    "message": "すべてのサイトのダークモードを停止"
+  },
+  "commandName_pauseHint": {
+    "message": "3分間。語のすぐ後ろの数字で分数を指定します。"
   },
   "commandName_settings": {
     "message": "設定を開く"

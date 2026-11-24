@@ -67,12 +67,13 @@ Nó ghi nhớ những gì bạn mở từ đây: dấu trang bạn mở thườn
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | công cụ tiếp theo / trước |
 | <kbd>Esc</kbd> | đóng |
 
-Ba lệnh, gõ trong switcher. Chúng cũng hoạt động từ nút trên thanh công cụ, trên trang của thẻ đang dùng, và các từ của chúng do bạn đổi trong Cài đặt › Switcher:
+Bốn lệnh, gõ trong switcher. Chúng cũng hoạt động từ nút trên thanh công cụ, trên trang của thẻ đang dùng, và các từ của chúng do bạn đổi trong Cài đặt › Switcher:
 
 | Lệnh | |
 |---|---|
-| `td` | bật hoặc tắt chế độ tối cho trang hiện tại |
-| `ta` | bật hoặc tắt kiểu CSS cho trang hiện tại |
+| `pz` | bật hoặc tắt chế độ tối cho trang hiện tại |
+| `px` | bật hoặc tắt kiểu CSS cho trang hiện tại |
+| `pd` | tắt chế độ tối ở mọi nơi trong 3 phút, sau đó tự bật lại; số viết ngay sau sẽ đặt số phút (`pd15`, từ 1 đến 999), và `pd` trong lúc tạm dừng sẽ kết thúc nó |
 | `settings` | cài đặt (`options` cũng được) |
 
 ### Một thẻ mới

@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Bật chế độ tối ở mọi nơi"
   },
+  "pauseDark": {
+    "message": "Tạm tắt chế độ tối ở mọi nơi trong $MINUTES$ phút",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Bật lại chế độ tối ở mọi nơi (tạm dừng đến $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(gỡ $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "CSS của bạn"
   },
   "styleCustomHelp": {
-    "message": "Được thêm sau tất cả những gì ở trên, trong một trang kiểu riêng, trên mọi trang web có bật CSS; @import phải nằm ở đầu. ta tắt nó cùng với các mục khác. Dùng !important để ghi đè trang web. Trang web có thể đọc được, cũng như mọi kiểu trên trang của họ."
+    "message": "Được thêm sau tất cả những gì ở trên, trong một trang kiểu riêng, trên mọi trang web có bật CSS; @import phải nằm ở đầu. px tắt nó cùng với các mục khác. Dùng !important để ghi đè trang web. Trang web có thể đọc được, cũng như mọi kiểu trên trang của họ."
   },
   "switcherPrecision": {
     "message": "Độ chính xác khi tìm"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Kiểu CSS trên trang này"
+  },
+  "commandName_pause": {
+    "message": "Tạm tắt chế độ tối ở mọi nơi"
+  },
+  "commandName_pauseHint": {
+    "message": "Trong 3 phút; số viết ngay sau từ sẽ đặt số phút."
   },
   "commandName_settings": {
     "message": "Mở cài đặt"

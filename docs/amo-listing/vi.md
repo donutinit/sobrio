@@ -12,7 +12,7 @@ Một stylesheet cho mọi nơi. Không bo góc, bóng đổ, bóng chữ hay l�
 
 Đen, thông minh. Động cơ động của Dark Reader biến mọi trang web thành màu đen, từng màu một. Các trang đã có giao diện tối riêng sẽ giữ nguyên.
 
-Một switcher. Ctrl+Space mở một hộp ở giữa trang, giống quick switcher của Obsidian. Gõ để tìm trong dấu trang; Tab lần lượt qua Google, DuckDuckGo, YouTube, Wikipedia, GitHub và các công cụ của riêng bạn (bất kỳ địa chỉ nào có %s, như một instance SearXNG). Nó ghi nhớ những gì bạn mở và xếp lên cao hơn. td và ta bật hoặc tắt chế độ tối và kiểu CSS trên trang hiện tại.
+Một switcher. Ctrl+Space mở một hộp ở giữa trang, giống quick switcher của Obsidian. Gõ để tìm trong dấu trang; Tab lần lượt qua Google, DuckDuckGo, YouTube, Wikipedia, GitHub và các công cụ của riêng bạn (bất kỳ địa chỉ nào có %s, như một instance SearXNG). Nó ghi nhớ những gì bạn mở và xếp lên cao hơn. pz và px bật hoặc tắt chế độ tối và kiểu CSS trên trang hiện tại, và pd tạm tắt chế độ tối ở mọi nơi trong 3 phút (pd15 là 15 phút).
 
 Một thẻ mới với ngày và giờ được sắp đặt cẩn thận: sáu bố cục, bốn kiểu chữ hoặc phông của riêng bạn, một lời chào tùy chọn, ngày bằng một ngôn ngữ chọn ngẫu nhiên trong danh sách của bạn, và switcher ở bên dưới.
 

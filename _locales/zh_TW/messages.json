@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "在所有網站開啟深色模式"
   },
+  "pauseDark": {
+    "message": "在所有網站暫停深色模式 $MINUTES$ 分鐘",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "在所有網站重新開啟深色模式（暫停至 $TIME$）",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "（移除 $PATTERNS$）",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "你的 CSS"
   },
   "styleCustomHelp": {
-    "message": "加在上面所有設定之後，放在獨立的樣式表中，套用於 CSS 開啟的每個網站；@import 須放在最上方。ta 會和其他設定一起關閉它。使用 !important 以壓過網站的樣式。網站和其他樣式一樣，可以讀取它。"
+    "message": "加在上面所有設定之後，放在獨立的樣式表中，套用於 CSS 開啟的每個網站；@import 須放在最上方。px 會和其他設定一起關閉它。使用 !important 以壓過網站的樣式。網站和其他樣式一樣，可以讀取它。"
   },
   "switcherPrecision": {
     "message": "搜尋精確度"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "此網站的樣式表"
+  },
+  "commandName_pause": {
+    "message": "暫停所有網站的深色模式"
+  },
+  "commandName_pauseHint": {
+    "message": "暫停 3 分鐘；指令後面緊接的數字可設定分鐘數。"
   },
   "commandName_settings": {
     "message": "開啟設定"

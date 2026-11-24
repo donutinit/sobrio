@@ -68,12 +68,13 @@ Den minns vad du öppnar härifrån: ett bokmärke du öppnar ofta, och nyligen,
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | nästa / föregående sökmotor |
 | <kbd>Esc</kbd> | stäng |
 
-Tre kommandon, skrivna i switcher. De fungerar även från verktygsfältsknappen, på den aktiva fliken, och orden kan du ändra under Inställningar › Switcher:
+Fyra kommandon, skrivna i switcher. De fungerar även från verktygsfältsknappen, på den aktiva fliken, och orden kan du ändra under Inställningar › Switcher:
 
 | Kommando | |
 |---|---|
-| `td` | mörkt läge på eller av för den aktuella webbplatsen |
-| `ta` | stilmallen på eller av för den aktuella webbplatsen |
+| `pz` | mörkt läge på eller av för den aktuella webbplatsen |
+| `px` | stilmallen på eller av för den aktuella webbplatsen |
+| `pd` | mörkt läge av överallt i 3 minuter, sedan på av sig själv; ett tal direkt efter anger minuterna (`pd15`, från 1 till 999), och `pd` under en paus avslutar den |
 | `settings` | inställningarna (`options` fungerar också) |
 
 ### En ny flik

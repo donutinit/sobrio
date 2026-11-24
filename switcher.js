@@ -117,7 +117,7 @@
         arrived();
         if (pendingEnter) activate(selected, pendingEnter.newTab);
       });
-    chrome.storage.local.get(['settings', 'theme', 'darkOff', 'cssOff', 'stats']).then((answer) => {
+    chrome.storage.local.get(['settings', 'theme', 'darkOff', 'cssOff', 'darkPause', 'stats']).then((answer) => {
       cache.stored = answer;
       useStored(answer);
       update();
@@ -126,11 +126,12 @@
 
     // record: the title to remember the page under (bookmarks only; searches are not counted).
     const open = (url, newTab, record) => send({ sobrio: 'open', url, newTab, record });
-    // td and ta change the site's exceptions. In a page they need page.js (sobrio.send, from
-    // boot.js), else nothing would change until a reload; the popup acts on the active tab's site.
+    // The dark and css commands change the site's exceptions. In a page they need page.js
+    // (sobrio.send, from boot.js), else nothing would change until a reload; the popup acts on the
+    // active tab's site. The settings and the pause are not about a site: they work anywhere.
     const commandAllowed = (kind) =>
       settings.switcher.commands &&
-      (kind === 'settings' || ((popup || Boolean(sobrio.send)) && match.commandsAllowed(hostname)));
+      (kind === 'settings' || kind === 'pause' || ((popup || Boolean(sobrio.send)) && match.commandsAllowed(hostname)));
 
     function bookmarkRow({ bookmark, hits }) {
       const sub = document.createDocumentFragment();
@@ -157,10 +158,11 @@
       };
     }
 
-    function commandRow(kind) {
+    function commandRow(kind, query) {
       if (kind === 'settings') {
         return { title: t('openSettings'), sub: settings.switcher.commandNames.settings, run: () => send({ sobrio: 'settings' }) };
       }
+      if (kind === 'pause') return pauseRow(query);
       const sub = settings.switcher.commandNames[kind];
       // A local address is left alone as a whole: the switch for that is in the settings.
       if (siteState(stored, hostname).local) {
@@ -175,6 +177,20 @@
       const name = kind === 'dark' ? (on ? 'darkOff' : 'darkOn') : on ? 'cssOff' : 'cssOn';
       const title = t(name, hostname) + (!on && wildcards.length ? ` ${t('removesPatterns', wildcards.join(', '))}` : '');
       return { title, sub, run: () => toggle(kind) };
+    }
+
+    // Dark mode off on every site for a few minutes (pd, pd15), back on by itself: every page
+    // follows storage.local.darkPause. pd alone during a pause ends it.
+    function pauseRow(query) {
+      const sub = query.trim().toLowerCase();
+      if (!settings.dark.enabled) return { title: t('darkOnEverywhere'), sub, run: () => toggle('dark') };
+      const minutes = match.pauseMinutes(query, settings.switcher.commandNames);
+      const left = sobrio.settings.pauseLeft(stored.darkPause, Date.now());
+      if (left && sub === settings.switcher.commandNames.pause) {
+        const until = new Date(Date.now() + left).toLocaleTimeString(chrome.i18n.getUILanguage(), { hour: 'numeric', minute: '2-digit' });
+        return { title: t('pauseEnd', until), sub, run: () => chrome.storage.local.remove('darkPause') };
+      }
+      return { title: t('pauseDark', String(minutes)), sub, run: () => chrome.storage.local.set({ darkPause: Date.now() + minutes * 60000 }) };
     }
 
     // Off adds this exact host; on removes every pattern that covers it, wildcards included.
@@ -205,7 +221,7 @@
       state = match.autoMode(state, query, !loaded || results.length > 0 || command !== null, modes, settings.switcher.autoSearch);
       rows = [];
       if (state.mode === 'bookmarks') {
-        if (command) rows.push(commandRow(command));
+        if (command) rows.push(commandRow(command, query));
         rows.push(...results.map(bookmarkRow));
       } else if (query.trim()) {
         rows.push(engineRow(match.engineById(state.mode, settings.switcher), query));

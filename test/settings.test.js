@@ -20,6 +20,9 @@ const {
   cleanUrl,
   toggledPatterns,
   snapSpeed,
+  pauseLeft,
+  PAUSE_MINUTES,
+  PAUSE_MAX,
 } = require('../settings.js');
 
 test('nothing stored gives the defaults, as a copy', () => {
@@ -411,19 +414,34 @@ test('siteState: ChatGPT keeps its animations until the list is saved', () => {
   assert.equal(siteState({ animOff: 'junk' }, 'chatgpt.com').animations, false);
 });
 
-test('command names: td, ta and settings by default; yours if each is one word and different', () => {
-  assert.deepEqual(DEFAULTS.switcher.commandNames, { dark: 'td', css: 'ta', settings: 'settings' });
-  const own = mergeSettings({ switcher: { commandNames: { dark: ' Oscuro ', css: 'css', settings: 'ajustes' } } });
-  assert.deepEqual(own.switcher.commandNames, { dark: 'oscuro', css: 'css', settings: 'ajustes' });
+test('command names: pz, px, pd and settings by default; yours if each is one word and different', () => {
+  const defaults = { dark: 'pz', css: 'px', pause: 'pd', settings: 'settings' };
+  assert.deepEqual(DEFAULTS.switcher.commandNames, defaults);
+  const own = mergeSettings({ switcher: { commandNames: { dark: ' Oscuro ', css: 'css', pause: 'Pausa', settings: 'ajustes' } } });
+  assert.deepEqual(own.switcher.commandNames, { dark: 'oscuro', css: 'css', pause: 'pausa', settings: 'ajustes' });
+  // Saved before the pause existed: it comes with its default word.
+  assert.deepEqual(mergeSettings({ switcher: { commandNames: { dark: 'td', css: 'ta', settings: 'settings' } } }).switcher.commandNames,
+    { dark: 'td', css: 'ta', pause: 'pd', settings: 'settings' });
   // A bad one falls back alone: spaces, empty, too long, not text.
-  assert.equal(mergeSettings({ switcher: { commandNames: { dark: 'modo oscuro' } } }).switcher.commandNames.dark, 'td');
-  assert.equal(mergeSettings({ switcher: { commandNames: { css: '' } } }).switcher.commandNames.css, 'ta');
-  assert.equal(mergeSettings({ switcher: { commandNames: { css: 'x'.repeat(17) } } }).switcher.commandNames.css, 'ta');
+  assert.equal(mergeSettings({ switcher: { commandNames: { dark: 'modo oscuro' } } }).switcher.commandNames.dark, 'pz');
+  assert.equal(mergeSettings({ switcher: { commandNames: { css: '' } } }).switcher.commandNames.css, 'px');
+  assert.equal(mergeSettings({ switcher: { commandNames: { css: 'x'.repeat(17) } } }).switcher.commandNames.css, 'px');
+  assert.equal(mergeSettings({ switcher: { commandNames: { pause: 'pd 5' } } }).switcher.commandNames.pause, 'pd');
   assert.equal(mergeSettings({ switcher: { commandNames: { settings: 3 } } }).switcher.commandNames.settings, 'settings');
   assert.equal(mergeSettings({ switcher: { commandNames: { dark: 'año' } } }).switcher.commandNames.dark, 'año');
-  // Two commands cannot share a word: then all three go back to the defaults.
-  assert.deepEqual(mergeSettings({ switcher: { commandNames: { dark: 'ta' } } }).switcher.commandNames,
-    { dark: 'td', css: 'ta', settings: 'settings' });
+  // Two commands cannot share a word: then all of them go back to the defaults.
+  assert.deepEqual(mergeSettings({ switcher: { commandNames: { dark: 'px' } } }).switcher.commandNames, defaults);
+  assert.deepEqual(mergeSettings({ switcher: { commandNames: { dark: 'pd' } } }).switcher.commandNames, defaults);
+});
+
+test('pauseLeft: the time left of a pause of dark mode, none when it is over or not one', () => {
+  const now = 1_800_000_000_000;
+  assert.equal(pauseLeft(now + 180000, now), 180000);
+  assert.equal(pauseLeft(now + PAUSE_MAX * 60000, now), PAUSE_MAX * 60000);
+  assert.equal(PAUSE_MINUTES, 3);
+  for (const until of [now, now - 1, undefined, null, '9999999999999', NaN, now + PAUSE_MAX * 60000 + 1]) {
+    assert.equal(pauseLeft(until, now), 0, String(until));
+  }
 });
 
 test('classifyRateChange: a rate no person picks (0, out of range, not a number) is ignored', () => {

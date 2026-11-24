@@ -58,7 +58,8 @@ already have a dark theme of their own keep it.
 A switcher. Ctrl+Space opens a box in the middle of the page, like Obsidian's quick switcher.
 Type to search your bookmarks; Tab moves through Google, DuckDuckGo, YouTube, Wikipedia, GitHub
 and engines of your own (any address with %s, such as a SearXNG instance). It remembers what you
-open and ranks it higher. td and ta toggle dark mode and the stylesheet on the current site.
+open and ranks it higher. pz and px toggle dark mode and the stylesheet on the current site, and
+pd pauses dark mode everywhere for 3 minutes (pd15 for 15).
 
 A new tab with the date and the time set with care: six layouts, four typographic styles or
 fonts of your own, an optional greeting, the date in a language picked at random from your list,
@@ -89,8 +90,8 @@ Los sitios que ya tienen tema oscuro propio lo conservan.
 Un switcher. Ctrl+Space abre una caja en medio de la página, como el quick switcher de Obsidian.
 Escribe para buscar en tus bookmarks; Tab recorre Google, DuckDuckGo, YouTube, Wikipedia, GitHub
 y tus propios motores (cualquier dirección con %s, como una instancia de SearXNG). Recuerda lo
-que abres y lo sube en la búsqueda. td y ta prenden o apagan el modo oscuro y la hoja de estilo
-en el sitio actual.
+que abres y lo sube en la búsqueda. pz y px prenden o apagan el modo oscuro y la hoja de estilo
+en el sitio actual, y pd pausa el modo oscuro en todos lados por 3 minutos (pd15 por 15).
 
 Una nueva pestaña con la fecha y la hora bien compuestas: seis diseños, cuatro estilos
 tipográficos o tus propias fuentes, un saludo opcional, la fecha en un idioma al azar de tu lista
@@ -155,7 +156,7 @@ Shortcuts pressed inside an iframe that concern the site (dark mode or the style
 copying its link) are passed through the background to the tab's top frame with tabs.sendMessage
 (frameId 0); the top frame looks the shortcut up again in its own settings by its keys.
 
-To try it: open any site (it turns black), press Ctrl+Space and type a bookmark's name, type td
-or ta in the switcher, open a new tab, and open the settings from the add-on's preferences.
+To try it: open any site (it turns black), press Ctrl+Space and type a bookmark's name, type pz,
+px or pd in the switcher, open a new tab, and open the settings from the add-on's preferences.
 Source and tests: https://github.com/donutinit/sobrio (node --test).
 ```

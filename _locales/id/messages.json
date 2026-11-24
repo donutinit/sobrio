@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Nyalakan mode gelap di semua situs"
   },
+  "pauseDark": {
+    "message": "Jeda mode gelap di semua situs, $MINUTES$ min",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Nyalakan lagi mode gelap di semua situs (dijeda sampai $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(menghapus $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "CSS kamu"
   },
   "styleCustomHelp": {
-    "message": "Ditambahkan setelah semua di atas, dalam lembar tersendiri, di setiap situs tempat CSS aktif; @import ditaruh paling atas. ta mematikannya bersama yang lain. Pakai !important untuk mengalahkan situs. Situs bisa membacanya, seperti mereka bisa membaca gaya apa pun di halaman mereka."
+    "message": "Ditambahkan setelah semua di atas, dalam lembar tersendiri, di setiap situs tempat CSS aktif; @import ditaruh paling atas. px mematikannya bersama yang lain. Pakai !important untuk mengalahkan situs. Situs bisa membacanya, seperti mereka bisa membaca gaya apa pun di halaman mereka."
   },
   "switcherPrecision": {
     "message": "Ketepatan pencarian"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Stylesheet di situs ini"
+  },
+  "commandName_pause": {
+    "message": "Jeda mode gelap di semua situs"
+  },
+  "commandName_pauseHint": {
+    "message": "Selama 3 menit; angka yang langsung mengikuti kata ini mengatur jumlah menitnya."
   },
   "commandName_settings": {
     "message": "Buka pengaturan"

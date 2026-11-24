@@ -17,7 +17,7 @@
       bookmarks: true, autoSearch: true, commands: true, hints: true,
       engines: { google: true, duckduckgo: true, youtube: true, wikipedia: true, github: true },
       precision: 'normal', defaultEngine: 'google', customEngines: [], memory: true,
-      commandNames: { dark: 'td', css: 'ta', settings: 'settings' },
+      commandNames: { dark: 'pz', css: 'px', pause: 'pd', settings: 'settings' },
     },
     newtab: {
       style: 'editorial', locales: [], clock: 'auto', date: true, time: true, switcher: true,
@@ -70,7 +70,7 @@
       defaultEngine: (v) => typeof v === 'string',
       customEngines: Array.isArray,
       memory: bool,
-      commandNames: { dark: isCommandWord, css: isCommandWord, settings: isCommandWord },
+      commandNames: { dark: isCommandWord, css: isCommandWord, pause: isCommandWord, settings: isCommandWord },
     },
     newtab: {
       style: oneOf('editorial', 'suizo', 'maquina', 'libro', 'tema', 'custom'), locales: Array.isArray,
@@ -284,7 +284,7 @@
     return (Array.isArray(list) ? list : []).filter((p) => typeof p === 'string' && hostMatches(p, host));
   }
 
-  // td and ta: turning a site off adds its exact host; turning it on removes every pattern that
+  // pz and px: turning a site off adds its exact host; turning it on removes every pattern that
   // covers it, wildcards included.
   function toggledPatterns(list, host) {
     const patterns = Array.isArray(list) ? list.filter((p) => typeof p === 'string') : [];
@@ -314,6 +314,16 @@
       animations: !off(animOff),
       local,
     };
+  }
+
+  // pd pauses dark mode everywhere: storage.local.darkPause is when the pause ends (ms since the
+  // epoch). The milliseconds left of it, 0 when there is none; one longer than any pd can ask for
+  // (a clock set back) counts as none.
+  const PAUSE_MINUTES = 3;
+  const PAUSE_MAX = 999;
+  function pauseLeft(until, now) {
+    const left = typeof until === 'number' ? until - now : 0;
+    return left > 0 && left <= PAUSE_MAX * 60000 ? left : 0;
   }
 
   // localhost (and *.localhost), the loopback, private, link-local and shared (100.64/10, as
@@ -485,7 +495,7 @@
   }
 
   const api = {
-    DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, isCommandWord, mergeSettings, makeBackup, readBackup, backupDetails, hostMatches, normalizePattern, matchingPatterns, siteState, isLocalHost,
+    DEFAULTS, DEFAULT_ANIM_OFF, ACTIONS, PAUSE_MINUTES, PAUSE_MAX, pauseLeft, isCommandWord, mergeSettings, makeBackup, readBackup, backupDetails, hostMatches, normalizePattern, matchingPatterns, siteState, isLocalHost,
     parseThemeHook, storeThemeHook, darkTheme, desiredSpeed, stepSpeed, classifyRateChange, speedKey,
     normalizeKeys, isValidShortcutKeys, cleanUrl, toggledPatterns, snapSpeed,
   };

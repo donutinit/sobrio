@@ -68,12 +68,13 @@ Hij onthoudt wat je er vanuit opent: een bladwijzer die je vaak opent, en die re
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | volgende / vorige zoekmachine |
 | <kbd>Esc</kbd> | sluiten |
 
-Drie opdrachten, getypt in de switcher. Ze werken ook vanaf de knop in de werkbalk, op de site van het actieve tabblad, en hun woorden kun je zelf wijzigen onder Instellingen › Switcher:
+Vier opdrachten, getypt in de switcher. Ze werken ook vanaf de knop in de werkbalk, op de site van het actieve tabblad, en hun woorden kun je zelf wijzigen onder Instellingen › Switcher:
 
 | Opdracht | |
 |---|---|
-| `td` | donkere modus aan of uit voor de huidige site |
-| `ta` | de stijlpagina aan of uit voor de huidige site |
+| `pz` | donkere modus aan of uit voor de huidige site |
+| `px` | de stijlpagina aan of uit voor de huidige site |
+| `pd` | donkere modus overal uit voor 3 minuten, daarna vanzelf weer aan; een getal direct erna zet de minuten (`pd15`, van 1 tot 999), en `pd` tijdens een pauze stopt die |
 | `settings` | de instellingen (`options` werkt ook) |
 
 ### Een nieuw tabblad

@@ -62,7 +62,7 @@ cambian los demás.
 - Las traducciones siempre las hace un modelo barato (Haiku, o GPT Luna), un agente por idioma
   con un mismo brief; nunca el modelo principal. Diego lo pidió así. El modelo principal solo
   escribe el brief y revisa el resultado (test, validación y una mirada en el navegador).
-- No se traducen: `sobrio`, `switcher`, `td`, `ta`, `settings`, `options`, las teclas, `%s` y los
+- No se traducen: `sobrio`, `switcher`, `pz`, `px`, `pd`, `settings`, `options`, las teclas, `%s` y los
   nombres de productos y fuentes. Sin rayas.
 - `cdp.py --lang de` abre Chromium en otro idioma para revisarlas.
 - Árabe y hebreo esperan a que las páginas sepan escribir de derecha a izquierda.
@@ -95,7 +95,8 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
 - `settings` en `storage.local` se lee siempre con `mergeSettings`: cada campo inválido cae a su
   default. Los defaults son los que Diego pidió: los de v0.1, más precisión `normal`, Google
   primero y comandos en inglés (v0.3), y desde 0.3.2 todos los interruptores de estilo menos
-  escala de grises y contorno de foco, y `focusPage`. Guardar en ajustes escribe el objeto
+  escala de grises y contorno de foco, y `focusPage`, y desde el 2026-11-24 los comandos `pz`
+  (modo oscuro en el sitio), `px` (la hoja de estilo) y `pd` (pausa). Guardar en ajustes escribe el objeto
   entero, así que un default nuevo no le llega a quien ya guardó: hay que avisarlo. `stats` vive aparte en
   `storage.local` (`{[url]: {count, last, title}}`, máximo 2,000), igual que `ownDark`: los hosts
   que el detector vio con tema oscuro propio (máximo 500, el más reciente primero). `page.js` lo lee
@@ -106,7 +107,10 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   costaban medio segundo), salvo que la página diga que es oscura (clase o meta); un cambio de
   tema en vivo sí la tiene. `cssOff`, `darkOff` y
   `animOff` son listas de patrones; `animOff` sin guardar vale `DEFAULT_ANIM_OFF`
-  (`['chatgpt.com']`).
+  (`['chatgpt.com']`). `darkPause` es cuándo termina la pausa de `pd` (ms desde la época): mientras
+  dura, `page.js` apaga Dark Reader en todos los sitios y deja un timer para volver a prenderlo. `pd`
+  solo son 3 minutos, `pd15` son 15 (de 1 a 999) y `pd` durante una pausa la termina. No va en el
+  respaldo.
 - Atajos, velocidad, aviso y pausa del autoplay solo actúan con eventos `isTrusted`: una página
   no debe poder disparar acciones de la extensión.
 - `darkreader.js`, `proxy.js`, `fonts/` y `fonts.css` no se editan: se regeneran con
@@ -173,7 +177,7 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
 - Un frame sin área (`innerWidth` o `innerHeight` menor que 2: trackers, anuncios ocultos) no
   enciende Dark Reader ni el detector hasta su `resize`, que llega antes de que se pinte.
 - Cada frame sigue las excepciones de su propio host y las del sitio de la barra de direcciones
-  (`siteState(stored, host, top)`): td o ta apagados en un sitio lo apagan también en sus iframes
+  (`siteState(stored, host, top)`): pz o px apagados en un sitio lo apagan también en sus iframes
   (el artifact de claude.ai vive en `claudeusercontent.com` y salía negro). `page.js` saca el sitio
   de `location.ancestorOrigins` (Chromium y Firefox 158 la tienen); sin ella, o con el origen
   escondido (`"null"`, por la política de referrer), se lo pregunta al background (`top-host`), que
@@ -239,7 +243,7 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   abre con lo de la vez anterior (`sobrio.switcherCache`). Los bookmarks de Diego son alias
   (`g`, `yt`, `pi`): un título igual a la búsqueda va primero, sobre la memoria y los más nuevos.
 - Pruebas de navegador que conviene repetir: Wikipedia queda negra; GitHub con `--dark` usa su
-  tema propio y sin él queda negro; `td`/`ta` y los ajustes cambian en vivo; el switcher en
+  tema propio y sin él queda negro; `pz`/`px`, la pausa `pd` y los ajustes cambian en vivo; el switcher en
   GitHub no deja pasar la `s` al sitio; la nueva pestaña con cada estilo y diseño; velocidad con
   un `<audio>` local; el autoplay con una página con `<audio autoplay>` y `--autoplay`; grabar un
   atajo en los ajustes con teclas reales; el flash con una página de CSS blanco; YouTube con la

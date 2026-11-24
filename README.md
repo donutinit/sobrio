@@ -68,12 +68,13 @@ It remembers what you open from it: a bookmark you open often, and lately, climb
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | next / previous engine |
 | <kbd>Esc</kbd> | close |
 
-Three commands, typed in the switcher. They work from the toolbar button too, on the site of the active tab, and their words are yours to change in Settings › Switcher:
+Four commands, typed in the switcher. They work from the toolbar button too, on the site of the active tab, and their words are yours to change in Settings › Switcher:
 
 | Command | |
 |---|---|
-| `td` | dark mode on or off for the current site |
-| `ta` | the stylesheet on or off for the current site |
+| `pz` | dark mode on or off for the current site |
+| `px` | the stylesheet on or off for the current site |
+| `pd` | dark mode off everywhere for 3 minutes, then back on by itself; a number right after it sets the minutes (`pd15`, from 1 to 999), and `pd` during a pause ends it |
 | `settings` | the settings (`options` works too) |
 
 ### A new tab

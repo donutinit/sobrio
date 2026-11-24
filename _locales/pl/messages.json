@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Włącz tryb ciemny wszędzie"
   },
+  "pauseDark": {
+    "message": "Wstrzymaj tryb ciemny wszędzie na $MINUTES$ min",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Przywróć tryb ciemny wszędzie (wstrzymany do $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(usuwa $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "Twój CSS"
   },
   "styleCustomHelp": {
-    "message": "Dodawany po wszystkim powyżej, w osobnym arkuszu, w każdej witrynie, w której CSS jest włączony; @import idzie na samą górę. ta wyłącza go razem z resztą. Użyj !important, by wygrać z witryną. Witryny mogą go odczytać, tak jak każdy styl na swojej stronie."
+    "message": "Dodawany po wszystkim powyżej, w osobnym arkuszu, w każdej witrynie, w której CSS jest włączony; @import idzie na samą górę. px wyłącza go razem z resztą. Użyj !important, by wygrać z witryną. Witryny mogą go odczytać, tak jak każdy styl na swojej stronie."
   },
   "switcherPrecision": {
     "message": "Precyzja wyszukiwania"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Arkusz stylów w tej witrynie"
+  },
+  "commandName_pause": {
+    "message": "Wstrzymaj tryb ciemny wszędzie"
+  },
+  "commandName_pauseHint": {
+    "message": "Na 3 minuty; liczba zaraz po słowie ustawia minuty."
   },
   "commandName_settings": {
     "message": "Otwórz ustawienia"

@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "모든 사이트에서 다크 모드 켜기"
   },
+  "pauseDark": {
+    "message": "모든 사이트의 다크 모드 $MINUTES$분 일시 정지",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "모든 사이트에서 다크 모드 다시 켜기 ($TIME$까지 일시 정지)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "($PATTERNS$ 제거)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "사용자 CSS"
   },
   "styleCustomHelp": {
-    "message": "위의 모든 규칙 뒤에 별도의 시트로 추가되며, CSS가 켜진 모든 사이트에 적용됩니다. @import는 맨 위에 두세요. ta로 다른 설정과 함께 끌 수 있습니다. 사이트의 스타일을 이기려면 !important를 쓰세요. 사이트도 자기 페이지의 다른 스타일처럼 이 CSS를 읽을 수 있습니다."
+    "message": "위의 모든 규칙 뒤에 별도의 시트로 추가되며, CSS가 켜진 모든 사이트에 적용됩니다. @import는 맨 위에 두세요. px로 다른 설정과 함께 끌 수 있습니다. 사이트의 스타일을 이기려면 !important를 쓰세요. 사이트도 자기 페이지의 다른 스타일처럼 이 CSS를 읽을 수 있습니다."
   },
   "switcherPrecision": {
     "message": "검색 정밀도"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "이 사이트의 스타일시트"
+  },
+  "commandName_pause": {
+    "message": "모든 사이트의 다크 모드 일시 정지"
+  },
+  "commandName_pauseHint": {
+    "message": "3분 동안; 단어 바로 뒤의 숫자가 분을 정합니다."
   },
   "commandName_settings": {
     "message": "설정 열기"

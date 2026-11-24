@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Donkere modus overal aanzetten"
   },
+  "pauseDark": {
+    "message": "Donkere modus overal pauzeren voor $MINUTES$ min",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Donkere modus overal weer aanzetten (gepauzeerd tot $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(verwijdert $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "Jouw CSS"
   },
   "styleCustomHelp": {
-    "message": "Wordt na alles hierboven toegevoegd, in een eigen stijlblad, op elke site waar de CSS aan staat; een @import komt helemaal bovenaan. ta zet hem uit samen met de rest. Gebruik !important om voorrang te krijgen op de site. Sites kunnen hem lezen, zoals elke stijl op hun pagina."
+    "message": "Wordt na alles hierboven toegevoegd, in een eigen stijlblad, op elke site waar de CSS aan staat; een @import komt helemaal bovenaan. px zet hem uit samen met de rest. Gebruik !important om voorrang te krijgen op de site. Sites kunnen hem lezen, zoals elke stijl op hun pagina."
   },
   "switcherPrecision": {
     "message": "Precisie van zoeken"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Stijlpagina op deze site"
+  },
+  "commandName_pause": {
+    "message": "Donkere modus overal pauzeren"
+  },
+  "commandName_pauseHint": {
+    "message": "Drie minuten; een getal direct na het woord zet de minuten."
   },
   "commandName_settings": {
     "message": "De instellingen openen"

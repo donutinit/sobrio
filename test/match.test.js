@@ -10,6 +10,7 @@ const {
   engineById,
   allEngines,
   parseCommand,
+  pauseMinutes,
   commandsAllowed,
   searchUrl,
   displayTitle,
@@ -240,17 +241,38 @@ test('autoMode with only bookmarks has nowhere to jump', () => {
 });
 
 test('parseCommand exact only', () => {
-  assert.equal(parseCommand(' TD '), 'dark');
-  assert.equal(parseCommand('ta'), 'css');
+  assert.equal(parseCommand(' PZ '), 'dark');
+  assert.equal(parseCommand('px'), 'css');
+  assert.equal(parseCommand('pd'), 'pause');
   assert.equal(parseCommand('Settings'), 'settings');
+  assert.equal(parseCommand('td'), null);
   assert.equal(parseCommand('ajustes'), null);
   assert.equal(parseCommand(' options '), 'settings');
-  assert.equal(parseCommand('tda'), null);
-  assert.equal(parseCommand('t d'), null);
+  assert.equal(parseCommand('pza'), null);
+  assert.equal(parseCommand('p z'), null);
   assert.equal(parseCommand('setting'), null);
   assert.equal(parseCommand('constructor'), null);
   assert.equal(parseCommand('toString'), null);
   assert.equal(parseCommand(''), null);
+});
+
+test('pd pauses for 3 minutes, or for the 1 to 999 written right after it', () => {
+  assert.equal(pauseMinutes('pd'), 3);
+  assert.equal(pauseMinutes(' PD10 '), 10);
+  assert.equal(pauseMinutes('pd1'), 1);
+  assert.equal(pauseMinutes('pd999'), 999);
+  assert.equal(parseCommand('pd45'), 'pause');
+  for (const query of ['pd0', 'pd000', 'pd1000', 'pd 5', 'pd5m', 'pd-5', 'pd1.5', 'p', 'pz', '']) {
+    assert.equal(pauseMinutes(query), null, query);
+    assert.notEqual(parseCommand(query), 'pause', query);
+  }
+  // With a word of your own, and none at all.
+  assert.equal(pauseMinutes('pausa20', { pause: 'pausa' }), 20);
+  assert.equal(pauseMinutes('pd20', { pause: 'pausa' }), null);
+  assert.equal(pauseMinutes('pd', { dark: 'oscuro' }), null);
+  // A word of another command wins over a pause with minutes.
+  assert.equal(parseCommand('p2', { dark: 'p2', css: 'px', pause: 'p', settings: 'settings' }), 'dark');
+  assert.equal(parseCommand('p25', { dark: 'p2', css: 'px', pause: 'p', settings: 'settings' }), 'pause');
 });
 
 test('commandsAllowed needs a hostname', () => {
@@ -347,7 +369,7 @@ test('parseCommand with names of your own', () => {
   assert.equal(parseCommand('settings', names), null);
   // options stays a way to the settings unless a command of yours took the word.
   assert.equal(parseCommand('options', names), 'settings');
-  assert.equal(parseCommand('options', { dark: 'options', css: 'ta', settings: 'settings' }), 'dark');
+  assert.equal(parseCommand('options', { dark: 'options', css: 'px', settings: 'settings' }), 'dark');
 });
 
 test('siteHost: the host of an http(s) page, else nothing', () => {

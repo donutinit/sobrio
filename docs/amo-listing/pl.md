@@ -12,7 +12,7 @@ Jeden arkusz stylów, wszędzie. Bez zaokrąglonych rogów, cieni, cieni tekstu 
 
 Czarne, z rozsądkiem. Dynamiczny silnik Dark Readera zamienia każdą witrynę w czerń, kolor po kolorze. Witryny, które mają własny ciemny motyw, go zachowują.
 
-Switcher. Ctrl+Space otwiera pole na środku strony, jak szybki przełącznik w Obsidianie. Pisz, aby szukać w zakładkach; Tab przechodzi między Google, DuckDuckGo, YouTube, Wikipedia, GitHub i własnymi wyszukiwarkami (dowolny adres z %s, np. instancja SearXNG). Zapamiętuje, co otwierasz, i podnosi to wyżej w wynikach. td i ta włączają lub wyłączają tryb ciemny i arkusz stylów na bieżącej witrynie.
+Switcher. Ctrl+Space otwiera pole na środku strony, jak szybki przełącznik w Obsidianie. Pisz, aby szukać w zakładkach; Tab przechodzi między Google, DuckDuckGo, YouTube, Wikipedia, GitHub i własnymi wyszukiwarkami (dowolny adres z %s, np. instancja SearXNG). Zapamiętuje, co otwierasz, i podnosi to wyżej w wynikach. pz i px włączają lub wyłączają tryb ciemny i arkusz stylów na bieżącej witrynie, a pd wstrzymuje tryb ciemny we wszystkich witrynach na 3 minuty (pd15 na 15).
 
 Nowa karta z datą i godziną zestawionymi starannie: sześć układów, cztery style typograficzne albo własne czcionki, opcjonalne powitanie, data w losowo wybranym języku z twojej listy i switcher pod spodem.
 

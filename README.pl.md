@@ -68,12 +68,13 @@ Zapamiętuje, co z niego otwierasz: zakładka, którą otwierasz często i ostat
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | następna / poprzednia wyszukiwarka |
 | <kbd>Esc</kbd> | zamknij |
 
-Trzy polecenia, wpisywane w switcherze. Działają też z przycisku na pasku narzędzi, na witrynie aktywnej karty, a ich słowa możesz zmienić w Ustawienia › Switcher:
+Cztery polecenia, wpisywane w switcherze. Działają też z przycisku na pasku narzędzi, na witrynie aktywnej karty, a ich słowa możesz zmienić w Ustawienia › Switcher:
 
 | Polecenie | |
 |---|---|
-| `td` | tryb ciemny włączony lub wyłączony dla bieżącej witryny |
-| `ta` | arkusz stylów włączony lub wyłączony dla bieżącej witryny |
+| `pz` | tryb ciemny włączony lub wyłączony dla bieżącej witryny |
+| `px` | arkusz stylów włączony lub wyłączony dla bieżącej witryny |
+| `pd` | tryb ciemny wyłączony we wszystkich witrynach na 3 minuty, potem wraca sam; liczba zaraz po nim ustawia minuty (`pd15`, od 1 do 999), a `pd` w trakcie przerwy ją kończy |
 | `settings` | ustawienia (działa też `options`) |
 
 ### Nowa karta

@@ -12,7 +12,7 @@ Ein Stylesheet, überall. Keine abgerundeten Ecken, Schatten, Textschatten oder 
 
 Schwarz, mit Verstand. Die dynamische Engine von Dark Reader macht jede Website schwarz, Farbe für Farbe. Websites, die bereits ein eigenes dunkles Design haben, behalten es.
 
-Ein Switcher. Ctrl+Space öffnet ein Feld in der Mitte der Seite, ähnlich dem Quick Switcher von Obsidian. Tippe, um deine Lesezeichen zu durchsuchen; mit Tab wechselst du durch Google, DuckDuckGo, YouTube, Wikipedia, GitHub und deine eigenen Suchmaschinen (jede Adresse mit %s, etwa eine SearXNG-Instanz). Er merkt sich, was du öffnest, und hebt es in der Suche nach oben. td und ta schalten den Dunkelmodus und das Stylesheet auf der aktuellen Website ein oder aus.
+Ein Switcher. Ctrl+Space öffnet ein Feld in der Mitte der Seite, ähnlich dem Quick Switcher von Obsidian. Tippe, um deine Lesezeichen zu durchsuchen; mit Tab wechselst du durch Google, DuckDuckGo, YouTube, Wikipedia, GitHub und deine eigenen Suchmaschinen (jede Adresse mit %s, etwa eine SearXNG-Instanz). Er merkt sich, was du öffnest, und hebt es in der Suche nach oben. pz und px schalten den Dunkelmodus und das Stylesheet auf der aktuellen Website ein oder aus, und pd pausiert den Dunkelmodus überall für 3 Minuten (pd15 für 15).
 
 Ein neuer Tab mit Datum und Uhrzeit, sorgfältig gesetzt: sechs Layouts, vier Typografien oder deine eigenen Schriften, ein optionaler Gruß, das Datum in einer zufällig gewählten Sprache aus deiner Liste und der Switcher darunter.
 

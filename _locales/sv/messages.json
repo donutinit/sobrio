@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Slå på mörkt läge överallt"
   },
+  "pauseDark": {
+    "message": "Pausa mörkt läge överallt i $MINUTES$ min",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Slå på mörkt läge överallt igen (pausat till $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(tar bort $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "Din CSS"
   },
   "styleCustomHelp": {
-    "message": "Läggs till efter allt ovan, i en egen stilmall, på varje webbplats där CSS är på. En @import hör överst. ta stänger av den tillsammans med resten. Använd !important för att gå före webbplatsen. Webbplatser kan läsa den, precis som de kan läsa alla stilar på sin sida."
+    "message": "Läggs till efter allt ovan, i en egen stilmall, på varje webbplats där CSS är på. En @import hör överst. px stänger av den tillsammans med resten. Använd !important för att gå före webbplatsen. Webbplatser kan läsa den, precis som de kan läsa alla stilar på sin sida."
   },
   "switcherPrecision": {
     "message": "Sökprecision"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Stilmall på den här webbplatsen"
+  },
+  "commandName_pause": {
+    "message": "Pausa mörkt läge överallt"
+  },
+  "commandName_pauseHint": {
+    "message": "I 3 minuter; ett tal direkt efter ordet anger minuterna."
   },
   "commandName_settings": {
     "message": "Öppna inställningarna"

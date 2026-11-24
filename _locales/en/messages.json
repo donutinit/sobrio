@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Turn on dark mode everywhere"
   },
+  "pauseDark": {
+    "message": "Pause dark mode everywhere for $MINUTES$ min",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Turn dark mode back on everywhere (paused until $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(removes $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "Your CSS"
   },
   "styleCustomHelp": {
-    "message": "Added after everything above, in a sheet of its own, on every site where the CSS is on; an @import goes at the very top. ta turns it off with the rest. Use !important to win over the site. Sites can read it, as they can read any style on their page."
+    "message": "Added after everything above, in a sheet of its own, on every site where the CSS is on; an @import goes at the very top. px turns it off with the rest. Use !important to win over the site. Sites can read it, as they can read any style on their page."
   },
   "switcherPrecision": {
     "message": "Search precision"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Stylesheet on this site"
+  },
+  "commandName_pause": {
+    "message": "Pause dark mode everywhere"
+  },
+  "commandName_pauseHint": {
+    "message": "For 3 minutes; a number right after the word sets the minutes."
   },
   "commandName_settings": {
     "message": "Open the settings"

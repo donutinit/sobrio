@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Sötét mód bekapcsolása mindenhol"
   },
+  "pauseDark": {
+    "message": "Sötét mód szüneteltetése mindenhol $MINUTES$ percre",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Sötét mód visszakapcsolása mindenhol (szüneteltetve eddig: $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(eltávolítja: $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "Saját CSS"
   },
   "styleCustomHelp": {
-    "message": "Minden más után, külön stíluslapon kerül be, azokon a webhelyeken, ahol a CSS be van kapcsolva; az @import a legelejére kerül. A ta a többivel együtt kikapcsolja. A webhely felülírásához használd az !important jelölést. A webhelyek olvashatják, ahogy bármely stílust az oldalukon."
+    "message": "Minden más után, külön stíluslapon kerül be, azokon a webhelyeken, ahol a CSS be van kapcsolva; az @import a legelejére kerül. A px a többivel együtt kikapcsolja. A webhely felülírásához használd az !important jelölést. A webhelyek olvashatják, ahogy bármely stílust az oldalukon."
   },
   "switcherPrecision": {
     "message": "Keresési pontosság"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Stíluslap ezen a webhelyen"
+  },
+  "commandName_pause": {
+    "message": "Sötét mód szüneteltetése mindenhol"
+  },
+  "commandName_pauseHint": {
+    "message": "3 percre; a szó után írt szám adja meg a perceket."
   },
   "commandName_settings": {
     "message": "Beállítások megnyitása"

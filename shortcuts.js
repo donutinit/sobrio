@@ -1,6 +1,6 @@
 // The person's own keyboard shortcuts (settings.shortcuts): each combination runs an action.
 // Every frame listens, since the focus may be inside an iframe (Google Docs, an embedded player).
-// What concerns the site (td, ta, copying its link) runs in the top frame, the site in the address
+// What concerns the site (pz, px, copying its link) runs in the top frame, the site in the address
 // bar; everything else runs where the key was pressed (the speed of the player that has the focus).
 (() => {
   const top = window === window.top;
@@ -116,7 +116,7 @@
     if ((action === 'toggleDark' || action === 'toggleCss') && localSite) {
       toast(t('localLeftAlone'), location.hostname);
     } else if (action === 'toggleDark' && onPage && !settings.dark.enabled) {
-      // Like td: with dark mode off everywhere, it turns it back on.
+      // Like pz: with dark mode off everywhere, it turns it back on.
       await setDarkEverywhere(true);
       toast(t('toastDarkEverywhereOn'));
     } else if (action === 'toggleDark' && onPage) {

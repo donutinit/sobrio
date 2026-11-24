@@ -12,7 +12,7 @@ Une feuille de style partout. Pas de coins arrondis, d'ombres, de flou ni d'anim
 
 Noir, avec intelligence. Le moteur dynamique de Dark Reader rend chaque site noir, couleur par couleur. Les sites qui ont déjà leur propre thème sombre le gardent.
 
-Un switcher. Ctrl+Space ouvre une boîte au milieu de la page, comme le quick switcher d'Obsidian. Tapez pour chercher dans vos marque-pages ; Tab passe en revue Google, DuckDuckGo, YouTube, Wikipedia, GitHub et vos propres moteurs (toute adresse contenant %s, comme une instance de SearXNG). Il retient ce que vous ouvrez et le fait remonter dans les résultats. td et ta activent ou désactivent le mode sombre et la feuille de style sur le site actuel.
+Un switcher. Ctrl+Space ouvre une boîte au milieu de la page, comme le quick switcher d'Obsidian. Tapez pour chercher dans vos marque-pages ; Tab passe en revue Google, DuckDuckGo, YouTube, Wikipedia, GitHub et vos propres moteurs (toute adresse contenant %s, comme une instance de SearXNG). Il retient ce que vous ouvrez et le fait remonter dans les résultats. pz et px activent ou désactivent le mode sombre et la feuille de style sur le site actuel, et pd met le mode sombre en pause partout pendant 3 minutes (pd15 pour 15).
 
 Un nouvel onglet avec la date et l'heure soigneusement composées : six mises en page, quatre styles typographiques ou vos propres polices, une salutation facultative, la date dans une langue tirée au hasard de votre liste, et le switcher en dessous.
 

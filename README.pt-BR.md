@@ -68,12 +68,13 @@ Ele lembra o que você abre por ele: um favorito que você abre com frequência,
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | próximo / anterior mecanismo |
 | <kbd>Esc</kbd> | fechar |
 
-Três comandos, digitados no switcher. Eles também funcionam pelo botão da barra de ferramentas, no site da aba ativa, e as palavras deles podem ser trocadas em Configurações › Switcher:
+Quatro comandos, digitados no switcher. Eles também funcionam pelo botão da barra de ferramentas, no site da aba ativa, e as palavras deles podem ser trocadas em Configurações › Switcher:
 
 | Comando | |
 |---|---|
-| `td` | modo escuro ligado ou desligado no site atual |
-| `ta` | a folha de estilo ligada ou desligada no site atual |
+| `pz` | modo escuro ligado ou desligado no site atual |
+| `px` | a folha de estilo ligada ou desligada no site atual |
+| `pd` | modo escuro desligado em todos os sites por 3 minutos, depois volta sozinho; um número logo depois define os minutos (`pd15`, de 1 a 999), e `pd` durante a pausa a encerra |
 | `settings` | as configurações (`options` também funciona) |
 
 ### Uma nova aba

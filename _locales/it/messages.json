@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Attiva la modalità scura ovunque"
   },
+  "pauseDark": {
+    "message": "Sospendi la modalità scura ovunque per $MINUTES$ min",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Riattiva la modalità scura ovunque (in pausa fino a $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(rimuove $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "Il tuo CSS"
   },
   "styleCustomHelp": {
-    "message": "Va dopo tutto il resto, in un foglio a sé, su ogni sito dove il CSS è attivo; un @import va in cima. ta lo spegne insieme al resto. Usa !important per prevalere sul sito. I siti possono leggerlo, come qualsiasi stile della loro pagina."
+    "message": "Va dopo tutto il resto, in un foglio a sé, su ogni sito dove il CSS è attivo; un @import va in cima. px lo spegne insieme al resto. Usa !important per prevalere sul sito. I siti possono leggerlo, come qualsiasi stile della loro pagina."
   },
   "switcherPrecision": {
     "message": "Precisione della ricerca"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Foglio di stile su questo sito"
+  },
+  "commandName_pause": {
+    "message": "Sospendi la modalità scura ovunque"
+  },
+  "commandName_pauseHint": {
+    "message": "Per 3 minuti; un numero subito dopo la parola ne imposta i minuti."
   },
   "commandName_settings": {
     "message": "Apri le impostazioni"

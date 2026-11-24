@@ -68,12 +68,13 @@ Switcher'dan açtıklarınızı hatırlar: sık açtığınız ve yakın zamanda
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | sonraki / önceki arama motoru |
 | <kbd>Esc</kbd> | kapat |
 
-Switcher'a yazılan üç komut. Araç çubuğu düğmesinden de çalışırlar, etkin sekmenin sitesinde. Kelimeleri Ayarlar › Switcher'dan değiştirilebilir:
+Switcher'a yazılan dört komut. Araç çubuğu düğmesinden de çalışırlar, etkin sekmenin sitesinde. Kelimeleri Ayarlar › Switcher'dan değiştirilebilir:
 
 | Komut | |
 |---|---|
-| `td` | geçerli site için karanlık modu aç ya da kapat |
-| `ta` | geçerli site için stil sayfasını aç ya da kapat |
+| `pz` | geçerli site için karanlık modu aç ya da kapat |
+| `px` | geçerli site için stil sayfasını aç ya da kapat |
+| `pd` | her sitede karanlık modu 3 dakika kapat, ardından kendiliğinden yeniden açılır; hemen ardından gelen bir sayı dakikayı belirler (`pd15`, 1 ile 999 arası), duraklatma sırasında `pd` yazmak ise onu bitirir |
 | `settings` | ayarlar (`options` de çalışır) |
 
 ### Yeni sekme

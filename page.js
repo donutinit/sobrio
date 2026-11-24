@@ -8,8 +8,8 @@
   // the top as "null". Then the background tells, from the tab.
   let topHost = window === window.top ? hostname : ancestorHost();
   const { detector, buildCss, customCss, youtubeHost } = sobrio;
-  const { DEFAULTS, mergeSettings, siteState, darkTheme, isLocalHost } = sobrio.settings;
-  const KEYS = ['darkOff', 'cssOff', 'animOff', 'settings', 'theme'];
+  const { DEFAULTS, mergeSettings, siteState, darkTheme, isLocalHost, pauseLeft } = sobrio.settings;
+  const KEYS = ['darkOff', 'cssOff', 'animOff', 'settings', 'theme', 'darkPause'];
   // The hosts last seen with a dark theme of their own, newest first: read once, at the start.
   const OWN_DARK = 'ownDark';
   const OWN_DARK_MAX = 500;
@@ -41,6 +41,7 @@
   let cutTransitions = !leftAlone && DEFAULTS.css.animations;
   let keepPlayer = DEFAULTS.css.youtubePlayer && youtubeHost(hostname);
   let waitingForArea = false;
+  let pauseTimer = 0; // the end of a pause of dark mode everywhere (pd), when one is on
   // speed.js and shortcuts.js take the settings from here: one read of storage per frame, not three.
   const settingsListeners = [];
   sobrio.onSettings = (listener) => settingsListeners.push(listener);
@@ -108,7 +109,12 @@
     }
     if (stored && OWN_DARK in stored) knownDark = Array.isArray(stored[OWN_DARK]) && stored[OWN_DARK].includes(hostname);
     if (stored && SEEN_LIGHT in stored) knownLight = detector.seenLight(stored[SEEN_LIGHT], hostname, scheme(), Date.now());
-    const dark = settings.dark.enabled && state.dark ? darkTheme(settings.dark, theme) : null;
+    // pd: dark mode off everywhere until storage.local.darkPause, then back on by itself. Browsers
+    // only hold timers back in tabs that are not on screen.
+    const paused = pauseLeft(stored?.darkPause, Date.now());
+    clearTimeout(pauseTimer);
+    if (paused) pauseTimer = setTimeout(() => chrome.storage.local.get(KEYS).then(apply), paused + 50);
+    const dark = settings.dark.enabled && state.dark && !paused ? darkTheme(settings.dark, theme) : null;
     // A site seen with its own dark theme last time starts without Dark Reader, whose work at load
     // is the heaviest part of sobrio. The black stays until the detector's first look confirms it,
     // and if the site turned light, Dark Reader comes in that same task.

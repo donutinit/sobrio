@@ -68,12 +68,13 @@ Motorul dinamic al Dark Reader face fiecare site negru (`#000`), culoare cu culo
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | motorul următor / anterior |
 | <kbd>Esc</kbd> | închide |
 
-Trei comenzi, scrise în switcher. Funcționează și din butonul din bara de instrumente, pe site-ul filei active, iar cuvintele lor pot fi schimbate în Setări › Switcher:
+Patru comenzi, scrise în switcher. Funcționează și din butonul din bara de instrumente, pe site-ul filei active, iar cuvintele lor pot fi schimbate în Setări › Switcher:
 
 | Comandă | |
 |---|---|
-| `td` | modul întunecat pornit sau oprit pentru site-ul curent |
-| `ta` | foaia de stiluri pornită sau oprită pentru site-ul curent |
+| `pz` | modul întunecat pornit sau oprit pentru site-ul curent |
+| `px` | foaia de stiluri pornită sau oprită pentru site-ul curent |
+| `pd` | modul întunecat oprit peste tot timp de 3 minute, apoi revine singur; un număr scris imediat după el stabilește minutele (`pd15`, de la 1 la 999), iar `pd` în timpul unei pauze o încheie |
 | `settings` | setările (`options` merge și el) |
 
 ### O filă nouă

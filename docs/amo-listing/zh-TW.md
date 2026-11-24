@@ -12,7 +12,7 @@ sobrio 只取用 Stylus、Dark Reader、Search Bookmarks History and Tabs、Tabl
 
 聰明的黑色。Dark Reader 的動態引擎會把每個網站變成黑色，逐色轉換。本來就有自己深色主題的網站會保留它。
 
-switcher。Ctrl+Space 會在頁面中央開啟一個方框，類似 Obsidian 的快速切換器。輸入文字即可搜尋你的書籤；按 Tab 可在 Google、DuckDuckGo、YouTube、Wikipedia、GitHub 與你自己的搜尋引擎（任何含有 %s 的網址，例如 SearXNG 執行個體）之間切換。它會記住你開啟過的項目，並讓它在結果中排得更前面。td 與 ta 會切換目前網站的深色模式與樣式表。
+switcher。Ctrl+Space 會在頁面中央開啟一個方框，類似 Obsidian 的快速切換器。輸入文字即可搜尋你的書籤；按 Tab 可在 Google、DuckDuckGo、YouTube、Wikipedia、GitHub 與你自己的搜尋引擎（任何含有 %s 的網址，例如 SearXNG 執行個體）之間切換。它會記住你開啟過的項目，並讓它在結果中排得更前面。pz 與 px 會切換目前網站的深色模式與樣式表，而 pd 會在所有網站暫停深色模式 3 分鐘（pd15 為 15 分鐘）。
 
 新分頁，日期與時間經過精心排版：六種版面、四種字體風格或你自己的字型、可選的問候語、從你的清單中隨機選出語言來顯示日期，以及位於其下方的 switcher。
 

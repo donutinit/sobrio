@@ -68,12 +68,13 @@ Ia mengingat apa yang kamu buka dari sini: markah yang sering dibuka, dan yang b
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | mesin berikutnya / sebelumnya |
 | <kbd>Esc</kbd> | tutup |
 
-Tiga perintah, diketik di switcher. Perintah ini juga bekerja dari tombol di bilah alat, untuk situs di tab yang aktif, dan katanya bisa kamu ubah di Pengaturan › Switcher:
+Empat perintah, diketik di switcher. Perintah ini juga bekerja dari tombol di bilah alat, untuk situs di tab yang aktif, dan katanya bisa kamu ubah di Pengaturan › Switcher:
 
 | Perintah | |
 |---|---|
-| `td` | mode gelap untuk situs saat ini, nyala atau mati |
-| `ta` | stylesheet untuk situs saat ini, nyala atau mati |
+| `pz` | mode gelap untuk situs saat ini, nyala atau mati |
+| `px` | stylesheet untuk situs saat ini, nyala atau mati |
+| `pd` | mode gelap mati di semua situs selama 3 menit, lalu nyala sendiri; angka yang langsung mengikuti kata ini mengatur menitnya (`pd15`, dari 1 sampai 999), dan `pd` saat jeda mengakhirinya |
 | `settings` | pengaturan (`options` juga berfungsi) |
 
 ### Tab baru

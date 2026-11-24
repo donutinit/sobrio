@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Dunkelmodus überall einschalten"
   },
+  "pauseDark": {
+    "message": "Dunkelmodus überall für $MINUTES$ Min. pausieren",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Dunkelmodus überall wieder einschalten (pausiert bis $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(entfernt $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "Dein CSS"
   },
   "styleCustomHelp": {
-    "message": "Wird nach allem oben angefügt, in einem eigenen Stylesheet, auf jeder Website, auf der das CSS eingeschaltet ist; ein @import gehört ganz nach oben. ta schaltet es zusammen mit dem Rest aus. Mit !important setzt du dich gegen die Website durch. Websites können es lesen, wie sie jeden Stil auf ihrer Seite lesen können."
+    "message": "Wird nach allem oben angefügt, in einem eigenen Stylesheet, auf jeder Website, auf der das CSS eingeschaltet ist; ein @import gehört ganz nach oben. px schaltet es zusammen mit dem Rest aus. Mit !important setzt du dich gegen die Website durch. Websites können es lesen, wie sie jeden Stil auf ihrer Seite lesen können."
   },
   "switcherPrecision": {
     "message": "Genauigkeit der Suche"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Stylesheet auf dieser Website"
+  },
+  "commandName_pause": {
+    "message": "Dunkelmodus überall pausieren"
+  },
+  "commandName_pauseHint": {
+    "message": "Für 3 Minuten; eine Zahl direkt nach dem Wort legt die Minuten fest."
   },
   "commandName_settings": {
     "message": "Einstellungen öffnen"

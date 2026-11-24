@@ -68,12 +68,13 @@ Ricorda ciò che apri da lì: un segnalibro che apri spesso, e di recente, sale 
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | motore successivo / precedente |
 | <kbd>Esc</kbd> | chiudi |
 
-Tre comandi, scritti nello switcher. Funzionano anche dal pulsante nella barra degli strumenti, sul sito della scheda attiva, e le loro parole si possono cambiare in Impostazioni › Switcher:
+Quattro comandi, scritti nello switcher. Funzionano anche dal pulsante nella barra degli strumenti, sul sito della scheda attiva, e le loro parole si possono cambiare in Impostazioni › Switcher:
 
 | Comando | |
 |---|---|
-| `td` | modalità scura attiva o disattivata per il sito corrente |
-| `ta` | foglio di stile attivo o disattivato per il sito corrente |
+| `pz` | modalità scura attiva o disattivata per il sito corrente |
+| `px` | foglio di stile attivo o disattivato per il sito corrente |
+| `pd` | modalità scura disattivata ovunque per 3 minuti, poi riattivata da sola; un numero subito dopo imposta i minuti (`pd15`, da 1 a 999), e `pd` durante una pausa la termina |
 | `settings` | le impostazioni (funziona anche `options`) |
 
 ### Una nuova scheda

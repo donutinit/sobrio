@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "所有网站都开启深色模式"
   },
+  "pauseDark": {
+    "message": "所有网站暂停深色模式 $MINUTES$ 分钟",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "所有网站恢复深色模式（暂停至 $TIME$）",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "（移除 $PATTERNS$）",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "你的 CSS"
   },
   "styleCustomHelp": {
-    "message": "添加在以上所有样式之后，放在独立的样式表中，应用于启用 CSS 的每个网站；@import 必须放在最前面。ta 会与其他样式一起关闭它。使用 !important 可以覆盖网站的样式。网站同样可以读取它，就像读取页面上的任何样式一样。"
+    "message": "添加在以上所有样式之后，放在独立的样式表中，应用于启用 CSS 的每个网站；@import 必须放在最前面。px 会与其他样式一起关闭它。使用 !important 可以覆盖网站的样式。网站同样可以读取它，就像读取页面上的任何样式一样。"
   },
   "switcherPrecision": {
     "message": "搜索精度"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "此网站的样式表"
+  },
+  "commandName_pause": {
+    "message": "暂停所有网站的深色模式"
+  },
+  "commandName_pauseHint": {
+    "message": "暂停 3 分钟；命令后紧跟的数字设置分钟数。"
   },
   "commandName_settings": {
     "message": "打开设置"

@@ -68,12 +68,13 @@ Il retient ce que vous ouvrez depuis lui : un marque-page que vous ouvrez souven
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | moteur suivant / précédent |
 | <kbd>Esc</kbd> | fermer |
 
-Trois commandes, tapées dans le switcher. Elles marchent aussi depuis le bouton de la barre d'outils, sur le site de l'onglet actif, et leurs mots se changent dans Paramètres › Switcher :
+Quatre commandes, tapées dans le switcher. Elles marchent aussi depuis le bouton de la barre d'outils, sur le site de l'onglet actif, et leurs mots se changent dans Paramètres › Switcher :
 
 | Commande | |
 |---|---|
-| `td` | mode sombre activé ou désactivé pour le site actuel |
-| `ta` | la feuille de style activée ou désactivée pour le site actuel |
+| `pz` | mode sombre activé ou désactivé pour le site actuel |
+| `px` | la feuille de style activée ou désactivée pour le site actuel |
+| `pd` | mode sombre désactivé partout pendant 3 minutes, puis réactivé tout seul. Un nombre juste après fixe les minutes (`pd15`, de 1 à 999), et `pd` pendant une pause y met fin |
 | `settings` | les paramètres (`options` marche aussi) |
 
 ### Un nouvel onglet

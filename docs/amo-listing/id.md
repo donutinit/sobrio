@@ -12,7 +12,7 @@ Satu stylesheet, di mana-mana. Tanpa sudut membulat, bayangan, bayangan teks, at
 
 Gelap, dengan cerdas. Mesin dinamis Dark Reader membuat setiap situs menjadi hitam, warna demi warna. Situs yang sudah punya tema gelap sendiri tetap mempertahankannya.
 
-Switcher. Ctrl+Space membuka kotak di tengah halaman, seperti quick switcher Obsidian. Ketik untuk mencari markah; Tab berpindah di antara Google, DuckDuckGo, YouTube, Wikipedia, GitHub dan mesin buatanmu sendiri (alamat apa pun dengan %s, seperti instansi SearXNG). Ia mengingat apa yang kamu buka dan menaikkannya di hasil pencarian. td dan ta menyalakan atau mematikan mode gelap dan stylesheet di situs saat ini.
+Switcher. Ctrl+Space membuka kotak di tengah halaman, seperti quick switcher Obsidian. Ketik untuk mencari markah; Tab berpindah di antara Google, DuckDuckGo, YouTube, Wikipedia, GitHub dan mesin buatanmu sendiri (alamat apa pun dengan %s, seperti instansi SearXNG). Ia mengingat apa yang kamu buka dan menaikkannya di hasil pencarian. pz dan px menyalakan atau mematikan mode gelap dan stylesheet di situs saat ini, dan pd menjeda mode gelap di semua situs selama 3 menit (pd15 untuk 15).
 
 Tab baru dengan tanggal dan waktu yang ditata dengan cermat: enam tata letak, empat gaya tipografi atau fon buatanmu sendiri, sapaan opsional, tanggal dalam bahasa yang dipilih acak dari daftarmu, dan switcher di bawahnya.
 

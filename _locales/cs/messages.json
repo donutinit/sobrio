@@ -74,6 +74,22 @@
   "darkOnEverywhere": {
     "message": "Zapnout tmavý režim všude"
   },
+  "pauseDark": {
+    "message": "Pozastavit tmavý režim všude na $MINUTES$ min",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "pauseEnd": {
+    "message": "Zapnout tmavý režim zpět všude (pozastaveno do $TIME$)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
   "removesPatterns": {
     "message": "(odstraní $PATTERNS$)",
     "placeholders": {
@@ -338,7 +354,7 @@
     "message": "Vlastní CSS"
   },
   "styleCustomHelp": {
-    "message": "Přidáno za všechno výše, v samostatném listu, na každém webu, kde je CSS zapnuté; @import patří úplně nahoru. ta to vypne spolu s ostatním. Pro přebití stylů webu použijte !important. Weby mohou číst, stejně jako čtou jakýkoli styl na své stránce."
+    "message": "Přidáno za všechno výše, v samostatném listu, na každém webu, kde je CSS zapnuté; @import patří úplně nahoru. px to vypne spolu s ostatním. Pro přebití stylů webu použijte !important. Weby mohou číst, stejně jako čtou jakýkoli styl na své stránce."
   },
   "switcherPrecision": {
     "message": "Přesnost hledání"
@@ -519,6 +535,12 @@
   },
   "commandName_css": {
     "message": "Styl na tomto webu"
+  },
+  "commandName_pause": {
+    "message": "Pozastavit tmavý režim všude"
+  },
+  "commandName_pauseHint": {
+    "message": "Na 3 minuty; číslo hned za slovem nastaví minuty."
   },
   "commandName_settings": {
     "message": "Otevřít nastavení"

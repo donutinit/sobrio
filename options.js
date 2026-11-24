@@ -271,10 +271,11 @@
   }
 
   // A short text, saved 600 ms after typing stops. valid(value) may reject it.
-  function textRow(path, label, { placeholder = '', showIf, valid = () => true } = {}) {
+  function textRow(path, label, { placeholder = '', showIf, valid = () => true, hint } = {}) {
     const id = `field-${path}`;
     const input = el('input', { className: 'text', id, placeholder: t(placeholder), spellcheck: false });
     const node = row(id, label, [input], { showIf });
+    if (hint) node.querySelector('label').append(el('span', { className: 'hint', textContent: t(hint) }));
     const save = debounced((value) => valid(value) && set(path, value), 600);
     // A value that cannot be saved shows it at once (a dashed border) and keeps what was saved.
     input.addEventListener('input', () => {
@@ -489,7 +490,8 @@
   // A switcher command's word: one word, and not another command's.
   function commandNameRow(kind) {
     return textRow(`switcher.commandNames.${kind}`, `commandName_${kind}`, {
-      placeholder: { dark: 'td', css: 'ta', settings: 'settings' }[kind],
+      placeholder: { dark: 'pz', css: 'px', pause: 'pd', settings: 'settings' }[kind],
+      hint: kind === 'pause' ? 'commandName_pauseHint' : undefined,
       showIf: () => settings.switcher.commands,
       valid: (value) => isCommandWord(value) && !Object.entries(settings.switcher.commandNames)
         .some(([other, name]) => other !== kind && name === value.toLowerCase()),
@@ -702,7 +704,7 @@
         }),
         switchRow('switcher.autoSearch', 'switcherAutoSearch'),
         switchRow('switcher.commands', 'switcherCommands', { hint: 'switcherCommandsHint' }),
-        ...['dark', 'css', 'settings'].map(commandNameRow),
+        ...['dark', 'css', 'pause', 'settings'].map(commandNameRow),
         switchRow('switcher.hints', 'switcherHints'),
         switcherStatus,
         customEngines()),
