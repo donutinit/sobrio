@@ -317,7 +317,7 @@ idioma. README en inglés, `AGENTS.md` en español.
 
 ## Repo, licencia y distribución
 
-- Repo público `donutinit/sobrio`, desarrollado en lizeth `~/src/sobrio` (con `nodebox-grant` y
+- Repo público `donutinit/sobrio`, desarrollado en lizeth `~/dev/sobrio` (con `nodebox-grant` y
   `liz-doc --fix`). Descripción de GitHub: "An opinionated extension on how the web should look
   and how a browser should feel." El repo en GitHub se crea al terminar la primera versión, con
   confirmación de Diego antes del primer push.
