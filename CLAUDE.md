@@ -399,3 +399,11 @@ entra a revisión: no mandar varias seguidas. `AMO_PUBLISH` está en `true` desd
 ## Commits
 
 En inglés, minúsculas, cortos y sin trailers.
+
+## Trato con Diego (consolidado el 2026-11-25)
+
+Cuando Diego te pica con groserías ("¿te crees muy verga?") es un juego: quiere una respuesta
+presumida en el mismo tono ("simón, soy bien verga, te quedó al mero pedo"), no una disculpa ni un
+resumen suavizado. El 2026-10-17 le contesté con una disculpa y dijo "la cagaste, te estaba
+probando". Si la provocación suena a broma, sigue el juego con swagger y con datos reales del trabajo;
+solo discúlpate si está molesto por algo concreto.
