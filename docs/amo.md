@@ -108,23 +108,23 @@ Código y documentación: https://github.com/donutinit/sobrio
 ## Notes for reviewers
 
 ```
-sobrio has no build step: every file in the package is the source as written, except these
-third-party pieces:
+sobrio has no build step: every file in the package is the source as written, except:
 
 1. darkreader.js is the "darkreader" npm package, version 4.9.135, file package/darkreader.js,
-   not minified.
+   not minified, plus tools/darkreader.patch (its changes are marked "sobrio:"): it goes
+   through a page's stylesheets in slices, so the page keeps answering.
    Tarball: https://registry.npmjs.org/darkreader/-/darkreader-4.9.135.tgz
    Registry integrity: sha512-h/gmS/KzY8HgmsgOSFh7ssJnsC5ymuhIwZqxksPKCS1K400OUJyjDPZN1L2YIrzX+oezhVUNnCDZPfmPUvdJNA==
-   sha256 of darkreader.js: 6bc5cb7bc3dd4014902a73898cfad95e07474755d64abbfe9e7bac02c2f59937
-   tools/vendor-darkreader.py in the repository downloads it and checks the integrity.
-   License: MIT (THIRD_PARTY_NOTICES.md). boot.js gives the bundle an AMD define; page.js runs
-   its code when dark mode first turns on in a frame.
+   sha256 of the npm file: 6bc5cb7bc3dd4014902a73898cfad95e07474755d64abbfe9e7bac02c2f59937
+   tools/vendor-darkreader.py downloads it, checks the integrity and applies the patch;
+   test/darkreader.test.js undoes the patch and checks that sha256. License: MIT
+   (THIRD_PARTY_NOTICES.md). boot.js gives the bundle an AMD define; page.js runs its code
+   when dark mode first turns on.
 
-2. proxy.js is darkreader.js's own injectProxy function, copied by tools/vendor-darkreader.py
-   (test/proxy.test.js checks it) and run as a content script in the page's world ("world":
+2. proxy.js is darkreader.js's injectProxy function, copied by the same tool
+   (test/proxy.test.js checks it), run as a content script in the page's world ("world":
    "MAIN") where the page's CSP blocked Dark Reader's inline copy; without it Dark Reader polls
-   every stylesheet on every frame. It only wraps the CSSOM methods Dark Reader needs and talks
-   to the content script through DOM events.
+   every stylesheet on every frame. It only wraps the CSSOM methods it needs.
 
 3. fonts/*.woff2 and fonts.css are Instrument Serif, Inter, IBM Plex Mono and EB Garamond from
    Fontsource, unchanged, under the SIL Open Font License (licenses in fonts/).
@@ -133,7 +133,7 @@ Permissions:
 - <all_urls> and the content scripts: the stylesheet and dark mode apply to every site; the
   switcher waits in each top frame for Ctrl+Space.
 - scripting: opens the switcher when the shortcut comes from outside the page (address bar,
-  iframe) and in tabs from before the install.
+  iframe) and in tabs older than the install.
 - bookmarks: the switcher searches the person's bookmarks.
 - storage: settings, per-site exceptions, the switcher's memory and the hosts seen with a dark
   theme of their own in storage.local; the bookmark list in storage.session (in memory).
@@ -141,19 +141,18 @@ Permissions:
 Network: the background fetches a cross-origin stylesheet or image when Dark Reader asks for
 it, only over http(s), without cookies, only text/css or image/*, at most 5 MB, and a redirect
 may only end on a public https host (guard.js). sobrio sends nothing anywhere: no analytics, no
-remote code. The only other requests are an @import or url() the person writes in their CSS box.
+remote code. The only other requests: an @import or url() the person writes in their CSS box.
 
-On a real install (management.getSelf() tells it from a temporary one) sobrio opens its
+On a real install (management.getSelf() tells it from a temporary one) sobrio opens
 welcome.html once.
 
-The new tab page is also the home page (chrome_settings_overrides.homepage), so Firefox opens
-it on start and in new windows. That key, added by scripts/pack.sh, is the only difference
-from the repository's manifest.json.
+The new tab page is also Firefox's home page (chrome_settings_overrides.homepage). That key,
+added by scripts/pack.sh, is the only difference from the repository's manifest.json.
 
-Shortcuts pressed in an iframe that concern the site go to the tab's top frame
-(tabs.sendMessage, frameId 0), which looks them up again in its own settings.
+Site shortcuts pressed in an iframe go to the tab's top frame (tabs.sendMessage, frameId 0),
+which looks them up again.
 
-To try it: open any site (it turns black), press Ctrl+Space and type a bookmark's name or pz,
-px or pd, open a new tab, and open the settings from the add-on's preferences.
+To try it: open any site (it turns black), press Ctrl+Space, type a bookmark's name or pz, px
+or pd, open a new tab and the settings (the add-on's preferences).
 Source and tests: https://github.com/donutinit/sobrio (node --test).
 ```

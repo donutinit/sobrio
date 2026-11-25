@@ -1,13 +1,21 @@
 #!/usr/bin/env python3
-"""Vendor a darkreader release into darkreader.js, unchanged, and proxy.js from it.
+"""Vendor a darkreader release into darkreader.js, with sobrio's patch, and proxy.js from it.
 
     python3 -I tools/vendor-darkreader.py 4.9.135
+    python3 -I tools/vendor-darkreader.py 4.9.135 --pristine /somewhere/darkreader.js
     python3 -I tools/vendor-darkreader.py --proxy-only
 
-Downloads the npm tarball, checks it against the registry's sha512 integrity and copies
-package/darkreader.js byte for byte. Then writes proxy.js: Dark Reader's injectProxy function,
-copied from darkreader.js, run as a content script in the page's own world (--proxy-only
-regenerates it from the darkreader.js already there).
+Downloads the npm tarball, checks it against the registry's sha512 integrity, takes
+package/darkreader.js byte for byte and applies tools/darkreader.patch to it: Dark Reader goes
+through a page's stylesheets in slices, so the page keeps answering keys meanwhile (page.js keeps
+it covered until it is done). The patch is exact: a release it does not fit stops here, and the
+patch has to be carried over by hand (--pristine also writes the file as npm has it, to make the
+new patch with diff -u against the edited one). test/darkreader.test.js checks that taking the
+patch back out of darkreader.js gives the npm file again.
+
+Then writes proxy.js: Dark Reader's injectProxy function, copied from darkreader.js, run as a
+content script in the page's own world (--proxy-only regenerates it from the darkreader.js
+already there).
 """
 import base64
 import hashlib
@@ -54,6 +62,36 @@ PROXY_FOOTER = """
 """
 
 
+def apply_patch(data, patch):
+    """A unified diff (diff -u) applied to bytes, exactly: every line of context and every line
+    taken out must be where the patch says. Lines keep their own ends (the bundle's are CRLF)."""
+    lines = data.split(b'\n')
+    out = []
+    at = 0
+    body = patch.split(b'\n')
+    i = 0
+    while i < len(body):
+        line = body[i]
+        i += 1
+        if not line.startswith(b'@@'):
+            continue
+        start = int(line.split()[1].split(b',')[0][1:]) - 1
+        out += lines[at:start]
+        at = start
+        while i < len(body) and body[i][:1] in (b' ', b'-', b'+'):
+            kind, text = body[i][:1], body[i][1:]
+            i += 1
+            if kind == b'+':
+                out.append(text)
+                continue
+            if at >= len(lines) or lines[at] != text:
+                raise SystemExit(f'tools/darkreader.patch does not fit this release (line {at + 1}): carry it over')
+            if kind == b' ':
+                out.append(text)
+            at += 1
+    return b'\n'.join(out + lines[at:])
+
+
 def proxy_source(bundle):
     """injectProxy as darkreader.js has it (4 spaces in), moved to 2 spaces, LF line ends."""
     lines = bundle.decode().replace('\r\n', '\n').split('\n')
@@ -81,10 +119,16 @@ def main():
         raise SystemExit(f'integrity mismatch: {integrity}')
     with tarfile.open(fileobj=io.BytesIO(tgz)) as tar:
         bundle = tar.extractfile('package/darkreader.js').read()
+    if '--pristine' in sys.argv:
+        with open(sys.argv[sys.argv.index('--pristine') + 1], 'wb') as f:
+            f.write(bundle)
+    with open(os.path.join(ROOT, 'tools', 'darkreader.patch'), 'rb') as f:
+        patched = apply_patch(bundle, f.read())
     with open(os.path.join(ROOT, 'darkreader.js'), 'wb') as f:
-        f.write(bundle)
+        f.write(patched)
     write_proxy(bundle)
-    print(f'darkreader {version} vendored ({integrity[:20]}...), proxy.js written')
+    print(f'darkreader {version} vendored ({integrity[:20]}...) and patched, proxy.js written')
+    print(f'sha256 of the npm file, for docs/amo.md: {hashlib.sha256(bundle).hexdigest()}')
 
 
 if __name__ == '__main__':

@@ -227,11 +227,13 @@
     // (Dark Reader's) on an element the page gives one.
     ensureStillRule(doc);
     marked.forEach((el) => el.setAttribute(STILL, ''));
+    // Back as they were: Dark Reader keeps off the sheets it is still building, in slices.
+    const off = sheets.map((s) => s.disabled);
     sheets.forEach((s) => (s.disabled = true));
     try {
       return isDarkFromSamples(readPage(doc, elements));
     } finally {
-      sheets.forEach((s) => (s.disabled = false));
+      sheets.forEach((s, i) => (s.disabled = off[i]));
       // Settle styles before transitions come back, or the marked elements animate back to dark.
       void doc.documentElement.offsetWidth;
       marked.forEach((el) => el.removeAttribute(STILL));

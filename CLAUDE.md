@@ -17,7 +17,8 @@ python3 -I tools/marionette.py . <url>... --eval '<js>'  # LibreWolf headless (e
 python3 -I tools/perf.py . <url>...                 # CPU de la página con sobrio y sin él (Chromium)
 python3 -I tools/ffperf.py . <url>...               # lo mismo en Firefox (todos los hilos, 1a y 2a visita)
 python3 -I tools/keylag.py .                        # cuánto tarda Ctrl+Space en una página que sigue cargando (Firefox)
-python3 -I tools/vendor-darkreader.py <versión>     # actualizar Dark Reader (y proxy.js)
+python3 -I tools/loadlag.py . <url>...              # cuánto espera una tecla mientras la página carga, con sobrio y sin él (Firefox)
+python3 -I tools/vendor-darkreader.py <versión>     # actualizar Dark Reader (con su parche) y proxy.js
 python3 -I tools/vendor-fonts.py                    # actualizar las fuentes de la nueva pestaña
 python3 -I tools/make-icons.py                      # redibujar icons/ desde la retícula del isotipo
 scripts/pack.sh                                     # dist/sobrio-<versión>.zip y .xpi (con página de inicio)
@@ -52,7 +53,10 @@ sobrio tiene que ser rápido: un cambio a lo que corre en las páginas se mide c
 (carga y reposo, `--second` para la segunda visita) y `tools/ffperf.py` en sitios pesados (GitHub,
 YouTube, Wikipedia) contra la versión anterior (`git archive HEAD` en una carpeta aparte). En
 Firefox, `ffperf.py` necesita `--binary ~/.cache/sobrio-firefox/firefox/firefox` en lizeth, y
-`keylag.py` también. Un cambio al switcher o a cómo se abre se mide con `keylag.py`: sirve una
+`keylag.py` y `loadlag.py` también. Un cambio a lo que Dark Reader hace al cargar se mide además
+con `loadlag.py`: durante la carga aprieta una tecla cada 25 ms y dice cuánto esperó la peor
+(`max_ms`) y cuánto tiempo una tecla habría esperado más de 100 ms. Un cambio al switcher o a
+cómo se abre se mide con `keylag.py`: sirve una
 página que tarda 3 s en cargar con el hilo ocupado, aprieta Ctrl+Space con teclas de verdad y dice
 cuánto tardó el switcher desde que la página recibió la tecla (`switcher_ms`: 14 ms; 2,374 en la
 0.4.7) y si lo tecleado después llegó a la página.
@@ -126,6 +130,36 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   `tools/vendor-*.py`, que verifican el sha512 del registro (`proxy.js` es el `injectProxy` de
   `darkreader.js`; `vendor-darkreader.py --proxy-only` lo rehace). Al actualizar Dark Reader,
   repetir las pruebas de navegador de "Cosas que ya mordieron".
+- `darkreader.js` es el archivo de npm más `tools/darkreader.patch` (Diego lo aprobó el
+  2026-11-24), y nada más: `test/darkreader.test.js` deshace el parche y compara el sha256 con el
+  de `docs/amo.md`, y `git apply -R tools/darkreader.patch` hace lo mismo a mano. Cada cambio del
+  parche lleva un comentario `sobrio:`. Para cambiarlo: editar `darkreader.js`, sacar el archivo
+  original con `vendor-darkreader.py <versión> --pristine RUTA` y rehacer el parche con
+  `diff -u --label a/darkreader.js --label b/darkreader.js RUTA darkreader.js`. El archivo tiene
+  fines de línea CRLF: al editarlo con Python hay que abrirlo con `newline=''`, o el parche pasa
+  a ser el archivo entero. Si una versión nueva no encaja con el parche, `vendor-darkreader.py`
+  se detiene y hay que portarlo a mano.
+- El parche hace que Dark Reader recorra las hojas de una página en trozos (generadores que
+  devuelven el hilo; `runSliced`), no de un jalón: primero las variables de todas las hojas
+  (`collectAhead`), luego cada hoja (`renderSteps`, `modifySheetSteps`), igual que cuando lo
+  hacía en una sola tarea, así que el CSS que genera es el mismo. El primer tramo dura hasta
+  100 ms: ahí termina casi toda página, de un jalón como antes y sin costo; lo que pasa de eso
+  sigue en trozos de 10 ms que van por delante de las tareas de la página (`scheduler.postTask`
+  con `user-blocking`: solo se cuelan teclas y cuadros). Mientras trabaja, las hojas que genera
+  quedan apagadas (`holdStyle`) y se encienden juntas al final. Las hojas que llegan mientras la
+  página carga van igual (`addLateStyles`); con la página ya cargada, de un jalón como siempre,
+  y una hoja ya oscurecida que se rehace reconstruye su CSS de un jalón y sin apagarse (partida
+  se vería clara). `setRenderingListener` avisa cuándo la página se ve a medias. Además, una
+  regla que declara cientos de variables (el `:root` de un tema) se reconstruía una vez por cada
+  variable cuyo tipo se descubría: ahora una sola vez por tanda (`rebuildVarRule`), que es lo
+  que más pesaba cuando las hojas llegan de una en una (2,236 reconstrucciones y 392 ms en un
+  paso en GitHub).
+- Mientras Dark Reader trabaja en trozos la página va tapada (`cover` en `page.js`, el mismo
+  negro provisional de antes, con clase `darkreader` para que Dark Reader no lo tome por una
+  hoja de la página): sin tapa se verían claras las hojas que faltan. Se quita cuando termina
+  y, si trabajó en trozos y la página sigue cargando, cuando pasan 80 ms sin hojas nuevas
+  (`settle`), para que sea una sola transición. El detector mide a media tapa (la quita, mide y la vuelve a poner en la
+  misma tarea) y las miradas a imágenes esperan a que se quite (`afterRendering`).
 - `darkreader.js` se carga en cada frame pero no corre hasta que hace falta: es un paquete UMD y
   `boot.js` le pone un `define` de AMD, así que entrega su código en vez de ejecutarlo.
   `page.js` lo corre (`sobrio.darkReader()`) la primera vez que el modo oscuro se enciende en el
@@ -307,17 +341,42 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   `dom.input_events.security.isUserInputHandlingDelayTest=true` para que alcance a las teclas
   sintéticas. Medido, ese retraso pesa poco (en Wikipedia la primera tecla llega a los 238 ms de
   empezar la carga con él y a los 160 sin él): no vale la pena tocarlo.
-- Lo que queda de lento al cargar es de Dark Reader: en un sitio pesado que sí oscurece procesa
-  todas las hojas en una sola tarea (GitHub claro: 1.2 s, 347 ms casando variables y 779
-  reescribiendo 17,600 reglas; YouTube claro: 1 s, con 21,900 reglas en una sola hoja) y mientras
-  tanto la página no atiende ni una tecla (sin sobrio el peor hueco es de 50 ms en GitHub y 380
-  en YouTube). Con el tema oscuro propio del sitio sobrio no añade nada. Desde fuera no se puede
-  partir esa tarea: haría falta ceder el hilo dentro de `darkreader.js`, que no se edita.
+- Dark Reader procesaba todas las hojas de una página en una sola tarea y mientras tanto la
+  página no atendía ni una tecla: en GitHub claro 1.2 s (347 ms casando variables y 779
+  reescribiendo 17,600 reglas), en YouTube claro 1 s (21,900 reglas en una hoja que llega
+  después del arranque). Con el parche, la peor espera de una tecla durante la carga
+  (`tools/loadlag.py`) bajó en GitHub de 950 ms (hasta 1,650 en algunas visitas) a 125, y en
+  YouTube de 1,018 a unos 450 (sin sobrio son 380, de YouTube); Wikipedia sigue en 98, de un
+  jalón. Los colores finales llegan unos 100 ms después que antes en GitHub (1,388 a 1,498; la
+  página se ve antes, tapada). En CPU, en Firefox la primera visita a GitHub cuesta 21 % menos
+  (las reglas ya no se reconstruyen cientos de veces) y las siguientes 7 % más (la página se
+  estila una vez bajo la tapa y otra al quitarla); en Chromium, 25 % menos de hilo principal.
+  Con el tema oscuro propio del sitio Dark Reader ni arranca.
+- Lecciones de ese parche. Partir sin prioridad (`MessageChannel`) dejaba pasar todas las tareas
+  de la página entre trozo y trozo: los colores finales llegaban 1 s tarde (2.35 s en GitHub).
+  Una hoja que no se podía leer al recoger variables pero sí al dibujar se dibujaba sin sus
+  variables y ya no se corregía (un `background: var(--x, #eee)` con respaldo no se suscribe a
+  nada): solo se dibuja lo ya recogido. Los vigilantes arrancan después de recoger variables, o
+  el de estilos en línea mete un `matchVariablesAndDependents` a medias. La tapa de sobrio no
+  debe parecerle a Dark Reader una hoja de la página (clase `darkreader`). Para saber si la
+  salida cambió: copias locales de las hojas reales de un sitio en una página propia, encender
+  el modo oscuro con la página ya cargada (`darkOff` puesto y luego quitado) y comparar las
+  reglas de cada `style.darkreader`: sale idéntico. Durante la carga el propio Dark Reader sin
+  parche varía entre corridas (qué hojas habían cargado), y en Chromium una imagen generada
+  puede salir como `blob:` en vez de `data:`. Decidir si partir por el número de reglas falla:
+  las hojas que anidan reglas en `@media` o `@layer` parecen chicas, y veinte hojas medianas
+  que llegan juntas suman un segundo; decide el tiempo (el primer tramo largo). Un banco con
+  `privacy.reduceTimerPrecision` apagado escondió ese caso: las cifras buenas son las de
+  `loadlag.py`, sin preferencias. Lo que queda sin partir: los recorridos del DOM con que
+  arrancan sus vigilantes (unos 45 ms cada uno en GitHub) y rehacer el CSS de una hoja ya
+  oscurecida.
 - Pruebas de navegador que conviene repetir: Wikipedia queda negra; GitHub con `--dark` usa su
   tema propio y sin él queda negro; `pz`/`px`, la pausa `pd` y los ajustes cambian en vivo; el switcher en
   GitHub no deja pasar la `s` al sitio; Ctrl+Space en una página que sigue cargando (sale al
   momento y lo tecleado no llega a la página), con el foco dentro de un iframe y en una pestaña
-  de antes de instalar; la nueva pestaña con cada estilo y diseño; velocidad con
+  de antes de instalar; una página pesada cuadro por cuadro (ninguna caja clara mientras Dark
+  Reader trabaja, la tapa quitada y todas sus hojas encendidas al final), apagar el modo oscuro
+  a media carga y una pestaña que carga en segundo plano; la nueva pestaña con cada estilo y diseño; velocidad con
   un `<audio>` local; el autoplay con una página con `<audio autoplay>` y `--autoplay`; grabar un
   atajo en los ajustes con teclas reales; el flash con una página de CSS blanco; YouTube con la
   barra de arriba negra; el logotipo de Wikipedia visible.

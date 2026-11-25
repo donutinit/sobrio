@@ -24,11 +24,18 @@
   // The person's CSS (settings.css.custom), right after sobrio's; in once storage answers.
   const custom = document.createElement('style');
   custom.id = 'sobrio-css-custom';
-  // Until storage answers, everything dark, as strict as Dark Reader's own fallback (which takes
-  // over in the same task when it starts): only the html would let a white body flash.
-  const fallback = leftAlone ? null : addStyle('sobrio-fallback',
-    'html, body, body :not(iframe) { background-color: #000 !important; border-color: #404040 !important;' +
-    ' color: #e8e6e3 !important; }');
+  // The cover: everything dark, as strict as the one Dark Reader has for itself (only the html
+  // would let a white body flash). It is on until storage answers, and then for as long as Dark
+  // Reader takes to go through the page's stylesheets, which it does in slices so the page keeps
+  // answering (tools/darkreader.patch): a page shown half done would flash light.
+  const COVER = 'html, body, body :not(iframe) { background-color: #000 !important; border-color: #404040 !important;' +
+    ' color: #e8e6e3 !important; }';
+  // class darkreader: Dark Reader takes it for one of its own sheets, not for one of the page's to
+  // darken, and takes it out with them when it is turned off.
+  let cover = leftAlone ? null : Object.assign(addStyle('sobrio-fallback', COVER), { className: 'darkreader' });
+  let rendering = false; // Dark Reader is on and still going through the stylesheets
+  let settling = 0; // the timer that takes the cover off once the stylesheets stop coming
+  const afterRendering = []; // what waits to look at the page as it will be
   let current = null; // the Dark Reader theme in use, as JSON; null while it is off
   let wanted = null; // the theme dark mode asks for on this page; null when it is off here
   let detect = false; // settings.dark.detect
@@ -53,6 +60,9 @@
     if (!reader) {
       reader = sobrio.darkReader ? sobrio.darkReader() : DarkReader;
       reader.setFetchMethod(fetchThroughBackground);
+      // It says when it starts on the stylesheets, and when it is done with them: in one go
+      // (most pages, inside enable) or after some slices.
+      reader.setRenderingListener?.((busy, sliced) => (busy ? covered() : sliced ? settle() : rendered()));
     }
     return reader;
   }
@@ -131,15 +141,28 @@
     // is the heaviest part of sobrio. The black stays until the detector's first look confirms it,
     // and if the site turned light, Dark Reader comes in that same task.
     if (dark && settings.dark.detect && !looked && knownDark) nativeDark = true;
-    // Else out before setDark, in the same task (so nothing paints in between): the detector may
-    // measure right away and must not see this black as the page's own.
-    else fallback?.remove();
     setDark(dark, settings.dark.detect);
+  }
+
+  function coverUp() {
+    cover ??= Object.assign(document.createElement('style'), { id: 'sobrio-fallback', className: 'darkreader', textContent: COVER });
+    if (!cover.isConnected) root.append(cover);
+  }
+
+  function uncover() {
+    cover?.remove();
   }
 
   // A frame without area (a tracker, a hidden ad) shows nothing: Dark Reader and the detector wait
   // until it has one. The resize comes before the frame first paints at its new size.
-  const noArea = () => window !== window.top && (innerWidth < 2 || innerHeight < 2);
+  // A frame that is going away cannot even be asked (the size throws): it has none.
+  const noArea = () => {
+    try {
+      return window !== window.top && (innerWidth < 2 || innerHeight < 2);
+    } catch {
+      return true;
+    }
+  };
 
   function setDark(theme, detectOn) {
     wanted = theme;
@@ -149,8 +172,13 @@
       waitingForArea = true;
       return;
     }
-    if (!wanted || (detect && nativeDark)) turnOff();
-    else turnOn(wanted);
+    if (!wanted || (detect && nativeDark)) {
+      turnOff();
+      // A site known for its own dark theme stays covered until the first look confirms it.
+      if (!wanted || looked) uncover();
+    } else {
+      turnOn(wanted);
+    }
     if (wanted && detect && !watching) {
       watching = true;
       // Once there is content, again on load, when late stylesheets have arrived, and whenever
@@ -176,23 +204,57 @@
     const key = JSON.stringify(theme);
     if (key === current) return;
     try {
+      // Covered from now until Dark Reader is done with every stylesheet: a small page in this
+      // same task (it says so before enable returns), a big one some slices later.
+      coverUp();
       // A second enable while on is taken for another Dark Reader instance and ignored,
       // so a new theme goes through disable first (same task: nothing paints in between).
       if (current) darkReader().disable();
       darkReader().enable(theme);
       current = key;
       lastLook = null;
+      if (!darkReader().isRendering?.()) rendered();
       watchImages();
     } catch (error) {
       console.error('sobrio: dark mode failed, leaving the page as it was', error);
       reader?.disable();
       current = null;
+      rendered();
     }
   }
 
+  // Dark Reader is going through stylesheets in slices: at the start, or for one that came while
+  // the page was still loading.
+  function covered() {
+    clearTimeout(settling);
+    rendering = true;
+    coverUp();
+  }
+
+  function rendered() {
+    clearTimeout(settling);
+    rendering = false;
+    uncover();
+    for (const run of afterRendering.splice(0)) run();
+  }
+
+  // Done with the stylesheets it had, after some slices. While the page loads more may come right
+  // behind, and the cover going off and on for each one flickers: it comes off when none came for
+  // a moment.
+  function settle() {
+    clearTimeout(settling);
+    if (document.readyState === 'complete' || !cover?.isConnected) rendered();
+    else settling = setTimeout(() => reader?.isRendering?.() || rendered(), 80);
+  }
+
+  // The cover is the caller's to take off: a site known for its own dark theme keeps it until the
+  // first look.
   function turnOff() {
     if (current) darkReader().disable();
     current = null;
+    clearTimeout(settling);
+    rendering = false;
+    afterRendering.length = 0;
   }
 
   // With Dark Reader on, a look turns its sheets off and on again (the whole page restyles twice),
@@ -206,11 +268,16 @@
       if (!force && signature === lastLook) return;
       lastLook = signature;
     }
-    fallback?.remove();
+    // The cover is off while it measures (it must not take this black for the page's own) and
+    // back on, in the same task, if Dark Reader is still at work.
+    uncover();
     const dark = detector.detectDark(document);
     looked = true;
     if (dark !== knownDark || (!dark && !knownLight)) remember(dark);
-    if (dark === nativeDark) return;
+    if (dark === nativeDark) {
+      if (rendering) coverUp();
+      return;
+    }
     nativeDark = dark;
     if (dark) turnOff();
     else turnOn(wanted);
@@ -270,10 +337,13 @@
     imageObserver = new IntersectionObserver((entries) => {
       const seen = entries.filter((entry) => entry.isIntersecting).map((entry) => entry.target);
       seen.forEach((media) => imageObserver.unobserve(media));
-      if (seen.length) requestAnimationFrame(() => seen.forEach((media) => {
+      // Under the cover every box is black: what is over an image is judged once it is off.
+      const lookAt = () => requestAnimationFrame(() => seen.forEach((media) => {
         dimUnderText(media, true);
         invertDarkIcon(media);
       }));
+      if (seen.length && rendering) afterRendering.push(lookAt);
+      else if (seen.length) lookAt();
     }, { threshold: 0.3 });
     const watch = (media) => media instanceof HTMLImageElement || media instanceof HTMLVideoElement ? imageObserver.observe(media) : null;
     for (const media of document.querySelectorAll('img, video')) watch(media);

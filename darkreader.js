@@ -2103,6 +2103,86 @@
             }
         });
     }
+    // sobrio: the walk of iterateCSSRules as a generator, for work done in slices (runSliced).
+    function* walkCSSRules(rules, onImportError, importedSheets = new Set()) {
+        for (let i = 0, len = rules.length; i < len; i++) {
+            const rule = rules[i];
+            if (isStyleRule(rule)) {
+                yield rule;
+                if (rule.cssRules?.length > 0) {
+                    yield* walkCSSRules(
+                        rule.cssRules,
+                        onImportError,
+                        importedSheets
+                    );
+                }
+            } else if (isImportRule(rule)) {
+                try {
+                    const importedSheet = rule.styleSheet;
+                    if (!importedSheets.has(importedSheet)) {
+                        importedSheets.add(importedSheet);
+                        yield* walkCSSRules(
+                            importedSheet.cssRules,
+                            onImportError,
+                            importedSheets
+                        );
+                    }
+                } catch (err) {
+                    onImportError?.();
+                }
+            } else if (isMediaRule(rule)) {
+                const media = Array.from(rule.media);
+                const isScreenOrAllOrQuery = media.some(
+                    (m) =>
+                        m.startsWith("screen") ||
+                        m.startsWith("all") ||
+                        m.startsWith("(")
+                );
+                const isNotScreen =
+                    !isScreenOrAllOrQuery &&
+                    media.some((m) =>
+                        ignoredMedia.some((i) => m.startsWith(i))
+                    );
+                if (isScreenOrAllOrQuery || !isNotScreen) {
+                    yield* walkCSSRules(
+                        rule.cssRules,
+                        onImportError,
+                        importedSheets
+                    );
+                }
+            } else if (isSupportsRule(rule)) {
+                if (CSS.supports(rule.conditionText)) {
+                    yield* walkCSSRules(
+                        rule.cssRules,
+                        onImportError,
+                        importedSheets
+                    );
+                }
+            } else if (isLayerRule(rule) || isContainerRule(rule)) {
+                yield* walkCSSRules(
+                    rule.cssRules,
+                    onImportError,
+                    importedSheets
+                );
+            } else if (rule) {
+                logWarn(`CSSRule type not supported`, rule);
+            }
+        }
+    }
+    // sobrio: iterate(item) for each item, giving the thread a chance every few of them. Stops
+    // for good when stale() says the work is no longer wanted.
+    function* eachSliced(items, iterate, stale) {
+        let count = 0;
+        for (const item of items) {
+            iterate(item);
+            if (++count % 16 === 0) {
+                yield;
+                if (stale()) {
+                    return;
+                }
+            }
+        }
+    }
     const ignoredMedia = [
         "aural",
         "braille",
@@ -4238,6 +4318,7 @@
             this.unstableVarValues.clear();
             this.varFilterTypes.clear();
             this.notifyingVarFilterTypes.clear();
+            this.collectedAhead = false;
         }
         isVarType(varName, typeNum) {
             return (
@@ -4258,9 +4339,14 @@
             ) {
                 return;
             }
-            this.changedTypeVars.clear();
-            this.initialVarTypes = new Map(this.varTypes);
-            this.varsChanged = false;
+            // sobrio: what collectAhead gathered is the start of this match.
+            if (this.collectedAhead) {
+                this.collectedAhead = false;
+            } else {
+                this.changedTypeVars.clear();
+                this.initialVarTypes = new Map(this.varTypes);
+                this.varsChanged = false;
+            }
             this.collectRootVariables();
             this.collectVariablesAndVarDep();
             this.collectRootVarDependents();
@@ -4639,6 +4725,24 @@
             const callback = () =>
                 this.pushFilterSelectorsForValue(sourceValue, selector);
             allRefs.forEach((v) => this.subscribeForVarTypeChange(v, callback));
+        }
+        // sobrio: the start of matchVariablesAndDependents, a few style rules at a time. Their
+        // variables are collected now; the next match, whoever asks for it, goes on from there.
+        collectAhead(styleRules) {
+            if (!this.collectedAhead) {
+                this.collectedAhead = true;
+                this.changedTypeVars.clear();
+                this.initialVarTypes = new Map(this.varTypes);
+                this.varsChanged = false;
+                // An empty list of rules: the match that follows runs, and reads the root's too.
+                this.rulesQueue.add([]);
+                this.collectRootVariables();
+            }
+            styleRules.forEach((rule) => {
+                if (rule.style) {
+                    this.collectVarsFromCSSDeclarations(rule.style);
+                }
+            });
         }
         collectVariablesAndVarDep() {
             this.rulesQueue.forEach((rules) => {
@@ -5218,7 +5322,23 @@
         function shouldRebuildStyle() {
             return hasNonLoadedLink && !wasRebuilt;
         }
+        // sobrio: modifySheet as steps, to run all at once (modifySheet) or in slices
+        // (runSliced). In slices, a run that a newer one overtook, or whose style was dropped,
+        // stops at its next step and gives false; the run after one that did not finish builds
+        // anyway.
+        let runs = 0;
+        let unfinished = false;
+        let built = false;
         function modifySheet(options) {
+            const steps = modifySheetSteps(options, false);
+            while (!steps.next().done);
+        }
+        function* modifySheetSteps(options, sliced) {
+            const run = ++runs;
+            const wasUnfinished = unfinished;
+            unfinished = true;
+            const stale = () =>
+                sliced && (run !== runs || options.isAsyncCancelled());
             const rules = options.sourceCSSRules;
             const {
                 theme,
@@ -5235,8 +5355,10 @@
                 wasRebuilt = true;
             }
             const modRules = [];
-            iterateCSSRules(
-                rules,
+            yield* eachSliced(
+                walkCSSRules(rules, () => {
+                    hasNonLoadedLink = true;
+                }),
                 (rule) => {
                     const key = getStyleRuleKey(rule);
                     let textDiffersFromPrev = false;
@@ -5284,16 +5406,18 @@
                     }
                     rulesModCache.set(key, modRule);
                 },
-                () => {
-                    hasNonLoadedLink = true;
-                }
+                stale
             );
+            if (stale()) {
+                return false;
+            }
             notFoundCacheKeys.forEach((key) => {
                 rulesTextCache.delete(key);
                 rulesModCache.delete(key);
             });
             prevFilterKey = themeKey;
-            if (!force && !rulesChanged && !themeChanged) {
+            if (!force && !rulesChanged && !themeChanged && !wasUnfinished) {
+                unfinished = false;
                 return;
             }
             renderId++;
@@ -5330,6 +5454,7 @@
             }
             const asyncDeclarations = new Map();
             const varDeclarations = new Map();
+            const rulesToRebuild = new Map(); // sobrio: see rebuildVarRule
             let asyncDeclarationCounter = 0;
             let varDeclarationCounter = 0;
             const rootReadyGroup = {rule: null, rules: [], isGroup: true};
@@ -5349,9 +5474,9 @@
             }
             varTypeChangeCleaners.forEach((clear) => clear());
             varTypeChangeCleaners.clear();
-            modRules
-                .filter((r) => r)
-                .forEach(({selector, declarations, parentRule}) => {
+            yield* eachSliced(
+                modRules.filter((r) => r),
+                ({selector, declarations, parentRule}) => {
                     const group = getGroup(parentRule);
                     const readyStyleRule = {
                         selector,
@@ -5506,9 +5631,17 @@
                             }
                         }
                     );
-                });
-            const sheet = prepareSheet();
-            function buildStyleSheet() {
+                },
+                stale
+            );
+            if (stale()) {
+                return false;
+            }
+            // sobrio: a sheet that is built already is built again in one go, and stays on
+            // meanwhile: in slices the page would show without it.
+            const again = built;
+            const sheet = prepareSheet(again);
+            function* buildStyleSheet() {
                 function createTarget(group, parent) {
                     const {rule} = group;
                     if (isStyleRule(rule)) {
@@ -5543,17 +5676,24 @@
                     }
                     return parent;
                 }
-                function iterateReadyRules(group, target, styleIterator) {
-                    group.rules.forEach((r) => {
+                let count = 0;
+                function* iterateReadyRules(group, target, styleIterator) {
+                    for (const r of group.rules) {
                         if (r.isGroup) {
                             const t = createTarget(r, target);
-                            iterateReadyRules(r, t, styleIterator);
+                            yield* iterateReadyRules(r, t, styleIterator);
                         } else {
                             styleIterator(r, target);
+                            if (++count % 16 === 0 && !again) {
+                                yield;
+                            }
                         }
-                    });
+                        if (stale()) {
+                            return;
+                        }
+                    }
                 }
-                iterateReadyRules(rootReadyGroup, sheet, (rule, target) => {
+                yield* iterateReadyRules(rootReadyGroup, sheet, (rule, target) => {
                     const index = target.cssRules.length;
                     rule.declarations.forEach(({asyncKey, varKey}) => {
                         if (asyncKey != null) {
@@ -5571,19 +5711,55 @@
                 });
             }
             function rebuildAsyncRule(key) {
+                // sobrio: not in the sheet yet, when it is built in slices: it goes in as it is now.
+                if (!asyncDeclarations.has(key)) {
+                    return;
+                }
                 const {rule, target, index} = asyncDeclarations.get(key);
                 target.deleteRule(index);
                 setRule(target, index, rule);
                 asyncDeclarations.delete(key);
             }
+            // sobrio: a rule is built again when the type of a variable it declares is found,
+            // and one match can find hundreds of them for the same rule (a theme's :root): once
+            // is enough, after the last one, before the task ends.
             function rebuildVarRule(key) {
+                if (!varDeclarations.has(key)) {
+                    return;
+                }
                 const {rule, target, index} = varDeclarations.get(key);
-                target.deleteRule(index);
-                setRule(target, index, rule);
+                if (rulesToRebuild.size === 0) {
+                    const currentRenderId = renderId;
+                    queueMicrotask(() => {
+                        const rebuilds = Array.from(rulesToRebuild);
+                        rulesToRebuild.clear();
+                        if (
+                            options.isAsyncCancelled() ||
+                            currentRenderId !== renderId
+                        ) {
+                            return;
+                        }
+                        rebuilds.forEach(([rule, [target, index]]) => {
+                            target.deleteRule(index);
+                            setRule(target, index, rule);
+                        });
+                    });
+                }
+                rulesToRebuild.set(rule, [target, index]);
             }
-            buildStyleSheet();
+            yield* buildStyleSheet();
+            if (stale()) {
+                return false;
+            }
+            unfinished = false;
+            built = true;
         }
-        return {modifySheet, shouldRebuildStyle};
+        return {
+            modifySheet,
+            modifySheetSteps,
+            shouldRebuildStyle,
+            wasBuilt: () => built
+        };
     }
 
     let canUseSheetProxy$1 = false;
@@ -6981,6 +7157,11 @@
                     i++
                 ) {
                     rule = cssRules[i];
+                    // sobrio: an @import only counts before every style rule: no need to look
+                    // through the tens of thousands of rules of a big sheet, each time.
+                    if (rule.selectorText) {
+                        break cssRulesLoop;
+                    }
                     if (rule.href) {
                         if (checkCrossOrigin) {
                             if (
@@ -7174,6 +7355,11 @@
         }
         let forceRenderStyle = false;
         function render(theme, ignoreImageAnalysis) {
+            const steps = renderSteps(theme, ignoreImageAnalysis, false);
+            while (!steps.next().done);
+        }
+        // sobrio: render as steps (see modifySheetSteps).
+        function* renderSteps(theme, ignoreImageAnalysis, sliced) {
             const rules = getRulesSync();
             if (!rules) {
                 return;
@@ -7187,7 +7373,7 @@
                     sheet.deleteRule(i);
                 }
             }
-            function prepareOverridesSheet() {
+            function prepareOverridesSheet(keepOn) {
                 if (!syncStyle) {
                     createSyncStyle();
                 }
@@ -7198,6 +7384,9 @@
                 }
                 const sheet = syncStyle.sheet;
                 removeCSSRulesFromSheet(sheet);
+                if (!keepOn) {
+                    holdStyle(syncStyle);
+                }
                 if (syncStylePositionWatcher) {
                     syncStylePositionWatcher.run();
                 } else if (inMode === "next") {
@@ -7213,23 +7402,33 @@
                 return syncStyle.sheet;
             }
             function buildOverrides() {
+                const steps = buildOverridesSteps(false);
+                while (!steps.next().done);
+            }
+            function* buildOverridesSteps(sliced) {
                 const force = forceRenderStyle;
                 forceRenderStyle = false;
-                sheetModifier.modifySheet({
-                    prepareSheet: prepareOverridesSheet,
-                    sourceCSSRules: rules,
-                    theme,
-                    ignoreImageAnalysis,
-                    force,
-                    isAsyncCancelled
-                });
+                const finished = yield* sheetModifier.modifySheetSteps(
+                    {
+                        prepareSheet: prepareOverridesSheet,
+                        sourceCSSRules: rules,
+                        theme,
+                        ignoreImageAnalysis,
+                        force,
+                        isAsyncCancelled
+                    },
+                    sliced
+                );
+                if (finished === false) {
+                    return;
+                }
                 isOverrideEmpty =
                     !syncStyle.sheet || syncStyle.sheet.cssRules.length === 0;
                 if (sheetModifier.shouldRebuildStyle()) {
                     addReadyStateCompleteListener(() => update());
                 }
             }
-            buildOverrides();
+            yield* buildOverridesSteps(sliced);
         }
         function getRulesOrError() {
             try {
@@ -7303,6 +7502,8 @@
         return {
             details,
             render,
+            renderSteps,
+            wasBuilt: sheetModifier.wasBuilt,
             pause,
             destroy,
             watch,
@@ -8683,27 +8884,218 @@
         const rootVarsStyle = createOrUpdateStyle("darkreader--root-vars");
         variablesStore.putRootVars(rootVarsStyle, theme);
     }
-    function createDynamicStyleOverrides() {
+    // sobrio: work in slices. Going through every stylesheet of a big page held the main thread
+    // for a second and more in one go, and the page answered no key meanwhile. That work is a
+    // generator of steps now: it runs a few milliseconds at a time and the thread goes back to
+    // the page in between. Slices have a price (the page is styled once under its cover and
+    // again without it), so the first one is long: most pages are done within it, in one go as
+    // before, and only what takes longer goes on in short ones.
+    const SLICE_MS = 10;
+    const FIRST_SLICE_MS = 100;
+    let slicedWork = null; // the work under way: {late, held}, see runSliced; null when none
+    let sliceChannel = null;
+    let sliceWaiting = null;
+    function nextSlice(callback) {
+        // Ahead of the page's own tasks where the browser can do that, as when it was all one
+        // task: only keys and frames get in between, and the page's work comes after.
+        if (
+            typeof scheduler === "object" &&
+            typeof scheduler.postTask === "function"
+        ) {
+            scheduler
+                .postTask(callback, {priority: "user-blocking"})
+                .catch(() => {});
+            return;
+        }
+        if (typeof MessageChannel !== "function") {
+            setTimeout(callback, 0);
+            return;
+        }
+        if (!sliceChannel) {
+            sliceChannel = new MessageChannel();
+            sliceChannel.port1.onmessage = () => {
+                const waiting = sliceWaiting;
+                sliceWaiting = null;
+                waiting && waiting();
+            };
+        }
+        sliceWaiting = callback;
+        sliceChannel.port2.postMessage(null);
+    }
+    // sobrio: a sheet built in slices stays off until the work is done. Left on, every rule
+    // that goes in makes the browser work out the page's styles again at the next frame, and the
+    // page is covered meanwhile anyway.
+    function holdStyle(style) {
+        if (slicedWork && style.sheet) {
+            style.sheet.disabled = true;
+            slicedWork.held.add(style);
+        }
+    }
+    function runSliced(makeSteps, covered) {
+        const work = {
+            late: new Set(),
+            held: slicedWork ? slicedWork.held : new Set(),
+            covered,
+            yielded: false,
+            whole: false
+        };
+        slicedWork = work;
+        const steps = makeSteps(work.late);
+        const release = () =>
+            work.held.forEach((style) => {
+                if (style.sheet) {
+                    style.sheet.disabled = false;
+                }
+            });
+        const slice = (first) => {
+            if (slicedWork !== work) {
+                return;
+            }
+            const end = Date.now() + (first === true ? FIRST_SLICE_MS : SLICE_MS);
+            let done = false;
+            try {
+                do {
+                    done = steps.next().done;
+                } while (!done && (work.whole || Date.now() < end));
+            } catch (err) {
+                if (first === true) {
+                    slicedWork = null;
+                    release();
+                    throw err;
+                }
+                console.warn("Dark Reader stopped half way through the styles", err);
+                done = true;
+            }
+            if (!done) {
+                work.yielded = true;
+                if (work.covered) {
+                    setRendering(true);
+                }
+                nextSlice(slice);
+            } else if (slicedWork === work) {
+                slicedWork = null;
+                release();
+                setRendering(false, work.yielded);
+            }
+        };
+        slice(true);
+    }
+    // sobrio: while a style is gone through in slices for the first time the page shows half
+    // done. Whoever keeps it covered meanwhile hears of it here: listener(true) when that starts
+    // (also when a theme is asked for and has to wait for the page), listener(false, sliced)
+    // when all is done, sliced telling whether it took more than one go. A style gone through
+    // again shows nothing new: no word of it.
+    function coverWork() {
+        slicedWork.covered = true;
+        if (slicedWork.yielded) {
+            setRendering(true);
+        }
+    }
+    let rendering = false;
+    let renderingListener = null;
+    function setRendering(value, sliced = false) {
+        if (rendering !== value) {
+            rendering = value;
+            renderingListener && renderingListener(value, sliced);
+        }
+    }
+    function setRenderingListener(listener) {
+        renderingListener = listener;
+    }
+    function isRendering() {
+        return rendering;
+    }
+    // sobrio: a style that loaded, changed or came in after the page was gone through. While
+    // the page is loading it goes in slices too (true); on a page that is done, at once as ever.
+    function addLateStyles(elements) {
+        if (slicedWork) {
+            elements.forEach((element) => slicedWork.late.add(element));
+            return true;
+        }
+        if (document.readyState === "complete") {
+            return false;
+        }
+        runSliced((late) => {
+            elements.forEach((element) => late.add(element));
+            return lateStylesSteps(late);
+        }, false);
+        return true;
+    }
+    function* collectVariablesSteps(rules) {
+        let chunk = [];
+        for (const rule of walkCSSRules(rules)) {
+            chunk.push(rule);
+            if (chunk.length === 16) {
+                variablesStore.collectAhead(chunk);
+                chunk = [];
+                yield;
+            }
+        }
+        variablesStore.collectAhead(chunk);
+    }
+    function* createDynamicStyleOverrides(late) {
         const allStyles = getManageableStyles(document);
         const newManagers = allStyles
             .filter((style) => !styleManagers.has(style))
             .map((style) => createManager(style));
-        newManagers
-            .map((manager) => manager.details({secondRound: false}))
-            .filter((detail) => detail && detail.rules.length > 0)
-            .forEach((detail) => {
-                variablesStore.addRulesForMatching(detail.rules);
-            });
+        // sobrio: from here on in slices. The variables of every sheet first, then each sheet,
+        // as when it was all done in one go.
+        const collected = new Map();
+        newManagers.forEach((manager) => {
+            const detail = manager.details({secondRound: false});
+            if (detail) {
+                collected.set(manager, [detail.rules, detail.rules.length]);
+            }
+        });
+        for (const [rules, length] of Array.from(collected.values())) {
+            if (length > 0) {
+                yield* collectVariablesSteps(rules);
+            }
+        }
         variablesStore.matchVariablesAndDependents();
         variablesStore.setOnRootVariableChange(() => updateRootVars());
         updateRootVars();
-        styleManagers.forEach((manager) =>
-            manager.render(theme, ignoredImageAnalysisSelectors)
-        );
-        if (loadingStyles.size === 0) {
-            cleanFallbackStyle();
+        yield;
+        // The page went on changing meanwhile, and goes on: the watching starts here, not when
+        // all is done, and the styles that came in the meantime wait in late with what it finds.
+        yield* watchForUpdatesSteps();
+        yield;
+        getManageableStyles(document)
+            .filter((style) => !styleManagers.has(style))
+            .forEach((style) => {
+                const manager = createManager(style);
+                manager.unwatched = true;
+                manager.details({secondRound: false});
+                late.add(style);
+            });
+        for (const [element, manager] of Array.from(styleManagers)) {
+            if (styleManagers.get(element) !== manager) {
+                continue;
+            }
+            if (newManagers.includes(manager)) {
+                // A sheet is rendered once its variables are in: one that could not be read
+                // then, or has changed since, goes with the late ones.
+                const then = collected.get(manager);
+                const rules = manager.details({secondRound: true})?.rules;
+                if (!rules) {
+                    manager.watch();
+                    continue;
+                }
+                if (!then || then[0] !== rules || then[1] !== rules.length) {
+                    manager.unwatched = true;
+                    late.add(element);
+                    continue;
+                }
+            }
+            yield* manager.renderSteps(
+                theme,
+                ignoredImageAnalysisSelectors,
+                true
+            );
+            if (newManagers.includes(manager)) {
+                manager.watch();
+            }
         }
-        newManagers.forEach((manager) => manager.watch());
         const inlineStyleElements = toArray(
             document.querySelectorAll(INLINE_STYLE_SELECTOR)
         );
@@ -8716,17 +9108,55 @@
                 push(inlineStyleElements, elements);
             }
         });
-        inlineStyleElements.forEach((el) =>
-            overrideInlineStyle(
-                el,
-                theme,
-                ignoredInlineSelectors,
-                ignoredImageAnalysisSelectors
-            )
+        yield* eachSliced(
+            inlineStyleElements,
+            (el) =>
+                overrideInlineStyle(
+                    el,
+                    theme,
+                    ignoredInlineSelectors,
+                    ignoredImageAnalysisSelectors
+                ),
+            () => false
         );
         handleAdoptedStyleSheets(document);
         variablesStore.matchVariablesAndDependents();
         tryInvertChromePDF();
+        yield* lateStylesSteps(late);
+        if (loadingStyles.size === 0) {
+            cleanFallbackStyle();
+        }
+    }
+    // sobrio: the styles that loaded, changed or came in meanwhile, round after round. A page
+    // that never stops changing its styles gets the fourth round in one go, and this ends.
+    function* lateStylesSteps(late) {
+        for (let round = 0; late.size > 0; round++) {
+            const elements = Array.from(late);
+            late.clear();
+            if (round === 3) {
+                slicedWork.whole = true;
+            }
+            for (const element of elements) {
+                const manager = styleManagers.get(element);
+                const detail = manager && manager.details({secondRound: true});
+                if (detail) {
+                    if (!manager.wasBuilt()) {
+                        coverWork();
+                    }
+                    yield* collectVariablesSteps(detail.rules);
+                    variablesStore.matchVariablesAndDependents();
+                    yield* manager.renderSteps(
+                        theme,
+                        ignoredImageAnalysisSelectors,
+                        true
+                    );
+                }
+                if (manager && manager.unwatched) {
+                    manager.unwatched = false;
+                    manager.watch();
+                }
+            }
+        }
     }
     let loadingStylesCounter = 0;
     const loadingStyles = new Set();
@@ -8759,6 +9189,9 @@
             }
         }
         function update() {
+            if (addLateStyles([element])) {
+                return;
+            }
             const details = manager.details({secondRound: true});
             if (!details) {
                 return;
@@ -8793,8 +9226,7 @@
         );
     }
     function runDynamicStyle() {
-        createDynamicStyleOverrides();
-        watchForUpdates();
+        runSliced(createDynamicStyleOverrides, true);
     }
     function createThemeAndWatchForUpdates() {
         createStaticStyleOverrides();
@@ -8831,6 +9263,11 @@
         }
     }
     function watchForUpdates() {
+        const steps = watchForUpdatesSteps();
+        while (!steps.next().done);
+    }
+    // sobrio: in steps, as each watcher walks the whole page once to start.
+    function* watchForUpdatesSteps() {
         const managedStyles = Array.from(styleManagers.keys());
         watchForStyleChanges(
             managedStyles,
@@ -8844,6 +9281,19 @@
                     styleManagers.has(style)
                 );
                 stylesToRemove.forEach((style) => removeManager(style));
+                // sobrio: while the page loads, new styles go in slices as well.
+                if (slicedWork || document.readyState !== "complete") {
+                    stylesToManage.forEach((style) => {
+                        const manager = createManager(style);
+                        manager.unwatched = true;
+                        manager.details({secondRound: false});
+                    });
+                    addLateStyles(stylesToManage);
+                    stylesToRestore.forEach((style) =>
+                        styleManagers.get(style).restore()
+                    );
+                    return;
+                }
                 const newManagers = stylesToManage.map((style) =>
                     createManager(style)
                 );
@@ -8867,6 +9317,7 @@
                 handleAdoptedStyleSheets(shadowRoot);
             }
         );
+        yield;
         watchForInlineStyles(
             (element) => {
                 overrideInlineStyle(
@@ -9116,6 +9567,7 @@
             });
         }
         isIFrame$1 = iframe;
+        setRendering(true);
         const ready = () => {
             const success = () => {
                 disableConflictingPlugins();
@@ -9134,6 +9586,7 @@
             };
             if (isDRLocked()) {
                 removeNode(document.querySelector(".darkreader--fallback"));
+                setRendering(false);
             } else if (isAnotherDarkReaderInstanceActive()) {
                 interceptOldScript({
                     success,
@@ -9253,6 +9706,7 @@
         });
     }
     function removeDynamicTheme() {
+        slicedWork = null;
         document.documentElement.removeAttribute(`data-darkreader-mode`);
         document.documentElement.removeAttribute(`data-darkreader-scheme`);
         cleanDynamicThemeCache();
@@ -9291,6 +9745,7 @@
         scheduleInversionStyleUpdate.cancel();
         cleaners.forEach((clean) => clean());
         cleaners.splice(0);
+        setRendering(false);
     }
     function cleanDynamicThemeCache() {
         variablesStore.clear();
@@ -9633,6 +10088,8 @@ _______|_______/__/ ____ \\__\\__|___\\__\\__|___\\__\\____
     exports.exportGeneratedCSS = exportGeneratedCSS;
     exports.isEnabled = isEnabled;
     exports.setFetchMethod = setFetchMethod;
+    exports.isRendering = isRendering;
+    exports.setRenderingListener = setRenderingListener;
 
     Object.defineProperty(exports, "__esModule", {value: true});
 });
