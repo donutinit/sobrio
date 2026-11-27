@@ -16,8 +16,8 @@ En switcher. Ctrl+Space öppnar en ruta mitt på sidan, som Obsidians snabbväxl
 
 En ny flik med datumet och klockslaget, väl komponerade: sex layouter, fyra typografiska stilar eller egna typsnitt, en valfri hälsning, datumet på ett språk som slumpas från din lista, och switcher under det.
 
-Egna genvägar, mediehastighet för varje video och ljud med ] och [, och en paus för media som börjar spela ljud av sig själv.
+Egna genvägar, mediehastighet för varje video och ljud med ] och [, och en paus för media som börjar spela ljud av sig själv. I Inställningar › Media kan du skicka klickade magnetlänkar till din egen qBittorrent-server via HTTPS (med en API-nyckel på qBittorrent 5.2 eller senare). API-nyckeln sparas inte i säkerhetskopior.
 
-Undantag per webbplats, för stilmallen, mörkt läge och animationer. Allt sparas automatiskt och tillämpas direkt på öppna flikar. Inget lämnar din webbläsare.
+Undantag per webbplats, för stilmallen, mörkt läge och animationer. Allt sparas automatiskt och tillämpas direkt på öppna flikar.
 
 Källkod och dokumentation: https://github.com/donutinit/sobrio

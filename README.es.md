@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio toma una pequeña parte de [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) y [Global Speed](https://github.com/polywock/globalSpeed), y nada más. Una extensión para Firefox, LibreWolf y Chrome, dos colores, sin esquinas redondeadas, y nada sale de tu navegador.
+sobrio toma una pequeña parte de [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) y [Global Speed](https://github.com/polywock/globalSpeed), y nada más. Una extensión para Firefox, LibreWolf y Chrome, dos colores, sin esquinas redondeadas.
 
 ![El switcher abierto sobre Wikipedia, que sobrio volvió negra: al escribir "ru" aparecen los bookmarks de Rust con las letras coincidentes en negrita.](docs/screens/switcher.png)
 
@@ -88,6 +88,8 @@ Los navegadores mantienen el foco en la barra de direcciones en una pestaña nue
 ### Velocidad de medios
 
 Cada video y audio se reproduce a la velocidad que elijas, o a la regla propia de un sitio. <kbd>]</kbd> más rápido, <kbd>[</kbd> más lento, <kbd>\\</kbd> vuelve a 1×. Todo lo que está entre 0.91× y 1.09× es simplemente 1×. Si cambias la velocidad con los controles propios de un sitio, sobrio no se mete en esa página. Opcionalmente, los videos y audios que empiezan a sonar antes de que toques la página se pausan; los que están silenciados siguen reproduciéndose.
+
+En Ajustes › Medios puedes enviar los enlaces magnet que pulses a tu propio servidor qBittorrent por HTTPS. La clave API queda fuera de los respaldos.
 
 ### Tus propios atajos
 

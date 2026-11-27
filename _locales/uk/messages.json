@@ -329,6 +329,27 @@
   "tab_media": {
     "message": "Медіа"
   },
+  "magnetEnable": {
+    "message": "Надсилати натиснуті magnet-посилання до qBittorrent"
+  },
+  "magnetServer": {
+    "message": "Адреса сервера"
+  },
+  "magnetKey": {
+    "message": "Ключ API"
+  },
+  "magnetSave": {
+    "message": "Зберегти"
+  },
+  "magnetSaved": {
+    "message": "Налаштування збережено"
+  },
+  "magnetSent": {
+    "message": "Magnet-посилання надіслано"
+  },
+  "magnetFailed": {
+    "message": "Не вдалося надіслати magnet-посилання"
+  },
   "tab_stats": {
     "message": "Статистика"
   },
@@ -614,7 +635,7 @@
     "message": "Відкрити налаштування"
   },
   "welcomeFooter": {
-    "message": "Ніщо не виходить з вашого браузера. Налаштування мають резервну копію, щоб перенести все це в інший браузер."
+    "message": "Налаштування мають резервну копію, щоб перенести все це в інший браузер."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ і $CSS$",

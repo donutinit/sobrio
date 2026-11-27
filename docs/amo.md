@@ -27,8 +27,9 @@ It needs, once:
 - **Homepage and support site:** https://github.com/donutinit/sobrio
 - **Platforms:** Firefox for desktop only (not Android: the switcher and the shortcuts need a
   keyboard).
-- **Privacy policy:** none needed. sobrio sends nothing anywhere and declares
-  `data_collection_permissions: none`.
+- **Data permissions:** none required. The optional qBittorrent integration sends the clicked
+  magnet URL and, if configured, the API key to the user's HTTPS server. Firefox asks for
+  website content and, when a key is used, authentication information.
 
 ### Summary (en-US, at most 250 characters)
 
@@ -69,7 +70,10 @@ Shortcuts of your own, media speed for every video and audio with ] and [, and a
 that starts playing sound by itself.
 
 Exceptions per site, for the stylesheet, for dark mode and for animations. Everything saves
-itself and applies to open tabs at once. Nothing leaves your browser.
+itself and applies to open tabs at once.
+
+In Settings › Media, you can opt in to sending clicked magnet links over HTTPS to your own
+qBittorrent server. The API key, if configured, stays out of backups.
 
 Source and documentation: https://github.com/donutinit/sobrio
 
@@ -101,7 +105,10 @@ Atajos propios, velocidad para cada video y audio con ] y [, y pausa para lo que
 solo.
 
 Excepciones por sitio para la hoja de estilo, el modo oscuro y las animaciones. Todo se guarda
-solo y se aplica al momento en las pestañas abiertas. Nada sale de tu navegador.
+solo y se aplica al momento en las pestañas abiertas.
+
+En Ajustes › Medios puedes activar el envío de enlaces magnet a tu servidor de qBittorrent
+por HTTPS. Si configuras una clave de API, queda fuera de los respaldos.
 
 Código y documentación: https://github.com/donutinit/sobrio
 
@@ -138,10 +145,10 @@ Permissions:
 - storage: settings, per-site exceptions, the switcher's memory and the hosts seen with a dark
   theme of their own in storage.local; the bookmark list in storage.session (in memory).
 
-Network: the background fetches a cross-origin stylesheet or image when Dark Reader asks for
-it, only over http(s), without cookies, only text/css or image/*, at most 5 MB, and a redirect
-may only end on a public https host (guard.js). sobrio sends nothing anywhere: no analytics, no
-remote code. The only other requests: an @import or url() the person writes in their CSS box.
+Network: guard.js limits Dark Reader fetches to CSS and images over HTTP(S), 5 MB, no cookies,
+and redirects to public HTTPS hosts. User CSS can request URLs. Opt-in magnet forwarding
+(Settings > Media) sends a clicked link and optional key to the user's HTTPS qBittorrent server.
+No cookies or redirects. The key stays out of backups.
 
 On a real install (management.getSelf() tells it from a temporary one) sobrio opens
 welcome.html once.

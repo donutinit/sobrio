@@ -36,7 +36,7 @@
   <b>繁體中文</b>
 </sub></p>
 
-sobrio 只取用 [Stylus](https://github.com/openstyles/stylus)、[Dark Reader](https://github.com/darkreader/darkreader)、[Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs)、[Tabliss](https://github.com/joelshepherd/tabliss) 與 [Global Speed](https://github.com/polywock/globalSpeed) 的一小部分，別無其他。它是一個同時適用於 Firefox、LibreWolf 與 Chrome 的擴充功能，只有兩種顏色，沒有圓角，而且資料不會離開你的瀏覽器。
+sobrio 只取用 [Stylus](https://github.com/openstyles/stylus)、[Dark Reader](https://github.com/darkreader/darkreader)、[Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs)、[Tabliss](https://github.com/joelshepherd/tabliss) 與 [Global Speed](https://github.com/polywock/globalSpeed) 的一小部分，別無其他。它是一個同時適用於 Firefox、LibreWolf 與 Chrome 的擴充功能，只有兩種顏色，沒有圓角。
 
 ![switcher 開啟於 Wikipedia 上方，sobrio 已將其變黑：輸入「ru」會列出 Rust 書籤，符合的字母會以粗體顯示。](docs/screens/switcher.png)
 
@@ -88,6 +88,8 @@ Dark Reader 的動態引擎會把每個網站變成黑色（`#000`），逐色�
 ### 媒體播放速度
 
 每個影片與音訊都會以你設定的速度播放，或依照網站自己的規則。<kbd>]</kbd> 加速，<kbd>[</kbd> 減速，<kbd>\\</kbd> 恢復為 1×。介於 0.91× 與 1.09× 之間的速度視為 1×。如果你用網站自己的控制項改變速度，sobrio 會在該頁面上不去干預。也可以選擇暫停在你碰觸頁面之前就已開始發出聲音的影片與音訊；靜音的則照常播放。
+
+在「設定 › 媒體」中，你可以將點選的 magnet 連結透過 HTTPS 傳送至自己的 qBittorrent 伺服器。API 金鑰不會放進備份。
 
 ### 你自己的快速鍵
 

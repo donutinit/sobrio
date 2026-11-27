@@ -16,8 +16,8 @@ Ein Switcher. Ctrl+Space öffnet ein Feld in der Mitte der Seite, ähnlich dem Q
 
 Ein neuer Tab mit Datum und Uhrzeit, sorgfältig gesetzt: sechs Layouts, vier Typografien oder deine eigenen Schriften, ein optionaler Gruß, das Datum in einer zufällig gewählten Sprache aus deiner Liste und der Switcher darunter.
 
-Eigene Tastenkürzel, Medien-Geschwindigkeit für jedes Video und jede Audiodatei mit ] und [, und eine Pause für Medien, die von allein Ton abspielen.
+Eigene Tastenkürzel, Medien-Geschwindigkeit für jedes Video und jede Audiodatei mit ] und [, und eine Pause für Medien, die von allein Ton abspielen. In den Einstellungen unter Medien kannst du angeklickte Magnet-Links über HTTPS an deinen eigenen qBittorrent-Server senden. Der API-Schlüssel bleibt von Sicherungen ausgeschlossen.
 
-Ausnahmen pro Website, für das Stylesheet, den Dunkelmodus und die Animationen. Alles speichert sich selbst und gilt sofort für offene Tabs. Nichts verlässt deinen Browser.
+Ausnahmen pro Website, für das Stylesheet, den Dunkelmodus und die Animationen. Alles speichert sich selbst und gilt sofort für offene Tabs.
 
 Quellcode und Dokumentation: https://github.com/donutinit/sobrio

@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio бере одну невелику частину від [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) та [Global Speed](https://github.com/polywock/globalSpeed), і нічого більше. Одне розширення для Firefox, LibreWolf і Chrome, два кольори, жодних заокруглених кутів, і ніщо не виходить з вашого браузера.
+sobrio бере одну невелику частину від [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) та [Global Speed](https://github.com/polywock/globalSpeed), і нічого більше. Одне розширення для Firefox, LibreWolf і Chrome, два кольори й жодних заокруглених кутів.
 
 ![Switcher відкритий над Вікіпедією, яку sobrio зробив чорною: введене «ru» показує закладки Rust із виділеними жирним збігами літер.](docs/screens/switcher.png)
 
@@ -87,7 +87,7 @@ sobrio бере одну невелику частину від [Stylus](https:/
 
 ### Швидкість медіа
 
-Кожне відео й аудіо відтворюється з швидкістю, яку ви задали, або з правилом сайту. <kbd>]</kbd> швидше, <kbd>[</kbd> повільніше, <kbd>\\</kbd> назад до 1×. Будь-яка швидкість від 0.91× до 1.09× є просто 1×. Якщо ви змінюєте швидкість власними елементами керування сайту, sobrio на цій сторінці не втручається. За бажанням відео й аудіо, що починають звучати самі, до того як ви торкнулися сторінки, призупиняються; без звуку вони відтворюються далі.
+Кожне відео й аудіо відтворюється з швидкістю, яку ви задали, або з правилом сайту. <kbd>]</kbd> швидше, <kbd>[</kbd> повільніше, <kbd>\\</kbd> назад до 1×. Будь-яка швидкість від 0.91× до 1.09× є просто 1×. Якщо ви змінюєте швидкість власними елементами керування сайту, sobrio на цій сторінці не втручається. За бажанням відео й аудіо, що починають звучати самі, до того як ви торкнулися сторінки, призупиняються; без звуку вони відтворюються далі. У Налаштування › Медіа можна надсилати натиснуті magnet-посилання до власного сервера qBittorrent через HTTPS. Ключ API не потрапляє до резервних копій.
 
 ### Власні комбінації клавіш
 

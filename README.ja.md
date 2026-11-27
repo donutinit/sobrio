@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio は [Stylus](https://github.com/openstyles/stylus)、[Dark Reader](https://github.com/darkreader/darkreader)、[Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs)、[Tabliss](https://github.com/joelshepherd/tabliss)、[Global Speed](https://github.com/polywock/globalSpeed) の小さな一部分だけを取り出したもので、ほかは含みません。Firefox、LibreWolf、Chrome に対応する一つの拡張機能です。色は二つだけ、角丸はなく、データはブラウザの外に出ません。
+sobrio は [Stylus](https://github.com/openstyles/stylus)、[Dark Reader](https://github.com/darkreader/darkreader)、[Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs)、[Tabliss](https://github.com/joelshepherd/tabliss)、[Global Speed](https://github.com/polywock/globalSpeed) の小さな一部分だけを取り出したもので、ほかは含みません。Firefox、LibreWolf、Chrome に対応する一つの拡張機能です。色は二つだけ、角丸はありません。
 
 ![switcherを開いた Wikipedia。sobrio によって黒くなっています。「ru」と入力すると、一致した文字を太字にした Rust のブックマークが表示されます。](docs/screens/switcher.png)
 
@@ -87,7 +87,7 @@ switcherに入力する四つのコマンドです。ツールバーのボタン
 
 ### メディアの速度
 
-すべての動画と音声は、設定した速度、またはサイトごとのルールの速度で再生されます。<kbd>]</kbd> で速く、<kbd>[</kbd> で遅く、<kbd>\\</kbd> で 1× に戻ります。0.91× から 1.09× までの速度は 1× とみなされます。サイト自身のコントロールで速度を変えた場合、sobrio はそのページではそれを変更しません。任意で、ページに触れる前から音を出し始めた動画と音声を一時停止できます。ミュートされたものは再生を続けます。
+すべての動画と音声は、設定した速度、またはサイトごとのルールの速度で再生されます。<kbd>]</kbd> で速く、<kbd>[</kbd> で遅く、<kbd>\\</kbd> で 1× に戻ります。0.91× から 1.09× までの速度は 1× とみなされます。サイト自身のコントロールで速度を変えた場合、sobrio はそのページではそれを変更しません。任意で、ページに触れる前から音を出し始めた動画と音声を一時停止できます。ミュートされたものは再生を続けます。設定 › メディアでは、クリックした magnet リンクを HTTPS 経由で自分の qBittorrent サーバーに送信できます。API キーはバックアップに含まれません。
 
 ### 独自のショートカット
 

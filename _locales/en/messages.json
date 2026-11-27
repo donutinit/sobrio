@@ -614,7 +614,7 @@
     "message": "Open the settings"
   },
   "welcomeFooter": {
-    "message": "Nothing leaves your browser. The settings keep a backup, to take all this to another browser."
+    "message": "The settings keep a backup, to take all this to another browser."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ and $CSS$",
@@ -696,5 +696,26 @@
   },
   "localLeftAlone": {
     "message": "Local addresses are left alone: change it in the settings"
+  },
+  "magnetEnable": {
+    "message": "Send clicked magnet links to qBittorrent"
+  },
+  "magnetServer": {
+    "message": "Server address"
+  },
+  "magnetKey": {
+    "message": "API key"
+  },
+  "magnetSave": {
+    "message": "Save"
+  },
+  "magnetSaved": {
+    "message": "Settings saved"
+  },
+  "magnetSent": {
+    "message": "Magnet link sent"
+  },
+  "magnetFailed": {
+    "message": "Could not send the magnet link"
   }
 }

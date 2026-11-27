@@ -18,6 +18,6 @@ Nová karta s datem a časem pečlivě sestavenými: šest rozložení, čtyři 
 
 Vlastní zkratky, rychlost médií pro každé video a zvuk pomocí ] a [, a pozastavení médií, která se spouštějí samy.
 
-Výjimky pro každý web: pro styl, tmavý režim a animace. Vše se ukládá samo a hned se použije v otevřených kartách. Nic neopouští váš prohlížeč.
+Výjimky pro každý web: pro styl, tmavý režim a animace. Vše se ukládá samo a hned se použije v otevřených kartách. V Nastavení › Média můžete odesílat kliknuté magnet odkazy na svůj server qBittorrent přes HTTPS. Klíč API se neukládá do záloh.
 
 Zdrojový kód a dokumentace: https://github.com/donutinit/sobrio

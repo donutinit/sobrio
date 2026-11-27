@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio neemt één klein deel van [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) en [Global Speed](https://github.com/polywock/globalSpeed), en verder niets. Eén extensie voor Firefox, LibreWolf en Chrome, twee kleuren, geen afgeronde hoeken, en niets verlaat je browser.
+sobrio neemt één klein deel van [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) en [Global Speed](https://github.com/polywock/globalSpeed), en verder niets. Eén extensie voor Firefox, LibreWolf en Chrome, twee kleuren en geen afgeronde hoeken.
 
 ![De switcher open over Wikipedia, die sobrio zwart heeft gemaakt: als je "ru" typt, staan er Rust-bladwijzers met de gevonden letters vet.](docs/screens/switcher.png)
 
@@ -87,7 +87,7 @@ Browsers houden de focus op een nieuw tabblad in de adresbalk, en een extensie k
 
 ### Mediasnelheid
 
-Elke video en audio speelt af op de snelheid die je instelt, of op de regel van een site. <kbd>]</kbd> sneller, <kbd>[</kbd> langzamer, <kbd>\\</kbd> terug naar 1×. Alles tussen 0,91× en 1,09× is gewoon 1×. Als je de snelheid wijzigt met de eigen knoppen van een site, laat sobrio die op die pagina met rust. Optioneel worden video en audio die al geluid maken voordat je de pagina aanraakt, gepauzeerd; gedempte blijven gewoon spelen.
+Elke video en audio speelt af op de snelheid die je instelt, of op de regel van een site. <kbd>]</kbd> sneller, <kbd>[</kbd> langzamer, <kbd>\\</kbd> terug naar 1×. Alles tussen 0,91× en 1,09× is gewoon 1×. Als je de snelheid wijzigt met de eigen knoppen van een site, laat sobrio die op die pagina met rust. Optioneel worden video en audio die al geluid maken voordat je de pagina aanraakt, gepauzeerd; gedempte blijven gewoon spelen. In Instellingen › Media kun je geklikte magnet-links via HTTPS naar je eigen qBittorrent-server sturen. De API-sleutel blijft buiten back-ups.
 
 ### Eigen sneltoetsen
 

@@ -16,8 +16,8 @@ Bir switcher. Ctrl+Space sayfanın ortasında, Obsidian'ın hızlı geçiş kutu
 
 Tarih ve saatin özenle düzenlendiği bir yeni sekme: altı düzen, dört tipografik stil ya da kendi yazı tipleriniz, isteğe bağlı bir selamlama, dil listenizden rastgele seçilen bir dilde tarih ve altında switcher.
 
-Kendi kısayollarınız; her video ve ses için ] ve [ ile medya hızı; kendiliğinden çalmaya başlayan medya için duraklatma.
+Kendi kısayollarınız; her video ve ses için ] ve [ ile medya hızı; kendiliğinden çalmaya başlayan medya için duraklatma. Ayarlar › Medya bölümünde, tıklanan magnet bağlantılarını HTTPS üzerinden kendi qBittorrent sunucunuza gönderebilirsiniz. API anahtarı yedeklere eklenmez.
 
-Siteye göre istisnalar: stil sayfası, karanlık mod ve animasyonlar için. Her şey kendiliğinden kaydedilir ve açık sekmelere hemen uygulanır. Hiçbir şey tarayıcınızdan çıkmaz.
+Siteye göre istisnalar: stil sayfası, karanlık mod ve animasyonlar için. Her şey kendiliğinden kaydedilir ve açık sekmelere hemen uygulanır.
 
 Kaynak ve belgeler: https://github.com/donutinit/sobrio

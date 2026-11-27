@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio mengambil satu bagian kecil dari [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) dan [Global Speed](https://github.com/polywock/globalSpeed), dan tidak lebih dari itu. Satu ekstensi untuk Firefox, LibreWolf dan Chrome, dua warna, tanpa sudut membulat, dan tidak ada yang keluar dari peramban kamu.
+sobrio mengambil satu bagian kecil dari [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) dan [Global Speed](https://github.com/polywock/globalSpeed), dan tidak lebih dari itu. Satu ekstensi untuk Firefox, LibreWolf dan Chrome, dua warna, tanpa sudut membulat.
 
 ![Switcher terbuka di atas Wikipedia, yang sudah dibuat hitam oleh sobrio: mengetik "ru" menampilkan markah Rust dengan huruf yang cocok dicetak tebal.](docs/screens/switcher.png)
 
@@ -87,7 +87,7 @@ Peramban menyimpan fokus di bilah alamat pada tab baru, dan ekstensi tidak bisa 
 
 ### Kecepatan media
 
-Setiap video dan audio diputar pada kecepatan yang kamu atur, atau aturan kecepatan milik situs itu. <kbd>]</kbd> lebih cepat, <kbd>[</kbd> lebih lambat, <kbd>\\</kbd> kembali ke 1×. Kecepatan antara 0,91× dan 1,09× dianggap 1×. Jika kamu mengubah kecepatan dengan kontrol milik situs, sobrio membiarkannya di halaman itu. Secara opsional, video dan audio yang mulai berbunyi sebelum kamu menyentuh halaman dijeda; yang dibisukan tetap diputar.
+Setiap video dan audio diputar pada kecepatan yang kamu atur, atau aturan kecepatan milik situs itu. <kbd>]</kbd> lebih cepat, <kbd>[</kbd> lebih lambat, <kbd>\\</kbd> kembali ke 1×. Kecepatan antara 0,91× dan 1,09× dianggap 1×. Jika kamu mengubah kecepatan dengan kontrol milik situs, sobrio membiarkannya di halaman itu. Secara opsional, video dan audio yang mulai berbunyi sebelum kamu menyentuh halaman dijeda; yang dibisukan tetap diputar. Di Settings › Media, kamu dapat mengirim tautan magnet yang diklik ke server qBittorrent milikmu sendiri melalui HTTPS. Kunci API tidak disertakan dalam cadangan.
 
 ### Pintasan milik sendiri
 

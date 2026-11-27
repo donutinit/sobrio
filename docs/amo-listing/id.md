@@ -16,8 +16,8 @@ Switcher. Ctrl+Space membuka kotak di tengah halaman, seperti quick switcher Obs
 
 Tab baru dengan tanggal dan waktu yang ditata dengan cermat: enam tata letak, empat gaya tipografi atau fon buatanmu sendiri, sapaan opsional, tanggal dalam bahasa yang dipilih acak dari daftarmu, dan switcher di bawahnya.
 
-Pintasan milik sendiri, kecepatan untuk setiap video dan audio dengan ] dan [, serta jeda untuk media yang mulai berbunyi sendiri.
+Pintasan milik sendiri, kecepatan untuk setiap video dan audio dengan ] dan [, serta jeda untuk media yang mulai berbunyi sendiri. Di Settings › Media, kamu dapat mengirim tautan magnet yang diklik ke server qBittorrent milikmu sendiri melalui HTTPS. Kunci API tidak disertakan dalam cadangan.
 
-Pengecualian per situs, untuk stylesheet, mode gelap dan animasi. Semuanya tersimpan otomatis dan langsung berlaku di tab yang terbuka. Tidak ada yang keluar dari peramban kamu.
+Pengecualian per situs, untuk stylesheet, mode gelap dan animasi. Semuanya tersimpan otomatis dan langsung berlaku di tab yang terbuka.
 
 Sumber dan dokumentasi: https://github.com/donutinit/sobrio

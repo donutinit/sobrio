@@ -16,8 +16,8 @@ Uno switcher. Ctrl+Space apre un riquadro al centro della pagina, come lo switch
 
 Una nuova scheda con data e ora composte con cura: sei layout, quattro stili tipografici o font tuoi, un saluto facoltativo, la data in una lingua scelta a caso dal tuo elenco, e lo switcher sotto.
 
-Scorciatoie tutte tue, velocità per ogni video e audio con ] e [, e una pausa per i media che iniziano a suonare da soli.
+Scorciatoie tutte tue, velocità per ogni video e audio con ] e [, e una pausa per i media che iniziano a suonare da soli. In Impostazioni › Media, puoi inviare i link magnet cliccati al tuo server qBittorrent tramite HTTPS. La chiave API resta fuori dai backup.
 
-Eccezioni per sito, per il foglio di stile, per la modalità scura e per le animazioni. Tutto si salva da solo e si applica subito alle schede aperte. Nulla lascia il tuo browser.
+Eccezioni per sito, per il foglio di stile, per la modalità scura e per le animazioni. Tutto si salva da solo e si applica subito alle schede aperte.
 
 Codice e documentazione: https://github.com/donutinit/sobrio

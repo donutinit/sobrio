@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio bierze jedną małą część z [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) i [Global Speed](https://github.com/polywock/globalSpeed), i nic poza tym. Jedno rozszerzenie dla przeglądarek Firefox, LibreWolf i Chrome, dwa kolory, bez zaokrąglonych rogów, a nic nie opuszcza przeglądarki.
+sobrio bierze jedną małą część z [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) i [Global Speed](https://github.com/polywock/globalSpeed), i nic poza tym. Jedno rozszerzenie dla przeglądarek Firefox, LibreWolf i Chrome, dwa kolory, bez zaokrąglonych rogów.
 
 ![Switcher otwarty nad Wikipedią, którą sobrio zaczernił: wpisanie „ru” wypisuje zakładki o Rust, z pasującymi literami pogrubionymi.](docs/screens/switcher.png)
 
@@ -87,7 +87,7 @@ Przeglądarki zostawiają fokus na pasku adresu w nowej karcie i żadne rozszerz
 
 ### Szybkość mediów
 
-Każde wideo i dźwięk odtwarza się z szybkością, którą ustawisz, albo z regułą danej witryny. <kbd>]</kbd> szybciej, <kbd>[</kbd> wolniej, <kbd>\\</kbd> z powrotem do 1×. Wszystko od 0,91× do 1,09× to po prostu 1×. Jeśli zmienisz szybkość przyciskami samej witryny, sobrio na tej stronie jej nie rusza. Opcjonalnie wideo i dźwięk, które zaczynają grać przed tym, zanim dotkniesz strony, są wstrzymywane; wyciszone grają dalej.
+Każde wideo i dźwięk odtwarza się z szybkością, którą ustawisz, albo z regułą danej witryny. <kbd>]</kbd> szybciej, <kbd>[</kbd> wolniej, <kbd>\\</kbd> z powrotem do 1×. Wszystko od 0,91× do 1,09× to po prostu 1×. Jeśli zmienisz szybkość przyciskami samej witryny, sobrio na tej stronie jej nie rusza. Opcjonalnie wideo i dźwięk, które zaczynają grać przed tym, zanim dotkniesz strony, są wstrzymywane; wyciszone grają dalej. W Ustawieniach › Media możesz wysyłać kliknięte linki magnet do własnego serwera qBittorrent przez HTTPS. Klucz API nie trafia do kopii zapasowej.
 
 ### Własne skróty
 

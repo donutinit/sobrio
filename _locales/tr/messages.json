@@ -518,6 +518,27 @@
   "mediaPauseAutoplay": {
     "message": "Kendiliğinden çalan video ve sesi duraklat"
   },
+  "magnetEnable": {
+    "message": "Tıklanan magnet bağlantılarını qBittorrent'a gönder"
+  },
+  "magnetServer": {
+    "message": "Sunucu adresi"
+  },
+  "magnetKey": {
+    "message": "API anahtarı"
+  },
+  "magnetSave": {
+    "message": "Kaydet"
+  },
+  "magnetSaved": {
+    "message": "Ayarlar kaydedildi"
+  },
+  "magnetSent": {
+    "message": "Magnet bağlantısı gönderildi"
+  },
+  "magnetFailed": {
+    "message": "Magnet bağlantısı gönderilemedi"
+  },
   "toastSpeedOff": {
     "message": "Medya hızı ayarlarda kapalı"
   },
@@ -614,7 +635,7 @@
     "message": "Ayarları aç"
   },
   "welcomeFooter": {
-    "message": "Hiçbir şey tarayıcınızdan çıkmaz. Ayarlar, tüm bunları başka bir tarayıcıya taşımanız için bir yedek tutar."
+    "message": "Ayarlar, tüm bunları başka bir tarayıcıya taşımanız için bir yedek tutar."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ ve $CSS$",

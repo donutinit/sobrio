@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_name__",
   "description": "__MSG_description__",
-  "version": "0.4.9",
+  "version": "0.5.0",
   "default_locale": "en",
   "icons": {
     "16": "icons/icon-16.png",
@@ -27,7 +27,7 @@
     },
     {
       "matches": ["<all_urls>"],
-      "js": ["boot.js", "settings.js", "style.js", "darkreader.js", "detector.js", "page.js", "toast.js", "speed.js", "shortcuts.js"],
+      "js": ["boot.js", "settings.js", "style.js", "darkreader.js", "detector.js", "page.js", "toast.js", "speed.js", "shortcuts.js", "magnet.js"],
       "run_at": "document_start",
       "all_frames": true,
       "match_about_blank": true
@@ -68,7 +68,7 @@
     "gecko": {
       "id": "sobrio@donutinit",
       "strict_min_version": "128.0",
-      "data_collection_permissions": { "required": ["none"] }
+      "data_collection_permissions": { "required": ["none"], "optional": ["websiteContent", "authenticationInfo"] }
     }
   }
 }

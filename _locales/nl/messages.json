@@ -515,6 +515,27 @@
   "newtabFocusPageHint": {
     "message": "Het tabblad wordt vervangen door een nieuw op dezelfde plek, zodat de adresbalk het adres van de pagina toont in plaats van leeg te blijven."
   },
+  "magnetEnable": {
+    "message": "Geklikte magnet-links naar qBittorrent sturen"
+  },
+  "magnetServer": {
+    "message": "Serveradres"
+  },
+  "magnetKey": {
+    "message": "API-sleutel"
+  },
+  "magnetSave": {
+    "message": "Opslaan"
+  },
+  "magnetSaved": {
+    "message": "Instellingen opgeslagen"
+  },
+  "magnetSent": {
+    "message": "Magnet-link verzonden"
+  },
+  "magnetFailed": {
+    "message": "Kon de magnet-link niet verzenden"
+  },
   "mediaPauseAutoplay": {
     "message": "Video en audio die vanzelf afspelen pauzeren"
   },
@@ -614,7 +635,7 @@
     "message": "De instellingen openen"
   },
   "welcomeFooter": {
-    "message": "Niets verlaat je browser. De instellingen bewaren een back-up, om dit alles mee te nemen naar een andere browser."
+    "message": "De instellingen bewaren een back-up, om dit alles mee te nemen naar een andere browser."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ en $CSS$",

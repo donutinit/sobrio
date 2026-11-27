@@ -614,7 +614,7 @@
     "message": "Otwórz ustawienia"
   },
   "welcomeFooter": {
-    "message": "Nic nie opuszcza przeglądarki. Ustawienia mają kopię zapasową, dzięki której przeniesiesz to wszystko do innej przeglądarki."
+    "message": "Ustawienia mają kopię zapasową, dzięki której przeniesiesz to wszystko do innej przeglądarki."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ i $CSS$",
@@ -696,5 +696,26 @@
   },
   "localLeftAlone": {
     "message": "Adresy lokalne zostają w spokoju: zmień to w ustawieniach"
+  },
+  "magnetEnable": {
+    "message": "Wysyłaj kliknięte linki magnet do qBittorrent"
+  },
+  "magnetServer": {
+    "message": "Adres serwera"
+  },
+  "magnetKey": {
+    "message": "Klucz API"
+  },
+  "magnetSave": {
+    "message": "Zapisz"
+  },
+  "magnetSaved": {
+    "message": "Ustawienia zapisane"
+  },
+  "magnetSent": {
+    "message": "Wysłano link magnet"
+  },
+  "magnetFailed": {
+    "message": "Nie udało się wysłać linku magnet"
   }
 }

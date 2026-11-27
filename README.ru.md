@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio берёт одну маленькую часть от [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) и [Global Speed](https://github.com/polywock/globalSpeed) и ничего больше. Одно расширение для Firefox, LibreWolf и Chrome, два цвета, никаких скруглённых углов, и ничто не покидает ваш браузер.
+sobrio берёт одну маленькую часть от [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) и [Global Speed](https://github.com/polywock/globalSpeed) и ничего больше. Одно расширение для Firefox, LibreWolf и Chrome, два цвета, никаких скруглённых углов.
 
 ![Окно switcher поверх Википедии, которую sobrio сделал чёрной: ввод «ru» выводит закладки Rust, совпавшие буквы выделены жирным.](docs/screens/switcher.png)
 
@@ -87,7 +87,7 @@ Switcher запоминает, что вы открываете из него: �
 
 ### Скорость медиа
 
-Каждое видео и аудио играет с заданной вами скоростью или по правилу сайта. <kbd>]</kbd> быстрее, <kbd>[</kbd> медленнее, <kbd>\\</kbd> вернуть 1×. Всё от 0.91× до 1.09× считается обычной 1×. Если вы меняете скорость средствами самого сайта, sobrio на этой странице не вмешивается. По желанию видео и аудио, которые начинают звучать до того, как вы взаимодействовали со страницей, ставятся на паузу; беззвучные играют дальше.
+Каждое видео и аудио играет с заданной вами скоростью или по правилу сайта. <kbd>]</kbd> быстрее, <kbd>[</kbd> медленнее, <kbd>\\</kbd> вернуть 1×. Всё от 0.91× до 1.09× считается обычной 1×. Если вы меняете скорость средствами самого сайта, sobrio на этой странице не вмешивается. По желанию видео и аудио, которые начинают звучать до того, как вы взаимодействовали со страницей, ставятся на паузу; беззвучные играют дальше. В Настройки › Медиа можно включить отправку нажатых ссылок magnet на собственный сервер qBittorrent по HTTPS. Ключ API не попадает в резервные копии.
 
 ### Свои сочетания клавиш
 

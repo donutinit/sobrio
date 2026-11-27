@@ -518,6 +518,27 @@
   "mediaPauseAutoplay": {
     "message": "Oprește video și audio care pornesc singure"
   },
+  "magnetEnable": {
+    "message": "Trimite linkurile magnet accesate către qBittorrent"
+  },
+  "magnetServer": {
+    "message": "Adresa serverului"
+  },
+  "magnetKey": {
+    "message": "Cheia API"
+  },
+  "magnetSave": {
+    "message": "Salvează"
+  },
+  "magnetSaved": {
+    "message": "Setări salvate"
+  },
+  "magnetSent": {
+    "message": "Link magnet trimis"
+  },
+  "magnetFailed": {
+    "message": "Nu s-a putut trimite linkul magnet"
+  },
   "toastSpeedOff": {
     "message": "Viteza media este dezactivată în setări"
   },
@@ -614,7 +635,7 @@
     "message": "Deschide setările"
   },
   "welcomeFooter": {
-    "message": "Nimic nu părăsește browserul tău. Setările păstrează o copie de rezervă, ca să duci toate acestea în alt browser."
+    "message": "Setările păstrează o copie de rezervă, ca să duci toate acestea în alt browser."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ și $CSS$",

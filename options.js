@@ -1,4 +1,4 @@
-// The settings page. Every change saves itself, and every open tab applies it live.
+// The settings page. Saved changes apply live in open tabs.
 (() => {
   const { mergeSettings, normalizePattern, storeThemeHook, DEFAULT_ANIM_OFF, isCommandWord, makeBackup, readBackup, backupDetails, ACTIONS, normalizeKeys, isValidShortcutKeys, roundCorners, squircleBorder, squircleClip } = sobrio.settings;
   const { ENGINES, allEngines, shortUrl } = sobrio.match;
@@ -590,6 +590,70 @@
 
   const TABS = ['style', 'dark', 'exceptions', 'switcher', 'shortcuts', 'newtab', 'media', 'stats'];
 
+  function magnetSettings() {
+    const { qbitConfig, magnetData } = sobrio.guard;
+    const enabled = el('input', { id: 'magnet-enabled', type: 'checkbox', className: 'switch' });
+    const address = el('input', { id: 'magnet-server', type: 'url', className: 'text', required: true,
+      pattern: String.raw`[hH][tT][tT][pP][sS]:\/\/[^\/@?#]+(?:\/[^?#]*)?`,
+      placeholder: 'https://qbit.example.com', spellcheck: false });
+    const key = el('input', { id: 'magnet-key', type: 'password', className: 'text', autocomplete: 'off',
+      pattern: 'qbt_[A-Za-z0-9]{28}', placeholder: t('newtabNamePlaceholder') });
+    const save = el('button', { type: 'submit', textContent: t('magnetSave'), disabled: true });
+    const status = el('p', { className: 'status' });
+    status.setAttribute('role', 'status');
+    const form = el('form', { noValidate: true, hidden: true },
+      row(enabled.id, 'magnetEnable', [enabled]),
+      row(address.id, 'magnetServer', [address]),
+      row(key.id, 'magnetKey', [key]),
+      el('div', { className: 'adder' }, save), status);
+
+    let consentSupported = false;
+    let savedEnabled = false;
+    Promise.all([chrome.storage.local.get(['qbit', 'magnetEnabled']), chrome.permissions.getAll()])
+      .then(([stored, permissions]) => {
+        consentSupported = Array.isArray(permissions.data_collection);
+        // Older Firefox has no built-in data consent for this optional feature.
+        if (!consentSupported && chrome.runtime.getBrowserInfo) return;
+        form.hidden = false;
+        savedEnabled = stored.magnetEnabled === true
+          && (!consentSupported || magnetData(stored.qbit?.key).every((type) => permissions.data_collection.includes(type)));
+        enabled.checked = savedEnabled;
+        address.value = stored.qbit?.address ?? '';
+        key.value = stored.qbit?.key ?? '';
+        save.disabled = false;
+      }, () => {
+        form.hidden = false;
+        flash(status, t('magnetFailed'));
+      });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (save.disabled) return;
+      const magnetEnabled = enabled.checked;
+      key.value = key.value.trim();
+      if (magnetEnabled && !form.reportValidity()) return;
+      const qbit = qbitConfig(address.value, key.value);
+      if (magnetEnabled && !qbit) return flash(status, t('magnetFailed'));
+      save.disabled = true;
+      try {
+        if (magnetEnabled && consentSupported
+          && !await chrome.permissions.request({ data_collection: magnetData(qbit.key) })) {
+          enabled.checked = savedEnabled;
+          return flash(status, t('magnetFailed'));
+        }
+        await chrome.storage.local.set({ magnetEnabled, qbit });
+        savedEnabled = magnetEnabled;
+        flash(status, t('magnetSaved'));
+      } catch {
+        enabled.checked = savedEnabled;
+        flash(status, t('magnetFailed'));
+      } finally {
+        save.disabled = false;
+      }
+    });
+    return form;
+  }
+
   function panel(id, ...children) {
     return el('section', { className: 'panel', id: `panel-${id}` }, el('h2', { textContent: t(`tab_${id}`) }), ...children);
   }
@@ -741,7 +805,8 @@
         selectRow('speed.step', 'speedStep', () => [0.05, 0.1, 0.25].map((step) => ({ value: String(step), label: times(step) }))),
         switchRow('speed.shortcuts', 'speedShortcuts', { dependsOn: 'speed.enabled' }),
         switchRow('media.pauseAutoplay', 'mediaPauseAutoplay'),
-        speedRules()),
+        speedRules(),
+        magnetSettings()),
       panel('stats', statsTable()),
     ];
     document.querySelector('main').append(

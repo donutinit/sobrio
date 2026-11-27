@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio는 [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss), [Global Speed](https://github.com/polywock/globalSpeed)의 작은 일부만 가져오고, 그 밖의 것은 가져오지 않습니다. Firefox, LibreWolf, Chrome용 확장 기능 하나이며, 색은 두 가지뿐이고, 둥근 모서리가 없으며, 데이터는 브라우저 밖으로 나가지 않습니다.
+sobrio는 [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss), [Global Speed](https://github.com/polywock/globalSpeed)의 작은 일부만 가져오고, 그 밖의 것은 가져오지 않습니다. Firefox, LibreWolf, Chrome용 확장 기능 하나이며, 색은 두 가지뿐이고, 둥근 모서리가 없습니다.
 
 ![switcher가 열린 Wikipedia 화면. sobrio가 페이지를 검게 바꾸었고, "ru"를 입력하면 일치하는 글자를 굵게 표시한 Rust 북마크 목록이 나타납니다.](docs/screens/switcher.png)
 
@@ -87,7 +87,7 @@ switcher에 입력하는 명령은 네 가지입니다. 도구 모음 버튼에�
 
 ### 미디어 속도
 
-모든 비디오와 오디오가 설정한 속도로, 또는 사이트의 고유한 규칙에 따라 재생됩니다. <kbd>]</kbd>는 빠르게, <kbd>[</kbd>는 느리게, <kbd>\\</kbd>는 1×로 되돌립니다. 0.91×에서 1.09× 사이는 모두 1×로 봅니다. 사이트 자체 컨트롤로 속도를 바꾸면, 그 페이지에서는 sobrio가 건드리지 않습니다. 선택 사항으로, 페이지를 건드리기 전에 소리가 나기 시작한 비디오와 오디오를 일시정지할 수 있습니다. 음소거된 것은 그대로 재생됩니다.
+모든 비디오와 오디오가 설정한 속도로, 또는 사이트의 고유한 규칙에 따라 재생됩니다. <kbd>]</kbd>는 빠르게, <kbd>[</kbd>는 느리게, <kbd>\\</kbd>는 1×로 되돌립니다. 0.91×에서 1.09× 사이는 모두 1×로 봅니다. 사이트 자체 컨트롤로 속도를 바꾸면, 그 페이지에서는 sobrio가 건드리지 않습니다. 선택 사항으로, 페이지를 건드리기 전에 소리가 나기 시작한 비디오와 오디오를 일시정지할 수 있습니다. 음소거된 것은 그대로 재생됩니다. 설정 › 미디어에서 클릭한 magnet 링크를 HTTPS를 통해 자신의 qBittorrent 서버로 보낼 수 있습니다. API 키는 백업에 포함되지 않습니다.
 
 ### 나만의 단축키
 

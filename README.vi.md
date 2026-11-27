@@ -35,7 +35,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio lấy một phần nhỏ từ [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) và [Global Speed](https://github.com/polywock/globalSpeed), và không lấy gì khác. Một tiện ích cho Firefox, LibreWolf và Chrome, hai màu, không bo góc, và không có gì rời khỏi trình duyệt của bạn.
+sobrio lấy một phần nhỏ từ [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) và [Global Speed](https://github.com/polywock/globalSpeed), và không lấy gì khác. Một tiện ích cho Firefox, LibreWolf và Chrome, hai màu, không bo góc.
 
 ![Switcher mở trên Wikipedia, trang mà sobrio đã chuyển sang màu đen: gõ "ru" sẽ liệt kê các dấu trang Rust, với các chữ cái khớp được in đậm.](docs/screens/switcher.png)
 
@@ -87,6 +87,8 @@ Trình duyệt giữ tiêu điểm ở thanh địa chỉ trên thẻ mới, và
 ### Tốc độ phương tiện
 
 Mọi video và âm thanh đều phát ở tốc độ bạn đặt, hoặc theo quy tắc riêng của trang. <kbd>]</kbd> nhanh hơn, <kbd>[</kbd> chậm hơn, <kbd>\\</kbd> về 1×. Mọi tốc độ từ 0.91× đến 1.09× đều là 1×. Nếu bạn đổi tốc độ bằng điều khiển của chính trang, sobrio sẽ không can thiệp trên trang đó. Tùy chọn: video và âm thanh bắt đầu phát có tiếng trước khi bạn chạm vào trang sẽ bị tạm dừng; các mục tắt tiếng vẫn phát.
+
+Trong Cài đặt › Phương tiện, bạn có thể gửi liên kết magnet được nhấp đến máy chủ qBittorrent của mình qua HTTPS. API key không nằm trong bản sao lưu.
 
 ### Phím tắt riêng
 

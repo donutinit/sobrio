@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-A sobrio a [Stylus](https://github.com/openstyles/stylus), a [Dark Reader](https://github.com/darkreader/darkreader), a [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), a [Tabliss](https://github.com/joelshepherd/tabliss) és a [Global Speed](https://github.com/polywock/globalSpeed) egy kis részét veszi át, és mást nem. Egy bővítmény Firefoxhoz, LibreWolfhoz és Chrome-hoz, két szín, nincsenek lekerekített sarkok, és semmi nem hagyja el a böngészőt.
+A sobrio a [Stylus](https://github.com/openstyles/stylus), a [Dark Reader](https://github.com/darkreader/darkreader), a [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), a [Tabliss](https://github.com/joelshepherd/tabliss) és a [Global Speed](https://github.com/polywock/globalSpeed) egy kis részét veszi át, és mást nem. Egy bővítmény Firefoxhoz, LibreWolfhoz és Chrome-hoz, két szín, nincsenek lekerekített sarkok.
 
 ![A switcher megnyitva a Wikipedián, amelyet a sobrio feketére váltott: a „ru” beírására a Rust könyvjelzői jelennek meg, az egyezett betűk félkövéren.](docs/screens/switcher.png)
 
@@ -88,6 +88,8 @@ A böngészők új lapon a címsorban tartják a fókuszt, és egy kiterjesztés
 ### Médiasebesség
 
 Minden videó és hang a beállított sebességgel szól, vagy a webhely saját szabálya szerint. A <kbd>]</kbd> gyorsabban, a <kbd>[</kbd> lassabban, a <kbd>\\</kbd> vissza 1×-re. A 0,91× és 1,09× közötti sebesség egyszerűen 1×. Ha a webhely saját vezérlőivel változtatod a sebességet, a sobrio azon az oldalon nem nyúl hozzá. Opcionálisan a videók és hangok, amelyek a lapon való bármilyen érintés előtt elkezdenek szólni, szünetelnek; a némítottak szólnak tovább.
+
+A Beállítások › Média lapon beállíthatod, hogy a rákattintott magnet hivatkozásokat a saját qBittorrent szerveredre küldje HTTPS-en keresztül. Az API-kulcs nem kerül bele a biztonsági mentésbe.
 
 ### Saját billentyűparancsok
 

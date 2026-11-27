@@ -106,7 +106,22 @@
     return reason === 'install' && installType !== 'development';
   }
 
-  const api = { MAX_BYTES, fetchAllowed, responseAllowed, isCss, toBase64, canInject, redirectAllowed, isOwnNewtab, shouldWelcome };
+  function magnetLink(value) {
+    if (typeof value !== 'string' || !/^magnet:\?/i.test(value) || /[\x00-\x1f\x7f]/.test(value)) return false;
+    return new URL(value).searchParams.getAll('xt').some((topic) =>
+      /^urn:(?:btih:(?:[0-9a-f]{40}|[a-z2-7]{32})|btmh:1220[0-9a-f]{64})$/i.test(topic));
+  }
+
+  function qbitConfig(address, key) {
+    if (typeof address !== 'string' || typeof key !== 'string' || (key && !/^qbt_[A-Za-z0-9]{28}$/.test(key))) return null;
+    const url = URL.parse(address.trim());
+    if (!url || url.protocol !== 'https:' || url.username || url.password || url.search || url.hash) return null;
+    return { address: `${url.origin}${url.pathname.replace(/\/+$/, '')}`, key };
+  }
+
+  const magnetData = (key) => key ? ['websiteContent', 'authenticationInfo'] : ['websiteContent'];
+  const api = { MAX_BYTES, fetchAllowed, responseAllowed, isCss, toBase64, canInject, redirectAllowed,
+    isOwnNewtab, shouldWelcome, magnetLink, qbitConfig, magnetData };
   globalThis.sobrio = globalThis.sobrio || {};
   globalThis.sobrio.guard = api;
   if (typeof module === 'object') module.exports = api;

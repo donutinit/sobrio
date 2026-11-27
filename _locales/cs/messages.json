@@ -518,6 +518,27 @@
   "mediaPauseAutoplay": {
     "message": "Pozastavit video a zvuk, které se spouštějí samy"
   },
+  "magnetEnable": {
+    "message": "Odesílat kliknuté magnet odkazy do qBittorrentu"
+  },
+  "magnetServer": {
+    "message": "Adresa serveru"
+  },
+  "magnetKey": {
+    "message": "Klíč API"
+  },
+  "magnetSave": {
+    "message": "Uložit"
+  },
+  "magnetSaved": {
+    "message": "Nastavení uloženo"
+  },
+  "magnetSent": {
+    "message": "Magnet odkaz odeslán"
+  },
+  "magnetFailed": {
+    "message": "Magnet odkaz se nepodařilo odeslat"
+  },
   "toastSpeedOff": {
     "message": "Rychlost médií je v nastavení vypnutá"
   },
@@ -614,7 +635,7 @@
     "message": "Otevřít nastavení"
   },
   "welcomeFooter": {
-    "message": "Nic neopouští váš prohlížeč. Nastavení si drží zálohu, abyste vše mohli přenést do jiného prohlížeče."
+    "message": "Nastavení si drží zálohu, abyste vše mohli přenést do jiného prohlížeče."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ a $CSS$",

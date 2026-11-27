@@ -16,8 +16,8 @@ Switcher. Ctrl+Space otwiera pole na środku strony, jak szybki przełącznik w 
 
 Nowa karta z datą i godziną zestawionymi starannie: sześć układów, cztery style typograficzne albo własne czcionki, opcjonalne powitanie, data w losowo wybranym języku z twojej listy i switcher pod spodem.
 
-Własne skróty, szybkość mediów dla każdego wideo i dźwięku z ] i [ oraz wstrzymywanie mediów, które same zaczynają grać.
+Własne skróty, szybkość mediów dla każdego wideo i dźwięku z ] i [ oraz wstrzymywanie mediów, które same zaczynają grać. W Ustawieniach › Media możesz wysyłać kliknięte linki magnet do własnego serwera qBittorrent przez HTTPS. Klucz API nie trafia do kopii zapasowej.
 
-Wyjątki dla witryn: arkusz stylów, tryb ciemny i animacje. Wszystko zapisuje się samo i od razu działa w otwartych kartach. Nic nie opuszcza przeglądarki.
+Wyjątki dla witryn: arkusz stylów, tryb ciemny i animacje. Wszystko zapisuje się samo i od razu działa w otwartych kartach.
 
 Kod i dokumentacja: https://github.com/donutinit/sobrio

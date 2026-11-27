@@ -18,6 +18,6 @@ O filă nouă cu data și ora compuse cu grijă: șase aspecte, patru stiluri ti
 
 Comenzi rapide proprii, viteza media pentru fiecare video și audio cu ] și [, și o pauză pentru conținutul care pornește singur să sune.
 
-Excepții pe site, pentru foaia de stiluri, pentru modul întunecat și pentru animații. Totul se salvează singur și se aplică imediat în filele deschise. Nimic nu părăsește browserul tău.
+Excepții pe site, pentru foaia de stiluri, pentru modul întunecat și pentru animații. Totul se salvează singur și se aplică imediat în filele deschise. În Setări › Media poți trimite linkurile magnet accesate către propriul server qBittorrent prin HTTPS. Cheia API nu este inclusă în copiile de rezervă.
 
 Sursă și documentație: https://github.com/donutinit/sobrio

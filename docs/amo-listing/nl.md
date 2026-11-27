@@ -16,8 +16,8 @@ Een switcher. Ctrl+Space opent een vak midden op de pagina, zoals de quick switc
 
 Een nieuw tabblad met de datum en de tijd, zorgvuldig gezet: zes indelingen, vier typografische stijlen of je eigen lettertypen, een optionele begroeting, de datum in een willekeurige taal uit je lijst, en de switcher eronder.
 
-Eigen sneltoetsen, mediasnelheid voor elke video en audio met ] en [, en een pauze voor media die vanzelf geluid gaat maken.
+Eigen sneltoetsen, mediasnelheid voor elke video en audio met ] en [, en een pauze voor media die vanzelf geluid gaat maken. In Instellingen › Media kun je geklikte magnet-links via HTTPS naar je eigen qBittorrent-server sturen. De API-sleutel blijft buiten back-ups.
 
-Uitzonderingen per site, voor de stijlpagina, de donkere modus en de animaties. Alles wordt vanzelf opgeslagen en geldt direct voor open tabbladen. Niets verlaat je browser.
+Uitzonderingen per site, voor de stijlpagina, de donkere modus en de animaties. Alles wordt vanzelf opgeslagen en geldt direct voor open tabbladen.
 
 Broncode en documentatie: https://github.com/donutinit/sobrio

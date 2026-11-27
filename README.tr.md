@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio, [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) ve [Global Speed](https://github.com/polywock/globalSpeed)'den küçük bir parça alır, başka hiçbir şey almaz. Firefox, LibreWolf ve Chrome için tek bir eklenti: iki renk, yuvarlak köşe yok ve hiçbir şey tarayıcınızdan çıkmaz.
+sobrio, [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) ve [Global Speed](https://github.com/polywock/globalSpeed)'den küçük bir parça alır, başka hiçbir şey almaz. Firefox, LibreWolf ve Chrome için tek bir eklenti: iki renk ve yuvarlak köşe yok.
 
 ![Wikipedia üzerinde açık switcher, sobrio'nun siyaha çevirdiği sayfada; "ru" yazınca Rust yer imleri listelenir, eşleşen harfler kalındır.](docs/screens/switcher.png)
 
@@ -88,6 +88,8 @@ Tarayıcılar yeni bir sekmede odağı adres çubuğunda tutar ve hiçbir eklent
 ### Medya hızı
 
 Her video ve ses, ayarladığınız hızda ya da sitenin kendi kuralındaki hızda oynar. <kbd>]</kbd> hızlandırır, <kbd>[</kbd> yavaşlatır, <kbd>\\</kbd> 1×'e döndürür. 0,91× ile 1,09× arasındaki her hız 1× sayılır. Hızı sitenin kendi denetimleriyle değiştirirseniz sobrio o sayfada dokunmaz. İsteğe bağlı olarak, dokunmadan önce ses çalmaya başlayan video ve sesler duraklatılır; sessiz olanlar oynamaya devam eder.
+
+Ayarlar › Medya bölümünde, tıklanan magnet bağlantılarını HTTPS üzerinden kendi qBittorrent sunucunuza gönderebilirsiniz. API anahtarı desteği için qBittorrent 5.2 veya sonrası gerekir. API anahtarı yedeklere eklenmez.
 
 ### Kendi kısayollarınız
 

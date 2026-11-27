@@ -16,8 +16,8 @@ Một switcher. Ctrl+Space mở một hộp ở giữa trang, giống quick swit
 
 Một thẻ mới với ngày và giờ được sắp đặt cẩn thận: sáu bố cục, bốn kiểu chữ hoặc phông của riêng bạn, một lời chào tùy chọn, ngày bằng một ngôn ngữ chọn ngẫu nhiên trong danh sách của bạn, và switcher ở bên dưới.
 
-Phím tắt riêng, tốc độ phương tiện cho mọi video và âm thanh với ] và [, và tạm dừng các nội dung tự phát có tiếng.
+Phím tắt riêng, tốc độ phương tiện cho mọi video và âm thanh với ] và [, tạm dừng các nội dung tự phát có tiếng, và gửi liên kết magnet được nhấp đến máy chủ qBittorrent của bạn qua HTTPS. API key không nằm trong bản sao lưu.
 
-Ngoại lệ theo từng trang, cho kiểu CSS, chế độ tối và hoạt ảnh. Mọi thứ được lưu tự động và áp dụng ngay cho các thẻ đang mở. Không có gì rời khỏi trình duyệt của bạn.
+Ngoại lệ theo từng trang, cho kiểu CSS, chế độ tối và hoạt ảnh. Mọi thứ được lưu tự động và áp dụng ngay cho các thẻ đang mở.
 
 Mã nguồn và tài liệu: https://github.com/donutinit/sobrio

@@ -18,6 +18,8 @@ A switcher. A Ctrl+Space az oldal közepén nyit egy dobozt, mint az Obsidian gy
 
 Saját billentyűparancsok, médiasebesség minden videóhoz és hanghoz a ] és a [ billentyűkkel, valamint szüneteltetés a magától szóló médiának.
 
-Kivételek webhelyenként a stíluslaphoz, a sötét módhoz és az animációkhoz. Minden magától mentődik, és azonnal alkalmazódik a megnyitott lapokon. Semmi nem hagyja el a böngészőt.
+Kivételek webhelyenként a stíluslaphoz, a sötét módhoz és az animációkhoz. Minden magától mentődik, és azonnal alkalmazódik a megnyitott lapokon.
+
+A Beállítások › Média lapon beállíthatod, hogy a rákattintott magnet hivatkozásokat a saját qBittorrent szerveredre küldje HTTPS-en keresztül. Az API-kulcs nem kerül bele a biztonsági mentésbe.
 
 Forrás és dokumentáció: https://github.com/donutinit/sobrio

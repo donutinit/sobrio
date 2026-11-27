@@ -518,6 +518,27 @@
   "mediaPauseAutoplay": {
     "message": "Szünetelteti a magától induló videót és hangot"
   },
+  "magnetEnable": {
+    "message": "A rákattintott magnet hivatkozások küldése a qBittorrentnek"
+  },
+  "magnetServer": {
+    "message": "Szerver címe"
+  },
+  "magnetKey": {
+    "message": "API-kulcs"
+  },
+  "magnetSave": {
+    "message": "Mentés"
+  },
+  "magnetSaved": {
+    "message": "A beállítások mentve"
+  },
+  "magnetSent": {
+    "message": "A magnet hivatkozás elküldve"
+  },
+  "magnetFailed": {
+    "message": "Nem sikerült elküldeni a magnet hivatkozást"
+  },
   "toastSpeedOff": {
     "message": "A média sebessége ki van kapcsolva a beállításokban"
   },
@@ -614,7 +635,7 @@
     "message": "Beállítások megnyitása"
   },
   "welcomeFooter": {
-    "message": "Semmi nem hagyja el a böngészőt. A beállítások biztonsági mentést készítenek, hogy mindezt átvidd egy másik böngészőbe."
+    "message": "A beállítások biztonsági mentést készítenek, hogy mindezt átvidd egy másik böngészőbe."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ és $CSS$",

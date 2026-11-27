@@ -614,7 +614,7 @@
     "message": "Buka pengaturan"
   },
   "welcomeFooter": {
-    "message": "Tidak ada yang keluar dari peramban kamu. Pengaturan menyimpan cadangan, untuk membawa semua ini ke peramban lain."
+    "message": "Pengaturan menyimpan cadangan, untuk membawa semua ini ke peramban lain."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ dan $CSS$",
@@ -696,5 +696,26 @@
   },
   "localLeftAlone": {
     "message": "Alamat lokal dibiarkan: ubah di pengaturan"
+  },
+  "magnetEnable": {
+    "message": "Kirim tautan magnet yang diklik ke qBittorrent"
+  },
+  "magnetServer": {
+    "message": "Alamat server"
+  },
+  "magnetKey": {
+    "message": "Kunci API"
+  },
+  "magnetSave": {
+    "message": "Simpan"
+  },
+  "magnetSaved": {
+    "message": "Pengaturan disimpan"
+  },
+  "magnetSent": {
+    "message": "Tautan magnet dikirim"
+  },
+  "magnetFailed": {
+    "message": "Tidak dapat mengirim tautan magnet"
   }
 }

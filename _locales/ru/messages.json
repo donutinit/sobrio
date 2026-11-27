@@ -518,6 +518,27 @@
   "mediaPauseAutoplay": {
     "message": "Ставить на паузу видео и аудио, которые начинаются сами"
   },
+  "magnetEnable": {
+    "message": "Отправлять нажатые ссылки magnet в qBittorrent"
+  },
+  "magnetServer": {
+    "message": "Адрес сервера"
+  },
+  "magnetKey": {
+    "message": "Ключ API"
+  },
+  "magnetSave": {
+    "message": "Сохранить"
+  },
+  "magnetSaved": {
+    "message": "Настройки сохранены"
+  },
+  "magnetSent": {
+    "message": "Ссылка magnet отправлена"
+  },
+  "magnetFailed": {
+    "message": "Не удалось отправить ссылку magnet"
+  },
   "toastSpeedOff": {
     "message": "Скорость медиа выключена в настройках"
   },
@@ -614,7 +635,7 @@
     "message": "Открыть настройки"
   },
   "welcomeFooter": {
-    "message": "Ничего не покидает ваш браузер. В настройках есть резервная копия, чтобы перенести всё это в другой браузер."
+    "message": "В настройках есть резервная копия, чтобы перенести всё это в другой браузер."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ и $CSS$",

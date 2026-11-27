@@ -518,6 +518,27 @@
   "mediaPauseAutoplay": {
     "message": "暂停自动播放的视频和音频"
   },
+  "magnetEnable": {
+    "message": "将点击的 magnet 链接发送到 qBittorrent"
+  },
+  "magnetServer": {
+    "message": "服务器地址"
+  },
+  "magnetKey": {
+    "message": "API 密钥"
+  },
+  "magnetSave": {
+    "message": "保存"
+  },
+  "magnetSaved": {
+    "message": "设置已保存"
+  },
+  "magnetSent": {
+    "message": "magnet 链接已发送"
+  },
+  "magnetFailed": {
+    "message": "无法发送 magnet 链接"
+  },
   "toastSpeedOff": {
     "message": "设置中已关闭媒体速度"
   },
@@ -614,7 +635,7 @@
     "message": "打开设置"
   },
   "welcomeFooter": {
-    "message": "内容不会离开你的浏览器。设置会保存一份备份，方便把这些带到另一个浏览器。"
+    "message": "设置会保存一份备份，方便把这些带到另一个浏览器。"
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ 和 $CSS$",

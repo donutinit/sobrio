@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio prend une petite partie de [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) et [Global Speed](https://github.com/polywock/globalSpeed), et rien d'autre. Une seule extension pour Firefox, LibreWolf et Chrome, deux couleurs, pas de coins arrondis, et rien ne quitte votre navigateur.
+sobrio prend une petite partie de [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) et [Global Speed](https://github.com/polywock/globalSpeed), et rien d'autre. Une seule extension pour Firefox, LibreWolf et Chrome, deux couleurs, pas de coins arrondis.
 
 ![Le switcher ouvert sur Wikipedia, que sobrio a rendu noir : en tapant « ru », les marque-pages de Rust s'affichent, avec les lettres trouvées en gras.](docs/screens/switcher.png)
 
@@ -87,7 +87,7 @@ Les navigateurs gardent le focus dans la barre d'adresse sur un nouvel onglet, e
 
 ### Vitesse des médias
 
-Chaque vidéo et chaque audio se lit à la vitesse que vous réglez, ou à la règle propre à un site. <kbd>]</kbd> plus vite, <kbd>[</kbd> plus lent, <kbd>\\</kbd> retour à 1×. Toute vitesse entre 0,91× et 1,09× vaut 1×. Si vous changez la vitesse avec les commandes propres à un site, sobrio n'y touche plus sur cette page. Facultativement, les vidéos et l'audio qui se mettent à sonner avant que vous ne touchiez la page sont mis en pause ; les lectures muettes continuent.
+Chaque vidéo et chaque audio se lit à la vitesse que vous réglez, ou à la règle propre à un site. <kbd>]</kbd> plus vite, <kbd>[</kbd> plus lent, <kbd>\\</kbd> retour à 1×. Toute vitesse entre 0,91× et 1,09× vaut 1×. Si vous changez la vitesse avec les commandes propres à un site, sobrio n'y touche plus sur cette page. Facultativement, les vidéos et l'audio qui se mettent à sonner avant que vous ne touchiez la page sont mis en pause ; les lectures muettes continuent. Dans Réglages › Médias, vous pouvez envoyer les liens magnet cliqués à votre propre serveur qBittorrent via HTTPS. La clé API n'est pas incluse dans les sauvegardes.
 
 ### Vos propres raccourcis
 

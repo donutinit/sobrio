@@ -16,8 +16,8 @@ Un switcher. Ctrl+Space ouvre une boîte au milieu de la page, comme le quick sw
 
 Un nouvel onglet avec la date et l'heure soigneusement composées : six mises en page, quatre styles typographiques ou vos propres polices, une salutation facultative, la date dans une langue tirée au hasard de votre liste, et le switcher en dessous.
 
-Vos propres raccourcis, une vitesse réglable pour chaque vidéo et chaque audio avec ] et [, et une pause pour les médias qui se mettent à sonner tout seuls.
+Vos propres raccourcis, une vitesse réglable pour chaque vidéo et chaque audio avec ] et [, et une pause pour les médias qui se mettent à sonner tout seuls. Dans Réglages › Médias, vous pouvez envoyer les liens magnet cliqués à votre propre serveur qBittorrent via HTTPS. La clé API n'est pas incluse dans les sauvegardes.
 
-Des exceptions par site, pour la feuille de style, le mode sombre et les animations. Tout s'enregistre tout seul et s'applique aux onglets ouverts d'un coup. Rien ne quitte votre navigateur.
+Des exceptions par site, pour la feuille de style, le mode sombre et les animations. Tout s'enregistre tout seul et s'applique aux onglets ouverts d'un coup.
 
 Code source et documentation : https://github.com/donutinit/sobrio

@@ -27,6 +27,7 @@ chrome.commands.onChanged?.addListener(() => storeSwitcherKey().catch(() => {}))
 
 const handlers = {
   fetch: (message) => fetchForDarkReader(message.url),
+  magnet: (message, sender) => sendMagnet(message.url, sender),
   // What the switcher lists, each as JSON text: the bookmarks and its memory. checked: false when
   // the bookmarks are the ones a background before this one left; asked with checked, the answer
   // waits for the tree.
@@ -70,6 +71,48 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   handler(message, sender).then(sendResponse, (error) => sendResponse({ ok: false, error: String(error) }));
   return true;
+});
+
+async function sendMagnet(url, sender) {
+  if (!sender.tab || !guard.magnetLink(url)) return { ok: false };
+  const { magnetEnabled, qbit } = await chrome.storage.local.get(['magnetEnabled', 'qbit']);
+  const config = magnetEnabled === true && guard.qbitConfig(qbit?.address, qbit?.key);
+  if (!config) return { ok: false };
+  try {
+    const { data_collection: consent } = await chrome.permissions.getAll();
+    if (consent ? !guard.magnetData(config.key).every((type) => consent.includes(type)) : chrome.runtime.getBrowserInfo) {
+      return { ok: false };
+    }
+    const body = new FormData();
+    body.set('urls', url);
+    const response = await fetch(`${config.address}/api/v2/torrents/add`, {
+      method: 'POST',
+      headers: config.key ? { Authorization: `Bearer ${config.key}` } : {},
+      body,
+      credentials: 'omit',
+      redirect: 'error',
+      referrerPolicy: 'no-referrer',
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!response.ok) return { ok: false };
+    // qBittorrent 5.1 returns text. 5.2 and later return add counts as JSON.
+    const text = (await response.text()).trim();
+    if (text === 'Ok.') return { ok: true };
+    const result = JSON.parse(text);
+    return { ok: result.success_count === 1 || result.pending_count === 1 };
+  } catch {
+    return { ok: false };
+  }
+}
+
+chrome.permissions.onRemoved.addListener(({ data_collection: consent }) => {
+  if (consent?.some((type) => guard.magnetData(true).includes(type))) {
+    chrome.storage.local.get('qbit').then(({ qbit }) => {
+      if (consent.some((type) => guard.magnetData(qbit?.key).includes(type))) {
+        return chrome.storage.local.set({ magnetEnabled: false });
+      }
+    }).catch(() => {});
+  }
 });
 
 // Never sends cookies and never hands back anything but CSS or images, capped in size. CSS goes

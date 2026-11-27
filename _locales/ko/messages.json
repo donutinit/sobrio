@@ -518,6 +518,27 @@
   "mediaPauseAutoplay": {
     "message": "스스로 재생되는 비디오와 오디오 일시정지"
   },
+  "magnetEnable": {
+    "message": "클릭한 magnet 링크를 qBittorrent로 보내기"
+  },
+  "magnetServer": {
+    "message": "서버 주소"
+  },
+  "magnetKey": {
+    "message": "API 키"
+  },
+  "magnetSave": {
+    "message": "저장"
+  },
+  "magnetSaved": {
+    "message": "설정을 저장했습니다"
+  },
+  "magnetSent": {
+    "message": "magnet 링크를 보냈습니다"
+  },
+  "magnetFailed": {
+    "message": "magnet 링크를 보내지 못했습니다"
+  },
   "toastSpeedOff": {
     "message": "설정에서 미디어 속도가 꺼져 있습니다"
   },
@@ -614,7 +635,7 @@
     "message": "설정 열기"
   },
   "welcomeFooter": {
-    "message": "데이터는 브라우저 밖으로 나가지 않습니다. 설정에는 백업 기능이 있어 이 모든 것을 다른 브라우저로 옮길 수 있습니다."
+    "message": "설정에는 백업 기능이 있어 이 모든 것을 다른 브라우저로 옮길 수 있습니다."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$와 $CSS$",

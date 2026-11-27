@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio tar en liten del av [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) och [Global Speed](https://github.com/polywock/globalSpeed), och inget annat. Ett tillägg för Firefox, LibreWolf och Chrome, två färger, inga rundade hörn, och ingenting lämnar din webbläsare.
+sobrio tar en liten del av [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) och [Global Speed](https://github.com/polywock/globalSpeed), och inget annat. Ett tillägg för Firefox, LibreWolf och Chrome, två färger, inga rundade hörn.
 
 ![Switcher öppen över Wikipedia, som sobrio gjorde svart: när man skriver "ru" visas Rust-bokmärken med de matchade bokstäverna i fetstil.](docs/screens/switcher.png)
 
@@ -87,7 +87,7 @@ Webbläsare behåller fokus i adressfältet på en ny flik, och inget tillägg k
 
 ### Mediehastighet
 
-Varje video och ljud spelas i den hastighet du väljer, eller i en webbplats egen regel. <kbd>]</kbd> snabbare, <kbd>[</kbd> långsammare, <kbd>\\</kbd> tillbaka till 1×. Allt mellan 0,91× och 1,09× är bara 1×. Om du ändrar hastigheten med en webbplats egna reglage lämnar sobrio den ifred på just den sidan. Valfritt pausas video och ljud som börjar spela upp ljud innan du rör sidan; tysta spelas vidare.
+Varje video och ljud spelas i den hastighet du väljer, eller i en webbplats egen regel. <kbd>]</kbd> snabbare, <kbd>[</kbd> långsammare, <kbd>\\</kbd> tillbaka till 1×. Allt mellan 0,91× och 1,09× är bara 1×. Om du ändrar hastigheten med en webbplats egna reglage lämnar sobrio den ifred på just den sidan. Valfritt pausas video och ljud som börjar spela upp ljud innan du rör sidan; tysta spelas vidare. Under Inställningar › Media kan du skicka klickade magnetlänkar till din egen qBittorrent-server via HTTPS (med en API-nyckel på qBittorrent 5.2 eller senare). API-nyckeln sparas inte i säkerhetskopior.
 
 ### Egna genvägar
 

@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio ia o parte mică din [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) și [Global Speed](https://github.com/polywock/globalSpeed), și nimic altceva. O extensie pentru Firefox, LibreWolf și Chrome, două culori, fără colțuri rotunjite, iar nimic nu părăsește browserul tău.
+sobrio ia o parte mică din [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) și [Global Speed](https://github.com/polywock/globalSpeed), și nimic altceva. O extensie pentru Firefox, LibreWolf și Chrome, două culori, fără colțuri rotunjite.
 
 ![Switcher-ul deschis peste Wikipedia, pe care sobrio a făcut-o neagră: scriind „ru” apar marcajele Rust, cu literele potrivite în bold.](docs/screens/switcher.png)
 
@@ -88,6 +88,8 @@ Browserele păstrează focusul în bara de adrese pe o filă nouă, iar nicio ex
 ### Viteza media
 
 Fiecare video și audio se redă la viteza pe care o setezi sau la regula proprie a site-ului. <kbd>]</kbd> mai rapid, <kbd>[</kbd> mai lent, <kbd>\\</kbd> înapoi la 1×. Orice între 0,91× și 1,09× este doar 1×. Dacă schimbi viteza cu comenzile proprii ale site-ului, sobrio nu se atinge de ea pe pagina respectivă. Opțional, video și audio care încep să sune înainte să atingi pagina sunt oprite; cele fără sunet se redau.
+
+În Setări › Media poți trimite linkurile magnet accesate către propriul server qBittorrent prin HTTPS. Cheia API nu este inclusă în copiile de rezervă.
 
 ### Comenzi rapide proprii
 

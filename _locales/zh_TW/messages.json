@@ -614,7 +614,7 @@
     "message": "開啟設定"
   },
   "welcomeFooter": {
-    "message": "資料不會離開你的瀏覽器。設定會保存一份備份，讓你能把這一切帶到另一個瀏覽器。"
+    "message": "設定會保存一份備份，讓你能把這一切帶到另一個瀏覽器。"
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ 與 $CSS$",
@@ -696,5 +696,26 @@
   },
   "localLeftAlone": {
     "message": "本機網址不會被處理：請在設定中變更"
+  },
+  "magnetEnable": {
+    "message": "將點選的 magnet 連結傳送至 qBittorrent"
+  },
+  "magnetServer": {
+    "message": "伺服器位址"
+  },
+  "magnetKey": {
+    "message": "API 金鑰"
+  },
+  "magnetSave": {
+    "message": "儲存"
+  },
+  "magnetSaved": {
+    "message": "設定已儲存"
+  },
+  "magnetSent": {
+    "message": "已傳送 magnet 連結"
+  },
+  "magnetFailed": {
+    "message": "無法傳送 magnet 連結"
   }
 }

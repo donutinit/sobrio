@@ -518,6 +518,27 @@
   "mediaPauseAutoplay": {
     "message": "Mettre en pause les vidéos et l'audio qui se lancent seuls"
   },
+  "magnetEnable": {
+    "message": "Envoyer les liens magnet cliqués à qBittorrent"
+  },
+  "magnetServer": {
+    "message": "Adresse du serveur"
+  },
+  "magnetKey": {
+    "message": "Clé API"
+  },
+  "magnetSave": {
+    "message": "Enregistrer"
+  },
+  "magnetSaved": {
+    "message": "Paramètres enregistrés"
+  },
+  "magnetSent": {
+    "message": "Lien magnet envoyé"
+  },
+  "magnetFailed": {
+    "message": "Impossible d'envoyer le lien magnet"
+  },
   "toastSpeedOff": {
     "message": "La vitesse des médias est désactivée dans les paramètres"
   },
@@ -614,7 +635,7 @@
     "message": "Ouvrir les paramètres"
   },
   "welcomeFooter": {
-    "message": "Rien ne quitte votre navigateur. Les paramètres gardent une sauvegarde, pour emporter tout cela dans un autre navigateur."
+    "message": "Les paramètres gardent une sauvegarde, pour emporter tout cela dans un autre navigateur."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ et $CSS$",

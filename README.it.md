@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio prende una piccola parte di [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) e [Global Speed](https://github.com/polywock/globalSpeed), e nient'altro. Un'unica estensione per Firefox, LibreWolf e Chrome, due colori, niente angoli arrotondati, e nulla lascia il tuo browser.
+sobrio prende una piccola parte di [Stylus](https://github.com/openstyles/stylus), [Dark Reader](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) e [Global Speed](https://github.com/polywock/globalSpeed), e nient'altro. Un'unica estensione per Firefox, LibreWolf e Chrome, due colori, niente angoli arrotondati.
 
 ![Lo switcher aperto su Wikipedia, che sobrio ha reso nera: scrivendo "ru" compaiono i segnalibri di Rust con le lettere trovate in grassetto.](docs/screens/switcher.png)
 
@@ -87,7 +87,7 @@ I browser mantengono il fuoco nella barra degli indirizzi su una nuova scheda, e
 
 ### Velocità dei media
 
-Ogni video e audio viene riprodotto alla velocità che imposti, o secondo la regola di un sito. <kbd>]</kbd> più veloce, <kbd>[</kbd> più lento, <kbd>\\</kbd> torna a 1×. Qualsiasi valore tra 0,91× e 1,09× è semplicemente 1×. Se cambi la velocità con i comandi di un sito, sobrio lascia stare su quella pagina. Facoltativamente, video e audio che iniziano a suonare prima che tu tocchi la pagina vengono messi in pausa; quelli muti continuano a riprodursi.
+Ogni video e audio viene riprodotto alla velocità che imposti, o secondo la regola di un sito. <kbd>]</kbd> più veloce, <kbd>[</kbd> più lento, <kbd>\\</kbd> torna a 1×. Qualsiasi valore tra 0,91× e 1,09× è semplicemente 1×. Se cambi la velocità con i comandi di un sito, sobrio lascia stare su quella pagina. Facoltativamente, video e audio che iniziano a suonare prima che tu tocchi la pagina vengono messi in pausa; quelli muti continuano a riprodursi. In Impostazioni › Media, puoi inviare i link magnet cliccati al tuo server qBittorrent tramite HTTPS. La chiave API non viene inclusa nei backup.
 
 ### Scorciatoie tutte tue
 

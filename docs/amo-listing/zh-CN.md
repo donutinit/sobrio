@@ -18,6 +18,8 @@ sobrio 只取用 Stylus、Dark Reader、Search Bookmarks History and Tabs、Tabl
 
 你自己的快捷键，每个视频和音频的媒体速度（用 ] 和 [ 调节），以及对自行开始发声的媒体的暂停功能。
 
-每个网站的例外设置，适用于样式表、深色模式和动画。所有内容都会自动保存，并立即应用到已打开的标签页。内容不会离开你的浏览器。
+每个网站的例外设置，适用于样式表、深色模式和动画。所有内容都会自动保存，并立即应用到已打开的标签页。
+
+在设置 › 媒体中，你可以通过 HTTPS 将点击的 magnet 链接发送到自己的 qBittorrent 服务器。API 密钥不会包含在备份中。
 
 源代码和文档：https://github.com/donutinit/sobrio

@@ -518,6 +518,27 @@
   "mediaPauseAutoplay": {
     "message": "Pausa video och ljud som startar av sig själva"
   },
+  "magnetEnable": {
+    "message": "Skicka klickade magnetlänkar till qBittorrent"
+  },
+  "magnetServer": {
+    "message": "Serveradress"
+  },
+  "magnetKey": {
+    "message": "API-nyckel"
+  },
+  "magnetSave": {
+    "message": "Spara"
+  },
+  "magnetSaved": {
+    "message": "Inställningarna har sparats"
+  },
+  "magnetSent": {
+    "message": "Magnetlänken har skickats"
+  },
+  "magnetFailed": {
+    "message": "Det gick inte att skicka magnetlänken"
+  },
   "toastSpeedOff": {
     "message": "Mediehastighet är av i inställningarna"
   },
@@ -614,7 +635,7 @@
     "message": "Öppna inställningarna"
   },
   "welcomeFooter": {
-    "message": "Inget lämnar din webbläsare. Inställningarna har en säkerhetskopia, så att du kan ta med allt detta till en annan webbläsare."
+    "message": "Inställningarna har en säkerhetskopia, så att du kan ta med allt detta till en annan webbläsare."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ och $CSS$",

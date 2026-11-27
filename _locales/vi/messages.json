@@ -614,7 +614,7 @@
     "message": "Mở cài đặt"
   },
   "welcomeFooter": {
-    "message": "Không có gì rời khỏi trình duyệt của bạn. Cài đặt có một bản sao lưu, để mang tất cả sang trình duyệt khác."
+    "message": "Cài đặt có một bản sao lưu, để mang tất cả sang trình duyệt khác."
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ và $CSS$",
@@ -696,5 +696,26 @@
   },
   "localLeftAlone": {
     "message": "Các địa chỉ cục bộ được để yên: thay đổi trong cài đặt"
+  },
+  "magnetEnable": {
+    "message": "Gửi liên kết magnet được nhấp đến qBittorrent"
+  },
+  "magnetServer": {
+    "message": "Địa chỉ máy chủ"
+  },
+  "magnetKey": {
+    "message": "API key"
+  },
+  "magnetSave": {
+    "message": "Lưu"
+  },
+  "magnetSaved": {
+    "message": "Đã lưu cài đặt"
+  },
+  "magnetSent": {
+    "message": "Đã gửi liên kết magnet"
+  },
+  "magnetFailed": {
+    "message": "Không gửi được liên kết magnet"
   }
 }

@@ -36,7 +36,7 @@
   <a href="README.zh-TW.md">繁體中文</a>
 </sub></p>
 
-sobrio bere malou část z [Stylus](https://github.com/openstyles/stylus), [Dark Readeru](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) a [Global Speed](https://github.com/polywock/globalSpeed), a nic dalšího. Jedno rozšíření pro Firefox, LibreWolf a Chrome, dvě barvy, žádné zaoblené rohy a nic neopouští váš prohlížeč.
+sobrio bere malou část z [Stylus](https://github.com/openstyles/stylus), [Dark Readeru](https://github.com/darkreader/darkreader), [Search Bookmarks, History and Tabs](https://github.com/Fannon/search-bookmarks-history-and-tabs), [Tabliss](https://github.com/joelshepherd/tabliss) a [Global Speed](https://github.com/polywock/globalSpeed), a nic dalšího. Jedno rozšíření pro Firefox, LibreWolf a Chrome, dvě barvy a žádné zaoblené rohy.
 
 ![Switcher otevřený nad Wikipedií, kterou sobrio ztmavilo: psaní „ru“ vypíše záložky Rust se shodnými písmeny tučně.](docs/screens/switcher.png)
 
@@ -87,7 +87,7 @@ Prohlížeče drží zaměření v adresním řádku na nové kartě a žádné 
 
 ### Rychlost médií
 
-Každé video a zvuk se přehrává rychlostí, kterou nastavíte, nebo podle pravidla daného webu. <kbd>]</kbd> rychleji, <kbd>[</kbd> pomaleji, <kbd>\\</kbd> zpět na 1×. Cokoli od 0,91× do 1,09× je prostě 1×. Pokud rychlost změníte ovládacími prvky webu, sobrio na té stránce nezasahuje. Volitelně se pozastaví video a zvuk, které začnou hrát dřív, než se stránky dotknete; ztlumené se přehrávají dál.
+Každé video a zvuk se přehrává rychlostí, kterou nastavíte, nebo podle pravidla daného webu. <kbd>]</kbd> rychleji, <kbd>[</kbd> pomaleji, <kbd>\\</kbd> zpět na 1×. Cokoli od 0,91× do 1,09× je prostě 1×. Pokud rychlost změníte ovládacími prvky webu, sobrio na té stránce nezasahuje. Volitelně se pozastaví video a zvuk, které začnou hrát dřív, než se stránky dotknete; ztlumené se přehrávají dál. V Nastavení › Média můžete odesílat kliknuté magnet odkazy na svůj server qBittorrent přes HTTPS. Klíč API se neukládá do záloh.
 
 ### Vlastní zkratky
 

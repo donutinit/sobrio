@@ -518,6 +518,27 @@
   "mediaPauseAutoplay": {
     "message": "自動で再生される動画と音声を一時停止"
   },
+  "magnetEnable": {
+    "message": "クリックした magnet リンクを qBittorrent に送信"
+  },
+  "magnetServer": {
+    "message": "サーバーアドレス"
+  },
+  "magnetKey": {
+    "message": "API キー"
+  },
+  "magnetSave": {
+    "message": "保存"
+  },
+  "magnetSaved": {
+    "message": "設定を保存しました"
+  },
+  "magnetSent": {
+    "message": "magnet リンクを送信しました"
+  },
+  "magnetFailed": {
+    "message": "magnet リンクを送信できませんでした"
+  },
   "toastSpeedOff": {
     "message": "メディアの速度は設定でオフになっています"
   },
@@ -614,7 +635,7 @@
     "message": "設定を開く"
   },
   "welcomeFooter": {
-    "message": "データはブラウザの外に出ません。設定にはバックアップがあり、これらすべてを別のブラウザに移せます。"
+    "message": "設定にはバックアップがあり、これらすべてを別のブラウザに移せます。"
   },
   "welcomeCommandsTitle": {
     "message": "$DARK$ と $CSS$",

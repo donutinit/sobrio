@@ -16,8 +16,8 @@ Um switcher. Ctrl+Space abre uma caixa no meio da página, como o quick switcher
 
 Uma nova aba com data e hora bem compostas: seis layouts, quatro estilos tipográficos ou fontes próprias, uma saudação opcional, a data em um idioma escolhido ao acaso da sua lista e o switcher embaixo.
 
-Atalhos próprios, velocidade para cada vídeo e áudio com ] e [, e pausa para mídias que começam a tocar sozinhas.
+Atalhos próprios, velocidade para cada vídeo e áudio com ] e [, e pausa para mídias que começam a tocar sozinhas. Em Configurações › Mídia, você pode enviar links magnet clicados para o seu próprio servidor qBittorrent por HTTPS. A chave da API não entra nos backups.
 
-Exceções por site para a folha de estilo, o modo escuro e as animações. Tudo é salvo sozinho e aplicado na hora nas abas abertas. Nada sai do seu navegador.
+Exceções por site para a folha de estilo, o modo escuro e as animações. Tudo é salvo sozinho e aplicado na hora nas abas abertas.
 
 Código e documentação: https://github.com/donutinit/sobrio

@@ -9,7 +9,7 @@
   let topHost = window === window.top ? hostname : ancestorHost();
   const { detector, buildCss, customCss, youtubeHost } = sobrio;
   const { DEFAULTS, mergeSettings, siteState, darkTheme, isLocalHost, pauseLeft } = sobrio.settings;
-  const KEYS = ['darkOff', 'cssOff', 'animOff', 'settings', 'theme', 'darkPause', 'switcherKey'];
+  const KEYS = ['darkOff', 'cssOff', 'animOff', 'settings', 'theme', 'darkPause', 'switcherKey', 'magnetEnabled'];
   // The hosts last seen with a dark theme of their own, newest first: read once, at the start.
   const OWN_DARK = 'ownDark';
   const OWN_DARK_MAX = 500;
