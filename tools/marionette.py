@@ -96,6 +96,11 @@ def wrap(script):
     return f'return (async () => {{ {script} }})()'
 
 
+# Firefox 161 and later also want this in the environment, not only -remote-allow-system-access,
+# before Marionette may run in the browser's chrome.
+FIREFOX_ENV = {**os.environ, 'MOZ_REMOTE_ALLOW_SYSTEM_ACCESS': '1'}
+
+
 def free_port():
     with socket.socket() as s:
         s.bind(('127.0.0.1', 0))
@@ -150,7 +155,7 @@ def main():
     proc = subprocess.Popen(
         [args.binary, '--headless', '--marionette', '-remote-allow-system-access', '--no-remote',
          '--profile', profile],
-        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=FIREFOX_ENV)
     try:
         m = Marionette(port)
         m.call('WebDriver:NewSession', {'capabilities': {}})

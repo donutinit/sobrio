@@ -81,7 +81,8 @@ def visits(ext_dir, probe, url, binary, secs, count, prefs):
                             'datareporting.policy.dataSubmissionEnabled': False, **prefs}.items():
             f.write(f'user_pref({json.dumps(name)}, {json.dumps(value)});\n')
     proc = subprocess.Popen([binary, '--headless', '--marionette', '-remote-allow-system-access', '--no-remote',
-                             '--profile', profile], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                             '--profile', profile], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                            env=mn.FIREFOX_ENV)
     try:
         m = mn.Marionette(port)
         m.call('WebDriver:NewSession', {'capabilities': {}})
