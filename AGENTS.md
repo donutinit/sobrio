@@ -12,7 +12,7 @@ en `docs/superpowers/specs/`: `2026-10-14-sobrio-design.md` (v0.1), `-v0.2-desig
 
 ```sh
 node --test                                         # tests: lo mismo que CI
-python3 -I tools/cdp.py . <url>... --eval '<js>'    # Chromium headless (instalado en lizeth)
+python3 -I tools/cdp.py . <url>... --eval '<js>'    # Chromium headless (en freya no está instalado)
 python3 -I tools/marionette.py . <url>... --eval '<js>'  # LibreWolf headless (en la máquina de Diego)
 python3 -I tools/perf.py . <url>...                 # CPU de la página con sobrio y sin él (Chromium)
 python3 -I tools/ffperf.py . <url>...               # lo mismo en Firefox (todos los hilos, 1a y 2a visita)
@@ -43,16 +43,17 @@ la ventana: `gBrowser`, `gURLBar`, `BrowserCommands.openTab()`). Las páginas de
 con `python3 -I -m http.server` desde una carpeta fuera del repo, y se abren como
 `http://sobrio.test:<puerto>/`: las dos herramientas resuelven `sobrio.test` a esta máquina, con un
 nombre que no es local (`127.0.0.1` y `localhost` quedan fuera de sobrio por defecto), y
-`frame.sobrio.test` al mismo servidor como otro sitio, para iframes. En lizeth
-`marionette.py` corre con un Firefox oficial: `--binary ~/.cache/sobrio-firefox/firefox/firefox`.
-Para sitios que bloquean navegadores automatizados (claude.ai) está Camoufox en
-`~/.cache/sobrio-camoufox/venv` (`from camoufox.sync_api import Camoufox`, `addons=[carpeta]`).
+`frame.sobrio.test` al mismo servidor como otro sitio, para iframes. En freya
+`marionette.py` corre con un Firefox oficial: `--binary ~/.cache/sobrio-firefox/firefox/firefox`
+(desde la 161 Firefox pide además `MOZ_REMOTE_ALLOW_SYSTEM_ACCESS=1`: las herramientas lo ponen,
+`FIREFOX_ENV`). Para sitios que bloquean navegadores automatizados (claude.ai) estaba Camoufox en
+`~/.cache/sobrio-camoufox/venv` de lizeth (`from camoufox.sync_api import Camoufox`, `addons=[carpeta]`).
 Sus `page.frames` no siempre listan los iframes de otro sitio: se revisan con capturas.
 
 sobrio tiene que ser rápido: un cambio a lo que corre en las páginas se mide con `tools/perf.py`
 (carga y reposo, `--second` para la segunda visita) y `tools/ffperf.py` en sitios pesados (GitHub,
 YouTube, Wikipedia) contra la versión anterior (`git archive HEAD` en una carpeta aparte). En
-Firefox, `ffperf.py` necesita `--binary ~/.cache/sobrio-firefox/firefox/firefox` en lizeth, y
+Firefox, `ffperf.py` necesita `--binary ~/.cache/sobrio-firefox/firefox/firefox` en freya, y
 `keylag.py` y `loadlag.py` también. Un cambio a lo que Dark Reader hace al cargar se mide además
 con `loadlag.py`: durante la carga aprieta una tecla cada 25 ms y dice cuánto esperó la peor
 (`max_ms`) y cuánto tiempo una tecla habría esperado más de 100 ms. Un cambio al switcher o a
@@ -153,10 +154,17 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   regla que declara cientos de variables (el `:root` de un tema) se reconstruía una vez por cada
   variable cuyo tipo se descubría: ahora una sola vez por tanda (`rebuildVarRule`), que es lo
   que más pesaba cuando las hojas llegan de una en una (2,236 reconstrucciones y 392 ms en un
-  paso en GitHub).
+  paso en GitHub). Y en su modo claro (`modifyLightModeHSL`) un gris toma del papel su croma, no
+  su saturación HSL: un papel casi blanco como `#eef4ff` es 100 % de saturación, y un borde
+  `#a2a9b1` salía azul vivo. El blanco sigue siendo el papel exacto. El modo oscuro no pasa por ahí.
 - Mientras Dark Reader trabaja en trozos la página va tapada (`cover` en `page.js`, el mismo
-  negro provisional de antes, con clase `darkreader` para que Dark Reader no lo tome por una
-  hoja de la página): sin tapa se verían claras las hojas que faltan. Se quita cuando termina
+  provisional de antes con el fondo y el texto que Dark Reader va a usar, con clase `darkreader`
+  para que Dark Reader no lo tome por una hoja de la página): sin tapa se verían claras las hojas
+  que faltan. Antes de que conteste `storage` la tapa es negra, salvo con un tema claro: ahí un
+  parpadeo negro sobre papel sería peor que la página como es. Para saberlo en `document_start`,
+  el background de Firefox registra `light.js` (`scripting.registerContentScripts`, persiste entre
+  sesiones) mientras el gancho diga claro y lo quita cuando no; `light.js` y `page.js` pueden
+  correr en cualquier orden. En papel tampoco se tapa un sitio de `ownDark`. Se quita cuando termina
   y, si trabajó en trozos y la página sigue cargando, cuando pasan 80 ms sin hojas nuevas
   (`settle`), para que sea una sola transición. El detector mide a media tapa (la quita, mide y la vuelve a poner en la
   misma tarea) y las miradas a imágenes esperan a que se quite (`afterRendering`).
@@ -199,6 +207,16 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   como el gris de su misma luz (`darkTheme`): Dark Reader le pone a todo texto gris de la página el
   tono y la saturación de ese color con menos luz, y el `#edf1ff` del tema travesti dejaba lila el
   texto de Wikipedia (`#b6c6ff`).
+- `--sobrio-scheme: light` (dot lo saca de `theme mode`; sin él, lo decide la luz de
+  `--sobrio-background`) pasa los sitios al papel: Dark Reader en su modo claro (`mode: 0`), que
+  lleva cada luz de la página entre la tinta y el papel del tema sin invertir nada. Un sitio claro
+  queda en papel y uno oscuro sigue oscuro (el detector lo deja en paz igual que en oscuro). El
+  oscurecer y el invertir de `<img>` solo van en oscuro (`data-darkreader-scheme="dark"`). Las
+  páginas de sobrio, el switcher y el aviso (`toast.js`, con `sobrio.theme`) toman los colores
+  del tema y su `color-scheme`; en el switcher el velo es la tinta al 25 %. Sus CSS leen las
+  `--sobrio-*` con `var()` desde el primer cuadro (en una página de la extensión están, y en
+  Chrome caen a los valores de siempre): sin eso la nueva pestaña salía negra hasta que
+  contestaba `storage`. El switcher de un sitio nunca las lee: la página las podría poner.
 - Las páginas de sobrio y su switcher son cuadrados, salvo que el gancho diga `--sobrio-corners:
   round` con un radio: entonces siguen la curva del tema (`roundCorners`), la superelipse de
   `rounding_power` de Hyprland, con `--sobrio-radius` (el switcher), `--sobrio-radius-small` (campos
@@ -379,7 +397,11 @@ en `cdp.py`: sobrio también corre en `file://` en el Chromium de pruebas.
   a media carga y una pestaña que carga en segundo plano; la nueva pestaña con cada estilo y diseño; velocidad con
   un `<audio>` local; el autoplay con una página con `<audio autoplay>` y `--autoplay`; grabar un
   atajo en los ajustes con teclas reales; el flash con una página de CSS blanco; YouTube con la
-  barra de arriba negra; el logotipo de Wikipedia visible.
+  barra de arriba negra; el logotipo de Wikipedia visible. En claro (el `userContent.css` de
+  `theme preview <tema> --mode light --profile lyceum` en dot, con `--user-content`): Wikipedia y
+  GitHub en papel, una página oscura propia sin Dark Reader, los bordes grises sin color vivo,
+  ajustes, nueva pestaña, popup y switcher en papel, sin tapa negra al arrancar (un script al
+  inicio del `<head>` no la encuentra, tampoco en un iframe `srcdoc`), y en oscuro todo como antes.
 
 ## Publicar
 

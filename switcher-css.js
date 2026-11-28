@@ -14,6 +14,22 @@ sobrio.SWITCHER_CSS = String.raw`
   --s-host: #a6a6a6;
   --s-sub: #858585;
   --s-font: system-ui, sans-serif;
+  --s-veil: rgba(0, 0, 0, .5);
+}
+/* sobrio's own pages (the popup, the new tab) have the userContent.css theme hook from their first
+   paint, before switcher.js sets the same colors: a light theme shows no black box first. Never a
+   website's switcher, where the page could set these. Without the hook, the defaults above. */
+.popup,
+.inline {
+  --s-bg: var(--sobrio-background, #000);
+  --s-border: var(--sobrio-border, #333);
+  --s-row: var(--sobrio-selection, #1a1a1a);
+  --s-bar: var(--sobrio-accent, #fff);
+  --s-input: var(--sobrio-text, #fff);
+  --s-title: color-mix(in srgb, var(--sobrio-text, #c8c8c8) 82%, var(--sobrio-background, #c8c8c8));
+  --s-hit: var(--sobrio-accent, #fff);
+  --s-host: color-mix(in srgb, var(--sobrio-text, #a6a6a6) 64%, var(--sobrio-background, #a6a6a6));
+  --s-sub: var(--sobrio-text-muted, #858585);
 }
 .backdrop {
   position: fixed;
@@ -22,7 +38,7 @@ sobrio.SWITCHER_CSS = String.raw`
   justify-content: center;
   align-items: flex-start;
   padding-top: 12vh;
-  background: rgba(0, 0, 0, .5);
+  background: var(--s-veil);
 }
 .box {
   box-sizing: border-box;

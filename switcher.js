@@ -120,6 +120,8 @@
       '--s-host': theme.text && `color-mix(in srgb, ${theme.text} 64%, ${theme.background ?? '#000'})`,
       '--s-sub': theme.textMuted,
       '--s-font': theme.font && `${theme.font}, system-ui, sans-serif`,
+      // On paper, the ink at a quarter dims the page behind: the box stands out lighter than it.
+      '--s-veil': theme.scheme === 'light' && theme.text && `color-mix(in srgb, ${theme.text} 25%, transparent)`,
     };
     return Object.fromEntries(Object.entries(vars).filter(([, value]) => value));
   }
@@ -160,6 +162,7 @@
       for (const [name, value] of Object.entries(themeVariables(answer.theme))) frame.style.setProperty(name, value);
       roundBox(answer.theme);
       if (popup && answer.theme?.background) document.documentElement.style.background = answer.theme.background;
+      if (popup) document.documentElement.style.colorScheme = answer.theme?.scheme ?? '';
     }
     // It opens in the keydown itself, drawn with what is here. Without the settings and the theme
     // (no page.js, and nothing kept from a last open), an overlay stays transparent until storage

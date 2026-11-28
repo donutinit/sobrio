@@ -114,6 +114,7 @@ Dark Reader 的動態引擎會把每個網站變成黑色（`#000`），逐色�
 ```css
 @-moz-document url-prefix("moz-extension://") {
   :root {
+    --sobrio-scheme: dark;          /* or light: websites take this paper and ink */
     --sobrio-background: #07090f;   /* dark mode, switcher and new tab background */
     --sobrio-text: #edf1ff;         /* on websites, its lightness only: text stays gray */
     --sobrio-text-muted: #7c86a0;

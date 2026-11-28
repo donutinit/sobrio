@@ -379,6 +379,11 @@
     if (power >= 1 && power <= 20) theme.cornerPower = power;
     const font = (get('--sobrio-font') ?? '').trim();
     if (font && !/[;{}<>\\]/.test(font)) theme.font = font;
+    // Light or dark, as the theme says, else as its background is: a light one is never a dark
+    // mode's black (dot's light face before it said so).
+    const scheme = (get('--sobrio-scheme') ?? '').trim();
+    if (scheme === 'light' || scheme === 'dark') theme.scheme = scheme;
+    else if (theme.background) theme.scheme = lightness(theme.background) > 127.5 ? 'light' : 'dark';
     return Object.keys(theme).length ? theme : null;
   }
 
@@ -450,21 +455,35 @@
   // and saturation of its text color, at a lower lightness, where a theme's near-white tint turns
   // into a plain color: #edf1ff made Wikipedia's text lilac (#b6c6ff).
   function grayOf(hex) {
-    const channels = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
-    const level = Math.round((Math.max(...channels) + Math.min(...channels)) / 2);
+    const level = Math.round(lightness(hex));
     return `#${level.toString(16).padStart(2, '0').repeat(3)}`;
   }
 
+  // HSL lightness, 0 to 255.
+  function lightness(hex) {
+    const channels = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+    return (Math.max(...channels) + Math.min(...channels)) / 2;
+  }
+
+  // Dark Reader's theme. With a light theme hook, its light mode: every lightness of the page
+  // goes between the theme's text and its background, so a white page turns the theme's paper and
+  // a dark one stays dark (nothing is inverted).
   function darkTheme(dark, theme) {
+    const filters = { brightness: dark.brightness, contrast: dark.contrast, sepia: dark.sepia, grayscale: dark.grayscale };
+    // The theme's text is made for its own pages; on the web, its lightness only.
+    const text = theme?.text && grayOf(theme.text);
+    if (theme?.scheme === 'light') {
+      return {
+        mode: 0, ...filters,
+        lightSchemeBackgroundColor: theme.background ?? '#ffffff',
+        lightSchemeTextColor: text ?? '#000000',
+        selectionColor: theme.selection ?? 'auto',
+      };
+    }
     return {
-      mode: 1,
-      brightness: dark.brightness,
-      contrast: dark.contrast,
-      sepia: dark.sepia,
-      grayscale: dark.grayscale,
+      mode: 1, ...filters,
       darkSchemeBackgroundColor: theme?.background ?? dark.background,
-      // The theme's text is made for its own pages; on the web, its lightness only.
-      darkSchemeTextColor: theme?.text ? grayOf(theme.text) : dark.text,
+      darkSchemeTextColor: text ?? dark.text,
       selectionColor: theme?.selection ?? (dark.selection || 'auto'),
     };
   }

@@ -2,12 +2,15 @@
    the time and the date, as variables; a layout (data-layout) arranges the same pieces. The
    hierarchy comes from scale and color, not boxes. */
 :root {
-  --bg: #000;
-  --text: #e8e6e3;
-  --muted: #8a8a8a;
+  /* The userContent.css theme hook where there is one (Firefox, LibreWolf), from the first paint:
+     newtab.js paints the same colors again once storage answers, and a light theme shows no
+     black page first. Without the hook, the defaults. */
+  --bg: var(--sobrio-background, #000);
+  --text: var(--sobrio-text, #e8e6e3);
+  --muted: var(--sobrio-text-muted, #8a8a8a);
   --theme-font: system-ui, sans-serif;
   --time-size: clamp(88px, 15vw, 184px);
-  color-scheme: dark;
+  color-scheme: var(--sobrio-scheme, dark);
 }
 
 html,

@@ -24,15 +24,20 @@
   // The person's CSS (settings.css.custom), right after sobrio's; in once storage answers.
   const custom = document.createElement('style');
   custom.id = 'sobrio-css-custom';
-  // The cover: everything dark, as strict as the one Dark Reader has for itself (only the html
-  // would let a white body flash). It is on until storage answers, and then for as long as Dark
-  // Reader takes to go through the page's stylesheets, which it does in slices so the page keeps
-  // answering (tools/darkreader.patch): a page shown half done would flash light.
-  const COVER = 'html, body, body :not(iframe) { background-color: #000 !important; border-color: #404040 !important;' +
-    ' color: #e8e6e3 !important; }';
+  // The cover: everything in Dark Reader's background and text, as strict as the one Dark Reader
+  // has for itself (only the html would let a white body flash). It is on until storage answers,
+  // and then for as long as Dark Reader takes to go through the page's stylesheets, which it does
+  // in slices so the page keeps answering (tools/darkreader.patch): a page shown half done would
+  // flash light. Until storage answers it is black, the default; with a light theme hook it waits
+  // (light.js says so at the start): a black blink on paper would be worse than the page as it is.
+  const coverCss = (background, text) => `html, body, body :not(iframe) { background-color: ${background} !important;` +
+    ` border-color: color-mix(in srgb, ${text} 28%, ${background}) !important; color: ${text} !important; }`;
+  let coverText = coverCss('#000000', '#e8e6e3');
   // class darkreader: Dark Reader takes it for one of its own sheets, not for one of the page's to
   // darken, and takes it out with them when it is turned off.
-  let cover = leftAlone ? null : Object.assign(addStyle('sobrio-fallback', COVER), { className: 'darkreader' });
+  let cover = leftAlone || sobrio.light === true ? null : Object.assign(addStyle('sobrio-fallback', coverText), { className: 'darkreader' });
+  // light.js may come after this script, still before anything paints.
+  sobrio.onLight = () => uncover();
   let rendering = false; // Dark Reader is on and still going through the stylesheets
   let settling = 0; // the timer that takes the cover off once the stylesheets stop coming
   const afterRendering = []; // what waits to look at the page as it will be
@@ -103,6 +108,7 @@
     if (stored && window === window.top) sobrio.stored = Object.fromEntries(KEYS.map((key) => [key, stored[key]]));
     for (const listener of settingsListeners) listener(settings, stored);
     const theme = stored?.theme ?? null;
+    sobrio.theme = theme; // for toast.js
     // pd: dark mode and the stylesheet off everywhere until storage.local.darkPause, then back on by
     // themselves. Browsers only hold timers back in tabs that are not on screen.
     const paused = pauseLeft(stored?.darkPause, Date.now());
@@ -137,6 +143,7 @@
     if (stored && OWN_DARK in stored) knownDark = Array.isArray(stored[OWN_DARK]) && stored[OWN_DARK].includes(hostname);
     if (stored && SEEN_LIGHT in stored) knownLight = detector.seenLight(stored[SEEN_LIGHT], hostname, scheme(), Date.now());
     const dark = settings.dark.enabled && state.dark ? darkTheme(settings.dark, theme) : null;
+    if (dark) paintCover(dark);
     // A site seen with its own dark theme last time starts without Dark Reader, whose work at load
     // is the heaviest part of sobrio. The black stays until the detector's first look confirms it,
     // and if the site turned light, Dark Reader comes in that same task.
@@ -145,8 +152,17 @@
   }
 
   function coverUp() {
-    cover ??= Object.assign(document.createElement('style'), { id: 'sobrio-fallback', className: 'darkreader', textContent: COVER });
+    cover ??= Object.assign(document.createElement('style'), { id: 'sobrio-fallback', className: 'darkreader', textContent: coverText });
     if (!cover.isConnected) root.append(cover);
+  }
+
+  // In the colors Dark Reader is about to use. Rewritten only when they change: every element
+  // restyles.
+  function paintCover(theme) {
+    coverText = theme.mode === 0
+      ? coverCss(theme.lightSchemeBackgroundColor, theme.lightSchemeTextColor)
+      : coverCss(theme.darkSchemeBackgroundColor, theme.darkSchemeTextColor);
+    if (cover && cover.textContent !== coverText) cover.textContent = coverText;
   }
 
   function uncover() {
@@ -174,8 +190,9 @@
     }
     if (!wanted || (detect && nativeDark)) {
       turnOff();
-      // A site known for its own dark theme stays covered until the first look confirms it.
-      if (!wanted || looked) uncover();
+      // A site known for its own dark theme stays covered until the first look confirms it. Not
+      // on paper: that cover would flash light over it.
+      if (!wanted || looked || wanted.mode === 0) uncover();
     } else {
       turnOn(wanted);
     }
@@ -318,7 +335,8 @@
   }
 
   // Dark Reader leaves <img> and <video> as they are. Each one is looked at once when it comes into
-  // view (again if its source changes), and while Dark Reader is on:
+  // view (again if its source changes), and while Dark Reader is on in the dark (on paper both
+  // stay as they are):
   // - a large one with text drawn over it, not on a box of its own, is dimmed. Dark Reader makes
   //   the text light, so a heading made for a light photo vanished on it (Meta's sign in). Pages
   //   often draw the text after the image: without text, it is looked at once more a moment later.
@@ -332,8 +350,8 @@
 
   function watchImages() {
     if (imageObserver || typeof IntersectionObserver !== 'function') return;
-    addStyle('sobrio-dim', `html[data-darkreader-mode] :is(img, video)[${DIM}] { filter: brightness(.35) !important; }\n` +
-      `html[data-darkreader-mode] img[${INVERT}] { filter: invert(1) hue-rotate(180deg) !important; }`);
+    addStyle('sobrio-dim', `html[data-darkreader-scheme="dark"] :is(img, video)[${DIM}] { filter: brightness(.35) !important; }\n` +
+      `html[data-darkreader-scheme="dark"] img[${INVERT}] { filter: invert(1) hue-rotate(180deg) !important; }`);
     imageObserver = new IntersectionObserver((entries) => {
       const seen = entries.filter((entry) => entry.isIntersecting).map((entry) => entry.target);
       seen.forEach((media) => imageObserver.unobserve(media));
@@ -357,7 +375,7 @@
       return;
     }
     const rect = media.getBoundingClientRect();
-    if (rect.width < 160 || rect.height < 100 || !current || !media.isConnected) return;
+    if (rect.width < 160 || rect.height < 100 || !current || wanted?.mode !== 1 || !media.isConnected) return;
     for (const fx of [1 / 6, 1 / 2, 5 / 6]) {
       for (const fy of [1 / 6, 1 / 2, 5 / 6]) {
         const x = rect.left + rect.width * fx;
@@ -385,7 +403,7 @@
   const iconLooks = new Map();
 
   async function invertDarkIcon(img) {
-    if (!(img instanceof HTMLImageElement) || !current) return;
+    if (!(img instanceof HTMLImageElement) || !current || wanted?.mode !== 1) return;
     const rect = img.getBoundingClientRect();
     const src = img.currentSrc || img.src;
     if (!src || rect.height > 64 || rect.width > 400 || rect.height < 4 || !img.naturalWidth || !img.naturalHeight) return;

@@ -47,6 +47,7 @@
       '--font': theme?.font && `${theme.font}, system-ui, sans-serif`,
     };
     setVariables(vars);
+    document.documentElement.style.colorScheme = theme?.scheme ?? '';
     // Round corners when the theme asks for them (settings.roundCorners): the button's fill, drawn
     // in the theme's curve with the text color just painted.
     const corners = roundCorners(theme);

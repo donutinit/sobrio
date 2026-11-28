@@ -2644,6 +2644,14 @@
             }
         }
         const lx = scale(l, 0, 1, poleFg.l, poleBg.l);
+        // sobrio: a neutral takes the tint of its pole and never more of it. A near-white paper
+        // is all saturation in HSL (#eef4ff is 100 %), and a mid gray given that turned vivid
+        // blue: it keeps the pole's chroma instead, so white is still the paper itself.
+        if (isNeutral) {
+            const pole = isDark ? poleFg : poleBg;
+            const chroma = (1 - Math.abs(2 * pole.l - 1)) * pole.s;
+            sx = Math.min(sx, chroma / Math.max(1 - Math.abs(2 * lx - 1), 1e-6));
+        }
         return {h: hx, s: sx, l: lx, a};
     }
     const MAX_BG_LIGHTNESS = 0.4;

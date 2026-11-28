@@ -87,7 +87,22 @@
      const ignoredMedia = [
          "aural",
          "braille",
-@@ -4238,6 +4318,7 @@
+@@ -2564,6 +2644,14 @@
+             }
+         }
+         const lx = scale(l, 0, 1, poleFg.l, poleBg.l);
++        // sobrio: a neutral takes the tint of its pole and never more of it. A near-white paper
++        // is all saturation in HSL (#eef4ff is 100 %), and a mid gray given that turned vivid
++        // blue: it keeps the pole's chroma instead, so white is still the paper itself.
++        if (isNeutral) {
++            const pole = isDark ? poleFg : poleBg;
++            const chroma = (1 - Math.abs(2 * pole.l - 1)) * pole.s;
++            sx = Math.min(sx, chroma / Math.max(1 - Math.abs(2 * lx - 1), 1e-6));
++        }
+         return {h: hx, s: sx, l: lx, a};
+     }
+     const MAX_BG_LIGHTNESS = 0.4;
+@@ -4238,6 +4326,7 @@
              this.unstableVarValues.clear();
              this.varFilterTypes.clear();
              this.notifyingVarFilterTypes.clear();
@@ -95,7 +110,7 @@
          }
          isVarType(varName, typeNum) {
              return (
-@@ -4258,9 +4339,14 @@
+@@ -4258,9 +4347,14 @@
              ) {
                  return;
              }
@@ -113,7 +128,7 @@
              this.collectRootVariables();
              this.collectVariablesAndVarDep();
              this.collectRootVarDependents();
-@@ -4640,6 +4726,24 @@
+@@ -4640,6 +4734,24 @@
                  this.pushFilterSelectorsForValue(sourceValue, selector);
              allRefs.forEach((v) => this.subscribeForVarTypeChange(v, callback));
          }
@@ -138,7 +153,7 @@
          collectVariablesAndVarDep() {
              this.rulesQueue.forEach((rules) => {
                  iterateCSSRules(rules, (rule) => {
-@@ -5218,7 +5322,23 @@
+@@ -5218,7 +5330,23 @@
          function shouldRebuildStyle() {
              return hasNonLoadedLink && !wasRebuilt;
          }
@@ -162,7 +177,7 @@
              const rules = options.sourceCSSRules;
              const {
                  theme,
-@@ -5235,8 +5355,10 @@
+@@ -5235,8 +5363,10 @@
                  wasRebuilt = true;
              }
              const modRules = [];
@@ -175,7 +190,7 @@
                  (rule) => {
                      const key = getStyleRuleKey(rule);
                      let textDiffersFromPrev = false;
-@@ -5284,16 +5406,18 @@
+@@ -5284,16 +5414,18 @@
                      }
                      rulesModCache.set(key, modRule);
                  },
@@ -198,7 +213,7 @@
                  return;
              }
              renderId++;
-@@ -5330,6 +5454,7 @@
+@@ -5330,6 +5462,7 @@
              }
              const asyncDeclarations = new Map();
              const varDeclarations = new Map();
@@ -206,7 +221,7 @@
              let asyncDeclarationCounter = 0;
              let varDeclarationCounter = 0;
              const rootReadyGroup = {rule: null, rules: [], isGroup: true};
-@@ -5349,9 +5474,9 @@
+@@ -5349,9 +5482,9 @@
              }
              varTypeChangeCleaners.forEach((clear) => clear());
              varTypeChangeCleaners.clear();
@@ -219,7 +234,7 @@
                      const group = getGroup(parentRule);
                      const readyStyleRule = {
                          selector,
-@@ -5506,9 +5631,17 @@
+@@ -5506,9 +5639,17 @@
                              }
                          }
                      );
@@ -240,7 +255,7 @@
                  function createTarget(group, parent) {
                      const {rule} = group;
                      if (isStyleRule(rule)) {
-@@ -5543,17 +5676,24 @@
+@@ -5543,17 +5684,24 @@
                      }
                      return parent;
                  }
@@ -270,7 +285,7 @@
                      const index = target.cssRules.length;
                      rule.declarations.forEach(({asyncKey, varKey}) => {
                          if (asyncKey != null) {
-@@ -5571,19 +5711,55 @@
+@@ -5571,19 +5719,55 @@
                  });
              }
              function rebuildAsyncRule(key) {
@@ -311,12 +326,12 @@
 +                    });
 +                }
 +                rulesToRebuild.set(rule, [target, index]);
-+            }
+             }
+-            buildStyleSheet();
 +            yield* buildStyleSheet();
 +            if (stale()) {
 +                return false;
-             }
--            buildStyleSheet();
++            }
 +            unfinished = false;
 +            built = true;
          }
@@ -330,7 +345,7 @@
      }
  
      let canUseSheetProxy$1 = false;
-@@ -6981,6 +7157,11 @@
+@@ -6981,6 +7165,11 @@
                      i++
                  ) {
                      rule = cssRules[i];
@@ -342,7 +357,7 @@
                      if (rule.href) {
                          if (checkCrossOrigin) {
                              if (
-@@ -7174,6 +7355,11 @@
+@@ -7174,6 +7363,11 @@
          }
          let forceRenderStyle = false;
          function render(theme, ignoreImageAnalysis) {
@@ -354,7 +369,7 @@
              const rules = getRulesSync();
              if (!rules) {
                  return;
-@@ -7187,7 +7373,7 @@
+@@ -7187,7 +7381,7 @@
                      sheet.deleteRule(i);
                  }
              }
@@ -363,7 +378,7 @@
                  if (!syncStyle) {
                      createSyncStyle();
                  }
-@@ -7198,6 +7384,9 @@
+@@ -7198,6 +7392,9 @@
                  }
                  const sheet = syncStyle.sheet;
                  removeCSSRulesFromSheet(sheet);
@@ -373,7 +388,7 @@
                  if (syncStylePositionWatcher) {
                      syncStylePositionWatcher.run();
                  } else if (inMode === "next") {
-@@ -7213,23 +7402,33 @@
+@@ -7213,23 +7410,33 @@
                  return syncStyle.sheet;
              }
              function buildOverrides() {
@@ -416,7 +431,7 @@
          }
          function getRulesOrError() {
              try {
-@@ -7303,6 +7502,8 @@
+@@ -7303,6 +7510,8 @@
          return {
              details,
              render,
@@ -425,7 +440,7 @@
              pause,
              destroy,
              watch,
-@@ -8683,27 +8884,218 @@
+@@ -8683,27 +8892,218 @@
          const rootVarsStyle = createOrUpdateStyle("darkreader--root-vars");
          variablesStore.putRootVars(rootVarsStyle, theme);
      }
@@ -657,7 +672,7 @@
          const inlineStyleElements = toArray(
              document.querySelectorAll(INLINE_STYLE_SELECTOR)
          );
-@@ -8716,17 +9108,55 @@
+@@ -8716,17 +9116,55 @@
                  push(inlineStyleElements, elements);
              }
          });
@@ -720,7 +735,7 @@
      }
      let loadingStylesCounter = 0;
      const loadingStyles = new Set();
-@@ -8759,6 +9189,9 @@
+@@ -8759,6 +9197,9 @@
              }
          }
          function update() {
@@ -730,7 +745,7 @@
              const details = manager.details({secondRound: true});
              if (!details) {
                  return;
-@@ -8793,8 +9226,7 @@
+@@ -8793,8 +9234,7 @@
          );
      }
      function runDynamicStyle() {
@@ -740,7 +755,7 @@
      }
      function createThemeAndWatchForUpdates() {
          createStaticStyleOverrides();
-@@ -8831,6 +9263,11 @@
+@@ -8831,6 +9271,11 @@
          }
      }
      function watchForUpdates() {
@@ -752,7 +767,7 @@
          const managedStyles = Array.from(styleManagers.keys());
          watchForStyleChanges(
              managedStyles,
-@@ -8844,6 +9281,19 @@
+@@ -8844,6 +9289,19 @@
                      styleManagers.has(style)
                  );
                  stylesToRemove.forEach((style) => removeManager(style));
@@ -772,7 +787,7 @@
                  const newManagers = stylesToManage.map((style) =>
                      createManager(style)
                  );
-@@ -8867,6 +9317,7 @@
+@@ -8867,6 +9325,7 @@
                  handleAdoptedStyleSheets(shadowRoot);
              }
          );
@@ -780,7 +795,7 @@
          watchForInlineStyles(
              (element) => {
                  overrideInlineStyle(
-@@ -9116,6 +9567,7 @@
+@@ -9116,6 +9575,7 @@
              });
          }
          isIFrame$1 = iframe;
@@ -788,7 +803,7 @@
          const ready = () => {
              const success = () => {
                  disableConflictingPlugins();
-@@ -9134,6 +9586,7 @@
+@@ -9134,6 +9594,7 @@
              };
              if (isDRLocked()) {
                  removeNode(document.querySelector(".darkreader--fallback"));
@@ -796,7 +811,7 @@
              } else if (isAnotherDarkReaderInstanceActive()) {
                  interceptOldScript({
                      success,
-@@ -9253,6 +9706,7 @@
+@@ -9253,6 +9714,7 @@
          });
      }
      function removeDynamicTheme() {
@@ -804,7 +819,7 @@
          document.documentElement.removeAttribute(`data-darkreader-mode`);
          document.documentElement.removeAttribute(`data-darkreader-scheme`);
          cleanDynamicThemeCache();
-@@ -9291,6 +9745,7 @@
+@@ -9291,6 +9753,7 @@
          scheduleInversionStyleUpdate.cancel();
          cleaners.forEach((clean) => clean());
          cleaners.splice(0);
@@ -812,7 +827,7 @@
      }
      function cleanDynamicThemeCache() {
          variablesStore.clear();
-@@ -9633,6 +10088,8 @@
+@@ -9633,6 +10096,8 @@
      exports.exportGeneratedCSS = exportGeneratedCSS;
      exports.isEnabled = isEnabled;
      exports.setFetchMethod = setFetchMethod;

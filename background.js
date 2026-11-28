@@ -7,7 +7,24 @@ const { guard, match } = sobrio;
 // userContent.css reaches; Chrome's service worker has no document and no userContent.css.
 if (typeof document !== 'undefined') {
   const style = getComputedStyle(document.documentElement);
-  sobrio.settings.storeThemeHook((name) => style.getPropertyValue(name));
+  sobrio.settings.storeThemeHook((name) => style.getPropertyValue(name))
+    .then((theme) => lightScript(theme?.scheme === 'light'))
+    .catch((error) => console.warn('sobrio: cannot read the theme', error));
+}
+
+// With a light theme, light.js goes into every frame at document_start, before page.js reads
+// storage, so no page blinks black. Kept from one session to the next, and checked each time the
+// background starts: Firefox reads userContent.css only when it starts.
+async function lightScript(light) {
+  const ids = ['light'];
+  const registered = (await chrome.scripting.getRegisteredContentScripts({ ids })).length > 0;
+  if (light && !registered) {
+    await chrome.scripting.registerContentScripts([{
+      id: 'light', js: ['light.js'], matches: ['<all_urls>'], runAt: 'document_start', allFrames: true, matchOriginAsFallback: true,
+    }]);
+  } else if (!light && registered) {
+    await chrome.scripting.unregisterContentScripts({ ids });
+  }
 }
 
 // The keys of the shortcut that opens the switcher, for the pages (storage.local.switcherKey):

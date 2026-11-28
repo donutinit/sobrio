@@ -831,6 +831,7 @@
       '--font': theme?.font && `${theme.font}, system-ui, sans-serif`,
     };
     setVariables(vars);
+    document.documentElement.style.colorScheme = theme?.scheme ?? '';
     setVariables(cornerVariables());
   }
 

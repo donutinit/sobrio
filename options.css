@@ -1,12 +1,15 @@
 :root {
-  --bg: #000;
-  --text: #e8e6e3;
-  --muted: #8a8a8a;
-  --line: #1c1c1c;
-  --line-strong: #3a3a3a;
-  --accent: #fff;
+  /* The userContent.css theme hook where there is one (Firefox, LibreWolf), from the first paint:
+     options.js paints the same colors again once storage answers, and a light theme shows no
+     black page first. Without the hook, the defaults. */
+  --bg: var(--sobrio-background, #000);
+  --text: var(--sobrio-text, #e8e6e3);
+  --muted: var(--sobrio-text-muted, #8a8a8a);
+  --line: color-mix(in srgb, var(--sobrio-border, #1c1c1c) 40%, var(--sobrio-background, #1c1c1c));
+  --line-strong: var(--sobrio-border, #3a3a3a);
+  --accent: var(--sobrio-accent, #fff);
   --font: system-ui, sans-serif;
-  color-scheme: dark;
+  color-scheme: var(--sobrio-scheme, dark);
 }
 
 * {

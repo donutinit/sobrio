@@ -112,6 +112,7 @@ I Firefox och LibreWolf läser sobrio dessa variabler från `userContent.css` (m
 ```css
 @-moz-document url-prefix("moz-extension://") {
   :root {
+    --sobrio-scheme: dark;          /* or light: websites take this paper and ink */
     --sobrio-background: #07090f;   /* bakgrund för mörkt läge, switcher och ny flik */
     --sobrio-text: #edf1ff;         /* on websites, its lightness only: text stays gray */
     --sobrio-text-muted: #7c86a0;

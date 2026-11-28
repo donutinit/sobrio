@@ -4,10 +4,12 @@
     <meta charset="utf-8">
     <title>sobrio</title>
     <style>
+      /* The theme hook's background from the first paint (switcher.js sets it again). */
       html,
       body {
         margin: 0;
-        background: #000;
+        background: var(--sobrio-background, #000);
+        color-scheme: var(--sobrio-scheme, dark);
       }
     </style>
   </head>

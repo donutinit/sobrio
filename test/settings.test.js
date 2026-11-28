@@ -163,8 +163,18 @@ test('parseThemeHook reads the --sobrio-* variables', () => {
   }));
   assert.deepEqual(theme, {
     background: '#07090f', text: '#edf1ff', textMuted: '#7c86a0', selection: '#171d2b',
-    border: '#445566', accent: '#f5a9cf', corners: 'square', font: '"Acumin Pro", sans-serif',
+    border: '#445566', accent: '#f5a9cf', corners: 'square', font: '"Acumin Pro", sans-serif', scheme: 'dark',
   });
+});
+
+test('parseThemeHook: light or dark as the theme says, else as its background is', () => {
+  assert.equal(parseThemeHook(hook({ '--sobrio-scheme': ' light ', '--sobrio-background': '#07090f' })).scheme, 'light');
+  assert.equal(parseThemeHook(hook({ '--sobrio-scheme': 'dark', '--sobrio-background': '#eef4ff' })).scheme, 'dark');
+  // dot's light face before it said so: paper is never a dark mode's black.
+  assert.equal(parseThemeHook(hook({ '--sobrio-background': '#eef4ff' })).scheme, 'light');
+  assert.equal(parseThemeHook(hook({ '--sobrio-scheme': 'banana', '--sobrio-background': '#07090f' })).scheme, 'dark');
+  assert.deepEqual(parseThemeHook(hook({ '--sobrio-scheme': 'light' })), { scheme: 'light' });
+  assert.deepEqual(parseThemeHook(hook({ '--sobrio-text': '#edf1ff' })), { text: '#edf1ff' });
 });
 
 test('parseThemeHook ignores invalid values one by one', () => {
@@ -246,6 +256,21 @@ test('darkTheme uses the settings, and the theme hook wins for colors', () => {
   assert.equal(darkTheme(dark, { text: '#f6eefc' }).darkSchemeTextColor, '#f5f5f5');
   assert.equal(themed.selectionColor, '#171d2b');
   assert.equal(darkTheme({ ...dark, selection: '#333333' }, { text: '#ffffff' }).selectionColor, '#333333');
+});
+
+test('darkTheme: a light theme hook is Dark Reader light mode, on its paper and ink', () => {
+  const dark = { ...DEFAULTS.dark, brightness: 90, selection: '#333333' };
+  assert.deepEqual(darkTheme(dark, { scheme: 'light', background: '#eef4ff', text: '#1a1d23', selection: '#d2ddf2' }), {
+    mode: 0, brightness: 90, contrast: 100, sepia: 0, grayscale: 0,
+    // The ink as a gray of its lightness, like the dark text: its tint is for the theme's own pages.
+    lightSchemeBackgroundColor: '#eef4ff', lightSchemeTextColor: '#1f1f1f', selectionColor: '#d2ddf2',
+  });
+  // The colors of the settings are a dark mode's: without the theme's, white and black.
+  assert.deepEqual(darkTheme(dark, { scheme: 'light' }), {
+    mode: 0, brightness: 90, contrast: 100, sepia: 0, grayscale: 0,
+    lightSchemeBackgroundColor: '#ffffff', lightSchemeTextColor: '#000000', selectionColor: 'auto',
+  });
+  assert.equal(darkTheme(dark, { scheme: 'dark', background: '#07090f' }).mode, 1);
 });
 
 test('desiredSpeed: the first matching rule, else the global speed', () => {

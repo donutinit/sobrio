@@ -41,6 +41,7 @@
       '--custom-date-font': newtab.customDateFont,
       '--custom-time-weight': String(newtab.customTimeWeight),
     });
+    document.documentElement.style.colorScheme = theme?.scheme ?? '';
     greetingNode.hidden = !newtab.greeting;
     dateNode.hidden = !newtab.date || newtab.layout === 'hora';
     timeNode.hidden = !newtab.time || newtab.layout === 'analogico';
@@ -76,6 +77,7 @@
   function apply(stored) {
     settings = mergeSettings(stored.settings);
     theme = stored.theme ?? null;
+    sobrio.theme = theme; // for toast.js
     if (locale === undefined ? settings.newtab.locales.length : !settings.newtab.locales.includes(locale)) {
       locale = pickLocale(settings.newtab.locales);
     }

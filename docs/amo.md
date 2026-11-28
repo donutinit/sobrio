@@ -119,7 +119,8 @@ sobrio has no build step: every file in the package is the source as written, ex
 
 1. darkreader.js is the "darkreader" npm package, version 4.9.135, file package/darkreader.js,
    not minified, plus tools/darkreader.patch (its changes are marked "sobrio:"): it goes
-   through a page's stylesheets in slices, so the page keeps answering.
+   through a page's stylesheets in slices, so the page keeps answering; light mode tints
+   grays lightly.
    Tarball: https://registry.npmjs.org/darkreader/-/darkreader-4.9.135.tgz
    Registry integrity: sha512-h/gmS/KzY8HgmsgOSFh7ssJnsC5ymuhIwZqxksPKCS1K400OUJyjDPZN1L2YIrzX+oezhVUNnCDZPfmPUvdJNA==
    sha256 of the npm file: 6bc5cb7bc3dd4014902a73898cfad95e07474755d64abbfe9e7bac02c2f59937
@@ -140,7 +141,7 @@ Permissions:
 - <all_urls> and the content scripts: the stylesheet and dark mode apply to every site; the
   switcher waits in each top frame for Ctrl+Space.
 - scripting: opens the switcher when the shortcut comes from outside the page (address bar,
-  iframe) and in tabs older than the install.
+  iframe) and in tabs older than the install; registers light.js for a light theme.
 - bookmarks: the switcher searches the person's bookmarks.
 - storage: settings, per-site exceptions, the switcher's memory and the hosts seen with a dark
   theme of their own in storage.local; the bookmark list in storage.session (in memory).
@@ -160,6 +161,6 @@ Site shortcuts pressed in an iframe go to the tab's top frame (tabs.sendMessage,
 which looks them up again.
 
 To try it: open any site (it turns black), press Ctrl+Space, type a bookmark's name or pz, px
-or pd, open a new tab and the settings (the add-on's preferences).
+or pd, open a new tab and the settings.
 Source and tests: https://github.com/donutinit/sobrio (node --test).
 ```
